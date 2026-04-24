@@ -20,6 +20,12 @@ export interface ProjectData {
   imageLayout?:    Array<{ dx: number; dy: number }>
   // explicit link-node position (dx/dy relative to imgX0, cy) — overrides computed anchor
   linkOffset?:     { dx: number; dy: number }
+  // shifts the entire image cluster (imgX0 + dx, cy + dy)
+  clusterOffset?:  { dx: number; dy: number }
+  // per-column x offset for the default grid (index = column number)
+  imageColumnOffsets?: number[]
+  // per-image delta offsets applied on top of grid or imageLayout position
+  imageOffsets?: Record<number, { dx?: number; dy?: number }>
   // single-track
   headingBold?:  string
   headingLight?: string
@@ -68,6 +74,9 @@ Ambas vías clínicas están desplegadas oficialmente en hospitales nacionales y
       { url: '/assets/projects/vias-clinicas/7.png', width: 300 },
       { url: '/assets/projects/vias-clinicas/9.png', width: 340 },
     ],
+    clusterOffset: { dx: 30, dy: 0 },
+    imageColumnOffsets: [0, -40],
+    imageOffsets: { 0: { dx: -25 } },
   },
 
   visitaps: {

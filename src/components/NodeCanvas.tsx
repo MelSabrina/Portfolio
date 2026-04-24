@@ -216,25 +216,30 @@ export function NodeCanvas({ lang }: Props) {
               const COL_W = 400
               const ROW_H = 260
               const rows  = Math.ceil(proj.images.length / COLS)
-              const imgX0 = rx + 380
+              const imgX0 = rx + 380 + (proj.clusterOffset?.dx ?? 0)
+              const imgCy = cy + (proj.clusterOffset?.dy ?? 0)
               proj.images.forEach((_, i) => {
                 const layout = proj.imageLayout?.[i]
+                const imgDelta = proj.imageOffsets?.[i]
                 if (layout) {
-                  imgOffsets[`${id}-img-${i}`] = { x: imgX0 + layout.dx, y: cy + layout.dy }
+                  imgOffsets[`${id}-img-${i}`] = {
+                    x: imgX0 + layout.dx + (imgDelta?.dx ?? 0),
+                    y: imgCy + layout.dy + (imgDelta?.dy ?? 0),
+                  }
                 } else {
                   const col  = i % COLS
                   const row  = Math.floor(i / COLS)
                   const seed = nodeHash(`${id}-img-${i}`)
                   imgOffsets[`${id}-img-${i}`] = {
-                    x: imgX0 + col * COL_W + (seed % 40) - 20,
-                    y: cy - (rows * ROW_H) / 2 + row * ROW_H + (seed % 50) - 25,
+                    x: imgX0 + col * COL_W + (seed % 40) - 20 + (proj.imageColumnOffsets?.[col] ?? 0) + (imgDelta?.dx ?? 0),
+                    y: imgCy - (rows * ROW_H) / 2 + row * ROW_H + (seed % 50) - 25 + (imgDelta?.dy ?? 0),
                   }
                 }
               })
               // Link node: explicit offset takes priority, else anchored below last right-column image
               if (proj.linkUrl) {
                 if (proj.linkOffset) {
-                  imgOffsets[`${id}-link`] = { x: imgX0 + proj.linkOffset.dx, y: cy + proj.linkOffset.dy }
+                  imgOffsets[`${id}-link`] = { x: imgX0 + proj.linkOffset.dx, y: imgCy + proj.linkOffset.dy }
                 } else {
                   const lastRight = imgOffsets[`${id}-img-${proj.images.length - 1}`]
                   if (lastRight) {
@@ -249,8 +254,8 @@ export function NodeCanvas({ lang }: Props) {
               if (proj.bgVideo) {
                 const bgOff = proj.bgVideoOffset
                 imgOffsets[`${id}-bgvideo`] = bgOff
-                  ? { x: imgX0 + bgOff.dx, y: cy + bgOff.dy }
-                  : { x: imgX0 + 2 * COL_W + 60, y: cy - 200 }
+                  ? { x: imgX0 + bgOff.dx, y: imgCy + bgOff.dy }
+                  : { x: imgX0 + 2 * COL_W + 60, y: imgCy - 200 }
               }
             }
             setPositions(p => ({
