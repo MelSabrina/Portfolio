@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Manejo - Protocolo tratamiento 2</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Colores de referencia */
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            
+            /* Colores para los bullets simulados */
+            --bullet-amarillo-bg: #fffbe6; /* Fondo amarillo muy claro */
+            --bullet-amarillo-border: #fae30a; /* Borde amarillo */
+            
+            --bullet-naranja-bg: #fff0e6;
+            --bullet-naranja-border: #ff7f00;
+            
+            --bullet-rojo-bg: #fee6e6;
+            --bullet-rojo-border: #e60000;
+            
+            --bullet-rojo-oscuro-bg: #f5e6e6;
+            --bullet-rojo-oscuro-border: #a30000;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+        .toolbar { 
+            background-color: white; /* Sin color */ 
+            border-bottom: 1px solid #ddd; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+        } 
+
+        .back-button { 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            padding: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-color); 
+            transition: color 0.2s; 
+        } 
+          
+        .toolbar-title { 
+            flex-grow: 1; 
+            text-align: center; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: var(--text-color); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            padding: 0 10px; 
+        } 
+
+        .toolbar-placeholder { 
+            width: 34px; /* Para equilibrar el botón de retroceso */ 
+        } 
+
+        /* --- 3. Contenido Principal --- */
+        main {
+            overflow-y: auto;
+            /* Altura de la vista menos la altura aproximada del toolbar (54px) */
+            height: calc(100vh - 54px); 
+        }
+        
+        .content-grid {
+            /* Simula Grid Padding="10" */
+            padding: 10px;
+        }
+
+        .stack-layout {
+            /* Contenedor principal del contenido */
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Estilos de Texto normal */
+        .obesi-label {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-align: justify;
+            padding: 0 5px;
+        }
+
+        /* Estilos para BulletLabel (simulación) */
+        .bullet-item {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            line-height: 1.4;
+            border-left: 5px solid;
+            font-size: 1rem;
+            text-align: justify;
+        }
+        
+        .bullet-amarillo {
+            background-color: var(--bullet-amarillo-bg);
+            border-left-color: var(--bullet-amarillo-border);
+        }
+        
+        .bullet-naranja {
+            background-color: var(--bullet-naranja-bg);
+            border-left-color: var(--bullet-naranja-border);
+        }
+        
+        .bullet-rojo {
+            background-color: var(--bullet-rojo-bg);
+            border-left-color: var(--bullet-rojo-border);
+        }
+        
+        .bullet-rojo-oscuro {
+            background-color: var(--bullet-rojo-oscuro-bg);
+            border-left-color: var(--bullet-rojo-oscuro-border);
+        }
+
+        /* Estilos para la imagen del protocolo */
+        .protocol-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin: 0 auto 20px auto; /* Centra y aplica margen inferior */
+            display: block; 
+        }
+
+        .final-paragraph {
+            /* Para simular Margin="10,10,10,100" */
+            margin-bottom: 100px; 
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Manejo - Protocolo tratamiento 2
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula Grid y ScrollView) -->
+    <main class="content-grid">
+        <div class="stack-layout">
+
+            <p class="obesi-label">
+                Abordaje propuesto luego de realizar el diagnóstico y evaluación de comorbilidades y riesgo.
+            </p>
+
+            <!-- Imagen principal (Sin funcionalidad de Zoom) -->
+            <!-- ImageSource="ob_manealg1.png" -->
+            <img src="/assets/img/ob_manealg1.png" alt="Algoritmo de manejo y tratamiento de la obesidad" class="protocol-image">
+
+            <!-- BulletLabel Amarillo (Simulación) -->
+            <div class="bullet-item bullet-amarillo">
+                Personas con IMC normal (de 18,5 a 25) o entre 25 y 29,9 con circunferencia de cintura normal (menor o igual a 88 cm en la mujer y 102 cm en el varón):
+            </div>
+
+            <p class="obesi-label">
+                Promover un estilo de vida saludable (alimentación adecuada, actividad física, ejercicio físico), revisar factores de riesgo y controlar el peso al menos una vez al 1 año en quienes no tienen antecedentes personales o familiares de obesidad y al menos una vez cada 6 meses, en quienes tienen antecedentes personales o familiares de obesidad.
+            </p>
+
+            <!-- BulletLabel Naranja (Simulación) -->
+            <div class="bullet-item bullet-naranja">
+                Personas con IMC entre 25 y 29,9, con circunferencia de cintura aumentada (mayor o igual a 88 cm en la mujer y 102 cm en el varón) o con comorbilidades asociadas o personas con IMC >= 30 a 34,9 con circunferencia de cintura normal (&lt;=88 cm en la mujer y &lt;=102 cm en el varón) y sin comorbilidades:
+            </div>
+
+            <p class="obesi-label">
+                Promover un estilo de vida saludable (alimentación adecuada, actividad física, ejercicio físico), considerar incluir tratamiento psicológico. Control de factores de riesgo. Consultas cada 15 días o mensuales con algún miembro del equipo capacitado en el abordaje de la obesidad. Considerar tratamiento farmacológico.
+            </p>
+
+            <!-- BulletLabel Rojo (Simulación) -->
+            <div class="bullet-item bullet-rojo">
+                Personas con IMC >= 30 a 34,9 con circunferencia de cintura aumentada (>=88 cm en la mujer y >=102 cm en el varón) con o sin comorbilidades o personas con IMC >= 35 a 39,9 con circunferencia de cintura normal o aumentada: 
+            </div>
+
+            <p class="obesi-label">
+                Promover un estilo de vida saludable (alimentación adecuada, actividad física, ejercicio físico), considerar incluir tratamiento psicológico. Tratamiento multidisciplinario. Evaluar tratamiento farmacológico. Consultas semanales o cada 15 días con miembros del equipo de abordaje.
+            </p>
+
+            <!-- BulletLabel Rojo Oscuro (Simulación) -->
+            <div class="bullet-item bullet-rojo-oscuro">
+                Personas con IMC >= 35 a 39,9 con comorbilidades o con IMC >= 40, con o sin comorbilidades: 
+            </div>
+
+            <p class="obesi-label final-paragraph">
+                Promover un estilo de vida saludable (alimentación adecuada, actividad física, ejercicio físico), considerar incluir tratamiento psicológico, Abordaje interdisciplinario, coordinación con 2do nivel de atención. Evaluar la incorporación de tratamiento farmacológico y la posibilidad de tratamiento quirúrgico. Consultas semanales o cada 15 días con los distintos integrantes del equipo. (Ampliar apartado de tratamiento: cirugía bariátrica GPC Obesidad pág. 85 y anexo 12).
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

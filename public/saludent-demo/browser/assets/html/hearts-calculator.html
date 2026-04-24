@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Riesgo CV - HEARTS</title>
+    <style>
+
+        /* Estilos base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            padding: 20px;
+            background-color: #f3f4f6;
+            color: #1f2937;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+             /* Color principal */
+            color: #333333;
+            border-radius: 12px 12px 0 0; /* Bordes redondeados solo en la parte superior */
+            position: sticky; /* Fija la barra en la parte superior */
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .toolbar-title-container {
+            /* Contenedor que crece para centrar el título */
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            /* Margin left se elimina para un mejor centrado */
+            margin-left: 0;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem; /* Tamaño de fuente para el texto */
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px; /* Tamaño máximo del botón */
+        }
+
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-top: -12px; /* Ajuste para unirse a la barra de herramientas */
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Título del card */
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        /* Elementos de formulario */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+            color: #4b5563;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            background-color: #fff;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+
+        /* Estilos específicos para los select en móviles */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%236B7280"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>');
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            background-size: 1.25em;
+            padding-right: 2.5rem;
+        }
+
+        /* Botones */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #059669;
+        }
+        
+        /* Estilos del resultado */
+        .result {
+            margin-top: 20px;
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            display: none;
+            border: 2px solid;
+        }
+        
+        .result.show {
+            display: block;
+        }
+
+        .result h3 {
+            margin-top: 0;
+        }
+
+        /* Colores de riesgo */
+        .risk-low { background-color: #d1fae5; color: #065f46; border-color: #d1fae5; }
+        .risk-moderate { background-color: #fef3c7; color: #92400e; border-color: #fef3c7; }
+        .risk-high { background-color: #fee2e2; color: #991b1b; border-color: #fee2e2; }
+        .risk-very-high { background-color: #fef2f2; color: #c53030; border-color: #fef2f2; }
+        .risk-critical { background-color: #ffe4e6; color: #b91c1c; border-color: #ffe4e6; }
+        
+        /* Sección "Qué pasaría si..." */
+        .what-if-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #d1d5db;
+        }
+
+        /* Clases de utilidad */
+        .hidden {
+            display: none;
+        }
+        
+        .recalculate-btn {
+            background-color: #3b82f6;
+            color: white;
+            margin-top: 16px;
+        }
+        .recalculate-btn:hover {
+            background-color: #2563eb;
+        }
+        
+        .reset-btn {
+            background-color: #6b7280;
+            color: white;
+            margin-top: 16px;
+        }
+        .reset-btn:hover {
+            background-color: #4b5563;
+        }
+        
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            .toolbar {
+                padding: 10px 15px;
+            }
+            .toolbar-title {
+                font-size: 1rem;
+            }
+            .back-button {
+                font-size: 0.9rem;
+            }
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Nueva: Barra de herramientas -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Calculadora HEARTS</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Contenedor del paso 1 -->
+        <div id="step-1">
+            <div class="card">
+                <h3>Paso 1: Identificación de Alto Riesgo</h3>
+                <div class="form-group">
+                    <label for="enfermedad-cv">¿Tiene enfermedad cardiovascular establecida?</label>
+                    <select id="enfermedad-cv">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="enfermedad-renal">¿Tiene enfermedad renal crónica?</label>
+                    <select id="enfermedad-renal">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="diabetes-establecida">¿Tiene diabetes?</label>
+                    <select id="diabetes-establecida">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <button onclick="checkHighRisk()">Continuar</button>
+            </div>
+        </div>
+
+        <!-- Contenedor del paso 2 (oculto por defecto) -->
+        <div id="step-2" class="hidden">
+            <div class="card">
+                <h3>Paso 2: Evaluación del Riesgo</h3>
+                <div class="form-group">
+                    <label for="colesterol-conocido">¿Conoce el valor de colesterol total?</label>
+                    <select id="colesterol-conocido">
+                        <option value="si">Sí</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <button onclick="showCalculationForm()">Siguiente</button>
+            </div>
+        </div>
+
+        <!-- Formulario con colesterol (oculto por defecto) -->
+        <div id="form-colesterol" class="hidden">
+            <div class="card">
+                <h3>Riesgo con Colesterol</h3>
+                <div class="form-group">
+                    <label for="sexo-col">Sexo:</label>
+                    <select id="sexo-col">
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edad-col">Edad:</label>
+                    <input type="number" id="edad-col" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="tabaquismo-col">Fumador:</label>
+                    <select id="tabaquismo-col">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="presion-col">Presión Arterial Sistólica (mmHg):</label>
+                    <input type="number" id="presion-col" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="colesterol-val">Colesterol Total (mg/dL):</label>
+                    <input type="number" id="colesterol-val" min="1" required>
+                </div>
+                <button onclick="calculateRiskWithCholesterol()">Calcular Riesgo</button>
+            </div>
+        </div>
+
+        <!-- Formulario sin colesterol (oculto por defecto) -->
+        <div id="form-sin-colesterol" class="hidden">
+            <div class="card">
+                <h3>Riesgo sin Colesterol</h3>
+                <div class="form-group">
+                    <label for="sexo-sin">Sexo:</label>
+                    <select id="sexo-sin">
+                        <option value="masculino">Masculino</option>
+                        <option value="femenino">Femenino</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="edad-sin">Edad:</label>
+                    <input type="number" id="edad-sin" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="tabaquismo-sin">Fumador:</label>
+                    <select id="tabaquismo-sin">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="peso">Peso (kg):</label>
+                    <input type="number" id="peso" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="altura">Altura (cm):</label>
+                    <input type="number" id="altura" min="1" required>
+                </div>
+                <button onclick="calculateRiskWithoutCholesterol()">Calcular Riesgo</button>
+            </div>
+        </div>
+        
+        <!-- Contenedor del resultado (oculto por defecto) -->
+        <div id="result" class="result hidden">
+            <h3 id="result-title">Resultado del Riesgo a 10 años:</h3>
+            <p>El riesgo estimado es de: <strong id="risk-value"></strong></p>
+            <p>Clasificación: <strong id="risk-category"></strong></p>
+            
+            <div class="what-if-section">
+                <h4>"¿Qué pasaría si...?"</h4>
+                <div class="form-group">
+                    <label for="new-tabaquismo">Cambiar estado de tabaquismo a:</label>
+                    <select id="new-tabaquismo">
+                        <option value="no">No</option>
+                        <option value="si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="what-if-pa">
+                    <label for="new-presion">Cambiar Presión Arterial a:</label>
+                    <input type="number" id="new-presion" min="1">
+                </div>
+                <div class="form-group hidden" id="what-if-col">
+                    <label for="new-colesterol">Cambiar Colesterol Total a:</label>
+                    <input type="number" id="new-colesterol" min="1">
+                </div>
+                <div class="form-group hidden" id="what-if-imc">
+                    <label for="new-imc">Cambiar IMC a:</label>
+                    <input type="number" id="new-imc" min="1" step="0.1">
+                </div>
+                <button onclick="recalculateRisk()" class="recalculate-btn">Evaluar Cambio</button>
+            </div>
+            <button onclick="resetCalculator()" class="reset-btn">Reiniciar</button>
+        </div>
+
+    </div>
+
+    <script>
+        // --- Lógica de la interfaz ---
+        const step1 = document.getElementById('step-1');
+        const step2 = document.getElementById('step-2');
+        const formColesterol = document.getElementById('form-colesterol');
+        const formSinColesterol = document.getElementById('form-sin-colesterol');
+        const resultDiv = document.getElementById('result');
+        const resultTitle = document.getElementById('result-title');
+        const riskValue = document.getElementById('risk-value');
+        const riskCategory = document.getElementById('risk-category');
+        
+        let originalData = {};
+
+        // Función para el botón de retroceso
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para verificar si el paciente es de alto riesgo
+        function checkHighRisk() {
+            const cvd = document.getElementById('enfermedad-cv').value === 'si';
+            const renal = document.getElementById('enfermedad-renal').value === 'si';
+            const diabetes = document.getElementById('diabetes-establecida').value === 'si';
+
+            if (cvd || renal || diabetes) {
+                // Si cumple algún criterio, muestra el resultado "Crítico" y esconde las opciones de "Qué pasaría si..."
+                riskValue.textContent = '≥30%';
+                riskCategory.textContent = 'Crítico';
+                resultDiv.className = 'result show risk-critical';
+                resultTitle.textContent = 'Riesgo Muy Alto o Crítico (Vía Clínica)';
+                document.querySelector('.what-if-section').classList.add('hidden');
+                step1.classList.add('hidden');
+            } else {
+                // Si no, avanza al siguiente paso para evaluar el riesgo con más variables
+                step1.classList.add('hidden');
+                step2.classList.remove('hidden');
+                document.querySelector('.what-if-section').classList.remove('hidden');
+            }
+        }
+
+        // Función para mostrar el formulario de cálculo correcto
+        function showCalculationForm() {
+            const colesterolConocido = document.getElementById('colesterol-conocido').value === 'si';
+            step2.classList.add('hidden');
+            if (colesterolConocido) {
+                formColesterol.classList.remove('hidden');
+                document.getElementById('what-if-pa').classList.remove('hidden');
+                document.getElementById('what-if-col').classList.remove('hidden');
+                document.getElementById('what-if-imc').classList.add('hidden');
+            } else {
+                formSinColesterol.classList.remove('hidden');
+                document.getElementById('what-if-pa').classList.add('hidden');
+                document.getElementById('what-if-col').classList.add('hidden');
+                document.getElementById('what-if-imc').classList.remove('hidden');
+            }
+        }
+
+        // Determina la categoría de riesgo basada en el porcentaje
+        function getRiskCategory(risk) {
+            if (risk < 5) return 'Bajo';
+            if (risk >= 5 && risk < 10) return 'Moderado';
+            if (risk >= 10 && risk < 20) return 'Alto';
+            if (risk >= 20 && risk < 30) return 'Muy Alto';
+            return 'Crítico';
+        }
+
+        // Asigna la clase CSS correcta para el estilo de la categoría de riesgo
+        function getRiskClass(category) {
+            const map = {
+                'Bajo': 'risk-low',
+                'Moderado': 'risk-moderate',
+                'Alto': 'risk-high',
+                'Muy Alto': 'risk-very-high',
+                'Crítico': 'risk-critical'
+            };
+            return map[category];
+        }
+        
+        // Función de cálculo simulada y simplificada para DEMOSTRACIÓN
+        function calculateSimulatedRisk(data) {
+            let score = 0;
+            if (data.sexo === 'masculino') score += 2;
+            score += Math.floor(data.edad / 10);
+            if (data.tabaquismo === 'si') score += 4;
+            if (data.presion && data.presion > 140) score += 3;
+            if (data.colesterol && data.colesterol > 200) score += 2;
+            if (data.imc && data.imc >= 30) score += 3;
+            
+            let risk = Math.min(score * 2.5, 30);
+            return risk;
+        }
+
+        // Calcula el riesgo cuando se conocen los valores de colesterol
+        function calculateRiskWithCholesterol() {
+            const data = {
+                sexo: document.getElementById('sexo-col').value,
+                edad: parseInt(document.getElementById('edad-col').value),
+                tabaquismo: document.getElementById('tabaquismo-col').value,
+                presion: parseInt(document.getElementById('presion-col').value),
+                colesterol: parseInt(document.getElementById('colesterol-val').value)
+            };
+            originalData = data;
+            const risk = calculateSimulatedRisk(data);
+            displayResult(risk);
+            formColesterol.classList.add('hidden');
+        }
+
+        // Calcula el riesgo cuando no se conocen los valores de colesterol (usa IMC en su lugar)
+        function calculateRiskWithoutCholesterol() {
+            const peso = parseInt(document.getElementById('peso').value);
+            const altura = parseInt(document.getElementById('altura').value) / 100;
+            const imc = (peso / (altura * altura)).toFixed(1);
+            
+            const data = {
+                sexo: document.getElementById('sexo-sin').value,
+                edad: parseInt(document.getElementById('edad-sin').value),
+                tabaquismo: document.getElementById('tabaquismo-sin').value,
+                imc: parseFloat(imc)
+            };
+            originalData = data;
+            const risk = calculateSimulatedRisk(data);
+            displayResult(risk);
+            formSinColesterol.classList.add('hidden');
+        }
+
+        // Muestra el resultado en la interfaz
+        function displayResult(risk) {
+            const category = getRiskCategory(risk);
+            riskValue.textContent = `${risk.toFixed(1)}%`;
+            riskCategory.textContent = category;
+            resultDiv.className = `result show ${getRiskClass(category)}`;
+        }
+        
+        // Función para evaluar cambios de factores de riesgo ("Qué pasaría si...")
+        function recalculateRisk() {
+            let newData = {...originalData};
+            newData.tabaquismo = document.getElementById('new-tabaquismo').value;
+            if (document.getElementById('what-if-pa').classList.contains('hidden') === false) {
+                 newData.presion = document.getElementById('new-presion').value ? parseInt(document.getElementById('new-presion').value) : newData.presion;
+            }
+            if (document.getElementById('what-if-col').classList.contains('hidden') === false) {
+                 newData.colesterol = document.getElementById('new-colesterol').value ? parseInt(document.getElementById('new-colesterol').value) : newData.colesterol;
+            }
+            if (document.getElementById('what-if-imc').classList.contains('hidden') === false) {
+                 newData.imc = document.getElementById('new-imc').value ? parseFloat(document.getElementById('new-imc').value) : newData.imc;
+            }
+
+            const newRisk = calculateSimulatedRisk(newData);
+            displayResult(newRisk);
+            resultTitle.textContent = 'Resultado después de correcciones:';
+        }
+
+        // Reinicia la calculadora a su estado inicial
+        function resetCalculator() {
+            step1.classList.remove('hidden');
+            step2.classList.add('hidden');
+            formColesterol.classList.add('hidden');
+            formSinColesterol.classList.add('hidden');
+            resultDiv.classList.add('hidden');
+            document.getElementById('enfermedad-cv').value = 'no';
+            document.getElementById('enfermedad-renal').value = 'no';
+            document.getElementById('diabetes-establecida').value = 'no';
+            document.querySelector('.what-if-section').classList.remove('hidden');
+            resultTitle.textContent = 'Resultado del Riesgo a 10 años:';
+        }
+    </script>
+
+</body>
+</html>

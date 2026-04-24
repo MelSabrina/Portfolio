@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Evaluación (Cuadros y algorit.)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Colores de referencia del tema Obesidad */
+            --obesi-primary-color: #2D6A4F;
+            --obesi-label-bg-color: #F8F9FA;
+            --obesi-backdrop-color: #E0E0E0; /* Simulación de BorderColor del Frame */
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* --- 3. Contenido Principal --- */
+        .content-container {
+            /* Padding para simular Grid Padding="10" */
+            padding: 10px; 
+            padding-bottom: 20px;
+        }
+
+        .stack-layout {
+            /* Simula el StackLayout */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos de Texto y Componentes */
+        .obesi-label-bold {
+            /* Estilo ObesiLabelBold */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 10px 0 20px 0; /* Margen para separación */
+            font-weight: 700;
+            text-align: justify;
+        }
+
+        .obesi-label {
+            /* Estilo ObesiLabel */
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: 400;
+            text-align: justify;
+            margin: 0; /* Dentro del frame, no debe tener margin-bottom */
+        }
+
+        .obesi-bullet {
+            /* Estilo ObesiBullet */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding-left: 1.5em; 
+            position: relative;
+            text-align: justify;
+        }
+
+        .obesi-bullet::before {
+            content: '•';
+            color: var(--obesi-primary-color);
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+        }
+
+        .content-image {
+            /* Estilo para las imágenes (ZoomImage) */
+            width: 100%; 
+            height: auto;
+            border-radius: 6px;
+            margin: 0 0 20px 0;
+        }
+
+        .info-frame {
+            /* Simulación del Frame */
+            margin: 10px 0; /* Margin="10,10,10,10" del XAML */
+            padding: 5px; /* Padding="5" del XAML */
+            border: 1px solid var(--obesi-backdrop-color);
+            background-color: var(--obesi-label-bg-color);
+            border-radius: 5px;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Evaluación (Cuadros y algorit.) <!-- Título actualizado -->
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content -->
+            
+            <p class="obesi-label-bold">
+                Tabla 1: Clasificación con medidas antropométricas predictoras de riesgo cardiovascular:
+            </p>
+
+            <!-- Imagen 1 (ob_evalcuad1.png) - Reemplaza controls:ZoomImage -->
+            <img src="/assets/img/ob_evalcuad1.png" alt="Tabla 1: Clasificación con medidas antropométricas predictoras de riesgo cardiovascular" class="content-image">
+
+            <!-- Frame 1 -->
+            <div class="info-frame">
+                <p class="obesi-label">
+                    <b>Índice de Masa Corporal (IMC): </b>Peso (kg) / Talla (m)2 Pesar con ropa liviana y sin calzado. Medir sin calzado.
+                </p>
+            </div>
+
+            <!-- Frame 2 -->
+            <div class="info-frame">
+                <p class="obesi-label">
+                    <b>Circunferencia de cintura (CC): </b>se sugiere medir en personas con IMC menor a 35, evalúa obesidad abdominal y estima riesgo metabólico. Cinta métrica inextensible en plano horizontal al piso, línea media entre el reborde costal inferior y la cresta ilíaca luego de espiración normal. Ver tabla 1
+                </p>
+            </div>
+
+            <!-- Bullet 1 -->
+            <div class="obesi-bullet">
+                <b>INSUMOS NECESARIOS: </b>balanza, tallímetro, calculadora y cinta métrica inextensible &gt;150cm.
+            </div>
+
+            <p class="obesi-label-bold">
+                TABLA 2: CAUSAS SECUNDARIAS DE AUMENTO DE PESO
+            </p>
+
+            <!-- Imagen 2 (ob_evalcuad2.png) -->
+            <img src="/assets/img/ob_evalcuad2.png" alt="Tabla 2: Causas secundarias de aumento de peso" class="content-image">
+
+            <p class="obesi-label-bold">
+                TABLA 3: FÁRMACOS QUE SE ASOCIAN A RIESGO DE AUMENTO DE PESO
+            </p>
+
+            <!-- Imagen 3 (ob_evalcuad3.png) -->
+            <img src="/assets/img/ob_evalcuad3.png" alt="Tabla 3: Fármacos que se asocian a riesgo de aumento de peso" class="content-image">
+
+            <p class="obesi-label-bold">
+                Tabla 4: Evaluación del estadio motivacional para el cambio:
+            </p>
+
+            <!-- Imagen 4 (ob_evalcuad4.png) -->
+            <img src="/assets/img/ob_evalcuad4.png" alt="Tabla 4: Evaluación del estadio motivacional para el cambio" class="content-image">
+
+            <p class="obesi-label-bold">
+                Gráfico 1: Curva peso edad
+            </p>
+
+            <!-- Imagen 5 (ob_evalcuad6.png) - Margen inferior para simular el espacio del XAML -->
+            <img src="/assets/img/ob_evalcuad6.png" alt="Gráfico 1: Curva peso edad" class="content-image" style="margin-bottom: 100px;">
+
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

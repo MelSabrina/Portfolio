@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad física (Epidemiología)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #53565a; /* Azul primario para simular FisiPrimaryColor */
+            --hiper-button-text-color: white; /* Simula HiperButtonTextColor (asumiendo blanco para fondo) */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px;
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Simula StackLayout */
+            padding-bottom: 20px;
+            background-color: var(--hiper-button-text-color); /* Blanco */
+        }
+
+        /* Simulación de Style="{StaticResource DiabLabel}" */
+        .diab-label {
+            margin: 10px;
+            font-size: 1rem;
+            text-align: justify;
+            color: #555;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 10px 10px 10px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: center;
+            border-bottom: 2px solid var(--fisi-primary-color);
+            padding-bottom: 5px;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelNote}" */
+        .fisi-label-note {
+            margin: 5px 10px 20px 10px;
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+            text-align: right;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabel}" */
+        .fisi-label {
+            margin: 10px;
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        /* Estilo para imágenes (incluyendo las ZoomImage sin el control de zoom) */
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .final-image {
+            margin-bottom: 100px; /* Simula Margin="0,0,0,100" */
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Actividad física (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <!-- Párrafos de texto -->
+            <p class="diab-label">
+                La actividad física se define como cualquier movimiento realizado por los músculos esqueléticos que conlleva un gasto de energía. La realización de actividad física regular <b>produce efectos beneficiosos en la salud de las personas en todas las etapas de la vida</b> y es un factor clave en la prevención y el tratamiento de las enfermedades no transmisibles (ENT) así como en la mejora de la calidad de vida.
+            </p>
+
+            <p class="diab-label">
+                En la adultez, <b>la práctica de actividad física regular disminuye el riesgo de padecer hipertensión, diabetes mellitus tipo 2 y muertes por cardiopatías y accidentes cerebrovasculares.</b> Además, reduce la incidencia de desarrollar algunos tipos de cánceres y ayuda a mantener un peso saludable. Con relación a la salud mental, reduce el riesgo de demencia, mejora la función cognitiva y ayuda a aliviar los síntomas de ansiedad y depresión. En personas mayores, ayuda a reducir el riesgo de caídas y lesiones asociadas, además de mejorar la funcionalidad física en aquellos con y sin fragilidad.
+            </p>
+
+            <p class="diab-label">
+                La <b>actividad física insuficiente</b> es considerada como el cuarto factor de riesgo de mortalidad por ENT.
+            </p>
+
+            <p class="diab-label">
+                A nivel mundial, <b>el 27,5% de la población adulta no alcanza un nivel de actividad física suficiente. En América Latina y el Caribe este valor asciende a un 39,1% y en Argentina a 44,2%.</b> Esta situación responde a la creciente urbanización y los cambios de estilos de vida hacia comportamientos más sedentarios.
+            </p>
+
+            <p class="diab-label">
+                Por lo tanto, se presentan dos desafíos: reducir el tiempo transcurrido en comportamientos sedentarios y cambiarlo por actividad física de cualquier intensidad, y además, incluir al menos media hora de actividad física diaria de intensidad moderada a elevada.
+            </p>
+
+            <!-- Bloque 1: Prevalencia de actividad física baja (18 años y más) -->
+            <h2 class="fisi-label-title">
+                Prevalencia de actividad física baja en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </h2>
+
+            <img class="content-image" 
+                 src="/assets/img/af_epicuad1.png" 
+                 alt="Gráfico de prevalencia de actividad física baja en adultos según jurisdicciones"
+                 loading="lazy">
+
+            <p class="fisi-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </p>
+            
+
+            <!-- Bloque 2: Prevalencia de inactivos (13 a 17 años) -->
+            <h2 class="fisi-label-title">
+                Prevalencia de inactivos (no cumplen recomendaciones mínimas de actividad física de OMS) en estudiantes de 13 a 17 años. Argentina, 2018
+            </h2>
+
+            <img class="content-image" 
+                 src="/assets/img/af_epicuad2.png" 
+                 alt="Gráfico de prevalencia de inactivos en estudiantes de 13 a 17 años"
+                 loading="lazy">
+
+            <p class="fisi-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </p>
+
+            <!-- Bloque 3: Prevalencia de actividad física baja (Gráficos ENFR) -->
+            <h2 class="fisi-label-title" style="margin-top: 10px;">
+                Prevalencia de actividad física baja en población de 18 años y más. Argentina, 2018 
+            </h2>
+
+            <p class="fisi-label">
+                <b>Fuente:</b> 4° ENFR
+                <br><b>Total:</b> 44,2%
+                <br><b>Varones:</b> 41,5%
+                <br><b>Mujeres:</b> 46,6%
+            </p>
+
+            <img class="content-image" 
+                 src="/assets/img/af_epi1.png"
+                 alt="Gráfico 1: Prevalencia de actividad física baja en población adulta"
+                 loading="lazy">
+
+            <img class="content-image" 
+                 src="/assets/img/af_epi2.png"
+                 alt="Gráfico 2: Datos de prevalencia de actividad física baja"
+                 loading="lazy">
+
+            <img class="content-image" 
+                 src="/assets/img/af_epi3.png"
+                 alt="Gráfico 3: Distribución de actividad física baja por género"
+                 loading="lazy">
+
+            <!-- Bloque 4: Porcentaje de personas inactivas (Adolescentes) -->
+            <h2 class="fisi-label-title" style="margin-top: 10px;">
+                Porcentaje de personas inactivas, que no cumplen los requerimientos mínimos de actividad física de OMS, en adolescentes escolarizados de 13 a 17 años. Argentina, 2018
+            </h2>
+
+            <p class="fisi-label">
+                <b>Fuente:</b> 2° ENNyS
+                <br><b>Total:</b> 81,3%
+                <br><b>Varones:</b> 75,5%
+                <br><b>Mujeres:</b> 88,1%
+            </p>
+
+            <img class="content-image" 
+                 src="/assets/img/af_epi4.png"
+                 alt="Gráfico 4: Porcentaje de adolescentes inactivos"
+                 loading="lazy">
+
+            <img class="content-image" 
+                 src="/assets/img/af_epi5.png"
+                 alt="Gráfico 5: Distribución de inactividad adolescente por género"
+                 loading="lazy">
+
+            <img class="content-image final-image" 
+                 src="/assets/img/af_epi6.png"
+                 alt="Gráfico 6: Más datos sobre inactividad adolescente"
+                 loading="lazy">
+
+            <!-- El StackButtons (NavButton) ha sido omitido según la solicitud -->
+        </div>
+    </div>
+</body>
+</html>

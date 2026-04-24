@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos p/equipo de salud</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --diab-primary-color: #007bff; /* Simulación de DiabPrimaryColor (Azul) */
+            --taba-primary-color: #28a745; /* Simulación de TabaPrimaryColor (Verde para distinguir borde) */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --light-grey: #f8f8f8;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; 
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            background-color: white; /* Simulación de DiabLabelBackgroundColor */
+            padding-bottom: 120px; /* Espacio para el botón de navegación fijo */
+        }
+
+        .diab-label-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--diab-primary-color);
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+
+        .diab-label-bold {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 20px 10px 10px 10px;
+            cursor: pointer; /* Indica que es interactivo */
+            transition: color 0.2s;
+        }
+        .diab-label-bold:hover {
+            color: var(--diab-primary-color);
+        }
+
+        /* --- 4. Componente de Recurso (Image + Share Button) --- */
+        .resource-row {
+            display: flex;
+            align-items: flex-start; /* Alineación superior para evitar desplazamiento por margen */
+            margin: 10px 10px 10px 10px; 
+        }
+        .resource-frame {
+            border: 2px solid var(--taba-primary-color); /* Simula Frame BorderColor */
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            cursor: pointer; /* Indica que la imagen también es interactiva */
+        }
+        .resource-frame:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .resource-image {
+            background-color: white;
+            /* La imagen se expandirá dentro del frame. Mínima altura solicitada en XAML. */
+            min-height: 180px; 
+            width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .share-button {
+            width: 50px;
+            height: 50px;
+            min-width: 50px; /* Asegura el tamaño fijo */
+            min-height: 50px;
+            border-radius: 10px;
+            margin-left: 10px; /* Margin="10,0,0,10" */
+            margin-top: 10px; /* Ajuste visual */
+            background-color: var(--diab-primary-color);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+        .share-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Último StackLayout con Margin="10,0,10,100" */
+        .last-resource-row {
+            margin-bottom: 100px;
+        }
+
+
+        /* --- 5. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* --- 6. Modal de Mensaje (Sustituto de DisplayAlert) --- */
+        .message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Oculto por defecto */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .message-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .modal-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--diab-primary-color);
+        }
+        .modal-button {
+            background-color: var(--diab-primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-button:hover {
+            background-color: #0056b3;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Modal de Mensaje (Sustituto de DisplayAlert) -->
+    <div id="messageModal" class="message-modal">
+        <div class="message-box">
+            <div id="modalTitle" class="modal-title"></div>
+            <p id="modalMessage"></p>
+            <button class="modal-button" onclick="closeModal()">Ok</button>
+        </div>
+    </div>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos p/equipo de salud
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- DiabLabelTitle -->
+            <h1 class="diab-label-title">
+                Recursos para equipo de salud
+            </h1>
+            
+            <!-- RECURSO 1: Examen físico del pie -->
+            <p class="diab-label-bold" onclick="openResource('https://www.youtube.com/watch?v=_8YVhHC408A&ab_channel=MinisteriodeSalud')">
+                Examen físico del pie en personas con diabetes
+            </p>
+
+            <div class="resource-row">
+                <!-- Frame/Image -->
+                <div class="resource-frame" onclick="openResource('https://www.youtube.com/watch?v=_8YVhHC408A&ab_channel=MinisteriodeSalud')">
+                    <img class="resource-image" src="/assets/img/db_recprof1.png" alt="Imagen del recurso: Examen físico del pie">
+                </div>
+
+                <!-- Share Button -->
+                <button class="share-button" 
+                        onclick="shareResource('https://www.youtube.com/watch?v=_8YVhHC408A&ab_channel=MinisteriodeSalud', 'Compartir', 'Se copió el link en el portapapeles. Utilice &lt;Pegar&gt; en su red social (Facebook, WhatsApp, Twitter, etc.)')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 2: Guía de Práctica Clínica Nacional (Abreviada) -->
+            <p class="diab-label-bold" onclick="openResource('https://bancos.salud.gob.ar/sites/default/files/2021-01/guia-nacional-practica-clinica-diabetes-mellitius-tipo2_version-abreviada.pdf')">
+                Guía de Práctica Clínica Nacional sobre Prevención, Diagnóstico y Tratamiento de la Diabetes Mellitus tipo 2 (Versión Abreviada)
+            </p>
+
+            <div class="resource-row"> 
+                <!-- Frame/Image -->
+                <div class="resource-frame" onclick="openResource('https://bancos.salud.gob.ar/sites/default/files/2021-01/guia-nacional-practica-clinica-diabetes-mellitius-tipo2_version-abreviada.pdf')">
+                    <img class="resource-image" src="/assets/img/db_recprof1.png" alt="Imagen del recurso: GPC Abreviada">
+                </div>
+
+                <!-- Share Button -->
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/sites/default/files/2021-01/guia-nacional-practica-clinica-diabetes-mellitius-tipo2_version-abreviada.pdf', 'Compartir', 'Se copió el link en el portapapeles. Utilice &lt;Pegar&gt; en su red social (Facebook, WhatsApp, Twitter, etc.)')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 3: Diagnóstico y manejo de la diabetes de tipo 2 (HEARTS-D) -->
+            <p class="diab-label-bold" onclick="openResource('https://www.paho.org/es/documentos/diagnostico-manejo-diabetes-tipo-2-hearts-d')">
+                Diagnóstico y manejo de la diabetes de tipo 2 (HEARTS-D)
+            </p>
+
+            <div class="resource-row">
+                <!-- Frame/Image -->
+                <div class="resource-frame" onclick="openResource('https://www.paho.org/es/documentos/diagnostico-manejo-diabetes-tipo-2-hearts-d')">
+                    <img class="resource-image" src="/assets/img/db_recprof2.png" alt="Imagen del recurso: HEARTS-D">
+                </div>
+
+                <!-- Share Button -->
+                <button class="share-button" 
+                        onclick="shareResource('https://www.paho.org/es/documentos/diagnostico-manejo-diabetes-tipo-2-hearts-d', 'Compartir', 'Se copió el link en el portapapeles. Utilice &lt;Pegar&gt; en su red social (Facebook, WhatsApp, Twitter, etc.)')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 4: Guía de Práctica Clínica Nacional (Extensa) -->
+            <p class="diab-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/guia-de-practica-clinica-nacional-sobre-prevencion-diagnostico-y-tratamiento-de-la-diabetes')">
+                Guía de Práctica Clínica Nacional sobre Prevención, Diagnóstico y Tratamiento de la Diabetes Mellitus Tipo 2 (DM2) 2019 - (Versión Extensa)
+            </p>
+
+            <div class="resource-row last-resource-row">
+                <!-- Frame/Image -->
+                <div class="resource-frame" onclick="openResource('https://bancos.salud.gob.ar/recurso/guia-de-practica-clinica-nacional-sobre-prevencion-diagnostico-y-tratamiento-de-la-diabetes')">
+                    <img class="resource-image" src="/assets/img/db_recprof3.png" alt="Imagen del recurso: GPC Extensa">
+                </div>
+
+                <!-- Share Button -->
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/guia-de-practica-clinica-nacional-sobre-prevencion-diagnostico-y-tratamiento-de-la-diabetes', 'Compartir', 'Se copió el link en el portapapeles. Utilice &lt;Pegar&gt; en su red social (Facebook, WhatsApp, Twitter, etc.)')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- 3. Nav Button (Simulando NavButton) -->
+    <div class="nav-button-container">
+        <!-- En una aplicación real, este botón iría a 'db' (HomeRoute) -->
+        <button class="nav-button" title="Volver a Home de Diabetes">
+            <!-- Simulación SVG del FavIcon: diabetes_w.png -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.42 4.58a5.45 5.45 0 00-7.71 0L12 5.29l-0.71-0.71a5.45 5.45 0 00-7.71 0A5.45 5.45 0 003.58 12L12 20.42 20.42 12a5.45 5.45 0 000-7.42z" fill="white"/>
+            </svg>
+        </button>
+    </div>
+
+    
+    <script>
+        /**
+         * Simula DisplayAlert usando un modal personalizado.
+         */
+        function openModal(title, message) {
+            document.getElementById('modalTitle').innerHTML = title;
+            document.getElementById('modalMessage').innerHTML = message;
+            document.getElementById('messageModal').style.display = 'flex';
+        }
+
+        /**
+         * Cierra el modal de mensaje.
+         */
+        function closeModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        /**
+         * Simula Launcher.OpenAsync.
+         * @param {string} url - La URL a abrir.
+         */
+        function openResource(url) {
+            window.open(url, '_blank');
+        }
+
+        /**
+         * Simula el evento de compartir: copia el texto al portapapeles y muestra un mensaje.
+         * @param {string} textToCopy - El texto (URL) a copiar.
+         * @param {string} alertTitle - El título del mensaje de confirmación.
+         * @param {string} alertMessage - El cuerpo del mensaje de confirmación.
+         */
+        function shareResource(textToCopy, alertTitle, alertMessage) {
+            if (document.execCommand('copy')) {
+                // Si la copia funciona
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                openModal(alertTitle, alertMessage);
+            } else {
+                // Fallback (o simplemente muestra el mensaje de éxito asumiendo que el comando funciona en el entorno)
+                // Usamos la simulación directa con execCommand para mayor compatibilidad en entornos iframe.
+                try {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = textToCopy;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    openModal(alertTitle, alertMessage);
+                } catch (err) {
+                    openModal('Error de Copia', 'No se pudo copiar el enlace al portapapeles automáticamente. El enlace es: ' + textToCopy);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

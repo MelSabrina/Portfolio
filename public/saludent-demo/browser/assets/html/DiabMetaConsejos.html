@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Metas (Consejos)</title>
+    <style>
+
+        /* Estilos base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Fondo sutil */
+            color: #333;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333; /* Color del ícono */
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Contenedor principal del texto */
+        .content-area {
+            background-color: white; /* Simulación del BackgroundColor="{StaticResource HiperButtonTextColor}" */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+        
+        /* Estilo para el párrafo (simulando HiperLabel) */
+        .info-label {
+            line-height: 1.6;
+            font-size: 1rem;
+            color: #333;
+            padding: 10px 0;
+            margin-left: 10px;
+            /* Simula el Margin="10,0,0,100" con un padding-bottom alto */
+            padding-bottom: 100px; 
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Metas (Consejos)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <div class="container">
+        <!-- body content -->
+        <div class="content-area">
+
+            <p class="info-label">
+                Las metas del tratamiento de la diabetes incluyen además del control glucémico, el control de los factores de riesgo cardiovasculares asociados.
+            </p>
+
+        </div>
+    </div>
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

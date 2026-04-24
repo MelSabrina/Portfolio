@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Tablas de medicamentos</title>
+    <style>
+
+        /* Definición de variables y estilos base */
+        :root {
+            --diab-primary-color: #007bff; /* Color primario para el botón */
+            --page-background: white; 
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* 1. Toolbar (Barra de navegación) - SIN COLOR */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Mismo ancho que el botón de retroceso para centrar el título */
+        }
+
+        /* 2. Contenido Principal (Simula ScrollView y Grid) */
+        .scroll-container {
+            padding: 10px; /* Padding del Grid en XAML */
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Simula StackLayout */
+        .stack-content {
+            background-color: white; /* Base color */
+        }
+
+        /* Estilo DiabLabelTitle (Título distintivo para las secciones de tablas) */
+        .diab-label-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--diab-primary-color); /* Usando el color primario para destacar */
+            margin: 20px 0 20px 10px; /* Margin="10,20,0,20" */
+            border-left: 4px solid var(--diab-primary-color);
+            padding-left: 10px;
+        }
+        
+        /* Contenedor de la imagen (Simula ZoomImage) */
+        .image-section {
+            margin: 10px; /* Margin="10,10,10,10" o final 100 */
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            object-fit: contain;
+            /* Evita cualquier control de zoom o manipulación de imagen forzada */
+        }
+
+        /* Estilo para el último elemento con Margin="10,10,10,100" */
+        .last-image-section {
+            margin-bottom: 100px; 
+        }
+
+        /* 3. Botón de Navegación Fijo (Simulando NavButton) */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Tablas de medicamentos
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container">
+        
+        <div class="stack-content">
+
+            <!-- Título 1 -->
+            <p class="diab-label-title">
+                Fármacos antidiabéticos: principales características
+            </p>
+
+            <!-- Imagen 1: db_tablas2.png -->
+            <div class="image-section">
+                <!-- Title="Diabetes: Tablas de medicamentos" -->
+                <img src="/assets/img/db_tablas2.png" alt="Tabla de principales características de fármacos antidiabéticos">
+            </div>
+
+            <!-- Título 2 -->
+            <p class="diab-label-title">
+                Fármacos antidiabéticos: costos, posología y efectos adversos
+            </p>
+
+            <!-- Imagen 2: db_tablas1.png -->
+            <div class="image-section">
+                <!-- Title="Diabetes: Tablas de medicamentos" -->
+                <img src="/assets/img/db_tablas1.png" alt="Tabla de costos, posología y efectos adversos de fármacos antidiabéticos">
+            </div>
+
+            <!-- Título 3 -->
+            <p class="diab-label-title">
+                Dosis de antidiabéticos según cálculo de filtrado glomerular
+            </p>
+
+            <!-- Imagen 3: db_tablas3.png (Último elemento con margin-bottom: 100) -->
+            <div class="image-section last-image-section">
+                <!-- Title="Diabetes: Tablas de medicamentos" -->
+                <img src="/assets/img/db_tablas3.png" alt="Tabla de dosis de antidiabéticos según filtrado glomerular">
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- 3. Nav Button (Simulando NavButton) -->
+    <div class="nav-button-container">
+        <button class="nav-button" title="Volver a Home de Diabetes">
+            <!-- Simulación SVG del FavIcon: diabetes_w.png -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.42 4.58a5.45 5.45 0 00-7.71 0L12 5.29l-0.71-0.71a5.45 5.45 0 00-7.71 0A5.45 5.45 0 003.58 12L12 20.42 20.42 12a5.45 5.45 0 000-7.42z" fill="white"/>
+            </svg>
+        </button>
+    </div>
+
+    
+    <script>
+        // Función para el botón de retroceso
+        function goBack() {
+            window.history.back();
+        }
+        // Nota: La funcionalidad completa de NavButton (HomeRoute, FavRoute)
+        // requeriría un router que no está disponible en este HTML simple. 
+        // Solo se implementa el botón de retroceso.
+    </script>
+</body>
+</html>

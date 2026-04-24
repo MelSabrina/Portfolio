@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seguridad Vial (Epidemiología)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --background-color: white;
+            --font-family: 'Inter', sans-serif;
+            --vial-primary-color: #0047AB; /* Azul oscuro, simulando VialPrimaryColor */
+            --bullet-color: #4CAF50; /* Un color distintivo para las viñetas */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* Contenido Principal */
+        main {
+            padding: 10px; /* Simula Grid Padding="10" */
+            padding-bottom: 50px; /* Espacio inferior */
+        }
+        
+        .stack-layout {
+            display: flex;
+            flex-direction: column;
+            background-color: var(--background-color); /* Simula BackgroundColor="{StaticResource HiperButtonTextColor}" (asumiendo que es blanco) */
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .vial-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        .vial-label-bold {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 20px 0 10px 0;
+            text-align: left;
+        }
+
+        .vial-label-note {
+            font-size: 0.85rem;
+            color: #666; /* Un color más tenue para las notas */
+            margin: 5px 0 15px 0;
+            padding-left: 10px;
+            border-left: 3px solid #ccc;
+        }
+
+        /* Estilo para BulletLabel (Lista de viñetas personalizada) */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .bullet-item::before {
+            content: "\2022"; /* Viñeta redonda */
+            color: var(--bullet-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em; 
+            margin-right: 5px;
+            line-height: 1.6;
+            flex-shrink: 0;
+        }
+
+        /* Estilo para las imágenes (simulando ZoomImage sin zoom) */
+        .resource-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            margin: 10px auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            /* Omitimos cualquier control de zoom */
+        }
+        
+        /* Margen especial para la última nota */
+        .final-note {
+            margin-bottom: 100px;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado en la solicitud) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Seguridad Vial (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="contenido">
+        <div class="stack-layout">
+
+            <div class="vial-label">
+                Las lesiones de causa externa se definen como el daño físico que se produce cuando el cuerpo humano se somete bruscamente a algún tipo de energía (mecánica, térmica, química, eléctrica o radiada) en cantidades que exceden el umbral de tolerancia fisiológica, o cuando se ve privado de uno o más elementos vitales como el oxígeno. Representan un gran problema de salud pública en todo el mundo. Según la Organización Mundial de la Salud (OMS) producen aproximadamente 5.8 millones de muertes cada año, lo que representa un 10% de todas las defunciones registradas en el mundo. Las más prevalentes son las que se corresponden con los siniestros viales, suicidios y homicidios. Una proporción importante de los sobrevivientes de lesiones de causa externa padecen discapacidades físicas transitorias o permanentes. Pueden también sobrellevar depresión, trastornos alimentarios, consumo de tabaco, drogas y alcohol; todos factores de riesgo para Enfermedades No Transmisibles (ENT) como cáncer, enfermedad cardiovascular, diabetes, entre otras.
+            </div>
+
+            <div class="vial-label">
+                Las lesiones de tránsito representan la principal causa de mortalidad por causas externas, siendo estas últimas la cuarta causa principal de deceso en la población en general. Afectan principalmente al segmento joven y a los varones. Son causal de muerte prematura, discapacidad, pérdidas económicas a nivel social estimadas en 1,7% del PIB e impactan negativamente en los costos del sistema sanitario.
+            </div>
+
+            <div class="vial-label">
+                El último anuario estadístico de la Agencia Nacional de Seguridad Vial (2019) muestra que: 
+            </div>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">La tasa ajustada de mortalidad nacional fue de 10,9 personas fallecidas cada cien mil habitantes, pero se registran valores más altos en las regiones del NOA (16,7); NEA (14,8) y Cuyo (14,1).</li>
+                <li class="bullet-item">Prácticamente 8 de cada 10 defunciones en el tránsito son varones, y 6 de cada 10 fallecidos tenían entre 15 y 44 años.</li>
+                <li class="bullet-item">El 54% de las víctimas fatales eran usuarias de motocicleta, peatones o ciclistas. Los motociclistas representaban el 40% del total de fallecidos por lesiones de tránsito.</li>
+            </ul>
+
+            <div class="vial-label">
+                Las lesiones de tránsito pueden ser evitadas si se modifican las condiciones de seguridad de los vehículos, de la infraestructura y del entorno, además de si se previenen los factores de riesgo conductuales, tales como conducir bajo la influencia de sustancias psicoactivas; el exceso de velocidad; la falta de uso de cinturón de seguridad vial, casco o sistemas de retención infantil; y las distracciones al conducir como el uso del celular, consumir alimentos o conducir con fatiga o estrés, entre otros.
+            </div>
+
+            <div class="vial-label">
+                De acuerdo a los últimos estudios disponibles:
+            </div>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">El 15,2% de la población de 18 años o más admitió haber conducido un auto, moto o bicicleta habiendo bebido alcohol (ENFR 2018).</li>
+                <li class="bullet-item">Uno de cada cuatro ingresos de guardia de hospitales públicos por siniestros viales la persona ha declarado que consumió alcohol en las seis horas previas al incidente (ANSV 2019).</li>
+                <li class="bullet-item">El 55,0% de quienes conducen automóvil utilizan el cinturón de seguridad, pero este valor es menor para copiloto/a (42,8%) y quienes ocupan asientos traseros (19,9%) (ANSV 2018).</li>
+                <li class="bullet-item">El 68,7% de quienes conducen motocicletas utiliza el casco, pero su uso es menor en el resto de acompañantes (42,0% en el primer pasajero/a; 20,9% en el resto de pasajeros/as) (ANSV 2018).</li>
+                <li class="bullet-item">Entre personas menores de edad que se trasladan en motocicletas, únicamente 3 de cada 10 utilizaban casco (ANSV 2018).</li>
+                <li class="bullet-item">Entre personas menores de diez años que se trasladan en automóvil, únicamente una de cada cuatro es trasladada en la posición trasera y en un dispositivo de retención infantil (ANSV 2018).</li>
+                <li class="bullet-item">Entre ciclistas, el uso de casco sólo alcanza al 8% de ellos/ellas, y el respeto del semáforo es de apenas el 50% (ANSV 2021).</li>
+                <li class="bullet-item">El 40% de las y los peatones declara que cruza la calle con el semáforo en rojo (ANSV 2017).</li>
+            </ul>
+
+            <div class="vial-label">
+                Las lesiones de tránsito son prevenibles y las políticas más efectivas son aquellas que abordan a la brevedad.
+            </div>
+
+            <div class="vial-label-note">
+                1: Traumatismos y violencias. Datos. Organización Mundial de la Salud, 2010. ISBN 978 92 4 359937 3.
+            </div>
+
+            <!-- Gráfico 1 -->
+            <div class="vial-label-bold">
+                Defunciones y tasas específicas de mortalidad por accidentes de tránsito según sexo y grupos de edad. Argentina, 2019 (n varones=2476; n mujeres=576)
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_epicuad1.png" 
+                 alt="Defunciones por accidentes de tránsito"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_epicuad1.png';" 
+                 title="sv_epicuad1.png">
+            <div class="vial-label-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+            <!-- Gráfico 2 -->
+            <div class="vial-label-bold">
+                Distribución de defunciones causadas por accidentes de tránsito según modo de trasporte. Argentina, 2019 (N=3072)
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_epicuad2.png" 
+                 alt="Distribución de defunciones causadas por accidentes"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_epicuad2.png';" 
+                 title="sv_epicuad2.png">
+            <div class="vial-label-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+            <!-- Gráfico 3 -->
+            <div class="vial-label-bold">
+                Años Potenciales de Vida Perdidos (APVP) por accidentes viales en ambos sexos. Tasas ajustadas por 1000 habitantes. Argentina, 2019
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_vidasambos.png" 
+                 alt="Años Potenciales de Vida Perdidos (APVP)"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_vidasambos.png';" 
+                 title="sv_vidasambos.png">
+            <div class="vial-label-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+            <!-- Gráfico 4 -->
+            <div class="vial-label-bold">
+                Mortalidad por accidentes viales en ambos sexos. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_mort.png" 
+                 alt="Mortalidad por accidentes viales en ambos sexos"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_mort.png';" 
+                 title="sv_mort.png">
+            <div class="vial-label-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+            <!-- Gráfico 5 -->
+            <div class="vial-label-bold">
+                Años Potenciales de Vida Perdidos (APVP) por accidentes viales en mujeres. Tasas ajustadas por 1000 habitantes. Argentina, 2019
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_vidasmujer.png" 
+                 alt="Años Potenciales de Vida Perdidos en mujeres"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_vidasmujer.png';" 
+                 title="sv_vidasmujer.png">
+            <div class="vial-label-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+            <!-- Gráfico 6 -->
+            <div class="vial-label-bold">
+                Años Potenciales de Vida Perdidos (APVP) por accidentes viales en varones Tasas ajustadas por 1000 habitantes. Argentina, 2019
+            </div>
+            <img class="resource-image" 
+                 src="/assets/img/sv_vidashombre.png" 
+                 alt="Años Potenciales de Vida Perdidos en varones"
+                 onerror="this.src='https://placehold.co/400x200/f0f0f0/333333?text=sv_vidashombre.png';" 
+                 title="sv_vidashombre.png">
+            <div class="vial-label-note final-note">
+                Fuente: Programa Nacional de Prevención y Control de Lesiones de la DNAIENT en base a registros de mortalidad de la DEIS. Ministerio de Salud, Argentina 2021.
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

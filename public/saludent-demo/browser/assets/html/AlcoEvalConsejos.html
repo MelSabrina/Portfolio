@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Evaluación (Consejos)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --alco-primary-color: #9fa2af; /* Azul medio para elementos clave */
+            --alco-background-color: white;
+            --font-family: 'Inter', sans-serif;
+            --alco-label-background-color: #f0f4f7; /* Gris claro para el Frame */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--alco-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout principal */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px;
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+        
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Estilos para BulletLabel (Lista no ordenada) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 15px;
+            margin: 10px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 1rem;
+            color: var(--text-color);
+            text-align: justify;
+        }
+
+        .bullet-list li::before {
+            content: '\2022'; /* Símbolo de punto */
+            color: var(--alco-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Frame (simulación con un div estilizado) */
+        .alco-frame {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid var(--alco-primary-color);
+            background-color: var(--alco-label-background-color);
+            border-radius: 5px;
+            box-shadow: none; /* HasShadow="False" */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Imágenes */
+        .content-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0 20px 0;
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .image-margin-bottom-20 {
+            margin-bottom: 20px !important;
+        }
+        
+        .image-margin-bottom-100 {
+            margin-bottom: 100px !important;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Alcohol: Evaluación (Consejos)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+
+            <!-- Contenido que estaba COMENTADO en el XAML original, lo incluyo como referencia -->
+            
+            <div class="alco-label-title">
+                Recomendaciones para brindar al paciente:
+            </div>
+
+            <div class="alco-label">
+                El alcohol es una sustancia tóxica que, si es consumida en exceso durante la vida, puede producir múltiples complicaciones. <b>No existe un consumo que sea protector o mejore la salud general.</b>
+            </div>
+
+            <div class="alco-label">
+                No consumir alcohol para intentar manejar sus emociones o el estrés: consumir alcohol hace que aumenten los síntomas de ansiedad y angustia, depresión y otros trastornos mentales.
+            </div>
+
+            <ul class="bullet-list">
+                <li>
+                    Evitar y/o reducir la compra de bebidas alcohólicas: acopiar alcohol en casa podría favorecer no solo su propio consumo sino también el del resto de los integrantes del hogar.
+                </li>
+                <li>
+                    No beber alcohol a modo de diversión: En lugar de consumir alcohol como distracción, pruebe con realizar actividades lúdicas, ejercicio, hobbies u otra actividad que disfrute hacer.
+                </li>
+                <li>
+                    Evitar situaciones donde se sienta la "presión social" de consumir alcohol: fiestas, reuniones, boliches, restaurantes, entre otros. Si asiste a algún evento y/o reunión, elegir consumir alguna bebida que no sea nociva para el organismo.
+                </li>
+                <li>
+                    No manejar ni subir a un vehículo que maneje alguien que haya tomado: Cada vez que se bebe alcohol, los niveles de atención y concentración disminuyen considerablemente, aumentando la posibilidad de sufrir accidentes.
+                </li>
+                <li>
+                    No consumir alcohol si se está cuidado niños, adultos mayores y enfermos.
+                </li>
+                <li>
+                    No consumir alcohol en el lugar de trabajo.
+                </li>
+                <li>
+                    No consumir alcohol en ámbitos académicos.
+                </li>
+                <li>
+                    Al manipular herramientas o máquinas, no consumir alcohol. Evitar accidentes.
+                </li>
+                <li>
+                    Las personas en estado gestante o que están amamantando no deben beber alcohol. Consumir alcohol durante el embarazo puede ocasionar múltiples efectos negativos para el feto: peso bajo al nacer, deficiencias cognoscitivas y trastornos del espectro alcohólico fetal.
+                </li>
+                <li>
+                    El consumo de alcohol puede causar daños irreparables en el sistema nervioso. Las manifestaciones más recurrentes son: temblores, problemas en la coordinación y memoria, entre otros.
+                </li>
+                <li>
+                    El consumo de alcohol está asociado a padecimientos mentales. Por ejemplo, depresión, distintos tipos de ansiedad, consumo dependencia/adicciones, entre otras patologías.
+                </li>
+                <li>
+                    La intoxicación alcohólica se presenta como un factor de riesgo de lesiones - intencionales o accidentales.
+                </li>
+                <li>
+                    Consumir alcohol puede desencadenar en un "coma alcohólico", provocado por sobredosis de esta sustancia.
+                </li>
+                <li style="margin-bottom: 20px;">
+                    El consumo de alcohol puede ser un causal de muerte.
+                </li>
+            </ul>
+
+            <!-- Contenido VISIBLE en el XAML original -->
+            
+            <div class="alco-label-title">
+                Sugerencias de administración del test
+            </div>
+
+            <!-- al_eval1.png (Sin controles de Zoom) -->
+            <img src="/assets/img/al_eval1.png"
+                 alt="Sugerencias de administración del test"
+                 class="content-image image-margin-bottom-20"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=al_eval1.png'">
+                 
+            <!-- Contenido comentado del pie, simulando Frame y otra imagen -->
+            <div class="alco-label-title">
+                NINGUN CONSUMO ES BENEFICIOSO PARA LA SALUD
+            </div>
+
+            <div class="alco-frame">
+                <div class="stack-layout" style="padding: 0;">
+                    <div class="alco-label" style="padding: 0;">
+                        El consumo de alcohol puede describirse en términos de gramos de alcohol consumido o por el contenido alcohólico de las distintas bebidas, en forma de unidades de bebida estándar. En Europa una bebida estándar contiene 10 gramos de alcohol. Aunque no en todos los países de la Región existe una definición de bebida estándar, en Estados Unidos y Canadá, una bebida estándar contiene entre 12 y 14 gramos de alcohol.
+                    </div>
+
+                    <div class="alco-label" style="padding: 0;">
+                        El <b>consumo de riesgo</b> es un patrón de consumo de alcohol que aumenta el riesgo de consecuencias adversas para la salud si el hábito del consumo persiste. La OMS, lo describe como el consumo regular de 20 a 40 g diarios de alcohol en mujeres y de 40 a 60 g diarios en varones.
+                    </div>
+
+                    <div class="alco-label" style="padding: 0;">
+                        El <b>consumo regular de riesgo o perjudicial</b> se refiere a aquel que conlleva consecuencias tanto para la salud física como para la salud mental de la persona y está definido por la OMS como consumo regular promedio de más de 40g de alcohol al día en mujeres y de más de 60 g al día en hombres.
+                    </div>
+
+                    <div class="alco-label" style="padding: 0;">
+                        El <b>consumo episódico excesivo o circunstancial</b> (CEEA o también llamado atracón de alcohol -en inglés binge drinking-), que puede resultar particularmente dañino para ciertos problemas de salud, implica el consumo, por parte de un adulto, de por lo menos 60 g de alcohol en una sola ocasión.
+                    </div>
+
+                    <div class="alco-label" style="padding: 0;">
+                        La <b>dependencia</b> del alcohol es un conjunto de fenómenos conductuales, cognitivos y fisiológicos en los cuales el uso del alcohol se transforma en prioritario para el individuo, en contraposición con otras actividades y obligaciones que en algún momento tuvieron mayor valor para él.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ac_evalt10.png (Sin controles de Zoom) -->
+            <img src="/assets/img/ac_evalt10.png"
+                 alt="Consumo de alcohol"
+                 class="content-image image-margin-bottom-100"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=ac_evalt10.png'">
+                 
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol (Epidemiología)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --alco-primary-color: #3f51b5; /* Azul medio para un tema de salud */
+            --alco-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--alco-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 20px;
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 20px 0 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+
+        .alco-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+        
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+
+        .alco-label-note {
+            font-size: 0.9rem;
+            color: #666; /* Un color ligeramente más claro para notas */
+            margin: 5px 0 15px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            font-style: italic;
+        }
+
+        /* Estilos para BulletLabel (Usando lista no ordenada) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 15px;
+            margin: 10px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+
+        .bullet-list li::before {
+            content: '\2022'; /* Símbolo de punto */
+            color: var(--alco-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Estilo para imágenes (Simula HorizontalOptions="FillAndExpand") */
+        .epidemiology-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+            /* Se evita cualquier control de zoom o estilo específico que lo sugiera */
+        }
+        
+        .last-image {
+             margin-bottom: 100px; /* Margen para el último elemento */
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Alcohol (Epidemiología)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+
+            <div class="alco-label-title">
+                Datos Globales y Regionales (OMS, 2018)
+            </div>
+
+            <div class="alco-label">
+                <b>En el mundo,</b> en 2016 el uso nocivo de alcohol causó:
+            </div>
+            
+            <ul class="bullet-list">
+                <li>
+                    Alrededor de <b>3 millones de muertes</b> (5,3% de todas las muertes).
+                </li>
+                <li>
+                    7,2% de la mortalidad prematura (13,5% de las muertes entre los 20 y los 39 años).
+                </li>
+                <li>
+                    132,6 millones de años de vida ajustados en función de la discapacidad (AVAD).
+                </li>
+                <li>
+                    49% de los AVAD atribuibles al alcohol se deben a enfermedades no transmisibles (cardiovasculares, cáncer y trastornos de salud mental), y cerca del 40% se deben a lesiones.
+                </li>
+                <li>
+                    Las mujeres presentaron 0,7 millones de muertes y 26,1 millones de AVAD atribuibles al consumo de alcohol.
+                </li>
+            </ul>
+
+            <div class="alco-label">
+                <b>En la región: </b> Uruguay y Argentina encabezan el ranking del total de alcohol consumido.
+            </div>
+
+            <div class="alco-label">
+                <b>En Argentina: </b> se registran datos de consumo de <b>9,8 litros de alcohol puro per cápita</b>, con un promedio diario de 31,5 grs. con proyecciones en aumento para el año 2025.
+            </div>
+
+            <div class="alco-label-bold">
+                Situación en Argentina
+            </div>
+
+            <div class="alco-label-bold">
+                Encuesta Nacional de Factores de Riesgo (2018):
+            </div>
+            
+            <ul class="bullet-list">
+                <li>
+                    El <b>Consumo Episódico Excesivo de Alcohol* </b>(CEEA) fue del 13,3% a nivel nacional. Se evidencia un aumento relativo del 27,9%, respecto de la ENFR del año 2013. Consumo de 5 o más tragos (Unidad de Bebida estándar alcohólica) bebidos en una misma ocasión.
+                </li>
+                <li>
+                    El <b>Consumo de Alcohol Regular de Riesgo** </b>(CARR) fue del <b>8,4%</b>, manteniéndose estable respecto de la ENFR del año 2013 (7,8%):
+                    <br><b>• </b>El indicador resultó mayor entre varones respecto de mujeres, y en los rangos etarios 18 a 24 años y 25 a 34 años, respecto de los otros tres grupos de edad.
+                    <br><b>• </b>No se evidenciaron diferencias en el resto de las variables sociodemográficas.
+                </li>
+            </ul>
+
+            <div class="alco-label-note">
+                * consumo de 5 o más tragos bebidos en una ocasión
+            </div>
+
+            <div class="alco-label-note">
+                ** más de 1 trago promedio por día en mujeres y 2 tragos promedio por día en hombres
+            </div>
+
+            <div class="alco-label-bold">
+                Encuesta Mundial de Salud Escolar (EMSE), 2018:
+            </div>
+
+            <ul class="bullet-list">
+                <li>
+                    El patrón instalado de consumo en jóvenes es el <b>CEEA. </b>
+                </li>
+                <li>
+                    El <b>77,1% de los adolescentes </b>-de 13 a 15 años- <b>consumió alcohol </b>por primera vez antes de los 14 años de edad.
+                </li>
+                <li>
+                    <b>7 de cada 10 adolescentes</b>, de entre 13 y 15 años, <b>compraron bebidas alcohólicas</b> pese a la prohibición de venta a menores que establece la ley.
+                </li>
+                <li>
+                    El CEEA <b>duplicó su prevalencia del 35,3% </b>entre la EMSE (2007) <b>a 62,9% </b>en la Segunda EMSE (2012).
+                </li>
+                <li>
+                    En la EMSE 2018, se observa un incremento relativo del consumo en mujeres respecto de los varones, a saber:
+                    <br><b>• </b>CEEA: 65,4% vs. 60,4%;
+                    <br><b>• </b>Borrachera alguna vez en la vida: 30,7% vs. 26,1%;
+                    <br><b>• </b>Consumo de al menos una bebida en el último mes: 50,3% vs. 44.9%.
+                </li>
+                <li>
+                    El CEEA en jóvenes adolescentes es el consumo de 2 o más tragos (Unidad de Bebida estándar alcohólica) en una misma ocasión.
+                </li>
+            </ul>
+
+            <!-- Imagen 1: Consumo de alcohol regular -->
+            <div class="alco-label-title">
+                   Consumo de alcohol regular de riesgo en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </div> 
+
+            <img src="/assets/img/ac_consreg.png"
+                 alt="Gráfico de Consumo de alcohol regular de riesgo por jurisdicción"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=ac_consreg.png'">
+
+            <div class="alco-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </div>
+            
+
+            <!-- Imagen 2: Consumo de alcohol episódico -->
+            <div class="alco-label-title">
+                    Consumo de alcohol episódico excesivo en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </div>
+
+            <img src="/assets/img/ac_consepi.png"
+                 alt="Gráfico de Consumo de alcohol episódico excesivo por jurisdicción"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=ac_consepi.png'">
+
+            <div class="alco-label-note">
+                   Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </div>
+
+            <div class="alco-label-title" style="margin-top: 10px; margin-bottom: 0;">
+                   Consumo de alcohol episódico excesivo de la población de 18 años y más. Argentina, 2018
+            </div>
+
+            <div class="alco-label">
+                <b>Fuente:</b> 4° Encuesta Nacional de Factores de Riesgo (ENFR 2018)
+                <br><b>Total:</b> 13,3%
+                <br><b>Varones:</b> 20,7%
+                <br><b>Mujeres:</b> 6,5%
+            </div>
+                           
+            <!-- Imágenes de distribución por género/edad (ac_epi01 a ac_epi03) -->
+            <img src="/assets/img/ac_epi01.png"
+                 alt="Gráfico ac_epi01"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi01.png'">
+
+            <img src="/assets/img/ac_epi02.png"
+                 alt="Gráfico ac_epi02"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi02.png'">
+
+            <img src="/assets/img/ac_epi03.png"
+                 alt="Gráfico ac_epi03"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi03.png'">
+
+            <div class="alco-label-title" style="margin-top: 10px; margin-bottom: 0;">
+                   Porcentaje de estudiantes de 13 a 17 años que bebieron por lo general 2 o más tragos los días que bebieron alcohol en los últimos 30 días. Argentina, 2018
+            </div>
+
+            <div class="alco-label">
+                <b>Fuente:</b> Encuesta Mundial de Salud Escolar (EMSE)
+                <br><b>Total:</b> 67,3%
+                <br><b>Varones:</b> 65,5%
+                <br><b>Mujeres:</b> 68,9%
+            </div>
+
+            <!-- Imágenes de estudiantes (ac_epi04 a ac_epi06) -->
+            <img src="/assets/img/ac_epi04.png"
+                 alt="Gráfico ac_epi04"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi04.png'">
+
+            <img src="/assets/img/ac_epi05.png"
+                 alt="Gráfico ac_epi05"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi05.png'">
+
+            <img src="/assets/img/ac_epi06.png"
+                 alt="Gráfico ac_epi06"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi06.png'">
+
+            <div class="alco-label-title" style="margin-top: 10px; margin-bottom: 0;">
+                   Consumo de alcohol regular de riesgo de la población de 18 años y más. Argentina, 2018
+            </div>
+
+            <div class="alco-label">
+                <b>Fuente:</b> 4° Encuesta Nacional de Factores de Riesgo (ENFR 2018)
+                <br><b>Total:</b> 8,4%
+                <br><b>Varones:</b> 10,8%
+                <br><b>Mujeres:</b> 6,3%
+            </div>
+
+            <!-- Imágenes de riesgo regular (ac_epi07 a ac_epi09) -->
+            <img src="/assets/img/ac_epi07.png"
+                 alt="Gráfico ac_epi07"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi07.png'">
+
+            <img src="/assets/img/ac_epi08.png"
+                 alt="Gráfico ac_epi08"
+                 class="epidemiology-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi08.png'">
+
+            <img src="/assets/img/ac_epi09.png"
+                 alt="Gráfico ac_epi09"
+                 class="epidemiology-image last-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x200/E0E0E0/333333?text=ac_epi09.png'">
+
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+    </script>
+</body>
+</html>

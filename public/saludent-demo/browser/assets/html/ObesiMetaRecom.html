@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Metas->Recomendaciones</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Colores de referencia */
+            --obesi-label-bg-color: #F8F9FA;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* --- 3. Contenido Principal --- */
+        .content-container {
+            /* Padding general para el contenido */
+            padding: 10px;
+        }
+
+        .stack-layout {
+            /* Simula el StackLayout con el BackgroundColor del XAML */
+            background-color: var(--obesi-label-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos de Texto */
+        .obesi-label {
+            /* Estilo ObesiLabel */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        .obesi-label-bold {
+            /* Estilo ObesiLabelBold */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: justify;
+        }
+
+        .final-paragraph {
+            /* Para simular Margin="10,10,10,100" */
+            margin-bottom: 100px; 
+            margin-top: 10px;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Metas->Recomendaciones <!-- Título de la página -->
+        </div> 
+        <div class="toolbar-placeholder"></div> <!-- Placeholder para balancear el back button -->
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content -->
+            
+            <p class="obesi-label">
+                <b>Objetivos:</b> Contribuir con la mejora de la calidad de vida de las personas con obesidad que así lo deseen, ofreciendo la oportunidad de trabajar en forma conjunta en la mejora del estilo de vida.
+            </p>
+
+            <p class="obesi-label-bold">
+                Metas:
+            </p>
+
+            <p class="obesi-label">
+                Se recomienda una reducción de peso gradual y sostenido en 6 - 12 meses de entre el 5 y el 10% del peso corporal con respecto al de inicio en cada paciente.
+            </p>
+
+            <p class="obesi-label">
+                Personas con IMC entre 25 - 35 Kg/m2: pérdida del 5 al 10%.
+            </p>
+
+            <p class="obesi-label">
+                Personas con IMC mayor a 35 Kg/m2: pérdida mínima del 15 al 20%.
+            </p>
+
+            <p class="obesi-label-bold">
+                Adherir a un plan de ejercicio físico programado y ser físicamente más activo en la vida diaria.
+            </p>
+
+            <p class="obesi-label">
+                Incorporar herramientas cognitivo-conductuales
+            </p>
+
+            <p class="obesi-label final-paragraph">
+                Se sugiere trabajar con las personas en la mejora de los hábitos, acorde la evaluación realizada, y no focalizar en el peso, dado que las personas no tienen control sobre el mismo. Las metas de peso solo son útiles para que el equipo de salud pueda guiar el tratamiento.
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

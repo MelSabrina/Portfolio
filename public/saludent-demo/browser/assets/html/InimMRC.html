@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escala de evaluación de la disnea modificada (mMRC)</title>
+    <style>
+
+        :root {
+            --mmrc-primary-color: #75AADB;
+            --mmrc-button-text-color: #333333;
+            --mmrc-label-background-color: #f3f4f6;
+            --mmrc-backdrop-color: #d1d5db;
+            --mmrc-text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--mmrc-text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--mmrc-button-text-color);
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--mmrc-button-text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+            text-align: center;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .info-label {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .scale-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Escala de evaluación de la disnea (mMRC)</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="container">
+            <p class="info-label">
+                Escala de evaluación de la disnea modificada (mMRC) del Consejo de Investigación Médica del Reino Unido (Medical Research Council)
+            </p>
+            <img class="scale-image" src="/assets/img/mmrc.png" alt="Escala de evaluación de la disnea (mMRC)">
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

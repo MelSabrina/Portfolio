@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes (Epidemiología)</title>
+    <style>
+
+        /* Paleta de colores de Poncho - Adaptación */
+        :root {
+            --poncho-primary: #0072B8;
+            --poncho-white: #FFFFFF;
+            --poncho-dark-text: #333333;
+            --poncho-light-bg: #F0F2F5;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--poncho-light-bg);
+            color: var(--poncho-dark-text);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--poncho-dark-text);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--poncho-dark-text);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: var(--poncho-white);
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .content-section {
+            width: 100%;
+            max-width: 600px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: var(--poncho-white);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .diab-label {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+        
+        .diab-label-bold {
+            font-weight: bold;
+        }
+
+        .diab-label-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--poncho-dark-text);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .diab-label-note {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        .bullet-list li {
+            margin-bottom: 5px;
+        }
+
+        .content-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .image-frame {
+            border: 2px solid var(--poncho-primary);
+            border-radius: 8px;
+            padding: 5px;
+            background-color: var(--poncho-white);
+            flex-grow: 1;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+        .image-frame img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Custom Modal for Image Zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 700px;
+        }
+        
+        .modal-content-img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar bg-bandera-celeste">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Diabetes (Epidemiología)</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="content-section">
+            <p class="diab-label">
+                La diabetes está asociada a un incremento del riesgo cardiovascular y mortalidad prematura. Cuando no se tratan adecuadamente la hiperglucemia y los factores de riesgo cardiovascular asociados, su curso es progresivo, y se acompaña de lesiones microvasculares (retina, riñón, nervios) y macrovasculares (cerebro, corazón, miembros inferiores).
+            </p>
+
+            <p class="diab-label">
+                Según datos de la 4ta Encuesta Nacional de Factores de Riesgo 2018, en población adulta:
+            </p>
+
+            <ul class="bullet-list">
+                <li>La prevalencia de glucemia elevada o diabetes estimada por autorreporte es del 12,7%.</li>
+                <li>La prevalencia combinada fue del 10,9%. <br>Esta prevalencia incluye a quienes se reconocen con glucemia elevada o con diabetes y toman medicación para la misma o presentaron glucemia capilar elevada en ayunas al momento de la encuesta.</li>
+            </ul>
+
+            <h3 class="diab-label-title">
+                Prevalencia de glucemia elevada/diabetes en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </h3>
+
+            <div class="image-frame" onclick="openModal('db_prevgluc_z.png')">
+                <img class="content-image" src="/assets/img/db_prevgluc.png" alt="Prevalencia de glucemia elevada/diabetes">
+            </div>
+
+            <p class="diab-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </p>
+
+            <h3 class="diab-label-title">
+                Prevalencia combinada de glucemia elevada o diabetes en personas de 18 años y más. Argentina, 2018
+            </h3>
+
+            <p class="diab-label">
+                <b>Fuente:</b> 4° ENFR<br>
+                <b>Total:</b> 10,9%<br>
+                <b>Varón: </b> 12,2<br>
+                <b>Mujer: </b> 9,8
+            </p>
+
+            <img class="content-image" src="/assets/img/db_epi1.png" alt="Prevalencia combinada">
+
+            <h3 class="diab-label-title" style="margin-top: 15px;">
+                Mortalidad por diabetes en mujeres según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </h3>
+
+            <div class="image-frame" onclick="openModal('db_mortmujer_z.png')">
+                <img class="content-image" src="/assets/img/db_mortmujer.png" alt="Mortalidad por diabetes en mujeres">
+            </div>
+
+            <p class="diab-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021          
+            </p>
+
+            <h3 class="diab-label-title">
+                Mortalidad por diabetes en varones según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </h3>
+
+            <div class="image-frame" onclick="openModal('db_mortvaron_z.png')">
+                <img class="content-image" src="/assets/img/db_mortvaron.png" alt="Mortalidad por diabetes en varones">
+            </div>
+
+            <p class="diab-label-note" style="margin-bottom: 100px;">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+        </div>
+    </div>
+    
+    <!-- Custom Modal for Image Zoom -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Image Modal Functions
+        function openModal(imageSrc) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "flex";
+            modalImg.src = imageSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    </script>
+</body>
+</html>

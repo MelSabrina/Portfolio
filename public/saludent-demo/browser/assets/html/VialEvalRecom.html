@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seg. Vial: Eval.(Recomendaciones)</title>
+    <!-- Estilo de fuente Inter recomendado -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        :root {
+            --primary-color: #494c4f; /* Color de ejemplo */
+            --text-color: #333;
+            --vial-backdrop-color: #f0f0f0; /* Color de fondo de los botones de respuesta */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white; /* El fondo es blanco */
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        /* Estilo al pasar el ratón */
+        .back-button:hover {
+            color: var(--primary-color);
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal (Content Styling) --- */
+        .content-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Estilos de Label (VialLabel) */
+        .vial-label {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        /* Estilos de Label Bold (VialLabelBold) */
+        .vial-label-bold {
+            font-size: 1rem;
+            line-height: 1.5;
+            font-weight: bold;
+            margin-bottom: 15px;
+            background-color: #f4f4f4; /* Un color ligero para destacar las respuestas */
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        /* Estilos de BulletLabel (VialBullet) */
+        .vial-bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .vial-bullet-item {
+            position: relative;
+            margin-bottom: 20px;
+            padding-left: 25px;
+            line-height: 1.5;
+        }
+
+        /* Simulación del Bullet */
+        .vial-bullet-item::before {
+            content: '•';
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: -4px;
+        }
+
+        /* Estilo de Botón */
+        .response-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--vial-backdrop-color);
+            color: var(--text-color);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 90%; /* Similar a Margin="30,-20,30,10" */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .response-button:hover {
+            background-color: #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Estilo para manejar la visibilidad de las respuestas */
+        .answer-label {
+            display: none;
+        }
+    
+</style>
+</head>
+<body>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Seg. Vial: Eval.(Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <div class="content-container">
+        
+        <p class="vial-label">
+            Se recomienda que el <b>equipo de salud</b> realice las siguientes preguntas:
+        </p>
+
+        <p class="vial-label-bold">
+            Si es conductor/a de automóvil o motocicleta:
+        </p>
+
+        <ul class="vial-bullet-list">
+            <!-- Pregunta 1 -->
+            <li class="vial-bullet-item">
+                ¿Sabe cuál es el límite de alcohol permitido para conducir?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r01')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r01" class="vial-label-bold answer-label">
+                    A Noviembre de 2021, La Ley que regula el tránsito a nivel nacional, acepta como límite tener hasta 0.5 gramos de alcohol por litro de sangre en el cuerpo para conductores de vehículos particulares, 0.2 para motociclistas y 0.0 para conductores profesionales. Pronto se discutirá si los límites se corren a 0.0 gramos de alcohol por litro de sangre para todo conductor. Vale aclarar, que en muchos distritos del país ya rige el límite de 0.0 para todos y todas.
+                </p>
+            </li>
+
+            <!-- Pregunta 2 -->
+            <li class="vial-bullet-item">
+                ¿Qué opina del consumo del alcohol a la hora de conducir un vehículo?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r02')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r02" class="vial-label-bold answer-label">
+                    Los estudios a nivel mundial han demostrado que el ingerir cualquier cantidad de alcohol incide en las conductas al conducir un vehículo. Por algo el límite para conductores/as profesionales es 0.0 gramos de alcohol por litro de sangre. Pueden influir en mayor o menor medida, pero influyen. Depende de la contextura física, peso, condiciones climáticas, alimento recién ingerido, etc. Conducir requiere de múltiples tareas complejas al unísono... con cálculos de distancia, reflejos, atención constante, etc. Cualquier mínima distracción puede ocasionar daños para sí o para terceros.
+                </p>
+            </li>
+
+            <!-- Pregunta 3 -->
+            <li class="vial-bullet-item">
+                ¿Qué opina del consumo de sustancias psicoactivas previo a conducir?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r03')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r03" class="vial-label-bold answer-label">
+                    Es tal la complejidad de conducir un vehículo, que es necesario una total atención y relajación a la vez, que recree un comportamiento amable, seguro y contemplativo de todos los actores de la vía. Una alteración constante del estado de ánimo puede provocar conductas viales inseguras. Las sustancias psico-activas producen alteración del funcionamiento del sistema nervioso central y modifica la conciencia, el estado de ánimo o los procesos de pensamiento.
+                </p>
+            </li>
+
+            <!-- Pregunta 4 -->
+            <li class="vial-bullet-item">
+                ¿Conoce los riesgos del consumo de bebidas alcohólicas u otras sustancias psicoactivas previo a conducir?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r04')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r04" class="vial-label-bold answer-label">
+                    Los riesgos de conducir bajo la ingesta de alcohol o sustancias psico-activas están dados en el mal cálculo de distancias, reflejos a destiempo, alteración, sueño, pérdida de reflejos motores, ´baja percepción del riesgo para sí y para terceros, desaprensión, conducta violenta, etc.
+                </p>
+            </li>
+
+            <!-- Pregunta 5 -->
+            <li class="vial-bullet-item">
+                ¿Sabe por qué es importante respetar las velocidades máximas en cada ocasión?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r05')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r05" class="vial-label-bold answer-label">
+                    La velocidad a la que todo conductor/a debe circular es aquella que le permita circular siempre a una velocidad tal que, teniendo en cuenta su salud, el estado del vehículo y su carga, la visibilidad existente, las condiciones de la vía y el tiempo y densidad del tránsito, tenga siempre el total dominio de su vehículo y no entorpezca la circulación. De no ser así deberá abandonar la vía o detener la marcha.
+                </p>
+            </li>
+
+            <!-- Pregunta 6 -->
+            <li class="vial-bullet-item">
+                ¿Conoce los riesgos del uso del celular al conducir?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r06')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r06" class="vial-label-bold answer-label">
+                    La distracción que provoca conducir mientras se habla por celular refiere al desvío de la atención, tanto en actividades de poca importancia como entre aquellas que revisten un alto nivel de compromiso. Dicho de otro modo, la atención es esencial para llevar a cabo una conducción de forma segura. Las distracciones provocadas por el teléfono celular pueden afectar la actuación del conductor/a de distintas maneras, como por ejemplo, aumentando el tiempo de reacción ante un frenado y ante las señales de tránsito.
+                </p>
+            </li>
+
+            <!-- Pregunta 7 -->
+            <li class="vial-bullet-item">
+                ¿Sabe cuáles son los factores de distracción más reiterados a la hora de provocar o participar de un siniestro de tránsito?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r07')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r07" class="vial-label-bold answer-label">
+                    Las distracciones en la conducción pueden ser de cuatro tipos: <br> * Las visuales: Apartar la vista del camino por alguna situación circunstancial; por ejemplo ver hacia un costado sostenidamente, leer un cartel publicitario o un mensaje recién llegado al teléfono móvil. <br> * Las auditivas: Responder a un teléfono celular que suena o tener la radio con el volumen tan alto que dificulte oír otros sonidos como la sirena de un vehículo en emergencia por ejemplo. <br> * Las físicas: Cuando un conductor utiliza una de sus manos para sujetar o manipular un elemento en lugar de conducir con ambas sobre el volante; o cuando envía un mensaje escrito, o cuando intenta manipular la pantalla táctil o se inclina para sintonizar una emisora de radio. Todo esto puede ocasionar que el volante se gire involuntariamente. <br> * Las cognitivas: En lugar de observar detenidamente las situaciones presentes en el camino, la persona que conduce presta mayor atención al tema de conversación del que se esté hablando por teléfono, escucha con más atención de lo normal a su interlocutor, o analiza puntualmente un tema complejo por el que está conversando
+                </p>
+            </li>
+
+            <!-- Pregunta 8 -->
+            <li class="vial-bullet-item">
+                ¿Qué opina de la conducción bajo fatiga o estrés?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r08')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r08" class="vial-label-bold answer-label">
+                    El estrés puede afectar las condiciones al volante de las/los conductores. Es necesario que el tránsito se piense colectivamente, como conjunto. Las eventualidades que pueden suceder al mover rodados de 1000 kg. o más y motocicletas que zigzagueen evitando colisionar con cualquier elemento, pueden agravar las condiciones pre-existentes de los protagonistas perjudicando aun más su salud. La fatiga también es un mal aliado sobre todo a conductores que transitan varios kilómetros en recta y a los trabajadores del tránsito urbano como taxistas y colectiveros.
+                </p>
+            </li>
+
+            <!-- Pregunta 9 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que los/as peatones tienen prioridad de paso?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r09')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r09" class="vial-label-bold answer-label">
+                    Las/os peatones tienen prioridad de paso siempre, en todo lugar de la vía pública. Claro que también deben respetar reglas viales como cruzar en las intersecciones, usar la senda peatonal, respetar su semáforo, no circular en autopistas, etc. Pero será siempre más responsable aquel conductor/a que atropelle o no intente evitar impactar a un peatón aun pudiéndolo hacer, pese a que éste no esté realizando un cruce peatonal responsable.
+                </p>
+            </li>
+
+            <!-- Pregunta 10 -->
+            <li class="vial-bullet-item">
+                ¿Respeta los semáforos?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r10')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r10" class="vial-label-bold answer-label">
+                    Los semáforos deben respetarse siempre, como una señal restrictiva más, bajo pena de apercibimiento. Eso no quita que en una intersección semaforizada, el conductor/a tenga que prestar el debido cuidado aunque la luz a su frente lo habilite a avanzar.
+                </p>
+            </li>
+
+            <!-- Pregunta 11 -->
+            <li class="vial-bullet-item">
+                ¿Utiliza las luces reglamentarias y obligatorias en el vehículo que conduce?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r11')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r11" class="vial-label-bold answer-label">
+                    Las luces obligatorias durante el día son las luces bajas, la luz de giro, las luces intermitentes de emergencia (mal llamadas balizas), y las luces de stop automáticas al frenar. Durante la noche se suman las altas para dar destellos ante maniobras de sobrepaso. Las luces bajas deben permanecer encendidas las 24 hs.
+                </p>
+            </li>
+
+            <!-- Pregunta 12 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que es obligatorio revisar periódicamente el estado del vehículo?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r12')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r12" class="vial-label-bold answer-label">
+                    Entre las condiciones para conducir, el mantenimiento vehicular es responsabilidad de aquel conductor/a al ingresar a la vía pública. Debe verificar que tanto él como su vehículo se encuentren en adecuadas condiciones de seguridad, de acuerdo con los requisitos legales y bajo su responsabilidad. El estado mecánico de los rodados puede influir directamente en la ocurrencia de siniestros viales (desperfecto en los frenos, rotura de neumáticos, falla en el sistema de dirección, detenciones en lugares indebidos por falla mecánica, etc.).
+                </p>
+            </li>
+        </ul>
+        
+        <p class="vial-label">
+            Si se traslada en motocicleta (como <b>conductor/a o acompañante</b>):
+        </p>
+
+        <ul class="vial-bullet-list">
+            <!-- Pregunta 13 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que el uso de casco previene en un 73% la posibilidad de muerte y un 85% las lesiones graves?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r13')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r13" class="vial-label-bold answer-label">
+                    Al circular en motocicleta se está expuesto, como en cualquier vehículo, a participar en un siniestro vial con el agravante que en ella es casi segura la caída de sus ocupantes al piso, con el consiguiente daño en la cabeza producto de impactar contra superficies duras de la calzada u otros vehículos. El casco protege de estas lesiones distribuyendo la energía del impacto por toda su carcaza. También es importante la protección de la cara y el mentón; por supuesto que lo totalmente efectivo del hábito del casco es usarlo abrochado ya que de lo contrario, su uso puede ser en vano.
+                </p>
+            </li>
+
+            <!-- Pregunta 14 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que el uso de casco homologado para circular en motos es obligatorio?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r14')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r14" class="vial-label-bold answer-label">
+                    Que un casco esté homologado, habla que detrás de su fabricación se han realizado pruebas y ensayos sobre sus materiales, asegurando a sus propietarios que ante un impacto el casco actúe con efectividad. Por otro lado, un casco homologado y que actuó en un siniestro recibiendo un impacto aunque sea invisible, debe ser reemplazado e inutilizado para terceros. Esto es porque pierde sus propiedades estructurales de protección para lo que fue concebido.
+                </p>
+            </li>
+
+            <!-- Pregunta 15 -->
+            <li class="vial-bullet-item">
+                ¿Sabe qué tipo de casco hay que usar para circular en moto?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r15')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r15" class="vial-label-bold answer-label">
+                    Debe utilizarse un casco homologado, con correa que asegure un preciso amarre al mentón, protección vinílica traslúcida para los ojos, colores reflactantes claros, de tamaño acorde a su usuario, en buen estado, que no haya actuado en siniestros previos y, en lo posible, que proteja el maxilar inferior.
+                </p>
+            </li>
+
+            <!-- Pregunta 16 -->
+            <li class="vial-bullet-item">
+                ¿Sabe qué edades no se recomienda para circular en moto?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r16')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r16" class="vial-label-bold answer-label">
+                    Las edades para conducir una motocicleta las dispone el artículo 11 de la Ley Nacional de Tránsito 24.449. Para ciclomotores (moto-vehículos de hasta 50 cc. que no pueden desarrollar velocidades que superen los 50 km/h), la edad mínima es de 16 años, sin posibilidad de llevar acompañante. Para motos de más de 50 cc., la edad mínima es de 17 años. Pero cada provincia y CABA tienen subclases de licencias y disposiciones particulares según el caso. Lo que es dable decir es que el riesgo de llevar como acompañantes personas menores de edad en motocicletas es muy alto. Ante un siniestro, es probable que se desprendan fácilmente del conductor/a y se desplacen a más distancia del punto de impacto, ocasionando graves daños físicos.
+                </p>
+            </li>
+
+            <!-- Pregunta 17 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que para circular en moto se recomienda usar vestimenta especial, botas, guantes?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r17')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r17" class="vial-label-bold answer-label">
+                    Al estar expuestos a caídas producto de un impacto, despiste o la propia distracción de su conductor, es necesario evita graves daños a la piel producto del roce de ésta con elementos rugosos de la superficie. El roce puede provocar heridas de consideración que, usando ropa y elementos de protección adecuados, pueden ayudar considerablemente a sus ocupantes. Entre este grupo se destacan los guantes protectores, vitales ante situaciones incluso de siniestros leves.
+                </p>
+            </li>
+
+            <!-- Pregunta 18 -->
+            <li class="vial-bullet-item">
+                ¿Cuántas personas cree que deben viajar en una motocicleta?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r18')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r18" class="vial-label-bold answer-label">
+                    Las motocicletas sólo pueden contener dos ocupantes (excepcionalmente permiten uno, cuando los asientos especiales son únicos). La capacidad de la moto está dada por el apoyo de los pies en sus laterales. El equilibrio de la moto es la base de su circulación y para que éste sea óptimo, es necesario que sus ocupantes no separen las piernas de los laterales, ya que de lo contrario, crean desbalance en el andar.
+                </p>
+            </li>
+
+            <!-- Pregunta 19 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que, si lleva a niños o niñas en la motocicleta, deben alcanzar el posapié? ¿Dónde los traslada? ¿utilizan casco?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r19')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r19" class="vial-label-bold answer-label">
+                    No es recomendable llevar niños/as como acompañantes. Según las legislaciones locales en particular, esta actividad puede estar bajo diferentes límites de edad permisible. En el caso que la edad esté permitida, siempre deben llevar los pies en los apoyos laterales, sean menores o mayores de edad. La utilización del casco es para todas las edades. Siempre.
+                </p>
+            </li>
+
+            <!-- Pregunta 20 -->
+            <li class="vial-bullet-item">
+                ¿Sabía que el uso de luces es obligatorio también para circular en motocicleta?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r20')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r20" class="vial-label-bold answer-label">
+                    Las luces bajas encendidas son obligatorias para todos los vehículos motorizados del país mientras circulen por la vía pública. (automóviles, motocicletas, ciclomotores, camiones, colectivos, etc.).
+                </p>
+            </li>
+        </ul>
+
+        <p class="vial-label">
+            Si se traslada en automóvil (como <b>conductor/a o acompañante</b>):
+        </p>
+
+        <ul class="vial-bullet-list">
+            <!-- Pregunta 21 -->
+            <li class="vial-bullet-item">
+                ¿Sabe usted que el uso de cinturón de seguridad reduce entre un 50% y un 75% la posibilidad de morir en caso de sufrir un incidente vial?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r21')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r21" class="vial-label-bold answer-label">
+                    El cinturón de seguridad retiene de forma instantánea, segura y sin fallas, a todo aquel ocupante de un vehículo automotor de 3 ruedas o más, que sufra una detención abrupta e inmediata y que provoque un cambio drástico en la energía del movimiento que ese vehículo y sus ocupantes traían. Si esa retención a la butaca no se produce, el cuerpo impactará contra elementos duros u otras personas del interior del rodado, provocando daños físicos de consideración según la velocidad desarrollada previa a la detención.
+                </p>
+            </li>
+
+            <!-- Pregunta 22 -->
+            <li class="vial-bullet-item">
+                ¿Sabe que es tan importante usar el cinturón de seguridad tanto en posición de conductor/a como de acompañante?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r22')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r22" class="vial-label-bold answer-label">
+                    Todos los ocupantes de un vehículo deben usar el cinturón de seguridad. El hecho de que uno o más no lo hagan, puede provocar golpes contra los que sí quedan retenidos ante un impacto frontal por ejemplo.
+                </p>
+            </li>
+
+            <!-- Pregunta 23 -->
+            <li class="vial-bullet-item">
+                ¿Se sube a automóviles que son conducidos por personas que consumieron alcohol?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r23')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r23" class="vial-label-bold answer-label">
+                    No se recomienda ocupar un vehículo en ninguna ocasión en la que se perciba condiciones no aptas para una conducción segura, ni de las personas, ni del vehículo ni de la vía.
+                </p>
+            </li>
+
+            <!-- Pregunta 24 -->
+            <li class="vial-bullet-item">
+                ¿Conoce los elementos de seguridad que existen para el traslado de menores en vehículos como la sillita, el huevito o el booster? Si los conoce, ¿los usa para trasladar a niños, niñas y preadolescentes?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r24')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r24" class="vial-label-bold answer-label">
+                    No usar elementos de seguridad como el SRI, o hacerlo incorrectamente, tiene alta incidencia en la morbimortalidad infantil. Las cifras de nuestro país indican que se trata de un aspecto a mejorar. En automóviles, la falta de uso del Sistema de Retención Infantil (SRI) alcanza a casi 7 de cada 10 menores de 10 años. Su uso protegerá a niñas/os menores ante impactos o desaceleraciones bruscas dado que retienen de forma segura al torso y cabeza de los infantes.
+                </p>
+            </li>
+
+            <!-- Pregunta 25 -->
+            <li class="vial-bullet-item">
+                ¿Sabía que, el uso de estos dispositivos de seguridad infantil reduce significativamente la mortalidad y morbilidad de niños/as ante la ocurrencia de siniestros viales?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r25')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r25" class="vial-label-bold answer-label">
+                    Niños y niñas de todas las edades se encuentran expuestos al riesgo de participar en un siniestro vial y a las consecuencias que esto trae dadas las condiciones de su desarrollo físico, cognitivo, falta de autonomía y capacidad de decisión especialmente en edades más tempranas. El riesgo va en aumento con la edad como consecuencia de una mayor exposición al tránsito a medida que van diversificando sus modos de traslado y ganan autonomía
+                </p>
+            </li>
+
+            <!-- Pregunta 26 -->
+            <li class="vial-bullet-item">
+                Si lleva a preadolescentes o adolescentes en el automóvil, ¿verifica que el cinturón les calce bien*?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r26')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r26" class="vial-label-bold answer-label">
+                    * El cinturón les calza bien cuando la tira superior no les pasa por encima del cuello, sino por la clavícula, y cuando la tira inferior les pasa por encima de las caderas, y no por el estómago.
+                </p>
+            </li>
+        </ul>
+
+        <p class="vial-label">
+            Si se traslada en bicicleta:
+        </p>
+
+        <ul class="vial-bullet-list">
+            <!-- Pregunta 27 -->
+            <li class="vial-bullet-item">
+                ¿Utiliza en todas las ocasiones un casco de su talla, correctamente abrochado y que se encuentre homologado?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r27')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r27" class="vial-label-bold answer-label">
+                    Debe utilizarse un casco homologado, con correa que asegure un preciso amarre al mentón, colores reflectantes claros, de tamaño acorde al usuario, en buen estado y que no haya actuado en siniestros previos.
+                </p>
+            </li>
+
+            <!-- Pregunta 28 -->
+            <li class="vial-bullet-item">
+                ¿Utiliza siempre ropa altamente visible?
+            </li>
+            <li>
+                <button class="response-button" onclick="toggleAnswer('r28')">Ver Respuesta</button>
+            </li>
+            <li>
+                <p id="r28" class="vial-label-bold answer-label">
+                    Es muy impor...
+                    <!-- El texto de la respuesta 28 está incompleto en el XAML, se muestra lo que hay. -->
+                </p>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para alternar la visibilidad de las respuestas
+        function toggleAnswer(answerId) {
+            const answerElement = document.getElementById(answerId);
+            if (answerElement) {
+                // Alterna la propiedad 'display'
+                const isHidden = answerElement.style.display === 'none' || answerElement.style.display === '';
+                answerElement.style.display = isHidden ? 'block' : 'none';
+                
+                // Opcional: Cambiar el texto del botón
+                // const buttonElement = event.target;
+                // buttonElement.textContent = isHidden ? 'Ocultar Respuesta' : 'Ver Respuesta';
+            }
+        }
+
+        // Inicializar todas las respuestas a ocultas, aunque ya lo está por CSS
+        document.addEventListener('DOMContentLoaded', () => {
+            const answers = document.querySelectorAll('.answer-label');
+            answers.forEach(answer => {
+                answer.style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>

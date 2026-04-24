@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Manejo - Protocolo tratamiento 1</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--text-color);
+            min-height: 100vh; /* Asegura que el cuerpo ocupe al menos la altura de la vista */
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+        .toolbar { 
+            background-color: white; /* Sin color */ 
+            border-bottom: 1px solid #ddd; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+        } 
+
+        .back-button { 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            padding: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-color); 
+            transition: color 0.2s; 
+        } 
+          
+        .toolbar-title { 
+            flex-grow: 1; 
+            text-align: center; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: var(--text-color); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            padding: 0 10px; 
+        } 
+
+        .toolbar-placeholder { 
+            width: 34px; /* Para equilibrar el botón de retroceso */ 
+        } 
+
+        /* --- 3. Contenido Principal --- */
+        .content-grid {
+            /* Simula Grid Padding="10" */
+            padding: 10px;
+        }
+
+        .image-container {
+            /* Simula StackLayout y centra el contenido si la imagen es más pequeña que el contenedor */
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Alinea arriba en el ScrollView */
+            padding-top: 5px; /* Pequeño margen superior */
+        }
+
+        .protocol-image {
+            /* Estilos para la imagen del protocolo */
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 20px; /* Simula Margin="0,0,0,20" */
+            display: block; /* Elimina espacio extra debajo de la imagen */
+        }
+
+        /* Aseguramos que el main content sea el área de scroll, simulando ScrollView */
+        main {
+            overflow-y: auto;
+            height: calc(100vh - 54px); /* Altura de la vista menos la altura aproximada del toolbar */
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Manejo - Protocolo tratamiento 1
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula Grid y ScrollView) -->
+    <main class="content-grid">
+        <!-- body content (Simula StackLayout) -->
+        <div class="image-container">
+            <!-- controls:ZoomImage ImageSource="ob_manecuad1.png" (SIN CONTROLES DE ZOOM) -->
+            <img src="/assets/img/ob_manecuad1.png" alt="Protocolo de tratamiento 1 para Obesidad" class="protocol-image">
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

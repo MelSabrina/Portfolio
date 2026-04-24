@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Urgencia hipertensiva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+            --alert-bg: rgba(239, 83, 80, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            padding-top: 16px;
+            margin-bottom: 32px;
+        }
+
+        .main-title {
+            font-family: 'Lora', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin: 0 0 16px 0;
+        }
+
+        .main-title .red-line {
+            color: var(--program-color);
+        }
+
+        .title-divider {
+            position: relative;
+            width: 50%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 0 auto;
+        }
+
+        .title-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* Flow boxes */
+        .flow-container {
+            margin: 24px 0;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, #fef3f3 0%, #fce4e4 100%);
+            color: var(--text-main);
+            padding: 20px;
+            border-radius: 16px;
+            margin: 0 auto;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(239, 83, 80, 0.15);
+            border: 2px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .flow-box.definition {
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .flow-box.step-title {
+            font-weight: 600;
+            font-size: 16px;
+            padding: 16px;
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffd1d1 100%);
+        }
+
+        /* Arrow */
+        .flow-arrow {
+            text-align: center;
+            color: var(--program-color);
+            font-size: 32px;
+            margin: 16px 0;
+            line-height: 0.5;
+        }
+
+        .flow-arrow.split {
+            display: flex;
+            gap: 20px;
+            margin: 16px auto;
+            max-width: 600px;
+        }
+
+        .flow-arrow.split span {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Branch section */
+        .branch-container {
+            display: flex;
+            gap: 20px;
+            margin: 0 auto;
+            max-width: 600px;
+        }
+
+        .branch-box {
+            flex: 1;
+            text-align: center;
+        }
+
+        .branch-label {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .branch-action {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe9e9 100%);
+            color: var(--text-main);
+            border-radius: 12px;
+            font-size: 14px;
+            line-height: 1.5;
+            font-weight: 500;
+            box-shadow: 0 2px 6px rgba(239, 83, 80, 0.15);
+            border: 2px solid rgba(239, 83, 80, 0.3);
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 16px;
+        }
+
+        /* Action list */
+        .action-box {
+            background: var(--cream);
+            color: var(--text-main);
+            padding: 24px;
+            border-radius: 16px;
+            margin: 0 auto;
+            max-width: 600px;
+            box-shadow: 0 2px 8px rgba(239, 83, 80, 0.15);
+            border: 3px solid var(--program-color);
+        }
+
+        .action-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .action-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .action-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .action-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        /* Clickeable terms */
+        .clickeable-term {
+            color: var(--program-color);
+            font-weight: 700;
+            font-style: italic;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .clickeable-term:hover {
+            opacity: 0.8;
+        }
+
+        /* Bottom sheet backdrop */
+        .bs-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(27, 42, 74, 0.35);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+
+        .bs-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Bottom sheet */
+        .bs-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: calc(100% - 32px);
+            max-width: 688px;
+            background: var(--cream);
+            border-radius: 20px 20px 0 0;
+            z-index: 201;
+            transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 82dvh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .bs-sheet.open {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bs-handle {
+            width: 36px;
+            height: 4px;
+            background: #DDD9D2;
+            border-radius: 50px;
+            margin: 12px auto 0;
+            flex-shrink: 0;
+        }
+
+        .bs-header {
+            padding: 16px 24px 12px;
+            border-bottom: 1px solid rgba(239, 83, 80, 0.1);
+            flex-shrink: 0;
+        }
+
+        .bs-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 4px;
+        }
+
+        .bs-body {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 24px 32px;
+        }
+
+        .bs-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .bs-body::-webkit-scrollbar-thumb {
+            background: #DDD9D2;
+            border-radius: 3px;
+        }
+
+        /* Notes section */
+        .notes-section {
+            margin-top: 32px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid var(--program-color);
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .note-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .note-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+
+        .note-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .note-list li::before {
+            content: '■';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .emergency-alert {
+            background: var(--program-light);
+            border-left: 3px solid var(--program-color);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-style: italic;
+            color: var(--program-dark);
+            font-weight: 600;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .note-footer {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .note-footer strong {
+            color: var(--navy);
+        }
+
+        @media (max-width: 480px) {
+            .branch-container {
+                gap: 12px;
+            }
+
+            .flow-arrow.split {
+                gap: 12px;
+            }
+
+            .branch-label {
+                font-size: 14px;
+            }
+
+            .branch-action {
+                font-size: 13px;
+                height: 97px;
+                padding: 0 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Title -->
+        <div class="title-section">
+            <h1 class="main-title">Manejo de la urgencia<br><span class="red-line">y emergencia hipertensiva</span></h1>
+            <div class="title-divider"></div>
+        </div>
+
+        <!-- Flow diagram -->
+        <div class="flow-container">
+            <!-- Definition -->
+            <div class="flow-box definition">
+                Valores de PA mayores a 180/120 mmHg <span class="clickeable-term" onclick="openSheet('sheet-sintomas')">sin síntomas ni signos que evidencien lesión aguda en curso en órganos blanco</span> y no atribuibles a <span class="clickeable-term" onclick="openSheet('sheet-pseudocrisis')">pseudocrisis</span>
+            </div>
+
+            <div class="flow-arrow">↓</div>
+
+            <!-- Step title -->
+            <div class="flow-box step-title">
+                Antecedentes de hipertensión arterial
+            </div>
+
+            <div class="flow-arrow split">
+                <span>↓</span>
+                <span>↓</span>
+            </div>
+
+            <!-- Branch -->
+            <div class="branch-container">
+                <div class="branch-box">
+                    <div class="branch-label">Sí</div>
+                    <div class="branch-action">
+                        Intensificar o reinstaurar<br>tratamiento farmacológico
+                    </div>
+                </div>
+                <div class="branch-box">
+                    <div class="branch-label">No</div>
+                    <div class="branch-action">
+                        Iniciar tratamiento<br>farmacológico
+                    </div>
+                </div>
+            </div>
+
+            <div class="flow-arrow">↓</div>
+
+            <!-- Actions -->
+            <div class="action-box">
+                <ul class="action-list">
+                    <li>Evitar descensos bruscos de presión arterial</li>
+                    <li>Seguimiento ambulatorio con acceso precoz a visitas frecuentes hasta alcanzar meta de presión arterial</li>
+                    <li>Reforzar adherencia,</li>
+                    <li>Dar pautas de alarma</li>
+                    <li>Evitar ejercicio de intensidad moderada o mayor hasta alcanzar valores de PA menores a 160/100 mmHg.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom sheet backdrop -->
+    <div class="bs-backdrop" id="bs-backdrop"></div>
+
+    <!-- Bottom sheet: Síntomas -->
+    <div class="bs-sheet" id="sheet-sintomas">
+        <div class="bs-handle"></div>
+        <div class="bs-header">
+            <div class="bs-title">Signos y síntomas de lesión aguda en curso</div>
+        </div>
+        <div class="bs-body">
+            <p style="font-size: 14px; color: var(--text-main); margin-bottom: 16px; font-style: italic;">
+                Emergencia hipertensiva:
+            </p>
+            <ul class="note-list">
+                <li>dolor precordial (ej. isquemia miocárdica, infarto de miocardio, disección aórtica),</li>
+                <li>dolor de espalda (ej. disección aórtica),</li>
+                <li>disnea, edemas (ej. edema pulmonar, insuficiencia cardíaca congestiva),</li>
+                <li>síntomas visuales o neurológicos: cefalea, convulsiones, alteraciones visuales, alteración de la conciencia, o signos focales (ej. encefalopatía hipertensiva, accidente cerebrovascular),</li>
+                <li>palpitaciones (ej: arritmias)</li>
+                <li>polidipsia, poliuria, nocturia, hematuria, oliguria, anuria (ej: insuficiencia renal aguda),</li>
+                <li>extremidades frías (ej: claudicación intermitente).</li>
+            </ul>
+            <div class="emergency-alert">
+                La emergencia hipertensiva requiere evaluación inmediata en servicios de emergencias más allá de los valores de presión arterial. Su abordaje excede los alcances de esta GPC.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom sheet: Pseudocrisis -->
+    <div class="bs-sheet" id="sheet-pseudocrisis">
+        <div class="bs-handle"></div>
+        <div class="bs-header">
+            <div class="bs-title">Pseudocrisis</div>
+        </div>
+        <div class="bs-body">
+            <p class="note-footer">
+                Elevación aguda de la presión arterial consecuencia de episodios agudos de ansiedad, pánico, epistaxis, presencia de dolor u otras emociones intensas o el consumo de ciertas drogas como: pseudoefedrina, anfetaminas, cocaína, etc. El reposo y tratamiento de esas condiciones (controlar epistaxis, aliviar cefalea, etc.), se asocia a descensos concomitantes de la presión arterial.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        const backdrop = document.getElementById('bs-backdrop');
+        let activeSheet = null;
+
+        function openSheet(sheetId) {
+            if (activeSheet) closeSheet();
+
+            const sheet = document.getElementById(sheetId);
+            backdrop.classList.add('open');
+            sheet.classList.add('open');
+            activeSheet = sheetId;
+        }
+
+        function closeSheet() {
+            if (!activeSheet) return;
+
+            const sheet = document.getElementById(activeSheet);
+            sheet.classList.remove('open');
+            backdrop.classList.remove('open');
+            activeSheet = null;
+        }
+
+        // Cerrar al hacer click en el backdrop
+        backdrop.addEventListener('click', closeSheet);
+
+        // Swipe down para cerrar
+        document.querySelectorAll('.bs-sheet').forEach(sheet => {
+            let startY = 0;
+            const body = sheet.querySelector('.bs-body');
+
+            sheet.addEventListener('touchstart', e => {
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+
+            sheet.addEventListener('touchend', e => {
+                const endY = e.changedTouches[0].clientY;
+                const deltaY = endY - startY;
+
+                // Solo cerrar si: swipe down (deltaY > 60) Y scroll está en el tope (scrollTop <= 5)
+                if (deltaY > 60 && body.scrollTop <= 5) {
+                    closeSheet();
+                }
+            }, { passive: true });
+        });
+    </script>
+</body>
+</html>

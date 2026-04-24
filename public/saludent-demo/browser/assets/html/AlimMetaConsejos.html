@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación (Metas->Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #222522; /* Verde Saludable */
+            --page-background: white;
+            --text-color: #333;
+            --link-color: #1E90FF; /* Azul para enlaces/toggles */
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+            --bullet-color: #555;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px;
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 120px;
+        }
+
+        /* Etiqueta de título principal */
+        .alim-label-bold {
+            font-size: 1rem;
+            margin: 10px 10px 20px 10px;
+            font-weight: bold;
+            text-align: justify;
+        }
+
+        /* Estilo para los títulos colapsables (simula PrevLabelBold) */
+        .collapsible-header {
+            font-size: 1rem;
+            color: var(--link-color);
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 15px 10px 5px 10px;
+            transition: color 0.2s;
+        }
+        .collapsible-header:hover {
+            color: var(--alim-primary-color);
+        }
+
+        /* Contenido colapsable (stack01, stack02, etc.) */
+        .collapsible-content {
+            display: none; /* Inicialmente oculto (IsVisible=false) */
+            margin-left: 20px;
+            padding: 5px 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid var(--alim-primary-color);
+            border-radius: 4px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease-out;
+        }
+        .collapsible-content.active {
+            display: block;
+        }
+
+        /* Estilo para el bullet point (simula BulletLabel) */
+        .bullet-label {
+            display: flex;
+            margin: 5px 0;
+            font-size: 0.95rem;
+            padding-right: 5px;
+        }
+        .bullet-label::before {
+            content: "\2022"; /* Carácter de bullet point */
+            color: var(--alim-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            padding-right: 5px;
+        }
+        .bullet-text {
+            flex: 1;
+            padding-left: 10px;
+        }
+
+        /* Margen final para evitar que el botón NavButton oculte contenido */
+        .final-spacer {
+            height: 120px;
+        }
+
+        /* --- 4. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación (Metas->Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <p class="alim-label-bold">
+                A continuación se describen algunos consejos para facilitar la implementación de los 10 mensajes de las GAPA:
+            </p>
+
+            <!-- CONSEJO 1 -->
+            <div class="collapsible-header" id="label01" data-target="stack01">
+                1. Incorporar a diario alimentos de todos los grupos y realizar al menos 30 minutos de actividad física.
+            </div>
+            <div class="collapsible-content" id="stack01">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Realizar 4 comidas al día (desayuno, almuerzo, merienda y cena). Incluir verduras, frutas, legumbres, cereales, leche, yogur o queso, huevos, carnes y aceites.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Realizar actividad física moderada continua o fraccionada todos los días para mantener una vida activa.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Comer tranquilo, en lo posible acompañado y moderar el tamaño de las porciones.</span></div>
+                <div class="bullet-label"><span class="bullet-text">4°MS: Elegir en lo posible alimentos preparados en casa.</span></div>
+                <div class="bullet-label"><span class="bullet-text">5°MS: Mantener una vida activa, un peso adecuado y una alimentación saludable previene enfermedades.</span></div>
+            </div>
+
+
+            <!-- CONSEJO 2 -->
+            <div class="collapsible-header" id="label02" data-target="stack02">
+                2. Tomar a diario 8 vasos de agua segura.
+            </div>
+            <div class="collapsible-content" id="stack02">
+                <div class="bullet-label"><span class="bullet-text">1° MS: A lo largo del día, beber al menos 2 litros de líquidos sin azúcar, preferentemente agua.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2° MS: No esperar a tener sed para hidratarse.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3° MS: Para lavar los alimentos y cocinar, el agua debe ser segura.</span></div>
+            </div>
+
+            <!-- CONSEJO 3 -->
+            <div class="collapsible-header" id="label03" data-target="stack03">
+                3. Consumir a diario 5 porciones de frutas y verduras en variedad de tipos y colores.
+            </div>
+            <div class="collapsible-content" id="stack03">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Consumir al menos medio plato de verduras en el almuerzo, medio plato en la cena y 2 o 3 frutas por día.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Lavar las frutas y verduras con agua segura.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Las frutas y verduras de estación son más accesibles y de mejor calidad.</span></div>
+                <div class="bullet-label"><span class="bullet-text">4° MS: El consumo de frutas y verduras diario disminuye el riesgo de padecer obesidad, diabetes, cáncer de colon y enfermedades cardiovasculares.</span></div>
+            </div>
+
+            <!-- CONSEJO 4 -->
+            <div class="collapsible-header" id="label04" data-target="stack04">
+                4. Reducir el uso de sal y el consumo de alimentos con alto contenido de sodio.
+            </div>
+            <div class="collapsible-content" id="stack04">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Cocinar sin sal, limitar el agregado en las comidas y evitar el salero en la mesa.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Para reemplazar la sal utilizar condimentos de todo tipo (por ejemplo: pimienta, perejil, ají, pimentón, orégano).</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Los fiambres, embutidos y otros alimentos procesados (como caldos, sopas, conservas) contienen elevada cantidad de sodio. Leer las etiquetas al realizar las compras.</span></div>
+            </div>
+
+            <!-- CONSEJO 5 -->
+            <div class="collapsible-header" id="label05" data-target="stack05">
+                5. Limitar el consumo de bebidas azucaradas y de alimentos con elevado contenido de grasas, azúcar y sal.
+            </div>
+            <div class="collapsible-content" id="stack05">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Limitar el consumo de golosinas, amasados de pastelería y productos de copetín (como palitos salados, papas fritas de paquete, etc).</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Limitar el consumo de bebidas azucaradas y la cantidad de azúcar agregada a infusiones.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Limitar el consumo de manteca, margarina, grasa animal y crema de leche.</span></div>
+                <div class="bullet-label"><span class="bullet-text">4°MS: Si se consumen, elegir porciones pequeñas y/o individuales. El consumo en exceso de estos alimentos predispone a la obesidad, hipertensión, diabetes y enfermedades cardiovasculares, entre otras.</span></div>
+            </div>
+
+            <!-- CONSEJO 6 -->
+            <div class="collapsible-header" id="label06" data-target="stack06">
+                6. Consumir diariamente leche, yogur o queso, preferentemente descremados.
+            </div>
+            <div class="collapsible-content" id="stack06">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Incluir 3 porciones al día de leche, yogur o queso.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Al realizar las compras mirar la fecha de vencimiento y elegirlos al final para mantener la cadena de frío.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3° MS: Elegir quesos blandos antes que duros. Tienen menor contenido de grasas y sal.</span></div>
+                <div class="bullet-label"><span class="bullet-text">4°MS: Los alimentos ricos en calcio son necesarios en todas las etapas de la vida.</span></div>
+            </div>
+
+            <!-- CONSEJO 7 -->
+            <div class="collapsible-header" id="label07" data-target="stack07">
+                7. Al consumir carnes quitarle la grasa visible, aumentar el consumo de pescado e incluir huevo.
+            </div>
+            <div class="collapsible-content" id="stack07">
+                <div class="bullet-label"><span class="bullet-text">1°MS: La porción diaria de carne se representa por el tamaño de la palma de la mano.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Incorporar carnes con las siguientes frecuencias: pescado 2 o más veces por semana, otras carnes blancas 2 veces por semana y carnes rojas hasta 3 veces por semana.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Incluir hasta un huevo por día especialmente si no se consume la cantidad necesaria de carne.</span></div>
+                <div class="bullet-label"><span class="bullet-text">4°MS: Cocinar las carnes hasta que no queden partes rojas o rosadas en su interior para prevenir las enfermedades transmitidas por alimentos.</span></div>
+            </div>
+
+            <!-- CONSEJO 8 -->
+            <div class="collapsible-header" id="label08" data-target="stack08">
+                8. Consumir legumbres, cereales preferentemente integrales, papa, batata, choclo o mandioca.
+            </div>
+            <div class="collapsible-content" id="stack08">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Combinar legumbres y cereales es una alternativa para reemplazar la carne en algunas comidas.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Entre las legumbres se puede elegir: arvejas, lentejas, soja, porotos y garbanzos. Entre los cereales: arroz integral, avena, maíz, trigo burgol, cebada y centeno, entre otros.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: Al consumir papa o batata lavarlas adecuadamente antes de la cocción y cocinarlas con cáscara.</span></div>
+            </div>
+
+            <!-- CONSEJO 9 -->
+            <div class="collapsible-header" id="label09" data-target="stack09">
+                9. Consumir aceite crudo como condimento, frutas secas o semillas.
+            </div>
+            <div class="collapsible-content" id="stack09">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Utilizar dos cucharadas soperas al día de aceite crudo.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: Optar por otras formas de cocción antes que la fritura.</span></div>
+                <div class="bullet-label"><span class="bullet-text">3°MS: En lo posible, alternar aceites (como girasol, maíz, soja, girasol alto oleico, oliva y canola).</span></div>
+                <div class="bullet-label"><span class="bullet-text">4°MS: Consumir, al menos una vez por semana, un puñado de frutas secas sin salar (maní, nueces, almendras, avellanas, castañas, etc.) o semillas sin salar (chía, girasol, sésamo, lino, etc.).</span></div>
+                <div class="bullet-label"><span class="bullet-text">5°MS: El aceite crudo, las frutas secas y semillas aportan nutrientes esenciales.</span></div>
+            </div>
+
+            <!-- CONSEJO 10 -->
+            <div class="collapsible-header" id="label10" data-target="stack10">
+                10. El consumo de bebidas alcohólicas debe ser responsable. Los niños, adolescentes y mujeres embarazadas no deben consumirlas. Evitarlas siempre al conducir.
+            </div>
+            <div class="collapsible-content" id="stack10">
+                <div class="bullet-label"><span class="bullet-text">1°MS: Un consumo responsable en adultos es como máximo al día, dos unidades estándar en el hombre y una en la mujer.</span></div>
+                <div class="bullet-label"><span class="bullet-text">2°MS: El consumo no responsable de alcohol genera daños graves y riesgos para la salud.</span></div>
+            </div>
+
+            <div class="final-spacer"></div>
+
+        </div>
+
+    </div>
+
+    
+    <!-- 4. JavaScript para la funcionalidad de acordeón -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const headers = document.querySelectorAll('.collapsible-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+
+                    if (targetContent) {
+                        // Alternar la clase 'active'
+                        targetContent.classList.toggle('active');
+
+                        // Opcional: Cerrar otros acordeones
+                        // headers.forEach(otherHeader => {
+                        //     if (otherHeader !== this) {
+                        //         const otherTargetId = otherHeader.getAttribute('data-target');
+                        //         const otherTargetContent = document.getElementById(otherTargetId);
+                        //         if (otherTargetContent) {
+                        //             otherTargetContent.classList.remove('active');
+                        //         }
+                        //     }
+                        // });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

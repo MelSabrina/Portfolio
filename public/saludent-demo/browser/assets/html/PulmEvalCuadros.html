@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación: Cuadros y algoritmos</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            /* Color Primario (Simulando PulmPrimaryColor) - Cian oscuro */
+            --pulm-primary-color: #6e6e6e;
+            --page-background: white;
+            --text-color: #333;
+            --link-color: blue;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: var(--pulm-primary-color);
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenedor de Contenido y Scroll --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px; /* Ancho máximo para legibilidad en escritorio */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos StackLayout / Label */
+            padding-bottom: 100px; /* Espacio al final */
+        }
+
+        /* --- 4. Estilos de Tipografía (Simulando StaticResource PulmLabelX) --- */
+        
+        /* PulmLabelTitle */
+        .pulm-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--pulm-primary-color);
+            text-align: center;
+            margin: 10px 0 20px 0;
+        }
+
+        /* PulmLabelBold */
+        .pulm-bold {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 5px 0;
+        }
+
+        /* PulmLabel (Texto normal) */
+        .pulm-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 10px 0;
+            padding-left: 10px; /* Simula Margin="10,10,10,10" */
+        }
+
+        /* --- 5. Estilos de Listas (Simulando BulletLabel) --- */
+        .pulm-bullet-list {
+            list-style: none; /* Quitamos el estilo de lista predeterminado */
+            padding-left: 0;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .pulm-bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .pulm-bullet-list li::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            position: absolute;
+            left: 0;
+            color: var(--pulm-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Estilo para el link simulado (cuestionario CODE) */
+        .tap-link {
+            cursor: pointer;
+            text-decoration: underline;
+            color: var(--link-color);
+            font-weight: bold;
+        }
+
+        /* --- 6. Estilos de Imágenes (Simulando ZoomImage sin zoom) --- */
+        .image-title {
+            margin: 20px 0 10px 0;
+        }
+
+        .image-container {
+            margin: 0 0 20px 0;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .responsive-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript para el back button -->
+    <script>
+        // Función de retroceso
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Evaluación: Cuadros y algoritmos
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <h1 class="pulm-title">
+                Resumen sobre el diagnóstico y evaluación de la EPOC:
+            </h1>
+
+            <h2 class="pulm-bold">
+                Sospecha de EPOC:
+            </h2>
+
+            <ul class="pulm-bullet-list">
+                <li>Identificar síntomas respiratorios crónicos. Interrogar por ocurrencia de ''bronquitis'' o consultas a guardia por causa respiratoria (u otra descripción compatible con exacerbación). Preguntar por antecedentes de asma, tanto por diagnóstico diferencial como por coexistencia de las dos entidades.</li>
+
+                <li>Identificar a fumadores y exfumadores, y calcular su carga tabáquica. Interrogar por exposición al humo del tabaco ajeno. Identificar uso de cocina a leña y braseros.</li>
+
+                <li>Interrogar antecedentes familiares de EPOC. Recabar antecedentes personales de tuberculosis.</li>
+
+                <li>Identificar actividades profesionales que se puedan relacionar con el desarrollo de obstrucción (en cambio si la espirometría presenta patrón restrictivo, descartar neumoconiosis, esto es la fibrosis progresiva del pulmón asociada a la deposición de polvo y residuos sólidos inorgánicos en los bronquios, ganglios linfáticos y parénquima pulmonar).</li>
+
+                <li>Recordar que la mayoría de las personas que padecen EPOC muestran un nivel de obstrucción leve y no conocen su diagnóstico.</li>
+
+                <!-- BulletLabel con TapRoute cambiado a un enlace href -->
+                <li>
+                    Se puede optar por el 
+                    <a href="/assets/html/PulmRecuTest.html" class="tap-link" title="Ir al cuestionario CODE">cuestionario CODE</a> 
+                    en caso de priorizar la realización de espirometría en aquellas personas con más riesgo de padecer EPOC.
+                </li>
+            </ul>
+
+            <h2 class="pulm-bold">
+                Valoración de la obstrucción de la EPOC:
+            </h2>
+
+            <ul class="pulm-bullet-list">
+                <li>Solicitar espirometría pre y post BD.</li>
+
+                <li>Confirmar EPOC si la relación $VEF1/CVF$ post BD es menor al $70\%$ (ante duda ver el LIN si está disponible).</li>
+
+                <!-- BulletLabel con HTML y LaTeX -->
+                <li>Valorar el nivel de severidad de la obstrucción según el $\%$ del $VEF1$ post BD: 
+                    <br><b>•</b> Leve: $VEF1$ igual o mayor al $80\%$.
+                    <br><b>•</b> Moderada: $VEF1$ entre el $50\%$ y el $79\%$.
+                    <br><b>•</b> Severa: $VEF1$ menor al $50\%$ (muy severa menor al $30\%$).
+                </li>
+            </ul>
+
+            <!-- Label normal -->
+            <p class="pulm-label">
+                Valorar la frecuencia de las exacerbaciones e Identificar comorbilidades.
+            </p>
+
+            <!-- ZoomImage 1 traducido a Img sin zoom -->
+            <h2 class="pulm-bold image-title">
+                Tabla de interpretación de espirometría
+            </h2>
+            <div class="image-container">
+                <img src="/assets/img/pu_evalalg1.png" alt="Tabla de interpretación de espirometría" class="responsive-image">
+            </div>
+
+            <!-- ZoomImage 2 traducido a Img sin zoom -->
+            <h2 class="pulm-bold image-title">
+                Diagnóstico diferencial entre EPOC y ASMA
+            </h2>
+            <div class="image-container">
+                <img src="/assets/img/pu_evalalg2.png" alt="Diagnóstico diferencial entre EPOC y ASMA" class="responsive-image">
+            </div>
+
+            <!-- Padding extra al final -->
+            <div style="height: 50px;"></div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

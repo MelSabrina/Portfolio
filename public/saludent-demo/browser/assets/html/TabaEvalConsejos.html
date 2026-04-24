@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Evaluación (Consejos)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            /* Se añade un margen inferior extra grande para el desplazamiento final, simulando el espacio del NavButton */
+            margin-bottom: 150px; 
+        }
+
+        /* Simulación de Style="{StaticResource TabaLabel}" */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 5px 10px;
+            padding: 0;
+        }
+        
+        /* Estilo específico para la etiqueta con margen inferior grande */
+        .taba-label-end {
+            margin: 10px 10px 100px 10px; /* Simula Margin="10,10,10,100" */
+        }
+
+        /* Estilo para subrayado dentro del texto */
+        .underline {
+            text-decoration: underline;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Evaluación (Consejos)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label">
+                Se recomienda evaluar el consumo de tabaco en cualquiera de sus formas: que incluye cigarrillo tradicional, para armar, uso de dispositivos electrónicos (cigarrillo electrónico - CE, productos de tabaco calentado - PTC), otros. Como asi también siempre preguntar por exposición pasiva al humo de tabaco o vapor/aerosol de cigarrillo electrónico.
+            </p>
+
+            <p class="taba-label">
+                Es sumamente importante que esa pregunta se realice de manera sistemática en cada consulta por todo el equipo de salud.
+            </p>
+
+            <p class="taba-label">
+                <span class="underline">Preguntar:</span>
+            </p>
+
+            <p class="taba-label">
+                - ¿Alguna vez fumó cigarrillos tradicionales, para armar, cigarros o pipa de agua?
+            </p>
+
+            <p class="taba-label">
+                - ¿Alguna vez uso cigarrillos electrónicos?
+            </p>
+
+            <p class="taba-label">
+                - ¿A qué edad comenzó a fumar?
+            </p>
+
+            <p class="taba-label">
+                - Actualmente ¿fuma usted cigarrillos (u otro tipo de tabaco) diariamente, algunos días o no fuma?
+            </p>
+
+            <p class="taba-label">
+                Más del 99% de los fumadores consumen cigarrillos manufacturados. Un pequeño porcentaje fuma pipa, cigarrillos para armar, cigarros, habanos o cigarrillo electrónico. Por otro lado, si bien mascar tabaco es muy infrecuente (0,2%) es necesario preguntar ya que su consumo estaría en crecimiento.
+            </p>
+
+            <p class="taba-label">
+                -En su entorno, ¿fuman cigarrillos/usan cigarrillo electrónico en presencia suya en lugares cerrados (trabajo, casa, auto, otros)? Registre la respuesta en la historia clínica.
+            </p>
+
+            <p class="taba-label taba-label-end">
+                Todavía una de cada cuatro personas refiere estar expuesto al humo ajeno. El 15% de las muertes de causas vinculadas al tabaco ocurren en fumadores pasivos.
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

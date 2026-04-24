@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Test de Findrisc</title>
+    <style>
+
+        :root {
+            --diab-primary-color: #75AADB;
+            --diab-button-text-color: #333333;
+            --diab-label-background-color: #f3f4f6;
+            --diab-backdrop-color: #d1d5db;
+            --diab-text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--diab-text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--diab-button-text-color);
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--diab-button-text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .info-label {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            padding: 10px;
+            background-color: var(--diab-label-background-color);
+            border-radius: 8px;
+        }
+
+        .question-group {
+            background-color: var(--diab-primary-color);
+            color: var(--diab-button-text-color);
+            padding: 1rem;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-left: 25px;
+            min-height: 20px;
+            color: var(--diab-button-text-color);
+            opacity: 0.7;
+        }
+        
+        .radio-option:hover,
+        .radio-option input:checked + .radio-checkmark + span {
+             opacity: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-checkmark {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: var(--diab-button-text-color);
+            border-radius: 50%;
+        }
+
+        .radio-option input:checked ~ .radio-checkmark {
+            background-color: var(--diab-button-text-color);
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--diab-primary-color);
+        }
+
+        .radio-option input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+
+        .button {
+            background-color: var(--diab-primary-color);
+            color: var(--diab-button-text-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .button:hover {
+            background-color: #08406b;
+            transform: translateY(-2px);
+        }
+
+        .result-frame {
+            background-color: var(--diab-label-background-color);
+            border: 1px solid var(--diab-backdrop-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--diab-error-color, #d9534f);
+            margin-bottom: 5px;
+        }
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Esta nueva regla asegura que la imagen se adapte al contenedor */
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Diabetes: Test de Findrisc</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="container">
+            <p class="info-label">
+                El FINDRISC es una herramienta útil para identificar personas con alto riesgo de desarrollar DM2. Puede ser realizado por el equipo de salud o autoadministrado. Consta de 6 variables (edad, índice de masa corporal -IMC-, circunferencia abdominal, actividad física, consumo de frutas y verduras, uso de antihipertensivos, historia de GAA, historia familiar de Diabetes) y su puntaje va de 0 a 26. 
+            </p>
+
+            <div class="question-group">
+                <label class="question-label">1. Edad</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Menos de 45 años</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="2">
+                    <span class="radio-checkmark"></span>
+                    <span>(2) 45-54 años</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="3">
+                    <span class="radio-checkmark"></span>
+                    <span>(3) 55-64 años</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="4">
+                    <span class="radio-checkmark"></span>
+                    <span>(4) Más de 64 años</span>
+                </label>
+            </div>
+
+
+            <div class="question-group">
+                <label class="question-label">2. Índice de masa corporal: Peso:....(kilos) / Talla2: .....(metros)2 </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta2" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Menor de 25 kg/m2</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta2" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) Entre 25-30 kg/m2</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta2" value="3">
+                    <span class="radio-checkmark"></span>
+                    <span>(3) Mayor de 30 kg/m2</span>
+                </label>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">3. Circunferencia de cintura</label>
+                <div style="margin-top: 10px;">
+                    <label class="question-label" style="font-size: 1rem; margin-bottom: 5px;">Hombres</label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_hombres" value="0" checked>
+                        <span class="radio-checkmark"></span>
+                        <span>(0) Menos de 94 cm</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_hombres" value="3">
+                        <span class="radio-checkmark"></span>
+                        <span>(3) Entre 94 y 102 cm</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_hombres" value="4">
+                        <span class="radio-checkmark"></span>
+                        <span>(4) Mas de 102 cm</span>
+                    </label>
+                </div>
+                <div style="margin-top: 20px;">
+                    <label class="question-label" style="font-size: 1rem; margin-bottom: 5px;">Mujeres</label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_mujeres" value="0" checked>
+                        <span class="radio-checkmark"></span>
+                        <span>(0) Menos de 80 cm</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_mujeres" value="3">
+                        <span class="radio-checkmark"></span>
+                        <span>(3) Entre 80 y 88 cm</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="pregunta3_mujeres" value="4">
+                        <span class="radio-checkmark"></span>
+                        <span>(4) Mas de 88 cm</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">4. ¿Realiza habitualmente al menos 30 minutos de actividad física, en el trabajo y/o en el tempo libre?:</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Sí</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="2">
+                    <span class="radio-checkmark"></span>
+                    <span>(2) No</span>
+                </label>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">5. ¿Con que frecuencia come verduras o frutas?:</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta5" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Todos los días</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta5" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) No todos los días</span>
+                </label>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">6. ¿Toma medicación para la hipertensión regularmente?:</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta6" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta6" value="2">
+                    <span class="radio-checkmark"></span>
+                    <span>(2) Sí</span>
+                </label>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">7. ¿Le han encontrado alguna vez valores de glucosa altos (Ej. en un control médico, durante una enfermedad, durante el embarazo)?:</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta7" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta7" value="5">
+                    <span class="radio-checkmark"></span>
+                    <span>(5) Sí</span>
+                </label>
+            </div>
+
+            <div class="question-group">
+                <label class="question-label">8. ¿Se le ha diagnosticado Diabetes (tipo 1 o tipo 2) a alguno de sus familiares allegados u otos parientes ?:</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta8" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta8" value="3">
+                    <span class="radio-checkmark"></span>
+                    <span>(3) Si abuelos, tia, tío, primo hermano</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta8" value="5">
+                    <span class="radio-checkmark"></span>
+                    <span>(5) Si: padres, hermanos o hijos</span>
+                </label>
+            </div>
+
+            <button id="btnSave" class="button">Calcular Resultado</button>
+
+            <div class="result-frame">
+                <p id="lblResult" class="result-label">Puntaje: 0</p>
+                <p id="lblDependencia" class="result-label">Riesgo: Muy bajo riesgo (1%)</p>
+            </div>
+            <div class="image-container">
+                    <img src="/assets/img/db_frisk.png" alt="Tabla de resultados del test">
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnSave = document.getElementById('btnSave');
+            const lblResult = document.getElementById('lblResult');
+            const lblDependencia = document.getElementById('lblDependencia');
+            
+            const scores = {
+                pregunta1: 0,
+                pregunta2: 0,
+                pregunta3: 0, 
+                pregunta4: 0,
+                pregunta5: 0,
+                pregunta6: 0,
+                pregunta7: 0,
+                pregunta8: 0
+            };
+
+            const questions = [
+                'pregunta1', 'pregunta2', 'pregunta4', 'pregunta5', 'pregunta6', 'pregunta7', 'pregunta8'
+            ];
+            
+            questions.forEach(name => {
+                document.querySelectorAll(`input[name="${name}"]`).forEach(radio => {
+                    radio.addEventListener('change', (event) => {
+                        scores[name] = parseInt(event.target.value, 10);
+                    });
+                });
+            });
+
+            // Handle question 3 separately due to two radio button groups
+            document.querySelectorAll(`input[name="pregunta3_hombres"]`).forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    scores.pregunta3 = parseInt(event.target.value, 10);
+                });
+            });
+
+            document.querySelectorAll(`input[name="pregunta3_mujeres"]`).forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    scores.pregunta3 = parseInt(event.target.value, 10);
+                });
+            });
+
+            btnSave.addEventListener('click', () => {
+                let total = Object.values(scores).reduce((sum, current) => sum + current, 0);
+                
+                let riesgo = "Muy bajo riesgo (1%)";
+                if (total >= 7 && total <= 11) {
+                    riesgo = "Bajo riesgo (4%)";
+                } else if (total >= 12 && total <= 14) {
+                    riesgo = "Riesgo moderado (17%)";
+                } else if (total >= 15 && total <= 20) {
+                    riesgo = "Alto riesgo (33%)";
+                } else if (total >= 21) {
+                    riesgo = "Muy alto riesgo (50%)";
+                }
+
+                lblResult.textContent = `Puntaje: ${total}`;
+                lblDependencia.textContent = `Riesgo: ${riesgo}`;
+            });
+
+            // Set initial state based on default checked radios
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                const name = radio.name;
+                // For question 3, handle the score based on the group name
+                if (name.includes('pregunta3')) {
+                     scores.pregunta3 = parseInt(radio.value, 10);
+                } else {
+                     scores[name] = parseInt(radio.value, 10);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

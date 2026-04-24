@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Manejo (Consejos)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Colores de referencia */
+            --obesi-label-bg-color: #F8F9FA;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* --- 3. Contenido Principal --- */
+        .content-container {
+            /* Padding general para el Grid Padding="10" */
+            padding: 10px;
+        }
+
+        .stack-layout {
+            /* Simula el StackLayout con el BackgroundColor del XAML */
+            background-color: var(--obesi-label-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos de Texto */
+        .obesi-label, .obesi-label-bold {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        .obesi-label-bold {
+            font-weight: bold; /* Simula StaticResource ObesiLabelBold */
+        }
+
+        /* Estilos para la lista de bullets (BulletLabel) */
+        .bullet-list {
+            list-style: none; /* Elimina la viñeta por defecto */
+            padding: 0;
+            margin: 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px; /* Espacio para la viñeta */
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .bullet-list li:before {
+            content: "\2022"; /* Carácter de viñeta (dot) */
+            color: var(--text-color); /* Color de la viñeta */
+            font-weight: bold; 
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .final-paragraph {
+            /* Para simular Margin="10,10,10,100" */
+            margin-bottom: 100px; 
+            margin-top: 10px;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Manejo (Consejos) <!-- Título de la página -->
+        </div> 
+        <div class="toolbar-placeholder"></div> <!-- Placeholder para balancear el back button -->
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content -->
+            <p class="obesi-label">
+                Proporcionar un espacio cuidado, con elementos e <b>instalaciones no estigmatizantes, como sillas de tamaño adecuado</b>, respetando la privacidad y las decisiones de las personas, es de suma importancia para <b>reducir el estigma</b> y mejorar el acceso a la salud.
+            </p>
+
+            <p class="obesi-label">
+                Trabajar en un equipo interdisciplinario con profesionales formados en el abordaje de sobrepeso y obesidad: enfermeros/as, médicos/as generales y/o especialistas, nutricionistas, psicólogos/as, profesionales del ejercicio (kinesiólogo, profesor de educación física), promotores/as de salud y todos aquellos que de algún modo puedan facilitar el abordaje de la obesidad. Incluir a la familia y las redes vinculares de la persona como parte del equipo.
+            </p>
+
+            <p class="obesi-label">
+                Es necesario:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Consensuar una meta de peso y estrategias para lograrlo, evaluar expectativas reales (muchas personas con obesidad o sobrepeso piensan que tienen que bajar más kilos de lo que realmente es posible sostener en el tiempo) 
+                </li>
+                <li>
+                    Valorar el peso ideal versus el peso posible de sostener y trabajar la idea de cronicidad en el proceso de atención y la posibilidad de incorporar herramientas para el automanejo de la enfermedad. Reducir del 5 al 10% es una meta posible y beneficiosa.
+                </li>
+            </ul>
+
+            <p class="obesi-label-bold">
+                Acordar plan alimentario:
+            </p>
+
+            <p class="obesi-label">
+                1) Lograr una disminución de energía ingerida de comidas y bebidas. 2) Lograr conciencia en el acto alimentario 3) Mejorar la calidad y frecuencia de la alimentación.
+            </p>
+
+            <p class="obesi-label">
+                Promover la educación alimentaria nutricional (tomar como herramienta base las Guías Alimentarias para la población argentina (GAPA). Observar proporción de alimentos diarios en la gráfica de la alimentación diaria y propuesta de plato saludable. Ampliar pág. 118 GPC Obesidad.
+            </p>
+
+            <p class="obesi-label">
+                Registros alimentarios (ampliar pág. 116 GPC Obesidad. Técnica alimentaria (velocidad, volumen, utensilios utilizados (capacidad), etc). Estrategias culinarias (planificación de compras, comidas en el hogar, en el trabajo, ambiente laboral, etc.)
+            </p>
+
+            <p class="obesi-label">
+                <b>Promover la adopción de un estilo de vida más activo:</b> Conocer datos de la historia clínica sobre actividades de la vida diaria, experiencias previas con el movimiento, ejercicio y/o deporte y comorbilidades que puedan limitar el movimiento habitual para lo cual haya que pensar estrategias particulares. Indagar el medio de movilidad diario y las características del ambiente laboral. Acompañar a planificar ejercicio físico semanal según sus posibilidades.
+            </p>
+
+            <p class="obesi-label">
+                <b>Ofrecer participación en actividades individuales y/o grupales de soporte conductual.</b> Estrategias de taller, tele consulta, sala de espera activa, etc. que ayuden al aprendizaje, la visibilización y la elección y adopción de un estilo de vida más saludable. Planificar la identificación de barreras y facilitadores para el cambio y sostén de las elecciones. Evaluación terapia psicológica individual o grupal según pertinencia.
+            </p>
+
+            <p class="obesi-label">
+                <b>Evaluar riesgo y adherencia para incluir otro escalón en el esquema de tratamiento:</b> IMC >=30 (o sobrepeso con cc aumentada y/o factores de riesgo), que presente meseta en la pérdida de peso habiendo adherido a cambios en el estilo de vida, <b>proponer incluir fármaco (nota 1)</b> IMC >= 35 con comorbilidades mayores (diabetes mellitus 2, SAOS, artrosis con gran limitación funcional etc.) o IMC> 40 con o sin ellas; con adherencia a cambios en el estilo de vida, <b>proponer incluir en evaluación de aptitud para cirugía bariátrica.</b>
+            </p>
+
+            <p class="obesi-label">
+                La cirugía de la obesidad o cirugía bariátrica, altera la fisiología del aparato digestivo lo que implica, trabajar en la necesidad de generar un cambio de hábitos alimentarios y comportamientos, posibles de sostener en el tiempo. Es segura y efectiva para la pérdida de peso y mejoría de comorbilidades. No es curativa, no es “la solución”, ni es para todos y todas. Es una herramienta terapéutica eficaz en personas con obesidad mórbida que puedan apropiarse de los cambios necesarios a sostener en el largo plazo.
+            </p>
+
+            <p class="obesi-label final-paragraph">
+                En la evaluación inicial trabajar: a) La indicación quirúrgica, características del tratamiento, pensamientos mágicos, compromiso para el seguimiento multidisciplinario anterior y posterior a ella. b) Estadio motivacional y registro de enfermedad. Posibilidad de afrontar el cambio que implica la cirugía en el antes y en el después. c) Arribar en las mejores condiciones clínicas, nutricionales, de actividad física y salud mental. d) Trabajar elecciones saludables y nuevos patrones de normalidad con la persona y con su entorno. e) Favorecer el descenso del 10% Peso Previo antes de la cirugía de la mano de la construcción de hábitos saludables. f) Elegir el mejor procedimiento para el paciente seleccionado.
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

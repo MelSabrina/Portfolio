@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Seguimiento - Cuadros y algoritmos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --cream-dark: #DDD9D2;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            padding-top: 16px;
+            margin-bottom: 24px;
+        }
+
+        .main-title {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.3;
+            margin: 0 0 16px 0;
+        }
+
+        .title-divider {
+            position: relative;
+            width: 50%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 0 auto;
+        }
+
+        .title-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        /* Table wrapper */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--program-color);
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--program-dark);
+        }
+
+        /* Table */
+        .follow-table {
+            width: 100%;
+            min-width: 800px;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .follow-table thead tr:first-child th {
+            background: var(--program-color);
+            color: white;
+            font-weight: 600;
+            padding: 12px 8px;
+            text-align: center;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .follow-table thead tr:first-child th:last-child {
+            border-right: none;
+        }
+
+        .follow-table thead tr:nth-child(2) th {
+            background: var(--program-color);
+            color: white;
+            font-weight: 600;
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.3;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .follow-table thead tr:nth-child(2) th:last-child {
+            border-right: none;
+        }
+
+        .follow-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e5e5;
+            border-right: 1px solid #e5e5e5;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .follow-table td:last-child {
+            border-right: none;
+        }
+
+        .follow-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .follow-table .practice-name {
+            text-align: left;
+            font-weight: 500;
+            color: var(--navy);
+            padding-left: 12px;
+        }
+
+        .follow-table .practice-name.indent {
+            padding-left: 24px;
+            font-size: 12px;
+        }
+
+        .follow-table .check-mark {
+            color: var(--program-color);
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .follow-table .special-note {
+            font-size: 11px;
+            line-height: 1.4;
+            padding: 8px;
+        }
+
+        .asterisk {
+            color: var(--program-color);
+            font-weight: 700;
+        }
+
+        /* Footnotes */
+        .footnotes {
+            background: white;
+            padding: 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            font-size: 12px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        .footnotes p {
+            margin-bottom: 8px;
+        }
+
+        .footnotes p:last-child {
+            margin-bottom: 0;
+        }
+
+        .footnotes .asterisk-note {
+            color: var(--program-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="title-section">
+            <h1 class="main-title">Frecuencia recomendada de seguimiento</h1>
+            <div class="title-divider"></div>
+        </div>
+
+        <h2 class="subtitle">Orientación a solicitud de estudios complementarios</h2>
+
+        <div class="table-wrapper">
+            <table class="follow-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">Prácticas</th>
+                        <th rowspan="2">Dentro del año de diagnóstico</th>
+                        <th colspan="2">Seguimiento</th>
+                    </tr>
+                    <tr>
+                        <th>Sin daño de órgano blanco (sin DOB)</th>
+                        <th>Con daño de órgano blanco (con DOB)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="practice-name">Electrocardiograma</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td>1 a 3 años</td>
+                        <td>Anual</td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Orina: índice albúmina/creatinina</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td>1 a 3 años</td>
+                        <td>Anual<span class="asterisk">*</span></td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Creatininemia e IFGe</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td>1 a 3 años</td>
+                        <td>Anual<span class="asterisk">*</span></td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Ecocardiograma</td>
+                        <td class="special-note">Ante signos de DOB en ECG y/o estudios de función renal</td>
+                        <td>--------</td>
+                        <td>2 a 3 años</td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Ionograma plasmático ante uso de AC-D o BB</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td colspan="2">1 a 3 años</td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Ionograma plasmático ante uso de diuréticos TZ-STZ, IECA o ARAII</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td colspan="2">Anual</td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Glucemia plasmática en ayunas<span class="asterisk">**</span></td>
+                        <td><span class="check-mark">X</span></td>
+                        <td colspan="2">ante glucemia normal: 3 a 5 años o más frecuente según criterio médico</td>
+                    </tr>
+                    <tr>
+                        <td class="practice-name">Colesterol total, HDL y TG</td>
+                        <td><span class="check-mark">X</span></td>
+                        <td colspan="2">1 a 3 años</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footnotes">
+            <p><span class="asterisk-note">*</span> Las personas en estadios G4 y G5 pueden requerir determinaciones más frecuentes, el seguimiento se realiza en forma conjunta con nefrología y están fuera de los alcances de esta guía.</p>
+            <p><span class="asterisk-note">**</span> REC procedente de la Guía de Práctica Clínica Nacional sobre Prevención, Diagnóstico y Tratamiento de la Diabetes Mellitus tipo 2.</p>
+        </div>
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Evaluación (Cuadros)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #b8b4b4; /* Color representativo para tabaco (rojo fuerte) */
+            --taba-background-color: white;
+            --taba-highlight-bg: #ffe0e0; /* Color de fondo para simular TabaLabelBackgroundColor */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            margin-bottom: 100px; /* Espacio para el final de la página */
+        }
+        
+        /* Simulación de TabaLabelBold */
+        .taba-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 15px 10px 5px 10px;
+        }
+
+        /* Simulación de TabaLabel */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 5px 10px;
+        }
+
+        /* Simulación de TabaLabelTitle */
+        .taba-label-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--taba-primary-color);
+            margin: 25px 10px 10px 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        /* Simulación de TabaBullet */
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        /* Crear el punto (bullet) */
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* Estilo para el Frame de Alta Dependencia (resaltado) */
+        .highlight-frame {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid var(--taba-primary-color);
+            background-color: var(--taba-highlight-bg);
+            border-radius: 5px;
+        }
+        
+        /* Estilo para los elementos subrayados (<u>) */
+        .underlined {
+            text-decoration: underline;
+        }
+
+        /* Estilo para enlaces dentro de bullets (color azul, subrayado, negrita) */
+        .bullet-link {
+            color: blue;
+            font-weight: bold;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        /* Estilo para la imagen (simula ZoomImage sin funcionalidad de zoom) */
+        .zoom-image-container {
+            margin: 10px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .zoom-image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 3px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Evaluación (Cuadros y Algoritmos)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label-bold">
+                ¿Cómo evaluar a la persona que fuma?
+            </p>
+
+            <p class="taba-label-bold">
+                1) Evalúe el deseo de dejar de fumar/consumir tabaco/usar CE:
+            </p>
+
+            <p class="taba-label underlined">
+                No preparados:
+            </p>
+
+            <p class="taba-label" style="margin-left: 15px;">
+                · No piensa dejar (precontemplación)
+            </p>
+
+            <p class="taba-label" style="margin-left: 15px;">
+                · Piensa dejar, pero no en el próximo mes (quizá en los próximos 6 a 12 meses) (contemplación)
+            </p>
+
+            <p class="taba-label underlined">
+                Preparados:
+            </p>
+
+            <p class="taba-label" style="margin-left: 15px;">
+                · Piensa dejar en el próximo mes (preparación)
+            </p>
+
+            <p class="taba-label-bold">
+                Es importante:
+            </p>
+
+            <p class="taba-label">
+                <span class="underlined">a-Calcular carga tabáquica:</span>
+            </p>
+
+            <p class="taba-label">
+                Paquetes/año: paquetes de 20 cigarrillos fumados por día multiplicado por los años de fumador.
+            </p>
+
+            <p class="taba-label">
+                Si presenta más de 40 paquetes/año solicitar espirometría para evaluar obstrucción al flujo aéreo.
+            </p>
+
+            <p class="taba-label">
+                Interrogar por el consumo de tabaco en otras formas (masticado, pipa, narguile o pipa de agua) y cigarrillo electrónico.
+            </p>
+
+            <!-- Frame 1 -->
+            <div class="highlight-frame">
+                <p class="taba-label" style="margin: 0;">
+                    Si fuma más de 20 cig/día o fuma dentro de los primeros 30 minutos de levantarse, presenta ALTA DEPENDENCIA
+                </p>
+            </div>
+
+            <p class="taba-label">
+                <span class="underlined">b- Evaluar la dependencia física a la nicotina</span>
+            </p>
+
+            <!-- Bullet 1 -->
+            <p class="taba-bullet">
+                cantidad de cigarrillos/día,
+            </p>
+
+            <!-- Bullet 2 -->
+            <p class="taba-bullet">
+                tiempo desde que se levanta hasta que prende su primer cigarrillo,
+            </p>
+
+            <!-- Bullet 3 (Con enlace TabaRecuTest.html) -->
+            <p class="taba-bullet">
+                <a href="/assets/html/TabaRecuTest.html" class="bullet-link">
+                    O bien test de dependencia a la nicotina (Fagerström)
+                </a>
+            </p>
+
+            <!-- Frame 2 -->
+            <div class="highlight-frame">
+                <p class="taba-label" style="margin: 5px 0;">
+                    Algunas personas usan al cigarrillo electrónico para dejar de fumar.
+                </p>
+
+                <p class="taba-label-bold" style="margin: 5px 0; font-size: 1rem;">
+                    Se recomienda no usar cigarrillo electrónico, por riesgo de enfermedad pulmonar grave y por no ser efectivo para cesación total.
+                </p>
+            </div>
+
+            <p class="taba-label">
+                c- Valorar la presencia de otros factores de riesgo cardiovascular:
+            </p>
+
+            <!-- Factores de Riesgo (Bullets con enlaces simulados, ya que TapRoute no es un href real) -->
+            <p class="taba-bullet">
+                Obesidad o sobrepeso (<a href="/assets/html/ObesiRecuCalc.html" class="bullet-link">IMC</a> ≥ 25 kg/m2).
+            </p>
+
+            <p class="taba-bullet">
+                Inactividad física.
+            </p>
+
+            <p class="taba-bullet">
+                Dislipemia.
+            </p>
+
+            <p class="taba-bullet">
+                Diabetes Mellitus.
+            </p>
+
+            <p class="taba-bullet">
+                Enfermedad Renal Crónica <a href="/assets/html/RenaRecuCalc1.html" class="bullet-link">(ERC):</a>.
+            </p>
+
+            <p class="taba-bullet">
+                Edad
+            </p>
+
+            <p class="taba-bullet">
+                Historia familiar de enfermedad cardiovascular prematura (menores de 55 años en los hombres y 65 en las mujeres).
+            </p>
+
+            <p class="taba-label">
+                d-Evaluar intentos previos para dejar de fumar
+            </p>
+
+            <h2 class="taba-label-title">
+                Algoritmo para la Cesación Tabáquica
+            </h2>
+
+            <!-- Simulación de ZoomImage -->
+            <div class="zoom-image-container" style="margin-bottom: 100px;">
+                <!-- Se usa el nombre de archivo exacto solicitado: ta_evalalgo.png -->
+                <img src="/assets/img/ta_evalalgo.png" alt="Algoritmo para la Cesación Tabáquica">
+            </div>
+
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elaboración de contenidos</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+        /* Contenedor principal del contenido */
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        /* Estilos del cuadro de contenido */
+        .content-box {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .content-box h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        /* Estilos para la lista de colaboradores */
+        .collaborators-list {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 1.5rem;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Elaboración de contenidos</span>
+        </div>
+    </div>
+    
+    <div class="main-container scrollable-content">
+        <div class="content-box">
+            <h1>Desarrollo de contenidos</h1>
+            <div class="collaborators-list">
+                <b>Dirección Nacional de Abordaje de Enfermedades No Transmisibles – DNAIENT</b>
+                (Nicolás Haeberer, 2021)<br><br>
+                <b>Programa Nacional de Prevención de las Enfermedades Cardiovasculares</b>
+                (A. Rosende, 2020; Natalia Vensentini, 2021)<br><br>
+                <b>Programa Nacional de Prevención y Control de Personas con Diabetes Mellitus</b>
+                (Julieta Méndez, 2021)<br><br>
+                <b>Programa Nacional de Abordaje Integral de Enfermedades Renales</b>
+                (Augusto Vallejos, 2021)<br><br>
+                <b>Programa Nacional de Prevención y Control de Enfermedades Respiratorias Crónicas</b>
+                (Carina Calabrese, 2021)<br><br>
+                <b>Programa Nacional de Control del Tabaco</b>
+                (Mario Virgolini, 2021)<br><br>
+                <b>Programa Nacional de Alimentación Saludable y Prevención de la Obesidad</b>
+                (Verónica Risso Patrón, 2021)<br><br>
+                <b>Programa Nacional de Lucha contra el Sedentarismo</b>
+                (G. De Roia, 2020; Matías Abal, 2021)<br><br>
+                <b>Programa Nacional de Prevención y Lucha contra el Consumo Excesivo de Alcohol</b>
+                (Débora Duffy, 2021)<br><br>
+                <b>Desarrollo de GPC</b>
+                (Alejandra Alcuaz, 2021)<br><br>
+                <b>Mapas</b>
+                (José López, 2021)<br><br>
+                <b>Edición y diseño</b>
+                (Leticia Rivas, 2021)
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

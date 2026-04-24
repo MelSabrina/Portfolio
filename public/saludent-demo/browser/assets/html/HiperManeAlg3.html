@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vía Clínica HEARTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            padding-top: 16px;
+            margin-bottom: 32px;
+        }
+
+        .main-title {
+            font-family: 'Lora', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin: 0 0 8px 0;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--program-color);
+            margin-bottom: 16px;
+        }
+
+        .title-divider {
+            position: relative;
+            width: 50%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 0 auto;
+        }
+
+        .title-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* Section headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 32px 0 20px 0;
+        }
+
+        .section-letter {
+            width: 50px;
+            height: 50px;
+            background: var(--program-color);
+            color: white;
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.3;
+        }
+
+        /* Illustration section A */
+        .illustration-container {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            padding: 32px 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .illustration-wrapper {
+            position: relative;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .illustration-svg {
+            width: 60%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .callout {
+            background: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(239, 83, 80, 0.15);
+            border-left: 3px solid var(--program-color);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+
+        .footnote {
+            margin-top: 16px;
+            font-size: 11px;
+            font-style: italic;
+            color: var(--navy);
+            text-align: center;
+        }
+
+        /* Content cards */
+        .content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 16px 0;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.08);
+        }
+
+        .risk-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .risk-label {
+            background: var(--program-color);
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .risk-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--program-color);
+            margin-bottom: 12px;
+        }
+
+        .card-text {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .card-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Protocol steps */
+        .protocol-step {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--program-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Lifestyle icons section */
+        .lifestyle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .lifestyle-item {
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            font-size: 13px;
+            line-height: 1.4;
+            color: white;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 60px;
+        }
+
+        .lifestyle-item.af {
+            background: #F2A900;
+        }
+
+        .lifestyle-item.obesidad {
+            background: #75c181;
+        }
+
+        .lifestyle-item.alim {
+            background: #E87722;
+        }
+
+        .lifestyle-item.tabaco {
+            background: #9B8BBA;
+        }
+
+        .lifestyle-item.alcohol {
+            background: #00857C;
+        }
+
+        /* Bullet list */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Follow-up cards */
+        .follow-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-left: 4px solid var(--program-color);
+        }
+
+        .follow-card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 12px;
+        }
+
+        .follow-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .follow-item:last-child {
+            border-bottom: none;
+        }
+
+        .follow-label {
+            flex: 1;
+        }
+
+        .checkmark {
+            font-size: 20px;
+            color: var(--program-color);
+            font-weight: 700;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Title -->
+        <div class="title-section">
+            <h1 class="main-title">Vía Clínica HEARTS</h1>
+            <p class="subtitle">Protocolo de atención de hipertensión arterial</p>
+            <div class="title-divider"></div>
+        </div>
+
+        <!-- Section A: Lectura precisa -->
+        <div class="section-header">
+            <div class="section-letter">A</div>
+            <h2 class="section-title">Lectura precisa de la presión arterial</h2>
+        </div>
+
+        <div class="illustration-container">
+            <img src="../img/presion_ilustracion.svg" alt="Posición correcta para tomar la presión" class="illustration-svg" style="margin-bottom: 20px;">
+
+            <div class="callout">La persona debe permanecer quieta y no hablar durante la medición</div>
+            <div class="callout">Posición cómoda y con la espalda apoyada en el respaldo</div>
+            <div class="callout">Brazo descubierto sin que la ropa lo presione</div>
+            <div class="callout">Brazo inmóvil apoyado sobre la mesa</div>
+            <div class="callout">Coloque el brazalete a la altura del corazón y 2cm por encima del pliegue del codo</div>
+            <div class="callout">Ambos pies apoyados en el suelo</div>
+            <div class="callout">La persona no debe cruzar las piernas</div>
+
+            <p class="footnote">*Si disponibles, utilizar dispositivos automáticos validados para el brazo</p>
+        </div>
+
+        <!-- Section B: Riesgo cardiovascular -->
+        <div class="section-header">
+            <div class="section-letter">B</div>
+            <h2 class="section-title">Riesgo cardiovascular (RCV)</h2>
+        </div>
+
+        <div class="content-card">
+            <p class="card-title">Estimar a partir de los 40 años</p>
+
+            <div class="risk-section">
+                <div class="risk-label">ALTO RIESGO CARDIOVASCULAR (Diabetes, ERC ó Riesgo &gt; 10%)</div>
+                <div class="risk-content">
+                    <p class="card-text"><strong>Con Enfermedad CV establecida:</strong> Aspirina + Rosuvastatina 20 mg por día</p>
+                    <p class="card-text"><strong>Sin Enfermedad CV establecida:</strong> Rosuvastatina 10 mg por día (independiente del valor de colesterol)</p>
+                </div>
+            </div>
+
+            <p class="card-text" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #eee;"><strong>Diagnóstico de HTA:</strong> Mayor o igual a 140/90 mmHg confirmada en 2 visitas</p>
+
+            <p class="card-text" style="margin-top: 16px; padding: 12px; background: var(--program-light); border-radius: 8px; text-align: center;">
+                <strong>Metas de presión arterial:</strong><br>
+                &lt; 140/90 mmHg<br>
+                <span style="font-size: 13px;">En pacientes de alto riesgo CV: Presión arterial Sistólica ≤ 130</span>
+            </p>
+        </div>
+
+        <!-- Section C: Protocolo de tratamiento -->
+        <div class="section-header">
+            <div class="section-letter">C</div>
+            <h2 class="section-title">Protocolo de tratamiento</h2>
+        </div>
+
+        <div class="content-card">
+            <p class="card-title">Iniciar tratamiento farmacológico inmediatamente si el/la paciente sigue fuera de meta luego de 4 semanas, proceder al paso siguiente</p>
+
+            <div class="protocol-step">
+                <div class="step-number">1</div>
+                <div class="step-content">Losartán 25 mg + Amlodipina 2.5 mg en una toma diaria</div>
+            </div>
+
+            <div class="protocol-step">
+                <div class="step-number">2</div>
+                <div class="step-content">Losartán 50 mg + Amlodipina 5 mg en una toma diaria</div>
+            </div>
+
+            <div class="protocol-step">
+                <div class="step-number">3</div>
+                <div class="step-content">Losartán 100 mg + Amlodipina 10 mg en una toma diaria</div>
+            </div>
+
+            <div class="protocol-step">
+                <div class="step-number">4</div>
+                <div class="step-content">Losartán 100 mg + Amlodipina 10 mg + Hidroclorotiazida 25 mg en una toma diaria</div>
+            </div>
+
+            <p class="card-title" style="margin-top: 24px;">Información Adicional</p>
+            <ul class="bullet-list">
+                <li>Valorar adherencia previo a intensificar el tratamiento</li>
+                <li>Evaluar indicación de beta-bloqueantes en personas con enfermedad coronaria establecida, o combinar IECA y ARA II</li>
+                <li>Valorar indicación de IFGe, albuminuria, ECG</li>
+                <li>No aplicar este algoritmo en embarazadas ni mujeres en edad fértil</li>
+            </ul>
+
+            <p class="card-title" style="margin-top: 24px;">Modificaciones del estilo de vida</p>
+            <div class="lifestyle-grid">
+                <div class="lifestyle-item af">Fomentar actividad física adecuada</div>
+                <div class="lifestyle-item obesidad">Mantener un peso adecuado</div>
+                <div class="lifestyle-item alim">Alimentación saludable</div>
+                <div class="lifestyle-item tabaco">No fumar</div>
+                <div class="lifestyle-item alcohol">Evitar el consumo de alcohol</div>
+            </div>
+        </div>
+
+        <!-- Section D: Derivación oportuna -->
+        <div class="section-header">
+            <div class="section-letter">D</div>
+            <h2 class="section-title">Derivación oportuna</h2>
+        </div>
+
+        <div class="content-card">
+            <ul class="bullet-list">
+                <li>HTA refractaria: Refractariedad al tratamiento con 3 o más drogas</li>
+                <li>Desarrollo enfermedad vascular (coronaria, cerebral o periférica)</li>
+                <li>Sospecha de HTA secundaria</li>
+            </ul>
+        </div>
+
+        <!-- Section E: Seguimiento -->
+        <div class="section-header">
+            <div class="section-letter">E</div>
+            <h2 class="section-title">Seguimiento</h2>
+        </div>
+
+        <div class="follow-card">
+            <div class="follow-card-title">Todos los hipertensos</div>
+            <div class="follow-item">
+                <span class="follow-label">Cada 6 meses</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Suministro de medicación para 3 meses</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Vacunación: COVID-19</span>
+                <span class="checkmark">✓</span>
+            </div>
+        </div>
+
+        <div class="follow-card">
+            <div class="follow-card-title">Solo alto riesgo</div>
+            <div class="follow-item">
+                <span class="follow-label">Cada 3 meses</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Suministro de medicación para 3 meses</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Vacunación: Influenza</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Vacunación: Neumococo</span>
+                <span class="checkmark">✓</span>
+            </div>
+            <div class="follow-item">
+                <span class="follow-label">Vacunación: COVID-19</span>
+                <span class="checkmark">✓</span>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

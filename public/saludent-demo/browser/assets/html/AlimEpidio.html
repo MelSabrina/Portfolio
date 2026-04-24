@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación (Epidemiología)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #4CAF50; /* Simulación de AlimPrimaryColor (Verde para Nutrición) */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; 
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Asumiendo que HiperButtonTextColor es blanco o neutro para el fondo */
+            background-color: white; 
+            padding-bottom: 120px; 
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabel}" */
+        .alim-label {
+            font-size: 1rem;
+            margin: 10px;
+            text-align: justify;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelTitle}" */
+        .alim-label-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--alim-primary-color);
+            margin: 25px 10px 15px 10px;
+            line-height: 1.4;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelBold}" - No se usa directamente pero se define la negrita */
+        b {
+            font-weight: bold;
+        }
+        
+        /* Simulación de Style="{StaticResource AlimLabelNote}" */
+        .alim-label-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 10px 10px 20px 10px;
+            font-style: italic;
+        }
+
+        /* Estilos de las imágenes de epidemiología */
+        .resource-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto 10px auto; /* Margin="0,0,10,100" para la última imagen, aquí un margen normal */
+            border-radius: 6px;
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        
+        .last-image {
+            margin-bottom: 100px; /* Simulación del margen inferior para la última imagen */
+        }
+
+        /* Estilo para los títulos de datos específicos al final */
+        .data-title {
+            margin: 10px 10px 0 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .data-list {
+            font-size: 1rem;
+            margin: 5px 10px 20px 10px;
+            line-height: 1.5;
+        }
+
+
+        /* --- 4. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #388E3C; /* Tono más oscuro de verde */
+            transform: scale(1.05);
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Párrafos de texto (Simulación de AlimLabel) -->
+            <p class="alim-label">
+                Una <b>alimentación saludable:</b> es aquella que aporta todos los nutrientes esenciales y la energía necesaria para que cada persona pueda llevar adelante las actividades diarias, crecer bien y mantenerse sana. Esta alimentación debe respetar los gustos, hábitos y cultura de cada persona, familia y/o comunidad.
+            </p>
+
+            <p class="alim-label">
+                La evidencia muestra que la <b>alimentación inadecuada genera riesgos para la salud</b>, que en la actualidad son la causa de una importante carga de morbilidad relacionada con la aparición de enfermedades transmisibles y no transmisibles (ENT). En particular, ciertas prácticas alimentarias influyen directamente en la aparición de sobrepeso, obesidad, aumento de la presión arterial (entre otros factores de riesgo), y esto aumenta la incidencia de ENT como diabetes, enfermedades cardiovasculares y algunos tipos de cáncer.
+            </p>
+
+            <p class="alim-label">
+                Siguiendo la tendencia mundial, en Argentina se vienen dando cambios en el consumo de alimentos, tendencia que empeoró en las últimas décadas; con el aumento del consumo de productos ultraprocesados, el exceso de sal/sodio, azúcares y grasas en detrimento del consumo de alimentos frescos con bajo grado de procesamiento, de comidas de elaboración casera y de agua segura. Además, en nuestro país el consumo de sal/sodio y el de azúcar duplica el consumo máximo recomendado; el consumo de frutas y verduras es muy bajo y el de bebidas azucaradas es de los más altos del mundo.
+            </p>
+
+            <p class="alim-label">
+                Estos cambios en los patrones de consumo alimentario, atraviesan a toda la población pero afectan en mayor medida a sectores de mayor vulnerabilidad económica y social, en donde se evidencia mayor consumo de alimentos ultraprocesados, bebidas azucaradas, golosinas, snacks, alimentos listos para consumir, galletitas, entre otros.
+            </p>
+
+            <!-- Bloque de Imagen 1 -->
+            <h2 class="alim-label-title">
+                 Prevalencia de exceso de peso en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </h2> 
+            <img class="resource-image" src="/assets/img/al_excpeso.png" alt="Gráfico de Prevalencia de exceso de peso">
+            <p class="alim-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018.
+            </p>
+
+            <!-- Bloque de Imagen 2 -->
+            <h2 class="alim-label-title">
+                 Promedio de consumo diario de porciones de frutas o verduras en personas de 18 años y más según jurisdicciones. Argentina, 2018
+            </h2>
+            <img class="resource-image" src="/assets/img/al_prporcion.png" alt="Gráfico de Promedio de consumo diario de porciones">
+            <p class="alim-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </p>
+            
+            <!-- Bloque de Imagen 3 -->
+            <h2 class="alim-label-title">
+                  Prevalencia de obesidad en población de 18 años y más según jurisdicciones. Argentina, 2018
+            </h2>
+            <img class="resource-image" src="/assets/img/al_preobes.png" alt="Gráfico de Prevalencia de obesidad">
+            <p class="alim-label-note">
+                Fuente: Encuesta Nacional de Factores de Riesgo 2018
+            </p>
+
+            <!-- Bloque de Datos y Última Imagen -->
+            <h2 class="alim-label-title data-title" style="margin-top: 15px;">
+                  Promedio de consumo diario de porciones de frutas o verduras en población de 18 años y más. Argentina, 2018
+            </h2>
+
+            <!-- Simulación de la estructura de Label con saltos de línea -->
+            <p class="alim-label data-list">
+                <b>Fuente:</b> 4° ENFR
+                <br><b>Total:</b> 2,0%
+                <br><b>Varones:</b> 1,9%
+                <br><b>Mujeres:</b> 2,1%
+            </p>
+
+            <img class="resource-image last-image" src="/assets/img/al_epi1.png" alt="Gráfico de datos de consumo">
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

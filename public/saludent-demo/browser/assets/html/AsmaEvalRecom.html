@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asma: Evaluación (Recomendaciones)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --asma-primary-color: #414b4b; /* Teal/Cian, para resaltar Asma */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 120px; /* Espacio extra al final */
+        }
+
+        .asma-label {
+            font-size: 1rem;
+            margin: 10px 0;
+            text-align: justify;
+            padding-left: 5px;
+        }
+
+        /* Estilo para los elementos de lista (BulletLabel) */
+        .asma-bullet-container {
+            display: flex;
+            margin: 5px 0 10px 0;
+            padding-left: 20px;
+            text-align: justify;
+        }
+
+        .asma-bullet-point {
+            font-size: 1.2em;
+            color: var(--asma-primary-color);
+            margin-right: 8px;
+            line-height: 1;
+        }
+
+        .asma-bullet-text {
+            flex-grow: 1;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Estilos específicos para texto dentro de los bullets */
+        .asma-bullet-text b {
+            font-weight: 700;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Asma: Evaluación (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="asma-label">
+                Para confirmar la presencia de asma es necesario documentar la limitación al flujo aéreo y la variabilidad de la función pulmonar.
+            </p>
+
+            <p class="asma-label">
+                La espirometría permite valorar ambas, según se describe a continuación:
+            </p>
+
+            <!-- Bullet 1 -->
+            <div class="asma-bullet-container">
+                <span class="asma-bullet-point">•</span>
+                <p class="asma-bullet-text">
+                    La limitación al flujo aéreo se evidencia por un patrón obstructivo con una relación VEF1/CVF (Volumen espiratorio forzado el 1º segundo / Capacidad vital forzada) &lt; 0,7.
+                </p>
+            </div>
+            
+            <!-- Bullet 2 - Incluye saltos de línea y sub-puntos simulados con HTML -->
+            <div class="asma-bullet-container">
+                <span class="asma-bullet-point">•</span>
+                <p class="asma-bullet-text">
+                    La variabilidad de la función pulmonar que se demuestra por: 
+                    <br>
+                    &nbsp;&nbsp;&nbsp;• Prueba broncodilatadora positiva: mejoría del VEF1 mayor o igual al 12% y de 200 ml o más respecto del basal, luego de la administración del broncodilatador, o 
+                    <br>
+                    &nbsp;&nbsp;&nbsp;• El aumento mayor o igual al 12% y de 200 ml del VEF1 después de 4 semanas de tratamiento.
+                </p>
+            </div>
+
+
+            <p class="asma-label">
+                La variabilidad se puede evaluar también con la utilización del Pico Flujo Espiratorio (PEF), registrado previamente a la medicación, durante un mínimo de 1-2 semanas. Una variabilidad del PEF $\geq 20$ % resulta diagnóstica de asma.
+            </p>
+
+            <p class="asma-label" style="margin-bottom: 100px;">
+                La espirometría típica del asma muestra un patrón obstructivo con respuesta significativa al broncodilatador, sin embargo, una espirometría normal no descarta el diagnóstico de asma.
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

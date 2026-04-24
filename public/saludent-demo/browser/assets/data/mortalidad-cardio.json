@@ -1,0 +1,78 @@
+{
+  "mujeres": {
+    "title": "Mortalidad cardiovascular en mujeres",
+    "year": 2019,
+    "unit": "TAM × 100.000 hab.",
+    "quintiles": [
+      { "q": 1, "range": "61,2 – 80,5", "color": "#ffcdd2" },
+      { "q": 2, "range": "80,6 – 104,1", "color": "#ef9a9a" },
+      { "q": 3, "range": "104,2 – 110,6", "color": "#e57373" },
+      { "q": 4, "range": "116,8 – 132,8", "color": "#ef5350" },
+      { "q": 5, "range": "138,2 – 183,5", "color": "#c62828" }
+    ],
+    "data": {
+      "ARA": { "name": "Salta", "value": 104.3, "q": 3 },
+      "ARB": { "name": "Buenos Aires", "value": 146.5, "q": 5 },
+      "ARC": { "name": "CABA", "value": 104.2, "q": 3 },
+      "ARD": { "name": "San Luis", "value": 132.3, "q": 4 },
+      "ARE": { "name": "Entre Ríos", "value": 148.0, "q": 5 },
+      "ARF": { "name": "La Rioja", "value": 116.8, "q": 4 },
+      "ARG": { "name": "Santiago del Estero", "value": 138.8, "q": 5 },
+      "ARH": { "name": "Chaco", "value": 105.3, "q": 3 },
+      "ARJ": { "name": "San Juan", "value": 132.3, "q": 4 },
+      "ARK": { "name": "Catamarca", "value": 118.9, "q": 4 },
+      "ARL": { "name": "La Pampa", "value": 132.8, "q": 4 },
+      "ARM": { "name": "Mendoza", "value": 106.6, "q": 3 },
+      "ARN": { "name": "Misiones", "value": 61.2, "q": 1 },
+      "ARP": { "name": "Formosa", "value": 88.6, "q": 2 },
+      "ARQ": { "name": "Neuquén", "value": 98.4, "q": 2 },
+      "ARR": { "name": "Río Negro", "value": 110.6, "q": 3 },
+      "ARS": { "name": "Santa Fe", "value": 183.5, "q": 5 },
+      "ART": { "name": "Tucumán", "value": 123.0, "q": 4 },
+      "ARU": { "name": "Chubut", "value": 104.1, "q": 2 },
+      "ARV": { "name": "Tierra del Fuego", "value": 80.6, "q": 2 },
+      "ARW": { "name": "Corrientes", "value": 106.3, "q": 3 },
+      "ARX": { "name": "Córdoba", "value": 171.3, "q": 5 },
+      "ARY": { "name": "Jujuy", "value": 123.3, "q": 4 },
+      "ARZ": { "name": "Santa Cruz", "value": 125.0, "q": 4 }
+    }
+  },
+  "varones": {
+    "title": "Mortalidad cardiovascular en varones",
+    "year": 2019,
+    "unit": "TAM × 100.000 hab.",
+    "quintiles": [
+      { "q": 1, "range": "95,3 – 142,5", "color": "#ffcdd2" },
+      { "q": 2, "range": "143,1 – 172,7", "color": "#ef9a9a" },
+      { "q": 3, "range": "178,1 – 185,4", "color": "#e57373" },
+      { "q": 4, "range": "191,3 – 229,4", "color": "#ef5350" },
+      { "q": 5, "range": "232,5 – 290,9", "color": "#c62828" }
+    ],
+    "data": {
+      "ARA": { "name": "Salta", "value": 178.9, "q": 3 },
+      "ARB": { "name": "Buenos Aires", "value": 229.4, "q": 4 },
+      "ARC": { "name": "CABA", "value": 172.7, "q": 2 },
+      "ARD": { "name": "San Luis", "value": 200.3, "q": 4 },
+      "ARE": { "name": "Entre Ríos", "value": 232.5, "q": 5 },
+      "ARF": { "name": "La Rioja", "value": 191.3, "q": 4 },
+      "ARG": { "name": "Santiago del Estero", "value": 226.3, "q": 4 },
+      "ARH": { "name": "Chaco", "value": 172.7, "q": 2 },
+      "ARJ": { "name": "San Juan", "value": 199.3, "q": 4 },
+      "ARK": { "name": "Catamarca", "value": 185.4, "q": 3 },
+      "ARL": { "name": "La Pampa", "value": 196.7, "q": 4 },
+      "ARM": { "name": "Mendoza", "value": 169.0, "q": 2 },
+      "ARN": { "name": "Misiones", "value": 95.3, "q": 1 },
+      "ARP": { "name": "Formosa", "value": 143.1, "q": 2 },
+      "ARQ": { "name": "Neuquén", "value": 136.1, "q": 1 },
+      "ARR": { "name": "Río Negro", "value": 178.8, "q": 3 },
+      "ARS": { "name": "Santa Fe", "value": 290.9, "q": 5 },
+      "ART": { "name": "Tucumán", "value": 201.0, "q": 4 },
+      "ARU": { "name": "Chubut", "value": 163.4, "q": 2 },
+      "ARV": { "name": "Tierra del Fuego", "value": 139.6, "q": 1 },
+      "ARW": { "name": "Corrientes", "value": 178.1, "q": 3 },
+      "ARX": { "name": "Córdoba", "value": 267.9, "q": 5 },
+      "ARY": { "name": "Jujuy", "value": 178.9, "q": 3 },
+      "ARZ": { "name": "Santa Cruz", "value": 181.6, "q": 3 }
+    }
+  }
+}

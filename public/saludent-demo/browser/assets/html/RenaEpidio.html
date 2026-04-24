@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfermedad Renal (Epidemiología)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --rena-primary-color: #1c1e1f; /* Azul profundo para Renal */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Layout --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio predeterminado entre elementos */
+        }
+
+        /* --- 4. Estilos de Texto (Simulación de StaticResources) --- */
+        .rena-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .rena-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        .rena-label-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--rena-primary-color);
+            margin: 20px 0 10px 0; /* Más espacio arriba */
+            line-height: 1.3;
+        }
+
+        .rena-label-note {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin: 5px 0 20px 0; /* Más espacio abajo para separarse del siguiente bloque */
+        }
+        
+        /* Asegurar que el contenido HTML incrustado se renderice correctamente */
+        .rena-label b {
+            font-weight: 700;
+        }
+
+        /* --- 5. Estilos de Imagen --- */
+        .resource-image-container {
+            display: block;
+            margin: 10px 0 10px 0; /* Margen simulando el Margin="10,10,0,10" del XAML */
+            width: 100%;
+            overflow: hidden; /* Evita que la imagen se desborde */
+            border-radius: 4px;
+        }
+        
+        .resource-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border: 1px solid #eee; /* Borde sutil */
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG simple) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Enfermedad Renal (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Bloque de Texto 1 -->
+            <p class="rena-label">
+                La enfermedad renal crónica (ERC) está determinada por la alteración persistente de la función de los riñones.
+            </p>
+
+            <!-- Bloque de Texto 2 -->
+            <p class="rena-label">
+                La ERC suele ser asintomática aún en etapas avanzadas, lo que la hace una enfermedad infradiagnosticada y poco conocida en la población general.
+            </p>
+
+            <!-- Bloque de Texto 3 (con HTML incrustado) -->
+            <p class="rena-label">
+                A nivel mundial, la <b>prevalencia de la ERC ha sido estimada entre el 11 y el 13%</b>, pero con amplia variabilidad entre los estudios incluidos.
+            </p>
+
+            <!-- Bloque de Texto 4 (con HTML incrustado) -->
+            <p class="rena-label">
+                <b>En Argentina, la prevalencia en población adulta* es del 12,7%</b> según la Encuesta Nacional de Nutrición y Salud (ENNyS 2). Esta encuesta incluyó datos bioquímicos para evaluar la prevalencia poblacional de enfermedad renal crónica y sus etapas, basados en la estimación del filtrado glomerular y la medición de daño a través de albuminuria. 
+            </p>
+            
+            <!-- Título 1 -->
+            <h2 class="rena-label-title">
+                Prevalencia de ERC en varones y mujeres. Argentina, 2018
+            </h2>
+
+            <!-- Texto Bold -->
+            <p class="rena-label-bold">
+                Mujeres: 14,1%
+            </p>
+
+            <!-- Texto Bold -->
+            <p class="rena-label-bold">
+                Varones: 11,3 %
+            </p>
+
+            <!-- Nota 1 -->
+            <p class="rena-label-note">
+                Fuente: Datos Renales. ENNyS 2 (2018-2019)
+            </p>
+
+            <!-- Título 2 -->
+            <h2 class="rena-label-title">
+                Prevalencia de ERC en subgrupos poblacionales en Argentina 
+            </h2>
+
+            <!-- Imagen 1: re_epicuad1.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad1.png" 
+                     alt="Prevalencia de ERC en subgrupos poblacionales" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 2 -->
+            <p class="rena-label-note">
+                Fuente: Datos Renales. ENNyS 2 (2018-2019)
+            </p>
+
+            <!-- Título 3 -->
+            <h2 class="rena-label-title">
+                Registro Nacional de Enfermedad Renal Crónica (2013-2018):
+            </h2>
+
+            <!-- Bloque de Texto 5 -->
+            <p class="rena-label">
+                Las <b>causas de enfermedad renal</b> más frecuentemente observadas en el Primer Nivel de Atención (PNA) son la nefropatía diabética, la asociada a vasculopatía o hipertensiva, las glomerulares y las urológicas. 
+            </p>
+
+            <!-- Bloque de Texto 6 -->
+            <p class="rena-label">
+                La presencia de <b>albuminuria muy alta</b> o de <b>filtrado glomerular disminuido</b> aumenta la frecuencia de eventos combinados finales a corto, mediano y largo plazo.
+            </p>
+
+            <!-- Imagen 2: re_epicuad2.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad2.png" 
+                     alt="Registro Nacional de ERC (2013-2018)" 
+                     class="resource-image">
+            </div>
+
+            <!-- Título 4 -->
+            <h2 class="rena-label-title">
+                Prevalencia de Diálisis Crónica en Argentina (2019)
+            </h2>
+
+            <!-- Imagen 3: re_epicuad3.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad3.png" 
+                     alt="Prevalencia de Diálisis Crónica en Argentina (2019)" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 3 -->
+            <p class="rena-label-note">
+                Fuente: Registro Argentino de Diálisis Crónica 2019. Informe 2020. INCUCAI.
+            </p>
+            
+            <!-- Imagen 4: re_epicuad4.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad4.png" 
+                     alt="Jurisdicción" 
+                     class="resource-image">
+            </div>
+
+            <!-- Imagen 5: re_epicuad5.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad5.png" 
+                     alt="Jurisdicción" 
+                     class="resource-image">
+            </div>
+
+            <!-- Título 5 -->
+            <h2 class="rena-label-title">
+                Prevalencia de Diálisis Crónica en ambos sexos según jurisdicciones. Cantidad de casos por millón de habitantes (PMH). Argentina, 2019
+            </h2>
+
+            <!-- Imagen 6: re_epicuad6.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad6.png" 
+                     alt="Incidencia de Diálisis Crónica" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 4 -->
+            <p class="rena-label-note">
+                Fuente: Registro Argentino de Diálisis Crónica 2019. Informe 2020. INCUCAI.
+            </p>
+            
+            <!-- Imagen 7: re_epicuad7.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad7.png" 
+                     alt="Jurisdicción" 
+                     class="resource-image">
+            </div>
+
+            <!-- Imagen 8: re_epicuad8.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_epicuad8.png" 
+                     alt="Jurisdicción" 
+                     class="resource-image">
+            </div>
+
+            <!-- Título 6 -->
+            <h2 class="rena-label-title">
+                Mortalidad por ERC en mujeres. Tasas ajustadas por edad por 100.000 habitantes. 2019
+            </h2>
+
+            <!-- Imagen 9: re_mortmujer.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_mortmujer.png" 
+                     alt="Mortalidad por ERC (enfermedad renal crónica) en mujeres" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 5 -->
+            <p class="rena-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+            <!-- Título 7 -->
+            <h2 class="rena-label-title">
+                Mortalidad por ERC en varones. Tasas ajustadas por edad por 100.000 habitantes. 2019
+            </h2>
+
+            <!-- Imagen 10: re_mortvaron.png -->
+            <div class="resource-image-container" style="margin-bottom: 100px;">
+                <img src="/assets/img/re_mortvaron.png" 
+                     alt="Mortalidad por ERC (enfermedad renal crónica) en varones" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 6 -->
+            <p class="rena-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

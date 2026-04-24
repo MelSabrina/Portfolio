@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Evaluación (Recomendaciones)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --alco-primary-color: #8a8c94; /* Azul medio para botones/bordes */
+            --alco-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--alco-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout principal */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px;
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+        
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            text-align: justify;
+        }
+
+        /* Botones de Test */
+        .test-button {
+            background-color: var(--alco-primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 15px 20px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 15px 20px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: block;
+            width: calc(100% - 40px);
+        }
+
+        .test-button:active {
+            background-color: #30419d; /* Tono más oscuro al presionar */
+            transform: scale(0.99);
+        }
+        
+        /* Imágenes */
+        .content-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0 20px 0;
+            border-radius: 8px; /* Pequeñas esquinas redondeadas para estética */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            /* Importante: No hay controles de zoom */
+        }
+
+        /* Ajuste de márgenes específicos */
+        .margin-bottom-25 {
+            margin-bottom: 25px !important;
+        }
+        
+        .margin-top-10 {
+            margin-top: 10px !important;
+        }
+        
+        .last-image {
+            margin-bottom: 100px !important;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Alcohol: Evaluación (Recomendaciones)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+
+            <div class="alco-label">
+                Se sugiere utilizar el cuestionario **AUDIT-c** como prueba inicial para identificar el consumo de riesgo y/o perjudicial de alcohol. En niños, niñas y adolescentes adaptar las preguntas acordes a la edad en el marco de una entrevista semiestructurada para detectar el consumo de alcohol.
+            </div>
+
+            <div class="alco-label-title margin-bottom-25" style="padding: 0 10px;">
+                Test de Identificación de Trastornos por consumo de alcohol: AUDIT-c versión entrevista (reducida)
+            </div>
+
+            <button class="test-button margin-bottom-25" onclick="alertTestNotImplemented('reducida')">
+                Acceda a la versión interactiva (reducida)
+            </button>
+
+            <div class="alco-label">
+                En personas en quienes se detectó un rastreo positivo a través del cuestionario AUDIT-c, completar la evaluación con el cuestionario **AUDIT completo** (10 preguntas) para discriminar el patrón de consumo. En Niños, Niñas y Adolescentes en quienes se detecte consumo de alcohol, utilizar preguntas abiertas para conocer su historial de consumo; explorar factores subyacentes como violencia intrafamiliar, abuso infantil, antecedentes de trastornos de consumo de alcohol en el entorno; y consecuencias del consumo de alcohol, como ausentismo o bajo rendimiento escolar, cambios del comportamiento o del estado de ánimo, entre otros.
+            </div>
+
+            <div class="alco-label-title margin-top-10" style="padding: 0 10px;">
+                Test de Identificación de Trastornos por consumo de alcohol: AUDIT versión entrevista (completa)
+            </div>
+
+            <button class="test-button" onclick="alertTestNotImplemented('completa')">
+                Acceda a la versión interactiva (completa)
+            </button>
+            
+            <!-- ac_evalcalc.png -->
+            <img src="/assets/img/ac_evalcalc.png"
+                 alt="Unidad de bebida estándar alcohólica"
+                 class="content-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x300/E0E0E0/333333?text=ac_evalcalc.png'">
+
+            <!-- al_tabla6.png -->
+            <img src="/assets/img/al_tabla6.png"
+                 alt="Patrón de consumo de alcohol (Tabla 6)"
+                 class="content-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x300/E0E0E0/333333?text=al_tabla6.png'">
+
+            <!-- al_tabla7.png -->
+            <img src="/assets/img/al_tabla7.png"
+                 alt="Patrón de consumo de alcohol (Tabla 7)"
+                 class="content-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x300/E0E0E0/333333?text=al_tabla7.png'">
+
+            <!-- al_tabla8.png -->
+            <img src="/assets/img/al_tabla8.png"
+                 alt="Patrón de consumo de alcohol (Tabla 8)"
+                 class="content-image last-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x300/E0E0E0/333333?text=al_tabla8.png'">
+
+
+            <!-- Nota: El contenido comentado en XAML (NINGUN CONSUMO ES BENEFICIOSO PARA LA SALUD) no se incluye. -->
+            
+        </div>
+    </main>
+    
+    <!-- Mensaje de notificación (Reemplazo de DisplayAlert o Navegación no implementada) -->
+    <div id="notification-box"></div>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+        
+        // --- Funciones de Notificación (Reemplazo de alertas/navegación no implementada) ---
+        
+        // Simulación de navegación o alerta para los botones de test
+        function alertTestNotImplemented(version) {
+            showNotification(`Navegación a la versión ${version} del test no implementada en este demo.`, 'warning');
+        }
+
+        /**
+         * Muestra una notificación temporal (reemplaza DisplayAlert).
+         * @param {string} message 
+         * @param {string} type 
+         */
+        function showNotification(message, type = 'info') {
+            const box = document.getElementById('notification-box');
+            box.textContent = message;
+            box.style.backgroundColor = type === 'warning' ? '#f44336' : '#444';
+            box.classList.add('show');
+            setTimeout(() => {
+                box.classList.remove('show');
+            }, 3000);
+        }
+
+        // Estilos para la caja de notificación
+        const style = document.createElement('style');
+        style.textContent = `
+            #notification-box {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                opacity: 0;
+                transition: opacity 0.3s, bottom 0.3s;
+                z-index: 2000;
+                font-size: 0.9rem;
+                pointer-events: none;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                min-width: 280px;
+            }
+            #notification-box.show {
+                opacity: 1;
+                bottom: 30px;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

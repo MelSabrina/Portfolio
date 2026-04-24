@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Licencia de uso</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+.toolbar { display: none !important; }
+
+
+  :root {
+    --navy: #1B2A4A;
+    --gold: #C9A84C;
+    --gold-light: #D9BC72;
+    --cream: #EDEAE4;
+    --cream-dark: #DDD9D2;
+    --steel: #5A7290;
+    --text-main: #2C2C2C;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  
+  max-width: 720px;
+  margin: 0 auto;}
+
+  .top-bar {
+    width: 100%; height: 4px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .scroll-body {
+    flex: 1; width: 100%;
+    overflow-y: auto; overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex; flex-direction: column;
+    align-items: center;
+    padding-bottom: 40px;
+  
+  max-width: 720px;
+  margin: 0 auto;}
+  .scroll-body::-webkit-scrollbar { display: none; }
+
+  /* Header */
+  .page-header {
+    width: 100%;
+    padding: 28px 52px 0;
+    display: flex; flex-direction: column; align-items: center;
+    animation: fadeDown 0.4s ease both;
+  }
+  .page-title {
+    font-family: 'Lora', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--navy); text-align: center;
+    line-height: 1.3;
+  }
+
+  .ornament {
+    display: flex; align-items: center; gap: 10px;
+    width: calc(100% - 104px); margin: 14px 52px 0;
+    flex-shrink: 0;
+  }
+  .ornament-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+  .ornament-diamond {
+    width: 5px; height: 5px; background: var(--gold);
+    transform: rotate(45deg); flex-shrink: 0;
+  }
+
+  /* Content */
+  .content {
+    width: 100%;
+    padding: 22px 52px 0;
+    animation: fadeIn 0.4s 0.1s ease both;
+  
+  max-width: 720px;
+  margin: 0 auto;}
+
+  .terms-block {
+    margin-bottom: 0;
+  }
+
+  .terms-p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-main);
+    line-height: 1.7;
+  }
+  .terms-p strong {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  .terms-heading {
+    font-family: 'Lora', serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .terms-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--cream-dark);
+    margin: 16px 0;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+
+</style>
+</head>
+<body>
+  <div class="top-bar"></div>
+
+  <div class="scroll-body">
+
+    <div class="page-header">
+      <h1 class="page-title">Licencia de uso</h1>
+    </div>
+
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <div class="content">
+
+      <div class="terms-block">
+        <p class="terms-p">Los presentes términos y condiciones rigen la relación entre el <strong>Ministerio de Salud de la República Argentina</strong> (en adelante, el "Ministerio") y cada usuario de la presente aplicación (en adelante, "Usuario"), tanto en su versión web como en su versión para dispositivos móviles (en adelante, la "Aplicación").</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">La descarga y/o uso de la Aplicación constituye aceptación de los siguientes <strong>Términos y Condiciones</strong>.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El <strong>Ministerio</strong> se reserva el derecho de iniciar acciones legales para detener cualquier infracción o incumplimiento de estos Términos y Condiciones, o a cancelar el acceso de cualquier Usuario como resultado de la infracción de derechos o incumplimiento de estos Términos y Condiciones, a su exclusivo criterio.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El <strong>Ministerio</strong> puede, a su entera discreción, modificar estos Términos y Condiciones. La descarga y/o uso de la Aplicación después de que tales cambios entren en vigencia constituye la aceptación por parte del Usuario de los nuevos Términos y Condiciones.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p"><strong>Esta aplicación no proporciona asesoramiento médico.</strong> La Aplicación, así como sus contenidos —textos, gráficos, imágenes y otros materiales— se proporcionan para propósitos informativos únicamente. El contenido no pretende sustituir el asesoramiento, el diagnóstico o el tratamiento médico profesional.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <h3 class="terms-heading">Uso del contenido</h3>
+        <p class="terms-p">La Aplicación es de titularidad exclusiva de la <strong>OPS/OMS</strong> y el Ministerio tiene la autorización correspondiente para su utilización y licenciamiento. La propiedad intelectual del contenido pertenece al <strong>Ministerio</strong>. Cualquier uso del contenido que no esté expresamente permitido por estos Términos y Condiciones será considerado como un incumplimiento y puede importar la violación de los derechos de autor, marcas registradas y otros derechos del Ministerio.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El contenido y otras características están sujetos a cambios o cancelación sin previo aviso, a discreción del <strong>Ministerio</strong>. Todos los derechos no otorgados expresamente están reservados al Ministerio.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">Si usted viola cualquiera de estos Términos y Condiciones, su permiso para usar la Aplicación así como su contenido terminará automáticamente y deberá destruir inmediatamente cualquier copia que haya hecho de cualquier parte de la Aplicación y/o contenido.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">Al cargar cualquier material o información en la Aplicación, usted: <strong>(a)</strong> le otorga al Ministerio y a sus licenciantes un derecho de licencia perpetua, irrevocable, no exclusiva, gratuita y susceptible de sub-licencia para usar, copiar, reproducir, modificar, publicar, transmitir, crear trabajos derivados y distribuirlos; <strong>(b)</strong> certifica que ha obtenido el consentimiento de cualquier persona que aparezca en los materiales; y <strong>(c)</strong> acuerda indemnizar al Ministerio y/o sus licenciantes, así como sus directores, funcionarios y empleados, y eximirlos de cualquier reclamo y/o gasto.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <h3 class="terms-heading">Uso del nombre del Ministerio y de la OPS/OMS</h3>
+        <p class="terms-p">El nombre, el acrónimo y/o el logotipo del <strong>Ministerio</strong> y de la <strong>OPS/OMS</strong>, así como su marca, están protegidos. No podrán utilizarse sin la previa autorización expresa y por escrito del Ministerio y/o de la OPS/OMS. No se pueden utilizar con fines promocionales o en cualquier forma que indique o sugiera una asociación, afiliación, patrocinio o respaldo.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <h3 class="terms-heading">Limitación de responsabilidad</h3>
+        <p class="terms-p">El uso de la Aplicación y sus contenidos se hace bajo su propio riesgo. Los datos, información y documentos se proporcionan <strong>sin ningún tipo de garantía</strong> explícita o implícita. El Ministerio y sus licenciantes no ofrecen garantías ni se responsabilizan de la exactitud o veracidad de la información. En ningún caso el Ministerio, la OPS/OMS y/o sus licenciantes serán responsables de las pérdidas, daños y/o perjuicios que pudieran derivarse del uso de esta Aplicación.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">Es posible que la Aplicación contenga enlaces a sitios externos no administrados por el Ministerio o la OPS/OMS. Dichos enlaces se incluyen con fines de referencia y su inclusión no implica aprobación o respaldo. El Ministerio y la OPS/OMS no asumen ninguna responsabilidad por la información contenida en dichos sitios externos.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <h3 class="terms-heading">Resolución de diferencias</h3>
+        <p class="terms-p">Cualquier controversia que se suscite entre cualquier Usuario y el Ministerio con relación a estos Términos y Condiciones se resolverá definitiva y exclusivamente por los <strong>Tribunales Nacionales en lo Contencioso Administrativo Federal</strong> con asiento en la Capital Federal. Será aplicable la legislación vigente en la República Argentina.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p"><strong>Si usted no está de acuerdo con alguno de los términos y condiciones aquí contenidos, no debe utilizar esta aplicación.</strong></p>
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asma (Epidemiología)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --asma-primary-color: #4a5159; /* Teal/Cian, para títulos de Asma */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 100px; /* Espacio extra al final */
+        }
+
+        .asma-label {
+            font-size: 1rem;
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        .asma-label-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--asma-primary-color);
+            margin: 20px 0 10px 0;
+            padding-left: 5px;
+        }
+        
+        .asma-label-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 10px 0;
+            font-style: italic;
+            padding-left: 5px;
+        }
+
+        .image-content {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Asma (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="asma-label">
+                En Argentina, según la Dirección de Estadística e Información de Salud (DEIS) se producen anualmente alrededor de 400 muertes por asma, de las cuales el 50% se registran antes de los 70 años y el 65% en mujeres.
+            </p>
+
+            <p class="asma-label">
+                Según los estudios realizados, existen casi 4.000.000 de personas conviviendo con Asma y más del 75% tiene menos de 20 años de edad.
+            </p>
+
+            <p class="asma-label">
+                Según los datos aportados por la Primera Encuesta Nacional de Prevalencia de Asma en Adultos realizada en nuestro país entre 2014 y 2015, 6 de cada 100 personas tuvieron algún ataque de asma en los últimos 12 meses o tomaban medicación para el asma al momento de ser encuestados, mientras que 9 de cada 100 tiene o ha tenido alguna vez asma confirmado por un médico. Este estudio además de concluir que en los adultos jóvenes el asma es una enfermedad prevalente, puso de manifiesto el bajo uso de la terapia preventiva y la mayor carga de atención de las crisis asmáticas.
+            </p>
+
+            <p class="asma-label-title">
+                Prevalencia de Asma en población de 20 a 44 años. Argentina, 2014
+            </p>
+
+            <p class="asma-label">
+                <br><b>Fuente:</b> Encuesta Nacional de Asma
+                <br><b>Total:</b> 6,4%
+            </p>
+
+            <img src="/assets/img/as_epi1.png" alt="Gráfico de prevalencia de Asma en población de 20 a 44 años." class="image-content"/>
+
+            <p class="asma-label-title">
+                Mortalidad por asma en mujeres según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </p>
+            
+            <!-- La imagen se muestra sin control de zoom, como se solicitó -->
+            <img src="/assets/img/as_mortmujer.png" alt="Mapa de mortalidad por asma en mujeres." class="image-content"/>
+
+            <p class="asma-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+            <p class="asma-label-title">
+                Mortalidad por asma en varones según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </p>
+
+            <!-- La imagen se muestra sin control de zoom, como se solicitó -->
+            <img src="/assets/img/as_mortvaron.png" alt="Mapa de mortalidad por asma en varones." class="image-content"/>
+
+            <p class="asma-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

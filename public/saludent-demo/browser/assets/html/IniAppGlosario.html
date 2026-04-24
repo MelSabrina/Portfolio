@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glosario (Solo Términos)</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;        
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #1f2937;
+        }
+        /* Contenedor principal del contenido */
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        /* Estilos del cuadro de contenido */
+        .content-box {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .content-box h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        .content-box h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1d4ed8;
+            margin-bottom: 0.5rem;
+            margin-top: 1.5rem;
+        }
+        .content-box p {
+            font-weight: bold;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Glosario</span>
+        </div>
+    </div>
+    <!-- Contenedor principal con padding y scroll -->
+    <div class="main-container scrollable-content">
+        <div class="content-box">
+            <!-- Título de la sección -->
+            <h1>Glosario</h1>
+            <!-- Lista de términos -->
+            <div>
+                <h2>A</h2>
+                <p>Adherencia</p>
+                <p>Aerosol</p>
+            </div>
+            <div>
+                <h2>B</h2>
+                <p>Broncodilatadores</p>
+                <p>Broncodilatadores (Asociación)</p>
+                <p>Broncodilatadores (Dobles)</p>
+                <p>Broncodilatadores (Antimuscarínicos)</p>
+                <p>Broncodilatadores ß2 adrenérgicos</p>
+                <p>Broncodilatadores LABA/CI</p>
+                <p>Broncodilatadores LABA/LAMA</p>
+                <p>Bupropión</p>
+            </div>
+            <div>
+                <h2>C</h2>
+                <p>Capacidad Vital Forzada (CVF)</p>
+                <p>Circunferencia de Cintura (CC)</p>
+                <p>Cirugía Bariátrica</p>
+                <p>Comorbilidad</p>
+                <p>Craving</p>
+            </div>
+            <div>
+                <h2>D</h2>
+                <p>Dependencia del tabaco/adicción al tabaco</p>
+                <p>Día D</p>
+                <p>Disnea</p>
+            </div>
+            <div>
+                <h2>E</h2>
+                <p>Enfermedad Pulmonar Obstructiva Crónica (EPOC)</p>
+                <p>Entrevista motivacional</p>
+                <p>Enfermedad Renal Crónica</p>
+                <p>Enfermedad Crónica no Transmisible (ECNT)</p>
+                <p>Escala de disnea modificada del Consejo de Investigación Médica del Reino Unido (mMRC. Medical Research Council)</p>
+            </div>
+            <div>
+                <h2>G</h2>
+                <p>Guía de Práctica Clínica (GPC)</p>
+            </div>
+            <div>
+                <h2>H</h2>
+                <p>Hipertensión arterial</p>
+                <p>Humo Ambiental de Tabaco</p>
+            </div>
+            <div>
+                <h2>I</h2>
+                <p>Índice de Masa Corporal (IMC)</p>
+                <p>Intervención</p>
+            </div>
+            <div>
+                <h2>L</h2>
+                <p>Limitación al flujo aéreo</p>
+                <p>Líneas telefónicas con seguimiento (Proactivas)</p>
+            </div>
+            <div>
+                <h2>N</h2>
+                <p>Nomograma</p>
+            </div>
+            <div>
+                <h2>O</h2>
+                <p>Obesidad</p>
+                <p>Obesidad mórbida (obesidad grave u obesidad clase III)</p>
+            </div>
+            <div>
+                <h2>P</h2>
+                <p>Paquetes/año o carga tabáquica (pack/ years)</p>
+                <p>Primera Línea de Tratamiento</p>
+            </div>
+            <div>
+                <h2>R</h2>
+                <p>Registro Alimentario</p>
+                <p>Rehabilitación respiratoria (RHR)</p>
+            </div>
+            <div>
+                <h2>S</h2>
+                <p>Síndrome de abstinencia</p>
+            </div>
+            <div>
+                <h2>T</h2>
+                <p>Terapia Cognitivo-Comportamental (TCC)</p>
+                <p>Tos crónica</p>
+            </div>
+            <div>
+                <h2>V</h2>
+                <p>Volumen espiratorio forzado en el primer segundo (VEF)</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

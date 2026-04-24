@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajuste de dosis de fármacos</title>
+    <style>
+
+        /* Estilos Generales y Reset */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* Contenedor Principal (Grid Padding) */
+        .main-container {
+            flex-grow: 1;
+            padding: 10px;
+            display: flex;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* ScrollView y StackLayout */
+        .scroll-view {
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .stack-layout {
+            padding: 15px;
+            margin: 0 auto;
+            max-width: 600px; /* Limitar el ancho para mejor lectura */
+        }
+
+        /* Etiquetado y Pickers (Selectores) */
+        label {
+            color: gray;
+            margin-bottom: 5px;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .picker-container {
+            margin-bottom: 15px;
+        }
+        
+        .picker {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: white;
+            color: darkblue;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        .picker:focus {
+            outline: none;
+            border-color: darkblue;
+        }
+        
+        /* Frame */
+        .data-frame {
+            border: 1px solid black;
+            border-radius: 10px;
+            margin: 20px 0 10px 0;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Grid de Datos */
+        .data-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; /* 3 columnas de 0.33*, 0.33*, 0.34* */
+            gap: 10px; /* RowSpacing y ColumnSpacing */
+        }
+
+        .grid-full-span {
+            grid-column: 1 / 4;
+        }
+
+        .grid-label-header {
+            color: gray;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .grid-label-value {
+            color: darkred;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            white-space: pre-wrap; /* Para mantener saltos de línea si existen */
+            word-wrap: break-word;
+        }
+        
+        .grid-row-5 label { margin-bottom: 0; }
+        .grid-row-6 { margin-bottom: 20px; }
+
+        /* Estilos del Stack de Botones (Posición al final derecha) */
+        .stack-buttons {
+            position: sticky;
+            bottom: 20px;
+            right: 20px;
+            margin: 0 20px 20px 0;
+            align-self: flex-end;
+        }
+
+        .nav-button-style {
+            background-color: transparent;
+            border: none;
+            padding: 0;
+            margin-bottom: 10px;
+        }
+
+        .nav-button-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        .nav-button-icon:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Ajuste de márgenes para el Picker de Accion Terapéutica */
+        #pkFarmaco-label { margin-top: 10px; }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Enf. Renal: Tabla de medicamentos
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <div class="main-container">
+        <div class="scroll-view" id="contenido">
+            <div class="stack-layout">
+
+                <div class="picker-container">
+                    <label for="pkAccion">Accion Terapéutica</label>
+                    <select id="pkAccion" class="picker" onchange="pkAccion_SelectedIndexChanged()">
+                        <option value="" disabled selected>Seleccione una acción terapéutica</option>
+                    </select>
+                </div>
+
+                <div class="picker-container">
+                    <label for="pkFarmaco" id="pkFarmaco-label">Fármaco</label>
+                    <select id="pkFarmaco" class="picker" onchange="pkFarmaco_SelectedIndexChanged()" disabled>
+                        <option value="" disabled selected>Seleccione un fármaco</option>
+                    </select>
+                </div>
+
+                <div class="data-frame">
+                    <div class="data-grid">
+                        
+                        <!-- Dosis FR Normal -->
+                        <label class="grid-full-span grid-label-header">Dosis FR Normal</label>
+                        <p id="lDosis" class="grid-full-span grid-label-value"></p>
+
+                        <!-- Método de ajuste -->
+                        <label class="grid-full-span grid-label-header">Método de ajuste</label>
+                        <p id="lMetodo" class="grid-full-span grid-label-value"></p>
+
+                        <!-- FILTRADO GLOMERULAR (Categorías G-KDIGO) -->
+                        <label class="grid-full-span grid-label-header" style="margin-top: 5px;">FILTRADO GLOMERULAR (Categorías G-KDIGO)</label>
+                        
+                        <!-- G3a-G3b -->
+                        <div class="grid-row-5">
+                            <label>G3a-G3b</label>
+                            <p id="lG3" class="grid-label-value"></p>
+                        </div>
+                        
+                        <!-- G4 -->
+                        <div class="grid-row-5">
+                            <label>G4</label>
+                            <p id="lG4" class="grid-label-value"></p>
+                        </div>
+
+                        <!-- G5 sin diálisis -->
+                        <div class="grid-row-5">
+                            <label>G5 sin diálisis</label>
+                            <p id="lG5" class="grid-label-value"></p>
+                        </div>
+
+                        <!-- Comentarios -->
+                        <label class="grid-full-span grid-label-header">Comentarios</label>
+                        <p id="lComentario" class="grid-full-span grid-label-value"></p>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+         // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+        // Definición de la estructura del Farmaco para claridad
+        class Farmaco {
+            constructor(accion, nombre, dosisFRNormal, metodoAjuste, g3, g4, g5, comentario) {
+                this.accion = accion;
+                this.nombre = nombre;
+                this.dosisFRNormal = dosisFRNormal;
+                this.metodoAjuste = metodoAjuste;
+                this.g3 = g3;
+                this.g4 = g4;
+                this.g5 = g5;
+                this.comentario = comentario;
+            }
+        }
+
+        // Carga la lista de fármacos (Farmaco Array)
+        const farmacos = [];
+        function loadFarmacos() {
+            farmacos.push(new Farmaco("Antidiabéticos", "Glicazida MR", "30-120 mg ", "Dosis", "30 a 120 mg/día, usar con precaución", "Evitar ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Glipizida", "2,5 a 20 mg/día (fraccionar dosis mayores a 15 mg/día)", "Dosis", "Con FGe ≤ 50 reducir a 50%. Con FG < a 45, precaución.", "Iniciar con 2,5 mg/día y aumentar en forma lenta y gradual", "Iniciar con 2,5 mg/día y aumentar en forma lenta y gradual", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Metformina", "500 a 2550 mg/día", "Dosis", "Con FG≤ 45, no iniciar. Si la recibía, continuar con 500 a 1000 mg/día", "Evitar ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Glimepirida", "1 a 8 mg/día", "Dosis", "1 a 8 mg/día, usar con precaución", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Pioglitazona", "15-45 mg c/día. En terapia combinada utilizar hasta 30 mg/día. Con FG<60 usar con precaución.", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Repaglinida", "0,5 a 4 mg/dosis (hasta 16 mg/día)", "Dosis", "100%", "Hasta 1 mg/día", "Hasta 1 mg/día", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Linagliptina", "5 mg/día", "", "100%", "100%", "Usar con precaución por poca evidencia", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Saxagliptina", "5 mg/día", "Dosis", "Con FGe ≤ 50 reducir a 50%", "50%", "50%", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Sitagliptina", "100 mg/día", "Dosis", "Con FGe ≤ 50 reducir a 50%", "25%", "25%", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Vildagliptina", "50 mg c/12 hs", "Intervalo", "Con FGe ≤ 50 reducir a 50%", "50%", "50%", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Canaglifozina", "100 a 300 mg/día", "Dosis", "No iniciar. Si la recibía previamente, no superar 100 mg/día. Suspender con FG<45.", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Dapaglifozina", "10 mg/día", "Dosis", "No iniciar, suspender con FG<45)", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Dulaglutida", "0,75 a 1,5 mg/semana", "Dosis", "100%", "100%", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Empaglifozina", "10 – 25 mg/día", "Dosis", "No iniciar. Con FG<45, utilizar con precaución.", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Exenatida", "2 mg/semanales", "Dosis", "Evitar con FG<50", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Liraglutida", "0,6 a 1,8 mg c/ 24 hs.", "Dosis", "100%", "100%", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Semaglutide", "0.25 -1 mg/semana", "Dosis", "100%", "Evitar", "Evitar", ""));
+            farmacos.push(new Farmaco("Antidiabéticos", "Insulina", "Variable ", "Dosis", "Considerar riesgo aumentado de hipoglucemia, ajustar según AMG", "Considerar riesgo aumentado de hipoglucemia, ajustar según AMG", "Considerar riesgo aumentado de hipoglucemia, ajustar según AMG", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Alfa-Bloqueantes", "Doxazosina", "1-16 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Verapamilo", "240-480 mg/día ", "Dosis", "100%", "100%", "75%-50% ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Diltiazem", "120-480 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Amlodipina", "5-10 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Lecarnidipina", "10-20 mg/día ", "Dosis", "100%-75% ", "75%-50% ", "50%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Nifedipina", "10-60 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antagonistas del calcio", "Nitrendipina ", "10-40 mg/día ", "Dosis", "100%", "100%", "5 mg/día ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antiadrenérgicos centrales", "Clonidina", "0,3-1,2 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Antiadrenérgicos centrales", "Metildopa", "250-1.000 mg/día ", "Intervalo", "Cada 12 h ", "Cada 12-24 h ", "Cada 24 h ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Beta-Bloqueantes", "Propranolol", "80-320 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Beta-Bloqueantes", "Bisoprolol", "2,5-20 mg/día ", "Dosis", "75%", "50%", "50%-25% ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Beta-Bloqueantes", "Atenolol", "50-100 mg/día ", "Dosis / Intervalo", "50% c/24 h ", "50% c/48 h ", "25% o 56 h ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Beta-Bloqueantes", "Metoprolol", "100-400 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Beta-Bloqueantes", "Carvedilol", "12,5-50 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Clortalidona", "12,5-50 mg/día ", "Intervalo", "Cada 24 h ", "Cada 24 h ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Indapamida", "1,25-5 mg/día ", "Dosis", "100%", "100%", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Furosemida", "20-480 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Espirolactona", "25-200 mg/día ", "Intervalo", "Cada 12-24 h ", "Cada 24 h ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Amilorida", "5-20 mg/día ", "Dosis", "50%", "50%", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Diuréticos", "Eplerenona", "25-50 mg/día ", "Dosis", "Evitar", "Evitar ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Benazepril", "10-40 mg/día ", "Dosis", "75%", "50%", "50%-25% ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Enalapril", "5-40 mg/día ", "Dosis", "100%-75% ", "75%", "50%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Lisinopril", "5-80 mg/día ", "Dosis", "75%", "50%", "50%-25% ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Perindopril", "2-16 mg/día ", "Dosis", "75%", "75%", "50%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Ramipril", "1,25-10 mg/día ", "Dosis", "75%", "50%", "50%-25% ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Quinapril", "5-80 mg/día ", "Dosis", "100%-75% ", "75%", "75%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Losartán", "25-100 mg/día ", "Dosis", "100%", "100%", "25 mg/día ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Irbesartán", "150-300 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Candesartán", "4-16 mg/día ", "Dosis", "100%", "100%", "50%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Olmesartán", "10-40 mg/día ", "Dosis", "<20 mg/día", "<20 mg/día ", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Telmisartán", "20-80 mg/día ", "Dosis", "20 mg/día ", "20 mg/día", "20 mg/día", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-IECA y ARA II", "Valsartán", "80-160 mg/día ", "Dosis", "100%", "100%", "Evitar ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Vasodilatadores", "Hidralazina", "50-300 mg/día ", "Intervalo", "Cada 8 h ", "Cada 8 h ", "Cada 8-16 h ", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Vasodilatadores", "Minoxidilo", "5-100 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antihipertensivos-Vasodilatadores", "Diazóxido", "1-3 mg/kg de inicio ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Abacavir", "Dosis habitual", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Aciclovir", "VO: Simplex:200mg 5 vpd. // VO: Zóster: 800 mg c/4 h", "Dosis / Intervalo", " No ajustar", " Simplex: 200 mg c/ 8 hs.//  Zóster: 400-800 mg c/ 8 hs", " Simplex: 200 mg c/ 12 hs.// Zóster: 400-800 mg c/ 12 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Albendazol", "Dosis habitual", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Amantadina", "100 mg c/12 hs", "Dosis / Intervalo", "100 mg c/48-72 hs", "100 mg c/48-72 hs", "100 mg c/ 7 días", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Amicacina", "15 mg/kg c/ 24 hs", "Dosis / Intervalo", "5-7,5 mg/kg c/24 hs. Evitar tratamientos > 5 días", "5 -7,5 mg/kg c/ 24 hs.  Evitar tratamientos > 5 días", " 5 -7,5 mg/kg c/ 48 hs.  Evitar tratamientos > 5 días", " Comenzar con dosis inical (dosis   habitual) luego, dosis de sostén ajustada  a FGe. Luego de la segunda dosis medir FG y ajustar"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Amoxicilina", "250 – 500 mg c/ 8 hs", "Intervalo", "No ajustar", "Cada 12 hs", "Cada 24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Amoxicilina /clavulánico", " 250-500 mg c/ 8 hs", "Intervalo", "No ajustar", "250–500 mg c/12 hs", "250–500 mg c/24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ampicilina", "500 mgc/ 6hs", "Intervalo", "Cada 8hs", "Cada 12hs", "Cada 12hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ampicilina /sulbactam", "VO: 375-750 mg c/12 hs", "Intervalo", "VO: Cada 12 hs", "VO: Cada 12 hs ", "VO: Cada 24 hs", " Dosis expresada en ampicilina/sulbactam"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Anfotericina", "1 mg/kg c/24hs", "Intervalo", "No ajustar", "No ajustar", "Contarindicación relativa. Cada 24 – 48 hs.", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Anfotericina liposomal", "3 – 5 mg/kg c/ 24 hs", "Intervalo", "No ajustar", "No ajustar", "Cada 24 – 48 hs.", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Azitromicina", " 500 mg/día", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Caspofungin", "Dosis habitual", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Cefalexina", " 500-1 g c/6 - 8hs", "Intervalo", "Cada 12 hs", "Cada 12 hs", "Cada 12 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Cefotaxima", "1 - 2 g c/ 6- 8hs", "Intervalo", "Cada 8–12 hs", "Cada 8-12 hs ", "Cada 24 hs", "Metabolismo activo en IRT Reducción mayor de la dosis en IH e IR"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Cefepime", "1 - 2 g c/12 hs", "Dosis / Intervalo", "1-2 g c/12-24 hs", "1-2 g c/12-24 hs", "1 g c/24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Cefixime", "200 mg c/ 12 hs", "Dosis", "75%", "75%", "", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ceftazidima", "1 - 2 g c/8 - 12hs", "Intervalo", "Cada 12 hs", "Cada 12-24 hs", "Cada 24-48 hs", "El volumen de distribución aumenta con la infección"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ceftriaxona", "Dosis habitual", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Cidofovir", "Inducción: 5 mg/kg c/7 días x 2 semanas Mantenimiento: 5 mg/kg c/ 14 días", "Dosis", "No usar", "No usar", "No usar", "Si la cretinina aumenta 0,3-0,4 mg/día administar 3 mg/kg, suspender con aumentos > a 0,5 mg/día o si hay proteinuria. Administar con probenecid e hidratación."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ciprofloxacina", "EV 400 mg c/ 12 hs; VO 500–750 mg c/ 12 hs", "Dosis", "No ajustar", "50%-75%", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Claritromicina", "500 mg c/12hs", "Dosis", "No ajustar", "50%", "50%", "Con FGe < 60, comenzar con 1 dosis de 500 mg, luego continuar con 250 mg cada 12 hs."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Clindamicina", "600-900 mg/8 hs", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Colistina", "80-160 mg c/ 8 hs", "Intervalo", "Cada 24 hs", "Cada 24-36hs", "Cada 36 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Didanosina", " < 60 kg: 125 mg c/12 hs. > 60 kg: 200 mg c/12 hs", "Dosis / Intervalo", "<60 kg: 75 mg c/12 hs. >60 kg: 100 mg c/12 hs", "<60 kg: 100 mg c/24 hs. >60 kg: 150 mg c/ 24 hs", "<60 kg: 75 mg c/ 24 hs. >60 kg: 100 mg c/ 24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Doxiciclina", "100 mg c/12 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Efavirenz", "600 mg c/ 24 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Eritromicina", "  250-500 mg c/6 hs", "Dosis", "No ajustar", "No ajustar", "50%-75%", " Ototoxicidad con altas dosis en IRT. Aumento de volumen de distribución en IRT"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ertapenem", "1 g/día", "Dosis", "No ajustar", "50%", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Estreptomicina", "15 mg/kg c/ 24 hs (mi) Dosis máxima: 1g", "Intervalo", "Cada 24–72 hs", "Cada 24–72 hs", "Cada 72-96 hs", "Cambiar a etambutol en falla renal."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Etambutol", "15 – 25 mg/kg c/ 24 hs. Dosis máxima: 2,5 mg/dosis", "Dosis", "No Ajustar", "No Ajustar", "50%-75%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Etionamida", "250 – 500 mg c/ 12 hs. Dosis máxima: 1000 mg", "Dosis", "No ajustar", "No ajustar", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Fluconazol", "200 – 400 mg c/ 24 hs. Dosis máxima: 800 mg", "Dosis", "200 mg c/24 hs", "200mg c/24 hs", "200 mg c/24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ganciclovir", "EV: Inducción: 5 mg/kg c/ 12 hs. Mantenimiento: 5 mg/kg c/ 24 hs.// VO: 1 gr c/4 hs.", "Dosis / Intervalo", " EV: Inducción: 2,5 mg/kg c/ 24 hs.  Mantenimiento: 1,25 mg/kg c/ 24 hs.// VO: 0,5 - 1 gr c/24 hs.", "EV: Inducción: 1,25 mg/kg c/ 24 hs. Mantenimiento: 0,625 mg/kg c/ 24 hs.// VO: 0,5 gr c/24 hs.", "EV: Inducción: 1,25 mg/kg 3 veces por semana.  Mantenimiento: 0,625 mg/kg 3 veces por semana.// VO: 0,5 gr 3 veces x semana.", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Gatifloxacina", "400 mg c/ 24 hs", "Dosis", "50%", "50%", "50%", "Dosis inicial por 1 día: 400 mg, luego 200 mg c/24 hs"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Gentamicina", "1,7 mg mg/kg c/ 8 hs ó 2,5 mg/kg c/12 hs", "Dosis / Intervalo", "0,5–1,2 mg/kg c/12 hs.", "0,5–1,2 mg/kg c/12 hs.", "0,35-0,5 mg/kg c/24-48 hs", " Comenzar con dosis inical (dosis   habitual) luego, dosis de sostén ajustada  a FGe. Luego de la segunda dosis medir FG y ajustar."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Imipenem", "250 – 500 mg c/6hs. Dosis máxima: 4 gr", "Dosis / Intervalo", "50%", "25%-50%", "25%", "Convulsiones en ensuficiencia renal G5. (con ClCr < 30 ml, no se recomienda su uso)"));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Isoniacida", "300 mg c/24 hs", "", "No ajustar", "No ajustar", "", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Itraconazol", "V.O: 100 – 200mg c/12 hs.", "", "No ajustar", "No ajustar", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Lamivudina", "150 mg c/ 12 hs", "Dosis / Intervalo", "150 mg c/ 24 hs", "1 dosis de 150 mg, luego 100 mg c/24 hs", "1 dosis de 150 mg, luego 50 mg c/24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Linezolide", "400 – 600 mg c/12 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Levofloxacina", "250 – 500 mg c/24 hs.", "Dosis/Intervalo", "1 dosis: 500 mg, luego 250 mg c/24 hs", "1 dosis: 500 mg, luego 250 mg c/48 hs", "1 dosis: 500 mg, luego 250 mg 48 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Lopinavir (L)/Ritonavir", "400 mg/100 mg c/12 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Meropenem", "1 g c/8hs.", "Dosis / Intervalo", "1 g c/12 hs", "500 mg c/12 hs ", "500 mg c/24 hs ", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Metronidazol", "500 mg c/ 8 hs", "Intervalo", "No ajustar", "No ajustar", "Cada 12 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Minociclina", "100 mg c/ 12 hs", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Nelfinavir", "750 mg c/12 hs – 1250 mg c/24 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Nevirapina", "200 mg c/24 hs por 14 días, continuar 200 mg c/12 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Nitrofurantoína", "500 mg – 1 g c/ 6 hs.", "Dosis", "No usar", "No usar", "No usar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Norfloxacina", "400mg c/12 hs", "Dosis", "Cada 12-24 hs", "Cada 24 hs", "No usar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ornidazol", "Dosis habitual", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Oseltamivir", "75 mg cada 12 hs.", "Dosis / Intervalo", "30 mg c/12 hs", "30 mg c/24 hs", "30 mg c/48 hs.", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Penicilina G sódica", "0,5 – 4 millones de U c/ 4-6 hs. ", "Dosis", "75%", "50%", "25%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Pentamidina", "4 mg/kg c/24 hs", "Intervalo", "No ajustar", "Cada 36 hs", "Cada 48 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Piperacilina", "3 – 4 gr c/ 4-6 hs", "Intervalo", "Cada 6-12 hs", "Cada 6-12 hs", "Cada 12 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Piperacilina (P)/Tazobactam", "3,375 – 4.5 g c/4-6 hs", "Dosis / Intervalo", "2,25 g c/6 hs", "2,25 g c/8 hs", "2,25g c/8 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Pirazinamida", "15 – 30 mg / kg /c/24 hs. Dosis máxima: 2 g c/24 hs.", "Dosis", "No ajustar", "No ajustar", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Pirimetamina", "Primer día 100 mg c/24 hs. Continuar 25 mg c/ 24 hs.", "", "No ajustar", "No ajustar", "No ajustar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Rifabutina", "300 mg c/ 24 hs", "Dosis", "No ajustar", "50%", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Rifampicina", "300 mg c/24 hs", "Dosis", "No ajustar", "50%", "50%", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Rimantadina", "100 mg c/ 12 hs", "Intervalo", "No ajustar", "No ajustar", "Cada 24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Ritonavir", " Dosis inicial: 300 mg c/12 hs. Aumentar 100 mg c/12 cada 2–3 días hasta 600 mg c/12 hs.", "", "Sin datos", "Sin datos", "Sin datos", "En pacientes que toman también Saquinavir alcanzar dosis máxima de 400 mg c/12 hs."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Saquinavir", "1000 mg c/12 hs con 100 mg ritonavir", "", "Sin datos", "Sin datos", "Sin datos", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Stavudina", "< 60 kg: 30 mg c/12 hs. > 60 kg: 40 mg c/12 hs", "Dosis / Intervalo", "<60 kg: 15 mg c/12 hs >60 kg: 20 mg c/12 hs", "<60 kg: 15 mg c/24 hs >60 kg: 20 mg c/24 hs", "<60 kg: 15 mg c/24 hs >60 kg: 20 mg c/24 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Teicoplanina", "6 mg/kg c/24 hs", "Intervalo", "Cada 48 hs", "Cada 48 hs", "Cada 72 hs", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Tenofovir", "300 mg c/24 hs", "Intervalo", " Cada 48 hs", "Dos veces por semana", "No usar", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Trimetoprima (T)- sulfametoxazol (S)", "T: 1 g y S:100 mg c/12hs", "Intervalo", "Cada 12-18 hs.", "Cada 18 hs.", "Cada 24 hs.", ""));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Vancomicina", "1 g c/12 hs", "Intervalo", "Cada 24-48 hs", "Cada 48 – 96", "Cada 4 a 7 días.", " Idealmente luego de la segunda dosis realizar dosaje de droga y/o estimar FGe y ajustar dosis."));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Voriconazol", "VO: 400 mg/12 h, 1.er día. Continuar 200 mg/12 h", "", "No ajustar", "No ajustar", "No ajustar", "EV: No usar en FGe< 60 por acúmulo del vehículo: ciclodextrina. "));
+            farmacos.push(new Farmaco("Antivirales, antibióticos y antifúngicos", "Zidovudina", "VO: 200 mg c/8hs o 300 mg c/8hs.", "Dosis / Intervalo", "No ajustar", "No ajustar", "100 mg c/6-8 hs", ""));
+            farmacos.push(new Farmaco("Cardiovasculares", "Digoxina", "0,25 mg/día ", "Dosis / Intervalo", "75%-50% ", "50%-25% o cada 36 h", "25%-10% o cada 48 h", ""));
+            farmacos.push(new Farmaco("Cardiovasculares", "Amiodarona", "600-800 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Cardiovasculares", "Propafenona", "450-900 mg/día ", "Dosis", "100%", "100%", "100%", ""));
+            farmacos.push(new Farmaco("Cardiovasculares", "Nitroglicerina SL", "", "Dosis", "100%", "100%", "100%", ""));
+        }
+
+        const pkAccion = document.getElementById('pkAccion');
+        const pkFarmaco = document.getElementById('pkFarmaco');
+        const lDosis = document.getElementById('lDosis');
+        const lMetodo = document.getElementById('lMetodo');
+        const lG3 = document.getElementById('lG3');
+        const lG4 = document.getElementById('lG4');
+        const lG5 = document.getElementById('lG5');
+        const lComentario = document.getElementById('lComentario');
+
+        // Función para cargar las Acciones Terapéuticas únicas
+        function initializeAcciones() {
+            loadFarmacos(); // Cargar la data
+            
+            // Obtener acciones únicas
+            const accionesUnicas = [...new Set(farmacos.map(f => f.accion))].sort();
+
+            // Llenar el picker de acciones (manteniendo la opción deshabilitada)
+            accionesUnicas.forEach(accion => {
+                const option = document.createElement('option');
+                option.value = accion;
+                option.textContent = accion;
+                pkAccion.appendChild(option);
+            });
+        }
+
+        // Manejador de cambio para pkAccion (Accion Terapéutica)
+        function pkAccion_SelectedIndexChanged() {
+            const selectedAccion = pkAccion.value;
+
+            // Limpiar y resetear pkFarmaco
+            pkFarmaco.innerHTML = '<option value="" disabled selected>Seleccione un fármaco</option>';
+            pkFarmaco.disabled = true;
+            
+            // Limpiar resultados
+            updateResults();
+
+            if (selectedAccion) {
+                const farmacosFiltrados = farmacos.filter(f => f.accion === selectedAccion).sort((a, b) => a.nombre.localeCompare(b.nombre));
+
+                farmacosFiltrados.forEach((farmaco, index) => {
+                    const option = document.createElement('option');
+                    // Usamos el nombre como valor y también como texto
+                    option.value = farmaco.nombre;
+                    option.textContent = farmaco.nombre;
+                    pkFarmaco.appendChild(option);
+                });
+
+                pkFarmaco.disabled = false;
+            }
+        }
+
+        // Manejador de cambio para pkFarmaco (Fármaco)
+        function pkFarmaco_SelectedIndexChanged() {
+            const selectedFarmacoNombre = pkFarmaco.value;
+
+            if (selectedFarmacoNombre) {
+                const farmacoSeleccionado = farmacos.find(f => f.nombre === selectedFarmacoNombre && f.accion === pkAccion.value);
+                
+                if (farmacoSeleccionado) {
+                    updateResults(farmacoSeleccionado);
+                } else {
+                    updateResults();
+                }
+            } else {
+                updateResults();
+            }
+        }
+
+        // Función para actualizar los labels de resultado
+        function updateResults(farmaco = null) {
+            lDosis.textContent = farmaco ? farmaco.dosisFRNormal : '';
+            lMetodo.textContent = farmaco ? farmaco.metodoAjuste : '';
+            lG3.textContent = farmaco ? farmaco.g3 : '';
+            lG4.textContent = farmaco ? farmaco.g4 : '';
+            lG5.textContent = farmaco ? farmaco.g5 : '';
+            lComentario.textContent = farmaco ? farmaco.comentario : '';
+
+            // Limpiar estilos si no hay fármaco seleccionado
+            const elements = [lDosis, lMetodo, lG3, lG4, lG5, lComentario];
+            elements.forEach(el => el.style.color = farmaco ? 'darkred' : 'inherit');
+        }
+
+        // Función de simulación para el botón de compartir
+        function handleShare() {
+            // Reemplazar con la lógica de compartir real si fuera necesario (ej. Web Share API)
+            console.log("Compartiendo información del ajuste de dosis de fármacos...");
+            const selectedFarmaco = pkFarmaco.value;
+            const textToShare = selectedFarmaco ? `Ajuste de Dosis para ${selectedFarmaco}: Ver detalles.` : 'Ajuste de dosis de fármacos renal.';
+            
+            // Usando un modal simple o console.log ya que alert() no está permitido
+            alert('Función de compartir simulada: ' + textToShare);
+        }
+
+        // Inicializar la aplicación al cargar la página
+        window.onload = initializeAcciones;
+
+    </script>
+</body>
+</html>

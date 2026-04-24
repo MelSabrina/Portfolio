@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos p/equipo de salud</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --background-color: white;
+            --font-family: 'Inter', sans-serif;
+            --alco-primary-color: #3f51b5; /* Indigo, simulando AlcoPrimaryColor */
+            --taba-primary-color: #4CAF50; /* Verde, simulando TabaPrimaryColor */
+            --button-text-color: white;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* Contenido Principal */
+        main {
+            padding: 10px; /* Simula Grid Padding="10" */
+            /* Se añade padding inferior para el espacio que antes ocupaba el NavButton */
+            padding-bottom: 50px; 
+        }
+        
+        .stack-layout {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label-title {
+            font-size: 1.35rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px 0 20px 0;
+            padding: 0 5px;
+        }
+
+        .alco-label-bold {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 10px 0;
+            padding: 0 5px;
+            cursor: pointer; /* Indica que es clickeable */
+            text-decoration: underline;
+        }
+
+        /* Contenedor Horizontal para Imagen y Botón */
+        .horizontal-stack {
+            display: flex;
+            align-items: center;
+            margin: 10px 0 25px 0; /* Simula StackLayout Margin */
+        }
+        
+        /* Frame (Borde para la imagen) */
+        .image-frame {
+            border: 2px solid var(--taba-primary-color);
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px; /* Simula CornerRadius */
+            margin-right: 15px;
+            flex-grow: 1; /* Permite que la imagen crezca en ancho */
+            max-width: calc(100% - 75px); /* Deja espacio para el botón de compartir */
+        }
+        
+        .resource-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 180px; /* Simula MinimumHeightRequest */
+            object-fit: contain;
+            cursor: pointer; /* Indica que es clickeable */
+            /* Placeholder para las imágenes */
+            background-color: #f0f0f0; 
+            border-radius: 4px;
+        }
+
+        /* Botón de Compartir */
+        .share-button {
+            background-color: var(--alco-primary-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.2s;
+        }
+
+        .share-button:hover {
+            background-color: #5c6bc0; /* Lighter shade on hover */
+        }
+        
+        .share-icon {
+            width: 30px; 
+            height: 30px;
+            /* Placeholder para el PNG: share_48_w.png */
+            content: url('https://placehold.co/30x30/3f51b5/ffffff?text=Share');
+        }
+
+        /* Estilo para el último StackLayout para simular Margin="10,0,10,100" */
+        #last-resource {
+            margin-bottom: 100px;
+        }
+
+        /* Mensaje Box (Reemplazo de alert/DisplayAlert) */
+        .message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2000;
+            display: none; /* Oculto por defecto */
+            text-align: center;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Mensaje Box (Reemplazo de alert/DisplayAlert) -->
+    <div id="messageBox" class="message-box">
+        <span id="messageText"></span>
+    </div>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos p/equipo de salud
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="contenido">
+        <div class="stack-layout">
+
+            <div class="alco-label-title">
+                Recursos para equipo de salud
+            </div>
+
+            <!-- Recurso 1: AUDIT -->
+            <div class="alco-label-bold" onclick="openLink('https://www.paho.org/hq/dmdocuments/2009/AUDIT_spa.pdf')">
+                Cuestionario de Identificación de los Transtornos debidos al Consumo de Alcohol (AUDIT)
+            </div>
+
+            <div class="horizontal-stack">
+                <div class="image-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/ac_recprof1.png" 
+                         alt="Cuestionario AUDIT"
+                         onclick="openLink('https://www.paho.org/hq/dmdocuments/2009/AUDIT_spa.pdf')"
+                         onerror="this.src='https://placehold.co/100x180/f0f0f0/333333?text=ac_recprof1.png';" 
+                         title="ac_recprof1.png">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareLink('https://www.paho.org/hq/dmdocuments/2009/AUDIT_spa.pdf')">
+                    <img src="/assets/img/share_48_w.png" class="share-icon" alt="Compartir"
+                         onerror="this.src='https://placehold.co/30x30/3f51b5/ffffff?text=Share';">
+                </button>
+            </div>
+
+            <!-- Recurso 2: INTERVENCIÓN BREVE -->
+            <div class="alco-label-bold" onclick="openLink('https://apps.who.int/iris/bitstream/handle/10665/331322/WHO-MSD-MSB-01.6b-spa.pdf?sequence=1&isAllowed=y')">
+                INTERVENCIÓN BREVE (Para el Consumo de Riesgo y Perjudicial de Alcohol)
+            </div>
+
+            <div class="horizontal-stack">
+                <div class="image-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/ac_recprof2.png" 
+                         alt="Intervención Breve"
+                         onclick="openLink('https://apps.who.int/iris/bitstream/handle/10665/331322/WHO-MSD-MSB-01.6b-spa.pdf?sequence=1&isAllowed=y')"
+                         onerror="this.src='https://placehold.co/100x180/f0f0f0/333333?text=ac_recprof2.png';"
+                         title="ac_recprof2.png">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareLink('https://apps.who.int/iris/bitstream/handle/10665/331322/WHO-MSD-MSB-01.6b-spa.pdf?sequence=1&isAllowed=y')">
+                    <img src="/assets/img/share_48_w.png" class="share-icon" alt="Compartir"
+                         onerror="this.src='https://placehold.co/30x30/3f51b5/ffffff?text=Share';">
+                </button>
+            </div>
+
+            <!-- Recurso 3: Diagnóstico Argentina -->
+            <div class="alco-label-bold" onclick="openLink('https://bancos.salud.gob.ar/recurso/diagnostico-de-situacion-sobre-el-consumo-de-alcohol-en-argentina')">
+                Diagnóstico de situación sobre el consumo de alcohol en Argentina
+            </div>
+
+            <div class="horizontal-stack" id="last-resource">
+                <div class="image-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/ac_recprof3.png" 
+                         alt="Diagnóstico Argentina"
+                         onclick="openLink('https://bancos.salud.gob.ar/recurso/diagnostico-de-situacion-sobre-el-consumo-de-alcohol-en-argentina')"
+                         onerror="this.src='https://placehold.co/100x180/f0f0f0/333333?text=ac_recprof3.png';"
+                         title="ac_recprof3.png">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareLink('https://bancos.salud.gob.ar/recurso/diagnostico-de-situacion-sobre-el-consumo-de-alcohol-en-argentina')">
+                    <img src="/assets/img/share_48_w.png" class="share-icon" alt="Compartir"
+                         onerror="this.src='https://placehold.co/30x30/3f51b5/ffffff?text=Share';">
+                </button>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función de reemplazo para DisplayAlert
+        function showMessage(message) {
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+
+            // Ocultar el mensaje después de 3 segundos
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Función para abrir enlaces (simula TapGestureRecognizer)
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir/copiar al portapapeles (simula btnShare_Clicked)
+        function shareLink(url) {
+            // Usamos document.execCommand('copy') ya que navigator.clipboard.writeText() puede fallar en iframes
+            const successMessage = "Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)";
+            const errorMessage = 'Error al copiar el enlace. Intente copiarlo manualmente.';
+
+            const textarea = document.createElement('textarea');
+            textarea.value = url;
+            textarea.style.position = 'fixed'; // Para evitar desplazamiento
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage(successMessage);
+                } else {
+                    showMessage(errorMessage);
+                }
+            } catch (err) {
+                console.error('Fallo al copiar:', err);
+                showMessage(errorMessage);
+            }
+            document.body.removeChild(textarea);
+        }
+    </script>
+</body>
+</html>

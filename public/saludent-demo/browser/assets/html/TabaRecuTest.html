@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Test de Fagestrom</title>
+    <style>
+
+        :root {
+            --tabaco-primary-color: #71b8db;
+            --tabaco-button-text-color: #333333;
+            --tabaco-label-background-color: #f3f4f6;
+            --tabaco-backdrop-color: #d1d5db;
+            --tabaco-text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--tabaco-text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--tabaco-button-text-color);
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--tabaco-button-text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .info-label {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            padding: 10px;
+            background-color: var(--tabaco-label-background-color);
+            border-radius: 8px;
+        }
+
+        .question-group {
+            background-color: var(--tabaco-primary-color);
+            color: var(--tabaco-button-text-color);
+            padding: 1rem;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .question-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-left: 25px;
+            min-height: 20px;
+            color: var(--tabaco-button-text-color);
+            opacity: 0.7;
+        }
+        
+        .radio-option:hover,
+        .radio-option input:checked + .radio-checkmark + span {
+             opacity: 1;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-checkmark {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: var(--tabaco-button-text-color);
+            border-radius: 50%;
+        }
+
+        .radio-option input:checked ~ .radio-checkmark {
+            background-color: var(--tabaco-button-text-color);
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--tabaco-primary-color);
+        }
+
+        .radio-option input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+
+        .button {
+            background-color: var(--tabaco-primary-color);
+            color: var(--tabaco-button-text-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .button:hover {
+            background-color: #1a3c9e;
+            transform: translateY(-2px);
+        }
+
+        .result-frame {
+            background-color: var(--tabaco-label-background-color);
+            border: 1px solid var(--tabaco-backdrop-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 340px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-label {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--tabaco-error-color, #d9534f);
+            margin-bottom: 5px;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Tabaco: Test de Fagestrom</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="container">
+            <p class="info-label">
+                Lea las preguntas tal como están escritas. Registre las respuestas cuidadosamente. Empiece el test diciendo «Ahora voy a hacerle algunas preguntas sobre su consumo de tabaco durante el último año».
+            </p>
+
+            <div class="question-group" data-score-name="pregunta1">
+                <label class="question-label">1. ¿Cuánto tiempo tarda en fumar su primer cigarrillo después de despertarse?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Más de 60 minutos</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) 31‐60 minutos</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="2">
+                    <span class="radio-checkmark"></span>
+                    <span>(2) 6‐30 minutos</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta1" value="3">
+                    <span class="radio-checkmark"></span>
+                    <span>(3) Menos de 5 minutos</span>
+                </label>
+            </div>
+
+            <div class="question-group" data-score-name="pregunta2">
+                <label class="question-label">2. ¿Encuentra dificultad para no fumar en los sitios en que está prohibido (cine…)?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta2" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta2" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) Sí</span>
+                </label>
+            </div>
+
+            <div class="question-group" data-score-name="pregunta3">
+                <label class="question-label">3. ¿A que cigarrillo le costaría más renunciar?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta3" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Otros</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta3" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) El primero</span>
+                </label>
+            </div>
+
+            <div class="question-group" data-score-name="pregunta4">
+                <label class="question-label">4. ¿Cuántos cigarrillos fuma cada día?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) Menos de 11</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) 11‐20</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="2">
+                    <span class="radio-checkmark"></span>
+                    <span>(2) 21‐30</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta4" value="3">
+                    <span class="radio-checkmark"></span>
+                    <span>(3) Más de 30</span>
+                </label>
+            </div>
+
+            <div class="question-group" data-score-name="pregunta5">
+                <label class="question-label">5. ¿Fuma más durante las primeras horas tras levantarse que durante el resto del día?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta5" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta5" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) Sí</span>
+                </label>
+            </div>
+
+            <div class="question-group" data-score-name="pregunta6">
+                <label class="question-label">6. ¿Fuma si está tan enfermo que ha estado en la cama la mayor parte del día?</label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta6" value="0" checked>
+                    <span class="radio-checkmark"></span>
+                    <span>(0) No</span>
+                </label>
+                <label class="radio-option">
+                    <input type="radio" name="pregunta6" value="1">
+                    <span class="radio-checkmark"></span>
+                    <span>(1) Sí</span>
+                </label>
+            </div>
+
+            <button id="btnSave" class="button">Calcular Resultado</button>
+
+            <div class="result-frame">
+                <p id="lblResult" class="result-label">Resultado: 0</p>
+                <p id="lblDependencia" class="result-label">Dependencia: BAJA</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnSave = document.getElementById('btnSave');
+            const lblResult = document.getElementById('lblResult');
+            const lblDependencia = document.getElementById('lblDependencia');
+            
+            // Set initial state based on default checked radios
+            const scores = {
+                pregunta1: 0,
+                pregunta2: 0,
+                pregunta3: 0,
+                pregunta4: 0,
+                pregunta5: 0,
+                pregunta6: 0
+            };
+
+            document.querySelectorAll('.question-group').forEach(group => {
+                const radios = group.querySelectorAll('input[type="radio"]');
+                radios.forEach(radio => {
+                    radio.addEventListener('change', (event) => {
+                        const name = event.target.name;
+                        scores[name] = parseInt(event.target.value, 10);
+                    });
+                });
+            });
+
+            btnSave.addEventListener('click', () => {
+                let total = Object.values(scores).reduce((sum, current) => sum + current, 0);
+                
+                let dependencia = "MEDIA";
+                if (total < 4) {
+                    dependencia = "BAJA";
+                } else if (total >= 7) {
+                    dependencia = "ALTA";
+                }
+
+                lblResult.textContent = `Resultado: ${total}`;
+                lblDependencia.textContent = `Dependencia: ${dependencia}`;
+            });
+
+            // Trigger initial state update
+            document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                const name = radio.name;
+                scores[name] = parseInt(radio.value, 10);
+            });
+        });
+    </script>
+</body>
+</html>

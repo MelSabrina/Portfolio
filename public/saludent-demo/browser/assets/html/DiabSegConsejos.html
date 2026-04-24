@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- No se aplica ninguna metaetiqueta que desactive el zoom -->
+    <title>Diabetes: Seguimiento (Consejos)</title>
+    <style>
+
+        /* Definición de variables y estilos base */
+        :root {
+            --diab-primary-color: #007bff; /* Azul primario para el botón NavButton */
+            --page-background: white; /* Color de fondo de la ContentPage */
+            --text-color: #333;
+            --secondary-text-color: #555;
+            --font-family: 'Inter', sans-serif;
+            --hiper-button-text-color: white; /* Usado como BackgroundColor en el StackLayout principal */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* 1. Toolbar (Barra de navegación) - SIN COLOR */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Mismo ancho que el botón de retroceso para centrar el título */
+        }
+
+        /* 2. Contenido Principal */
+        .scroll-container {
+            /* Simula el ScrollView, aunque body/html ya permite scroll */
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Simula StackLayout y HiperButtonTextColor (White) */
+        .stack-content {
+            background-color: var(--hiper-button-text-color);
+            padding-bottom: 100px; /* Espacio extra para que el botón NavButton no tape el contenido */
+        }
+
+        /* Estilo HiperLabel (simulado: texto normal) */
+        .hiper-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+        
+        /* Estilo DiabBullet (simulación de viñeta personalizada) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+        .bullet-item {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.75rem; /* Espacio para la viñeta */
+            color: var(--secondary-text-color);
+            font-size: 1rem;
+        }
+        /* Viñeta azul personalizada */
+        .bullet-item::before {
+            content: '•'; 
+            color: var(--diab-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0.75rem; 
+            top: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Estilo para el último elemento con Margin="0,0,0,100" */
+        .last-bullet-item {
+            margin-bottom: 6rem; /* 100px */
+        }
+
+        /* 3. Botón de Navegación Fijo (Simulando NavButton) */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Seguimiento (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal (Simula ScrollView y Grid) -->
+    <div class="scroll-container">
+        
+        <!-- body content (Simula StackLayout Grid.Row="0") -->
+        <div class="stack-content">
+
+            <p class="hiper-label">
+                Se sugiere que la atención del paciente con DM2 esté coordinada por el médico de atención primaria. Casos en los cuales es aconsejable solicitar la intervención de determinadas especialidades:
+            </p>
+
+            <ul class="bullet-list">
+                <!-- Nefrología -->
+                <li class="bullet-item">
+                    Nefrología: filtrado glomerular menor de 45 ml/min/m<sup>2</sup> o presencia de albuminuria A3 (mayor a 300 mg/g).
+                </li>
+                
+                <!-- Oftalmología -->
+                <li class="bullet-item">
+                    Oftalmología (para evaluación que incluya el fondo de ojo): al diagnóstico y en forma anual; o con mayor frecuencia ante la presencia de retinopatía durante el seguimiento.
+                </li>
+
+                <!-- Nutrición -->
+                <li class="bullet-item">
+                    Nutrición: aquellas personas que presentan dificultades para controlar su peso.
+                </li>
+
+                <!-- Cardiología -->
+                <li class="bullet-item">
+                    Cardiología: personas con sospecha o presencia de cardiopatía isquémica, insuficiencia cardíaca o con HTA resistente al tratamiento.
+                </li>
+
+                <!-- Odontología -->
+                <li class="bullet-item">
+                    Odontología: control anual.
+                </li>
+
+                <!-- Vacuna antigripal (Último elemento con margin-bottom: 100) -->
+                <li class="bullet-item last-bullet-item">
+                    Vacuna antigripal: anual e iniciar esquema de vacuna antineumocóccica. Constatar esquema de vacuna antitetánica (doble adulto) completo.
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    
+    
+    <script>
+        /**
+         * Función para volver a la página anterior, vinculada al botón de retroceso.
+         */
+        function goBack() {
+            window.history.back();
+        }
+        // El script se mantiene mínimo ya que la navegación del NavButton es compleja
+        // y depende del entorno MAUI, pero el botón de retroceso funciona con history.back().
+    </script>
+</body>
+</html>

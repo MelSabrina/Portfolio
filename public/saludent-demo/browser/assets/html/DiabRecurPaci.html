@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos para pacientes</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --diab-primary-color: #007bff; /* Simulación de DiabPrimaryColor (Azul) */
+            --taba-primary-color: #28a745; /* Simulación de TabaPrimaryColor (Verde para distinguir borde) */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; 
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            background-color: white; /* Simulación de DiabLabelBackgroundColor */
+            padding-bottom: 120px; /* Espacio para el botón de navegación fijo */
+        }
+
+        .diab-label-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--diab-primary-color);
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+
+        .diab-label-bold {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 20px 10px 10px 10px;
+            cursor: pointer; 
+            transition: color 0.2s;
+        }
+        .diab-label-bold:hover {
+            color: var(--diab-primary-color);
+        }
+
+        /* --- 4. Componente de Recurso (Image + Share Button) --- */
+        .resource-row {
+            display: flex;
+            align-items: flex-start;
+            margin: 10px 10px 10px 10px; 
+        }
+        .resource-frame {
+            border: 2px solid var(--taba-primary-color); /* Simula Frame BorderColor */
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            cursor: pointer;
+        }
+        .resource-frame:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .resource-image {
+            background-color: white;
+            min-height: 180px; 
+            width: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .share-button {
+            width: 50px;
+            height: 50px;
+            min-width: 50px; 
+            min-height: 50px;
+            border-radius: 10px;
+            margin-left: 10px; 
+            margin-top: 10px; 
+            background-color: var(--diab-primary-color);
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+        .share-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Último StackLayout con Margin="10,0,10,100" */
+        .last-resource-row {
+            margin-bottom: 100px;
+        }
+
+
+        /* --- 5. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* --- 6. Modal de Mensaje (Sustituto de DisplayAlert) --- */
+        .message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: none; /* Oculto por defecto */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .message-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        .modal-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--diab-primary-color);
+        }
+        .modal-button {
+            background-color: var(--diab-primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .modal-button:hover {
+            background-color: #0056b3;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Modal de Mensaje (Sustituto de DisplayAlert) -->
+    <div id="messageModal" class="message-modal">
+        <div class="message-box">
+            <div id="modalTitle" class="modal-title"></div>
+            <p id="modalMessage"></p>
+            <button class="modal-button" onclick="closeModal()">Ok</button>
+        </div>
+    </div>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos para pacientes
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- DiabLabelTitle -->
+            <h1 class="diab-label-title">
+                Recursos para pacientes
+            </h1>
+            
+            <!-- RECURSO 1: CUIDADOS DE LOS PIES (VIDEO) -->
+            <p class="diab-label-bold" onclick="openResource('https://www.youtube.com/watch?v=jz55iS-ZrM4&t=2s')">
+                VIDEO EDUCATIVO SOBRE CUIDADOS DE LOS PIES:
+            </p>
+            <div class="resource-row">
+                <div class="resource-frame" onclick="openResource('https://www.youtube.com/watch?v=jz55iS-ZrM4&t=2s')">
+                    <img class="resource-image" src="/assets/img/db_recpaci1.png" alt="Imagen del recurso: Video de cuidados de los pies">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://www.youtube.com/watch?v=jz55iS-ZrM4&t=2s')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 2: APLICACIÓN DE INSULINA CON LAPICERA (VIDEO) -->
+            <p class="diab-label-bold" onclick="openResource('https://www.youtube.com/watch?v=SLVDpXnretI&t=2s')">
+                VIDEO EDUCATIVO SOBRE TÉCNICA DE APLICACIÓN DE INSULINA CON LAPICERA:
+            </p>
+            <div class="resource-row"> 
+                <div class="resource-frame" onclick="openResource('https://www.youtube.com/watch?v=SLVDpXnretI&t=2s')">
+                    <img class="resource-image" src="/assets/img/db_recpaci2.png" alt="Imagen del recurso: Video de aplicación de insulina con lapicera">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://www.youtube.com/watch?v=SLVDpXnretI&t=2s')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 3: APLICACIÓN DE INSULINA CON JERINGA (VIDEO) -->
+            <p class="diab-label-bold" onclick="openResource('https://www.youtube.com/watch?v=SHcOXQMaUiA&t=2s')">
+                VIDEO EDUCATIVO SOBRE TÉCNICA DE APLICACIÓN DE INSULINA CON JERINGA:
+            </p>
+            <div class="resource-row">
+                <div class="resource-frame" onclick="openResource('https://www.youtube.com/watch?v=SHcOXQMaUiA&t=2s')">
+                    <img class="resource-image" src="/assets/img/db_recpaci3.png" alt="Imagen del recurso: Video de aplicación de insulina con jeringa">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://www.youtube.com/watch?v=SHcOXQMaUiA&t=2s')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 4: CUIDADOS DE LOS PIES (DOCUMENTO) -->
+            <p class="diab-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/diabetes-cuidados-de-los-pies')">
+                Cuidados de los pies en personas con Diabetes:
+            </p>
+            <div class="resource-row"> 
+                <div class="resource-frame" onclick="openResource('https://bancos.salud.gob.ar/recurso/diabetes-cuidados-de-los-pies')">
+                    <img class="resource-image" src="/assets/img/db_recpaci4.png" alt="Imagen del recurso: Cuidados de los pies en documento">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/diabetes-cuidados-de-los-pies')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 5: HIPOGLUCEMIA -->
+            <p class="diab-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/hipoglucemia')">
+                ¿Qué es? La Hipoglucemia:
+            </p>
+            <div class="resource-row"> 
+                <div class="resource-frame" onclick="openResource('https://bancos.salud.gob.ar/recurso/hipoglucemia')">
+                    <img class="resource-image" src="/assets/img/db_recpaci5.png" alt="Imagen del recurso: La Hipoglucemia">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/hipoglucemia')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- RECURSO 6: CUIDADOS EN LAS PERSONAS CON DIABETES (DOCUMENTO FINAL) -->
+            <p class="diab-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/personas-con-diabetes')">
+                Cuidados en las personas con diabetes:
+            </p>
+            <div class="resource-row last-resource-row"> 
+                <div class="resource-frame" onclick="openResource('https://bancos.salud.gob.ar/recurso/personas-con-diabetes')">
+                    <img class="resource-image" src="/assets/img/db_recpaci6.png" alt="Imagen del recurso: Cuidados en las personas con diabetes">
+                </div>
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/personas-con-diabetes')">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    
+
+    
+    <script>
+        const SHARE_MESSAGE = "Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)";
+        const SHARE_TITLE = "Compartir";
+        
+        /**
+         * Simula DisplayAlert usando un modal personalizado.
+         */
+        function openModal(title, message) {
+            document.getElementById('modalTitle').innerHTML = title;
+            document.getElementById('modalMessage').innerHTML = message;
+            document.getElementById('messageModal').style.display = 'flex';
+        }
+
+        /**
+         * Cierra el modal de mensaje.
+         */
+        function closeModal() {
+            document.getElementById('messageModal').style.display = 'none';
+        }
+
+        /**
+         * Simula Launcher.OpenAsync.
+         * @param {string} url - La URL a abrir.
+         */
+        function openResource(url) {
+            window.open(url, '_blank');
+        }
+
+        /**
+         * Copia el texto al portapapeles y muestra un mensaje de confirmación.
+         * @param {string} textToCopy - El texto (URL) a copiar.
+         */
+        function shareResource(textToCopy) {
+            try {
+                // Crea un área de texto temporal para la copia
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                // Hace que el elemento no sea visible pero esté en el DOM para la copia
+                textarea.style.position = 'fixed';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                
+                // Selecciona y copia el contenido
+                textarea.select();
+                document.execCommand('copy');
+                
+                // Limpia el DOM
+                document.body.removeChild(textarea);
+                
+                openModal(SHARE_TITLE, SHARE_MESSAGE);
+
+            } catch (err) {
+                // Fallback en caso de error, aunque document.execCommand('copy') suele funcionar en iframes.
+                openModal('Error de Copia', 'No se pudo copiar el enlace automáticamente. El enlace es: <br>' + textToCopy);
+            }
+        }
+    </script>
+</body>
+</html>

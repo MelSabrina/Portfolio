@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Vía Clínica HEARTS - D</title>
+    <style>
+
+        /* Definición de variables CSS para simular StaticResource */
+        :root {
+            --diab-primary-color: #08131f; /* Azul primario para Diabetes */
+            --text-color: #333;
+            --background-color: #f7f7f7;
+            --card-background: white;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: var(--card-background); 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Contenedor principal del contenido */
+        .content-container {
+            padding: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Contenido Body (Simulando StackLayout/Grid) */
+        .body-content {
+            background-color: var(--card-background);
+            padding: 1rem; /* 16px */
+            border-radius: 0.5rem; /* 8px */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilos de la tarjeta de imagen */
+        .zoom-image-card {
+            margin-bottom: 20px;
+            padding: 10px 0; 
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .zoom-image-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            /* Se eliminó cursor: zoom-in */
+            transition: opacity 0.3s;
+        }
+        .zoom-image-card img:hover {
+            opacity: 0.95; /* Ligero cambio al pasar el mouse */
+        }
+        .zoom-image-title {
+            font-weight: 600;
+            color: var(--diab-primary-color);
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 1rem;
+            padding: 5px 0;
+        }
+
+        /* Se eliminaron todos los estilos del modal */
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <!-- Icono de flecha de retroceso SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Vía Clínica HEARTS - D
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <!-- ScrollView y Contenido -->
+    <div class="content-container" id="contenido">
+
+        <!-- body content (Contenedor principal de las imágenes) -->
+        <div class="body-content">
+
+            <!-- ZoomImage 1: Diabetes: A - Diagnóstico -->
+            <div class="zoom-image-card">
+                <div class="zoom-image-title">Diabetes: A - Diagnóstico</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg1.png" 
+                     alt="Diagrama de flujo Diabetes: A - Diagnóstico" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg1.png'">
+            </div>
+
+            <!-- ZoomImage 2: Diabetes: B - Tratamiento -->
+            <div class="zoom-image-card">
+                <div class="zoom-image-title">Diabetes: B - Tratamiento</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg3.png" 
+                     alt="Diagrama de flujo Diabetes: B - Tratamiento"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg3.png'">
+            </div>
+
+            <!-- ZoomImage 3: Diabetes: C - Factores de riesgo asociados -->
+            <div class="zoom-image-card">
+                <div class="zoom-image-title">Diabetes: C - Factores de riesgo asociados</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg4.png" 
+                     alt="Diagrama de flujo Diabetes: C - Factores de riesgo asociados"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg4.png'">
+            </div>
+
+            <!-- ZoomImage 4: Diabetes: D - Tamizaje de complicaciones crónicas -->
+            <div class="zoom-image-card">
+                <div class="zoom-image-title">Diabetes: D - Tamizaje de complicaciones crónicas</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg5.png" 
+                     alt="Diagrama de flujo Diabetes: D - Tamizaje de complicaciones crónicas"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg5.png'">
+            </div>
+
+            <!-- ZoomImage 5: Diabetes: E - Derivación oportuna -->
+            <div class="zoom-image-card">
+                <div class="zoom-image-title">Diabetes: E - Derivación oportuna</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg6.png" 
+                     alt="Diagrama de flujo Diabetes: E - Derivación oportuna"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg6.png'">
+            </div>
+
+            <!-- ZoomImage 6: Diabetes: F - Seguimiento con antibióticos orales -->
+            <div class="zoom-image-card" style="margin-bottom: 80px;">
+                <div class="zoom-image-title">Diabetes: F - Seguimiento con antibióticos orales</div>
+                <!-- Se eliminó onclick -->
+                <img src="/assets/img/db_manealg7.png" 
+                     alt="Diagrama de flujo Diabetes: F - Seguimiento con antibióticos orales"
+                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/007bff/ffffff?text=db_manealg7.png'">
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- Se eliminó por completo la estructura del Modal -->
+
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+        
+        // Se eliminó toda la lógica de JavaScript relacionada con el modal de zoom.
+    </script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enf. Renal: Evaluación (Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --rena-primary-color: #5b5f64; /* Azul profundo para Renal */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Layout --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio predeterminado entre elementos */
+        }
+
+        /* --- 4. Estilos de Texto (Simulación de StaticResources) --- */
+        .rena-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        /* Estilos para el texto en negrita incrustado */
+        .rena-label b {
+            font-weight: 700;
+        }
+
+        .rena-bullet {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-left: 20px; /* Sangría para simular viñeta */
+            list-style-type: disc;
+        }
+
+        .final-margin {
+            margin-bottom: 120px; /* Espacio extra al final de la página */
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG simple) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Enf. Renal: Evaluación (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Texto 1 -->
+            <p class="rena-label">
+                Para optimizar la detección de ERC, se debe priorizar grupos poblacionales de mayor prevalencia: 
+            </p>
+
+            <!-- Lista de Viñetas -->
+            <ul style="list-style: none; padding-left: 0;">
+                <li class="rena-bullet">
+                    personas de cualquier edad con diabetes o
+                </li>
+                <li class="rena-bullet">
+                    con hipertensión arterial o
+                </li>
+                <li class="rena-bullet">
+                    cualquier mayor de 50 años sin antecedentes anteriores.
+                </li>
+            </ul>
+
+            <!-- Texto 2 -->
+            <p class="rena-label">
+                La medición de urea plasmática no es específica para determinar el filtrado glomerular.
+            </p>
+
+            <!-- Texto 3 (con HTML incrustado) -->
+            <p class="rena-label">
+                <b>En niñas, niños y adolescentes,</b> las infecciones urinarias recurrentes pueden asociarse a ERC en presencia de malformaciones de la vía urinaria, solicitar anualmente la búsqueda.
+            </p>
+
+            <!-- Texto 4 (con HTML incrustado) -->
+            <p class="rena-label">
+                La detección de ERC <b>en personas menores de 50 años</b> se focaliza en los que presenten <b>edema generalizado y/u orinas oscuras</b>, o como parte de la evaluación de anemia crónica, o con antecedentes de enfermedades sistémicas tipo autoinmunes o con familiares directos en diálisis o trasplante renal.
+            </p>
+
+            <!-- Texto 5 con margen final -->
+            <p class="rena-label final-margin">
+                Es importante conocer el FGe en personas que van a recibir tratamiento potencialmente nefrotóxicos.
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

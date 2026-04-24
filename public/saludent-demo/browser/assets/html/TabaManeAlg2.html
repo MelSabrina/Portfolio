@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tratamiento 2: Alta Dependencia</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #454242; /* Rojo fuerte */
+            --taba-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px; /* Espacio al final para el scroll */
+        }
+        
+        /* Simulación de TabaLabel */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 10px 5px;
+        }
+
+        /* Simulación de BulletLabel/TabaBullet */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            padding-left: 10px; /* Espacio para la viñeta custom */
+            position: relative;
+        }
+        
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tratamiento 2: personas con alta dependencia
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label">
+                <b>Fumadores con alta dependencia a la nicotina</b> (fuma más de 20 cig/día o pasa menos de 30 minutos entre que se levanta y prende su primer cigarrillo) pueden requerir mayores dosis o duración o asociación de opciones farmacológicas:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Parche de nicotina de 21 mg/día + otro parche de igual o menor graduación (7 a 14mg/día).
+                </li>
+                <li class="taba-bullet">
+                    Parche de nicotina de 21 mg/día + chicles de nicotina.
+                </li>
+                <li class="taba-bullet">
+                    Parche de nicotina de 21 mg/día + bupropión.
+                </li>
+                <li class="taba-bullet">
+                    Spray nasal de nicotina.
+                </li>
+                <li class="taba-bullet">
+                    Chicles o comprimidos dispersables de nicotina de 4 o 2 mg respectivamente.
+                </li>
+                <li class="taba-bullet" style="margin-bottom: 100px;">
+                    Parche de nicotina de 21 mg/día + spray nasal de nicotina
+                </li>
+            </ul>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

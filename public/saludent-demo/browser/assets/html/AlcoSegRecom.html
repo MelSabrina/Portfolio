@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Seguimiento(Recomend)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --alco-primary-color: #5c5d60; /* gris medio */
+            --taba-primary-color: #ff9800; /* Naranja simulado para el borde del Frame */
+            --alco-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--alco-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout principal */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 40px; 
+            /* BackgroundColor="{StaticResource AlcoButtonTextColor}" es redundante si AlcoButtonTextColor es blanco */
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            text-align: justify;
+        }
+        
+        .alco-label-bold {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+        
+        /* Label clickable (simula GestureRecognizers) */
+        .alco-label-link {
+            cursor: pointer;
+            text-decoration: underline;
+            color: var(--alco-primary-color);
+        }
+
+        /* Contenedor horizontal para imagen y botón de compartir */
+        .stack-layout-horizontal {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start; /* Simula VerticalOptions="Center" con Margin para el botón */
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .frame {
+            /* Simula el Frame con BorderColor */
+            border: 1px solid var(--taba-primary-color);
+            border-radius: 8px;
+            padding: 5px; /* Espacio interno del frame */
+            margin-right: 10px;
+            flex-grow: 1;
+        }
+
+        .content-image {
+            display: block;
+            background-color: white;
+            min-height: 180px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            cursor: pointer; 
+        }
+
+        /* Botón de compartir (simulado con PNG) */
+        .share-button {
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            margin-left: 10px;
+            /* Margen en el MAUI original: Margin="10,0,0,30" + VerticalOptions="Center" 
+               Ajustamos el margen superior para centrarlo visualmente junto a la imagen */
+            margin-top: 65px; 
+            background-color: var(--alco-primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-icon {
+            width: 28px;
+            height: 28px;
+            display: block;
+        }
+
+        /* Mensaje de confirmación (Reemplaza DisplayAlert) */
+        #confirmation-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            pointer-events: none;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Alcohol: Seguimiento(Recomend)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="contenido">
+        <div class="stack-layout">
+
+            <div class="alco-label">
+                El seguimiento dependerá de cada caso, según el nivel de consumo detectado en cada persona y su evolución en el tratamiento designado por el equipo de salud correspondiente.
+            </div>
+
+            <div class="alco-label-bold" style="margin-bottom: 20px;">
+                Para ampliar el tema le recomendamos acceder a los siguientes links:
+            </div>
+
+            <!-- Recurso 1: AUDIT -->
+            <div id="label1" class="alco-label-bold alco-label-link" onclick="TapGestureRecognizer_Tapped_1()">
+                AUDIT: Cuestionario de Identificación de los Transtornos debidos al Consumo de Alcohol
+            </div>
+
+            <div class="stack-layout-horizontal">
+                <div class="frame">
+                    <img id="Image1" 
+                         src="/assets/img/ac_segrecom1.png" 
+                         alt="Imagen de ac_segrecom1.png"
+                         class="content-image"
+                         onclick="TapGestureRecognizer_Tapped_1()"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x180/E0E0E0/333333?text=ac_segrecom1.png - AUDIT'">
+                </div>
+
+                <button id="btnShare1" class="share-button" onclick="btnShare1_Clicked()">
+                    <!-- Imagen PNG para compartir -->
+                    <img src="/assets/img/share_48_w.png" alt="Compartir Link 1" class="share-icon" 
+                        onerror="this.onerror=null; this.src='https://placehold.co/28x28/3f51b5/FFFFFF?text=PNG'">
+                </button>
+            </div>
+
+
+            <!-- Recurso 2: INTERVENCIÓN BREVE -->
+            <div id="label2" class="alco-label-bold alco-label-link" onclick="TapGestureRecognizer_Tapped_2()">
+                INTERVENCIÓN BREVE: Para el Consumo de Riesgo y Perjudicial de Alcohol
+            </div>
+
+            <div class="stack-layout-horizontal">
+                <div class="frame">
+                    <img id="Image2" 
+                         src="/assets/img/ac_segrecom2.png" 
+                         alt="Imagen de ac_segrecom2.png"
+                         class="content-image"
+                         onclick="TapGestureRecognizer_Tapped_2()"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x180/E0E0E0/333333?text=ac_segrecom2.png - Intervención'">
+                </div>
+
+                <button id="btnShare2" class="share-button" onclick="btnShare2_Clicked()">
+                    <!-- Imagen PNG para compartir -->
+                    <img src="/assets/img/share_48_w.png" alt="Compartir Link 2" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/28x28/3f51b5/FFFFFF?text=PNG'">
+                </button>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Mensaje de confirmación invisible (Reemplazo de DisplayAlert) -->
+    <div id="confirmation-message"></div>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función para mostrar mensajes de confirmación sin usar alert()
+        function showMessage(text) {
+            const messageElement = document.getElementById('confirmation-message');
+            messageElement.textContent = text;
+            messageElement.style.opacity = 1;
+            setTimeout(() => {
+                messageElement.style.opacity = 0;
+            }, 3000);
+        }
+
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+
+        const PDF_URL = "https://www.paho.org/hq/dmdocuments/2009/AUDIT_spa.pdf";
+
+        // --- Funciones para abrir el link (Simulan TapGestureRecognizer_Tapped) ---
+        function TapGestureRecognizer_Tapped_1() {
+            // Simula await Launcher.OpenAsync(URL)
+            window.open(PDF_URL, '_blank');
+        }
+
+        function TapGestureRecognizer_Tapped_2() {
+            // Simula await Launcher.OpenAsync(URL)
+            window.open(PDF_URL, '_blank');
+        }
+
+        // --- Funciones para compartir (Simulan btnShare_Clicked) ---
+        async function copyToClipboard(url) {
+            // Simula await Clipboard.SetTextAsync(URL)
+            try {
+                // Intenta usar la API moderna de Clipboard
+                await navigator.clipboard.writeText(url);
+                showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social.");
+            } catch (err) {
+                // Fallback para entornos donde navigator.clipboard no está disponible (como iframes)
+                const tempInput = document.createElement('textarea');
+                tempInput.value = url;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy'); // Método más compatible en iframes
+                document.body.removeChild(tempInput);
+                showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social.");
+            }
+        }
+
+        function btnShare1_Clicked() {
+            copyToClipboard(PDF_URL);
+        }
+
+        function btnShare2_Clicked() {
+            copyToClipboard(PDF_URL);
+        }
+
+    </script>
+</body>
+</html>

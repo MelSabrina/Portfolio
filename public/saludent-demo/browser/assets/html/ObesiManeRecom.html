@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Manejo (Recom.)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Colores de referencia */
+            --obesi-label-bg-color: #F8F9FA;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* --- 3. Contenido Principal --- */
+        .content-container {
+            /* Padding general para el Grid Padding="10" */
+            padding: 10px;
+        }
+
+        .stack-layout {
+            /* Simula el StackLayout con el BackgroundColor del XAML */
+            background-color: var(--obesi-label-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos para la lista de bullets (BulletLabel) */
+        .bullet-list {
+            list-style: none; /* Elimina la viñeta por defecto */
+            padding: 0;
+            margin: 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px; /* Espacio para la viñeta */
+            margin-bottom: 15px;
+            line-height: 1.5;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .bullet-list li:before {
+            content: "\2022"; /* Carácter de viñeta (dot) */
+            color: var(--text-color); /* Color de la viñeta */
+            font-weight: bold; 
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .final-bullet {
+            /* Para simular Margin="0,10,10,100" */
+            margin-bottom: 100px !important;
+            margin-top: 10px !important;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Manejo (Recom.) <!-- Título de la página -->
+        </div> 
+        <div class="toolbar-placeholder"></div> <!-- Placeholder para balancear el back button -->
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content - Lista de BulletLabels -->
+            <ul class="bullet-list">
+                <li>
+                    <b>Consensuar meta de peso y estrategias para lograrlo: </b>pautar frecuencia de visitas y participación de diferentes actores del equipo de salud, familia y/o comunidad (de poder contar con ellos). Una reducción del 5 al 10% es una meta posible y beneficiosa.
+                </li>
+                <li>
+                    <b>Acordar un plan alimentario respetando posibilidades</b>, gustos y preferencias de la persona, teniendo en cuenta comorbilidades. Registrarlo en la historia clínica.
+                </li>
+                <li>
+                    Orientar el plan para:
+                </li>
+                <!-- Puntos anidados (simulación) -->
+                <ul class="bullet-list" style="padding-left: 20px;"> 
+                    <li>
+                        Lograr una disminución de energía ingerida (comidas y bebidas)
+                    </li>
+                    <li>
+                        Lograr conciencia en el acto alimentario
+                    </li>
+                    <li>
+                        Mejorar la calidad y frecuencia de la alimentación.
+                    </li>
+                </ul>
+                <li>
+                    <b>Promover la adopción de un estilo de vida más activo </b>con estrategias para aumentar el movimiento en la vida diaria. Evaluar limitaciones y oportunidades para la actividad. Acompañar a planificar ejercicios físicos semanales según sus posibilidades.
+                </li>
+                <li>
+                    <b>Ofrecer participación en actividades individuales y/o grupales </b>de soporte conductual. Trabajar con estrategias de talleres para el aprendizaje, planificación, identificación de barreras y facilitadores. Evaluar terapia psicológica individual o grupal según pertinencia.
+                </li>
+                <li class="final-bullet">
+                    <b>Evaluar riesgo y adherencia para incluir otro escalón en el esquema de tratamiento: IMC >=30</b>(o sobrepeso con CC aumentada y/o factores de riesgo), que presente meseta en la pérdida de peso habiendo adherido a cambios en el estilo de vida, proponer incluir fármaco. IMC >= 35con comorbilidades mayores o IMC> 40 con o sin ellas; con adherencia a cambios en el estilo de vida, proponer incluir en evaluación de aptitud para cirugía bariátrica.
+                </li>
+            </ul>
+                
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

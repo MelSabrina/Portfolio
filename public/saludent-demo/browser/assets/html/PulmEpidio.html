@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC (Epidemiología)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            /* Color Primario (Simulando PulmPrimaryColor) - Usaremos un azul cian oscuro */
+            --pulm-primary-color: #404242;
+            --page-background: white;
+            --text-color: #333;
+            --note-color: #6a6a6a;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: var(--pulm-primary-color);
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenedor de Contenido y Scroll --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px; /* Ancho máximo para legibilidad en escritorio */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos StackLayout / Label */
+        }
+
+        /* --- 4. Estilos de Tipografía (Simulando StaticResource PulmLabelX) --- */
+
+        /* PulmLabelTitle */
+        .pulm-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--pulm-primary-color);
+            margin: 20px 0 5px 0;
+            padding-top: 5px;
+        }
+
+        /* PulmLabelBold */
+        .pulm-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 10px 0 5px 0;
+        }
+        
+        /* PulmLabelNote */
+        .pulm-note {
+            font-size: 0.9rem;
+            color: var(--note-color);
+            font-style: italic;
+            margin: 5px 0 15px 0;
+            padding-left: 5px;
+            border-left: 2px solid #eee;
+        }
+
+        /* PulmLabel (Texto regular) */
+        .pulm-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+        }
+
+        /* --- 5. Estilos de Listas (Simulando BulletLabel) --- */
+        .pulm-bullet-list {
+            list-style: none; /* Quitamos el estilo de lista predeterminado */
+            padding-left: 0;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .pulm-bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .pulm-bullet-list li::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            position: absolute;
+            left: 0;
+            color: var(--pulm-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        
+        /* --- 6. Estilos de Imágenes --- */
+        .content-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            object-fit: contain; /* Asegura que no haya zoom ni recorte forzado */
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Simulando Header con Back button) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC (Epidemiología)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="pulm-bold">
+                Estadísticas mundiales*:
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 1 -->
+                <li>Cerca de <b>4 millones de personas mueren</b> anualmente por enfermedades respiratorias crónicas, ocupando el tercer lugar entre las causas de muerte a nivel global, después de las enfermedades cardiovasculares y el cáncer.</li>
+                <!-- BulletLabel 2 -->
+                <li>Dentro de ellas, la <b>enfermedad pulmonar obstructiva crónica</b> (EPOC) es una enfermedad compleja, subdiagnosticada, con alta morbimortalidad y un incremento sostenido.</li>
+                <!-- BulletLabel 3 -->
+                <li>El <b>90% de los casos de EPOC</b> ocurren en países de bajos y medianos ingresos.</li>
+            </ul>
+
+            <p class="pulm-note">
+                *Según Organización Mundial de la Salud (OMS):
+            </p>
+
+            <p class="pulm-bold">
+                Datos de Argentina*
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 4 -->
+                <li>La prevalencia de EPOC es del 14,5% en población mayor de 40 años, afectando cerca de 2.300.000 personas.</li>
+                <!-- BulletLabel 5 -->
+                <li>El subdiagnóstico se estima en 75% (cifras similares a lo que ocurre en el resto del mundo).</li>
+                <!-- BulletLabel 6 -->
+                <li>La EPOC es más frecuente en hombres (18%) que en mujeres (12%).</li>
+                <!-- BulletLabel 7 -->
+                <li>82,5% de las personas con EPOC fuma o ha fumado.</li>
+                <!-- BulletLabel 8 -->
+                <li>43,5% de las personas con EPOC siguen fumando a pesar del diagnóstico.</li>
+                <!-- BulletLabel 9 -->
+                <li>La mayoría de las personas que no conocen tener la enfermedad presentan obstrucción leve.</li>
+            </ul>
+
+            <p class="pulm-note">
+                *Según el estudio EPOCAR:
+            </p>
+
+            <p class="pulm-label">
+                Además**:
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 10 -->
+                <li>Durante el año 2018 se registraron 6.586 muertes por EPOC en la población de 40 años y más.</li>
+                <!-- BulletLabel 11 -->
+                <li>La tasa ajustada de mortalidad es de 39,5 por 100.000 habitantes. </li>
+                <!-- BulletLabel 12 -->
+                <li>El 61.4% se produjeron en varones. </li>
+                <!-- BulletLabel 13 -->
+                <li>1064 muertes ocurrieron en la población adulta de 40 a 64 años.</li>
+            </ul>
+
+            <p class="pulm-note">
+                ** Según informe del Instituto Nacional de Enfermedades Respiratorias en base a las estadísticas vitales de la DEIS.
+            </p>
+
+            <p class="pulm-label">
+                Si bien la EPOC es más frecuente en hombres, en los últimos años la morbimortalidad por esta enfermedad en mujeres está en aumento.
+            </p>
+
+            <p class="pulm-title" style="margin-top: 20px;">
+                Prevalencia de EPOC en población de 40 años y más en seis aglomerados de Argentina, periodo 2014-2016
+            </p>
+
+            <p class="pulm-label">
+                <b>Fuente:</b> EPOCAR
+                <br><b>Total:</b> 14,5%
+                <br><b>Varones:</b> 18,4%
+                <br><b>Mujeres:</b> 11,7%
+            </p>
+
+            <!-- Image 1 -->
+            <img src="/assets/img/pu_epi1.png" alt="Gráfico de Prevalencia de EPOC 1" class="content-image">
+
+            <!-- Image 2 -->
+            <img src="/assets/img/pu_epi2.png" alt="Gráfico de Prevalencia de EPOC 2" class="content-image">
+
+            <!-- Image 3 -->
+            <img src="/assets/img/pu_epi3.png" alt="Gráfico de Prevalencia de EPOC 3" class="content-image">
+
+            <p class="pulm-title" style="margin-top: 30px;">
+                Mortalidad por EPOC en mujeres según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </p>
+
+            <!-- Image 4 (Originalmente ZoomImage, ahora simple Image) -->
+            <img src="/assets/img/pu_mortmujer.png" alt="Mortalidad por EPOC en mujeres" class="content-image">
+
+            <p class="pulm-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+            <p class="pulm-title" style="margin-top: 30px;">
+                Mortalidad por EPOC en varones según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </p>
+
+            <!-- Image 5 (Originalmente ZoomImage, ahora simple Image) -->
+            <img src="/assets/img/pu_mortvaron.png" alt="Mortalidad por EPOC en varones" class="content-image">
+
+            <p class="pulm-note" style="margin-bottom: 100px;">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+        </div>
+
+        <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Evaluación (Consejos)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Definición de colores base */
+            --obesi-primary-color: #3e4743;
+            --obesi-label-bg-color: #F8F9FA;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* 3. Contenido principal */
+        .content-container {
+            /* Padding general para el contenido */
+            padding: 10px;
+            padding-bottom: 20px;
+        }
+
+        .stack-layout {
+            /* Simula el StackLayout con el BackgroundColor */
+            background-color: var(--obesi-label-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* Estilos de Texto */
+        .obesi-label-bold {
+            /* Correspondiente a ObesiLabelBold */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: justify;
+        }
+        
+        .obesi-label {
+            /* Correspondiente a ObesiLabel */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 400;
+            text-align: justify;
+        }
+
+        .obesi-bullet {
+            /* Correspondiente a ObesiBullet */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding-left: 1.5em; /* Espacio para el bullet */
+            position: relative;
+            text-align: justify;
+        }
+
+        .obesi-bullet::before {
+            content: '•'; /* Punto para simular el bullet */
+            color: var(--obesi-primary-color);
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+        }
+
+        .final-paragraph {
+            /* Para simular Margin="10,10,10,100" */
+            margin-bottom: 100px; 
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Evaluación (Consejos) <!-- Título de la página -->
+        </div> 
+        <div class="toolbar-placeholder"></div> <!-- Placeholder para balancear el back button -->
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content -->
+            <p class="obesi-label-bold">
+                La evaluación inicial de una persona para identificar obesidad y riesgo asociado debe incluir:
+            </p>
+
+            <!-- Bullet 1 -->
+            <div class="obesi-bullet">
+               Reconocimiento de la persona, su contexto, su red y la historia con la problemática, considerando la edad de aparición, la evolución y los desencadenantes de las variaciones de peso.
+            </div>
+
+            <!-- Bullet 2 -->
+            <div class="obesi-bullet">
+                Medidas antropométricas: Peso-Talla- IMC-CC (tabla 1).
+            </div>
+
+            <!-- Bullet 3 -->
+            <div class="obesi-bullet">
+                Evaluación de causas secundarias (tabla 2 y 3).
+            </div>
+
+            <!-- Bullet 4 -->
+            <div class="obesi-bullet">
+                Evaluación de complicaciones de la obesidad y estimación del riesgo asociado. Toma de presión arterial y control de laboratorio (según factores de riesgo y edad)
+            </div>
+            
+            <!-- Bullet 5 -->
+            <div class="obesi-bullet">
+                Evaluación del estilo de vida (alimentación, actividad de la vida diaria, ejercicio físico).
+            </div>
+                
+            <!-- Bullet 6 -->
+            <div class="obesi-bullet">
+                Evaluación del estadio motivacional para cambios en el estilo de vida (tabla 5 en cuadros y algoritmos).
+            </div>
+                
+            <p class="obesi-label-bold">
+                Alentar a todas las personas a bajar de peso y a sostenerlo en el tiempo, porque siempre trae beneficios para la salud
+            </p>
+
+            <p class="obesi-label">
+                Entre los beneficios encontramos que disminuye la incidencia de DM2, mejora el control glucémico y la mortalidad por cualquier causa. Además, mejora el control de la presión arterial, perfil lipídico (↓ Colesterol total, ↓LDL, ↓triglicéridos y ↑del HDL) y uricemia y disminuye la discapacidad asociada con la osteoartritis y el dolor.
+            </p>
+
+            <p class="obesi-label final-paragraph">
+                En asma, mejora la espirometría y disminuye las exacerbaciones. Además, mejora la apnea del sueño, el descanso nocturno y mejora el humor y disminuye el riesgo de depresión.
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad física: Evaluación (Recomend)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #353739; /* Azul */
+            --fisi-label-background: #f8f9fa; /* Color de fondo claro para StackLayout/Frame */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px;
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Simula StackLayout y BackgroundColor="{StaticResource FisiLabelBackgroundColor}" */
+            padding-bottom: 20px;
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabel}" */
+        .fisi-label {
+            margin: 10px 5px;
+            font-size: 1rem;
+            text-align: justify;
+            color: var(--text-color);
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 10px 5px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelBold}" */
+        .fisi-label-bold {
+            margin: 15px 5px 5px 5px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelNote}" */
+        .fisi-label-note {
+            margin: 5px 5px 20px 5px;
+            font-size: 0.85rem;
+            color: #777;
+            font-style: italic;
+            text-align: right;
+        }
+
+        /* Lista con viñetas (Simulación de BulletLabel) */
+        .bullet-list {
+            list-style: disc;
+            margin: 5px 0 5px 30px;
+            padding-left: 0;
+        }
+        .bullet-list li {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        /* Contenedor de "Test del habla" (Simulación de Frame) */
+        .talk-test-frame {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc; /* Simula BorderColor="{StaticResource FisiBackdropColor}" */
+            background-color: var(--fisi-label-background);
+            border-radius: 5px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Estilo para imágenes de cuestionarios/tablas */
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Imagen final con margen extra */
+        .final-image {
+            margin-bottom: 100px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Actividad física: Evaluación (Recomend)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <p class="fisi-label">
+                La práctica de actividad física se mide en función de sus dimensiones: tipo, duración, frecuencia, intensidad y dominio.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Dimensiones
+            </h2>
+
+            <p class="fisi-label">
+                <b>Tipo:</b> es la forma de participación en una actividad física: aeróbica, de fortalecimiento, de flexibilidad o de equilibrio.
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    <b>Actividades aeróbicas:</b> incluyen cualquier actividad que pueda ser realizada a expensas del metabolismo oxidativo, el cual utiliza el oxígeno como fuente principal para producir energía. Incluyen actividades como caminar, andar en bicicleta, practicar deportes o bailar, entre otras. Para lograr una mejora de esta dimensión se debe realizar a una intensidad y duración adecuada.
+                </li>
+                <li>
+                    <b>Actividades de fortalecimiento muscular:</b> son aquellas que mantienen o mejoran la fuerza muscular. Incluyen comportamientos cotidianos como cargar peso, levantar niños o subir escaleras, así como el uso de equipamiento específico como máquinas de pesas, pesas libres o bandas elásticas, entre otras.
+                </li>
+                <li>
+                    <b>Actividades de flexibilidad:</b> mejoran el rango de movimiento alrededor de una articulación. Incluyen stretching dinámico y pasivo, yoga, tai chi, entre otras.
+                </li>
+                <li>
+                    <b>Actividades de propiocepción y equilibrio:</b> Son movimientos que trabajan sobre el control postural. Cuando se practican regularmente, mejoran la habilidad para resistir desequilibrios que pueden causar caídas mientras se camina, se está parado o sentado. Estar en equilibrio en un pie o caminar sobre una línea delgada dibujada en el piso son algunos ejemplos de estas actividades.
+                </li>
+                <li>
+                    <b>Actividades multicomponente:</b> Se refiere a intervenciones de actividad física que incluyen más de un tipo de actividad física, por ejemplo: el entrenamiento aeróbico, de fortalecimiento muscular y de equilibrio.
+                </li>
+            </ul>
+
+            <p class="fisi-label">
+                <b>Duración:</b> tiempo durante el cual se debería realizar la actividad física. Suele estar expresado en minutos.
+            </p>
+
+            <p class="fisi-label">
+                <b>Frecuencia:</b> número de veces que se realiza una actividad física. Suele estar expresado en sesiones, episodios, o veces por semana.
+            </p>
+
+            <p class="fisi-label">
+                <b>Intensidad:</b> Ritmo y nivel de esfuerzo que conlleva la actividad. Grado en que se realiza una actividad, o magnitud del esfuerzo necesario para realizar una actividad física. La intensidad puede expresarse en términos absolutos o relativos.
+            </p>
+
+            <p class="fisi-label">
+                <b>Intensidad absoluta:</b> Es la cantidad de energía utilizada para realizar cualquier actividad física. La unidad de medida mayormente utilizada es el MET.
+            </p>
+
+            <p class="fisi-label">
+                <b>MET</b> (Metabolic Equivalent of Task): son las siglas de equivalente metabólico para el consumo de oxígeno. Así 1 MET equivale al consumo de energía en estado de reposo, este valor corresponde a 3,5 mililitros de oxígeno por kilogramo de peso corporal por minuto. Para facilitar la comprensión, las actividades físicas suelen clasificarse por su gasto energético en términos de su intensidad absoluta, utilizando el MET como referencia.
+            </p>
+
+            <p class="fisi-label">
+                <b>Intensidad relativa:</b> Se mide teniendo en cuenta la capacidad de hacer ejercicio de una persona. En el ejercicio aeróbico, la intensidad relativa puede expresarse utilizando medidas objetivas o subjetivas.
+            </p>
+
+            <p class="fisi-label">
+                <b>Medidad objetivas:</b> son expresadas como porcentaje de la capacidad aeróbica máxima de una persona (VO2max), o de su reserva de VO2, o como el porcentaje de la frecuencia cardíaca máxima medida o estimada para una persona (frecuencia cardíaca de reserva), entre otras.
+            </p>
+
+            <p class="fisi-label">
+                <b>Medidas subjetivas:</b> índice de la dificultad que experimenta una persona cuando realiza ejercicio, por ejemplo, en una escala de 0 a 10 (Escala de Borg modificada) o con el Test de hablar o Talk Test.
+            </p>
+
+            <p class="fisi-label">
+                <b>Test del habla:</b>
+            </p>
+
+            <div class="talk-test-frame">
+                <p class="fisi-label" style="margin: 0;">
+                    Intensidad LEVE: Se puede hablar y cantar.
+                </p>
+                <p class="fisi-label" style="margin: 5px 0;">
+                    Intensidad MODERADA: Se puede hablar pero no cantar.
+                </p>
+                <p class="fisi-label" style="margin: 0;">
+                    Intensidad ELEVADA: Se tiene dificultad para hablar.
+                </p>
+            </div>
+
+            <p class="fisi-label-bold">
+                Escala de Esfuerzo percibido (Borg CR10 Scale)
+            </p>
+
+            <p class="fisi-label">
+                La persona que hace el ejercicio debe asignar un número del 0 al 10 para representar la sensación subjetiva de la cantidad de trabajo realizado.
+            </p>
+
+            <!-- Imagen: af_tab01.png (ZoomImage omitido) -->
+            <img class="content-image" 
+                 src="/assets/img/af_tab01.png" 
+                 alt="Tabla: Escala de Esfuerzo percibido (Borg CR10 Scale)"
+                 loading="lazy">
+
+            <p class="fisi-label-note">
+                Fuente: Modificado de Borg,GA,1982.Psychophysical bases of perceived exertion. Medicine and Science in Sports and Exercise.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Actividades según intensidad
+            </h2>
+
+            <p class="fisi-label">
+                <b>De intensidad leve:</b> son aquellas que involucran un gasto energético en un rango de 1.5-3 METS, es decir, las actividades con gasto de energía mayor a 1,5 y menor de 3 veces el gasto en estado de reposo. Estas actividades pueden incluir, en términos absolutos, caminar lentamente, bañarse, cocinar, u otras actividades en donde es posible tanto hablar e incluso cantar sin dificultad.
+            </p>
+
+            <p class="fisi-label">
+                <b>De intensidad moderada:</b> son aquellas que involucran un gasto energético de 3-6 METS, es decir, de más de 3 y hasta 6 veces el gasto de energía en estado de reposo.
+            </p>
+
+            <p class="fisi-label">
+                <b>De intensidad elevada:</b> son aquellas con un gasto energético $\geq$ 6 METS, es decir aquellas de más de 6 veces el estado de reposo.
+            </p>
+
+            <p class="fisi-label">
+                En el tipo de <b>actividades de intensidad moderada a elevada</b> incluyen, en términos absolutos, caminar enérgicamente, saltar, andar en bicicleta, patinar, trepar, nadar, bailar, hacer deporte, ejercicios de fuerza, etc. Durante estas actividades, la temperatura corporal, el ritmo cardíaco y respiratorio aumentan sustancialmente.
+            </p>
+
+            <p class="fisi-label">
+                <b>Dominio:</b> se refiere al contexto o entorno en el que ocurre la actividad física, los dominios son la escuela, el trabajo, el hogar, el transporte y el tiempo libre. Esta categorización puede ser útil para comprender el propósito o la intención detrás de la actividad.
+            </p>
+
+            <p class="fisi-label-bold">
+                Cuestionario de actividad física global (GPAQ, por sus siglas en inglés)
+            </p>
+
+            <p class="fisi-label">
+                Este cuestionario (integrado al instrumento STEPS de la Organización Mundial de la Salud) mide la actividad física realizada y el tiempo sentado y recostado en una semana típica por medio de preguntas sobre la intensidad de la actividad, la frecuencia y la duración en los diferentes dominios. Luego en base a estos datos se puede categorizar a la persona en suficientemente activa o insuficientemente activa.
+            </p>
+
+            <p class="fisi-label-bold">
+                Suficientemente activo es aquella persona que haya conseguido alcanzar:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    150 minutos o más de actividad física moderada a la semana
+                </li>
+                <li>
+                    o 75 minutos o más de actividad física vigorosa a la semana
+                </li>
+                <li>
+                    o 600 METs o más a la semana
+                </li>
+            </ul>
+
+            <p class="fisi-label">
+                Para calcular los METS se multiplica al tiempo semanal de actividad física moderada por 4 METs y al de intensidad elevada por 8 METs. El tiempo en el dominio de los desplazamientos es considerado como moderado con un gasto energético igual a 4 METs.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Cuestionario Actividad física:
+            </h2>
+
+            <p class="fisi-label">
+                A continuación voy a preguntarle por el tiempo que pasa realizando diferentes tipos de actividad física. Le ruego que intente contestar a las preguntas aunque no se considere una persona activa.
+            </p>
+
+            <p class="fisi-label">
+                Piense primero en el tiempo que pasa en el trabajo, que se trate de un empleo remunerado o no, de estudiar, de mantener su casa, de cosechar, de pescar, de cazar o de buscar trabajo [inserte otros ejemplos si es necesario]. En estas preguntas, las <b>actividades físicas intensas</b> se refieren a aquéllas que implican un esfuerzo físico importante y que causan una gran aceleración de la respiración o del ritmo cardíaco. Por otra parte, <b>las actividades físicas de intensidad moderada</b> son aquéllas que implican un esfuerzo físico moderado y causan una ligera aceleración de la respiración o del ritmo cardíaco.
+            </p>
+
+            <h2 class="fisi-label-title">
+                En el Trabajo
+            </h2>
+
+            <!-- Imagen: af_cuest1.png (ZoomImage omitido) -->
+            <img class="content-image" 
+                 src="/assets/img/af_cuest1.png" 
+                 alt="Cuestionario de actividad física: En el Trabajo"
+                 loading="lazy">
+
+            <h2 class="fisi-label-title">
+                Para desplazarse
+            </h2>
+
+            <!-- Imagen: af_cuest2.png (ZoomImage omitido) -->
+            <img class="content-image" 
+                 src="/assets/img/af_cuest2.png" 
+                 alt="Cuestionario de actividad física: Para desplazarse"
+                 loading="lazy">
+
+            <h2 class="fisi-label-title">
+                En el tiempo libre
+            </h2>
+
+            <!-- Imagen: af_cuest3.png (ZoomImage omitido) -->
+            <img class="content-image" 
+                 src="/assets/img/af_cuest3.png" 
+                 alt="Cuestionario de actividad física: En el tiempo libre"
+                 loading="lazy">
+
+            <h2 class="fisi-label-title">
+                Comportamiento sedentario
+            </h2>
+
+            <!-- Imagen: af_cuest4.png (ZoomImage omitido) -->
+            <img class="content-image final-image" 
+                 src="/assets/img/af_cuest4.png" 
+                 alt="Cuestionario de actividad física: Comportamiento sedentario"
+                 loading="lazy">
+            
+            <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+
+        </div>
+
+    </div>
+
+</body>
+</html>

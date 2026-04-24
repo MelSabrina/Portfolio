@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seg. Vial: Manejo (Recomendaciones)</title>
+    <style>
+
+        /* --- Variables y Estilos Generales --- */
+        :root {
+            /* Color primario para simular VialPrimaryColor */
+            --vial-primary-color: #5f5f5f; 
+            --text-color: #333;
+            --note-bg-color: #f0f8ff; 
+            --font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: white;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal (Simulación de BulletLabel) --- */
+        .content-container {
+            padding: 10px;
+            padding-bottom: 50px; /* Espacio extra al final */
+            background-color: white;
+        }
+
+        .bullet-list {
+            list-style-type: none; /* Elimina la viñeta por defecto */
+            padding-left: 10px;
+            margin: 10px 0;
+        }
+
+        .bullet-item {
+            margin-bottom: 20px;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            font-size: 1rem;
+        }
+
+        .bullet-icon {
+            /* Simula el estilo de viñeta personalizado */
+            color: var(--vial-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 10px;
+            line-height: 1.5;
+        }
+        
+        /* --- 4. Nota (Simulación de VialLabelNote) --- */
+        .note-label {
+            margin: 10px; /* Simula Margin="10,10,10,100" para el texto */
+            padding: 15px;
+            background-color: var(--note-bg-color);
+            border-left: 4px solid var(--vial-primary-color);
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+        
+        .note-label b {
+            color: var(--text-color);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (usado el SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Seg. Vial: Manejo (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido de la página (ScrollView y StackLayout) -->
+    <div class="content-container">
+        
+        <!-- Lista de BulletLabels -->
+        <ul class="bullet-list">
+            
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text">No consuma alcohol ni otros estupefacientes antes de conducir y respete las velocidades máximas.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text">Cuando conduce, mantenga sus ojos y mente en el camino- no se distraiga, y en especial no conteste llamados ni mensajes de texto del celular. Pueden esperar.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text"><b>Si se traslada en automóvil,</b> utilice siempre el cinturón de seguridad, inclusive en viajes cortos, independientemente de la posición que ocupe en el vehículo.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text">Verifique que las demás personas en el vehículo también lo lleven puesto.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text">Si traslada a niños y niñas en el vehículo, siempre colóquelos en los asientos traseros y sujételos con un sistema de retención infantil* homologado y en vigencia, por lo menos hasta que el cinturón de seguridad pueda calzarles correctamente, respetando las instrucciones del fabricante del dispositivo en su colocación y correspondencia con la talla y peso del niño o niña. Cuando el menor exceda la talla y peso máximos soportados por el dispositivo, verifique que siempre viaje en los asientos traseros y si la tira superior del cinturón de seguridad le pasa por el cuello en vez de la clavícula, o la tira inferior pasa por el estómago en vez de por las caderas, utilice un booster para elevar al niño en altura y que el cinturón pase correctamente sobre la clavícula.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text"><b>Si se traslada en motocicleta,</b> utilice siempre casco de seguridad de su talla, homologado y en vigencia, y llévelo correctamente abrochado, inclusive en viajes cortos. Verifique que los demás ocupantes del rodado hagan lo mismo. Utilice ropa de alta visibilidad en todo momento, y no olvide encender las luces reglamentarias. Si necesita trasladar a un niño o niña, evalúe hacerlo en transporte público que es más seguro, siempre que pueda. Si no le queda otra alternativa que trasladarlo en la motocicleta, trasládelo siempre en la posición inmediatamente atrás del conductor, no olvide colocar y abrochar un casco de motocicleta para su talla, y verifique que alcance el posapié (caso contrario busque otra alternativa de movilidad). Respete la cantidad máxima de pasajeros para los que la motocicleta ha sido construida.</span>
+            </li>
+
+            <li class="bullet-item">
+                <span class="bullet-icon">•</span>
+                <span class="bullet-text"><b>Si usa bicicleta,</b> asegurarse de utilizar siempre casco homologado de su talla y llevarlo debidamente abrochado. Utilice ropa altamente visible y luces reglamentarias.</span>
+            </li>
+            
+        </ul>
+
+        <!-- Etiqueta de nota (VialLabelNote) -->
+        <p class="note-label">
+            *Los sistemas de retención infantil, también conocidos como sillitas, huevitos, boosters o SRIs, permiten amarrar a los niños al vehículo y ponerlos a salvo de las lesiones en el caso de un siniestro vial o frenada brusca. Vienen en distintos tamaños y formatos, y siempre se recomienda verificar la correspondencia entre la altura y peso del niño o niña y las especificaciones del fabricante del dispositivo. Para que funcionen como dispositivo protector, deben estar correctamente amarrados al vehículo, y el niño o niña debe estar correctamente sujetos al dispositivo. Su uso es recomendable desde el primer viaje del niño o niña, cuando sale de la clínica materna. Para su instalación, se recomienda seguir las instrucciones del manual de uso, y ante cualquier duda, comunicarse con la Agencia Nacional de Seguridad Vial.
+        </p>
+        
+        <!-- Nota: El StackLayout x:Name="StackButtons" que contiene el NavButton fue omitido según la solicitud. -->
+
+    </div>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

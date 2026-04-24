@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos para pacientes</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #262a26; /* Verde Saludable */
+            --page-background: white;
+            --text-color: #333;
+            --button-text-color: white; /* Simula AlimButtonTextColor */
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Ocupa el espacio del botón para centrar el título */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Recurso --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 20px;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelBold}" */
+        .alim-label-bold {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 10px 5px;
+            color: var(--text-color);
+            cursor: pointer; /* Indica interactividad */
+            transition: color 0.2s;
+        }
+        .alim-label-bold:hover {
+            color: var(--alim-primary-color);
+        }
+
+        /* Estilo para el contenedor horizontal (Frame + Button) */
+        .resource-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px; /* Simula Margin en el stack horizontal */
+            gap: 10px;
+        }
+        
+        /* Simulación de Frame */
+        .resource-frame {
+            border: 1px solid var(--alim-primary-color);
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+        
+        /* Estilo para la imagen dentro del Frame */
+        .resource-image {
+            width: 100%;
+            max-width: 150px; /* Ancho máximo para portadas */
+            min-height: 180px; /* Simula MinimumHeightRequest */
+            height: auto;
+            display: block;
+            margin: 5px auto;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Estilo del botón Share */
+        .share-button {
+            background-color: var(--alim-primary-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.2s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            margin: 0 0 20px 0; /* Ajuste para centrar verticalmente con el frame/image */
+        }
+        .share-button:hover {
+            background-color: #388E3C;
+        }
+
+        /* Icono de compartir (share_48_w.png simulado con SVG) */
+        .share-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        /* --- 4. Custom Message Box (Reemplazo de DisplayAlert) --- */
+        #messageBox {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        #messageBox.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos para pacientes
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <!-- RECURSO 1: Recetario saludable -->
+            <label class="alim-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/recetario-saludable')">
+                Recetario saludable:
+            </label>
+
+            <div class="resource-row">
+                <div class="resource-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/al_rec3.png" 
+                         alt="Portada: Recetario saludable"
+                         onclick="openResource('https://bancos.salud.gob.ar/recurso/recetario-saludable')"
+                         loading="lazy">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/recetario-saludable')">
+                    <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- RECURSO 2: Folleto con consejos para tener una vida saludable y activa -->
+            <label class="alim-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/come-rico-come-saludable')">
+                Folleto con consejos para tener una vida saludable y activa:
+            </label>
+
+            <div class="resource-row">
+                <div class="resource-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/al_rec4.png" 
+                         alt="Portada: Folleto come rico, come saludable"
+                         onclick="openResource('https://bancos.salud.gob.ar/recurso/come-rico-come-saludable')"
+                         loading="lazy">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/come-rico-come-saludable')">
+                    <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- RECURSO 3: Gráfica de la guía alimentaria -->
+            <label class="alim-label-bold" onclick="openResource('https://bancos.salud.gob.ar/recurso/grafica-de-la-guia-alimentaria')">
+                Gráfica de la guía alimentaria:
+            </label>
+
+            <div class="resource-row">
+                <div class="resource-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/al_rec5.png" 
+                         alt="Portada: Gráfica de la guía alimentaria"
+                         onclick="openResource('https://bancos.salud.gob.ar/recurso/grafica-de-la-guia-alimentaria')"
+                         loading="lazy">
+                </div>
+
+                <button class="share-button" 
+                        onclick="shareResource('https://bancos.salud.gob.ar/recurso/grafica-de-la-guia-alimentaria')">
+                    <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- 4. Message Box -->
+    <div id="messageBox"></div>
+
+    <!-- 5. JavaScript Funcionalidad -->
+    <script>
+        // Función para mostrar mensajes (Reemplazo de DisplayAlert)
+        function showMessage(message) {
+            const msgBox = document.getElementById('messageBox');
+            msgBox.textContent = message;
+            msgBox.classList.add('show');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función para abrir la URL (Reemplazo de Launcher.OpenAsync)
+        function openResource(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir/copiar al portapapeles (Reemplazo de Clipboard.SetTextAsync)
+        function shareResource(url) {
+            const successMsg = "Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)";
+            
+            // Usar navigator.clipboard.writeText si está disponible (moderno)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url)
+                    .then(() => showMessage(successMsg))
+                    .catch(() => fallbackCopyTextToClipboard(url, successMsg));
+            } else {
+                // Fallback para entornos restrictivos o navegadores antiguos
+                fallbackCopyTextToClipboard(url, successMsg);
+            }
+        }
+
+        function fallbackCopyTextToClipboard(text, successMsg) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Hacer el textarea invisible y fuera de la vista
+            textArea.style.position = "fixed";
+            textArea.style.top = 0;
+            textArea.style.left = 0;
+            textArea.style.opacity = 0;
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage(successMsg);
+                } else {
+                    showMessage('Error al copiar el enlace.');
+                }
+            } catch (err) {
+                showMessage('Error: No se pudo copiar el enlace automáticamente. Por favor, cópielo manualmente: ' + text);
+            }
+
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

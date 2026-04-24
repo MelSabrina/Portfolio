@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abreviaturas</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #333333;
+        }
+        /* Contenedor principal del contenido */
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        /* Estilos del cuadro de abreviaturas */
+        .abbreviations-box {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .abbreviations-box h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        /* Estilos para cada item de la lista */
+        .abbreviations-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-size: 1rem;
+        }
+        .abbreviations-item {
+            display: flex;
+        }
+        .abbreviations-item .acronym {
+            font-weight: bold;
+            color: #2563eb;
+            flex-shrink: 0;
+            padding-right: 0.5rem;
+        }
+        .abbreviations-item .definition {
+            color: #4b5563;
+        }
+        .abbreviations-item .acronym-small {
+            font-size: 0.75rem;
+            position: relative;
+            top: -0.25em;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Equipo de desarrollo</span>
+        </div>
+    </div>
+    
+    <div class="main-container scrollable-content">
+        <div class="abbreviations-box">
+            <h1>Abreviaturas</h1>
+            <div class="abbreviations-list">
+                <div class="abbreviations-item">
+                    <span class="acronym">AAT:</span>
+                    <span class="definition">Alfa1 antitripsina.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">AAS:</span>
+                    <span class="definition">Ácido acetil salicílico.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ACV:</span>
+                    <span class="definition">Ataque cerebro vascular.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ADO:</span>
+                    <span class="definition">Antidiabéticos orales.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">AF:</span>
+                    <span class="definition">Actividad física.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">aGLP1:</span>
+                    <span class="definition">Análogos del receptor del péptido similar al glucagón tipo 1.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">AIT:</span>
+                    <span class="definition">Ataque isquémico transitorio.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ALBu:</span>
+                    <span class="definition">Albúmina Urinaria.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">AMG:</span>
+                    <span class="definition">Automonitoreo glucémico.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ARAII:</span>
+                    <span class="definition">Bloqueantes del receptor de angiotensina II.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">BD:</span>
+                    <span class="definition">Broncodilatador/es.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">BPG:</span>
+                    <span class="definition">By pass gástrico.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CI:</span>
+                    <span class="definition">Corticoides inhalados.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CPC:</span>
+                    <span class="definition">Cociente Proteinas/Creatinina en orina</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CrP:</span>
+                    <span class="definition">Creatinina Plasmática.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CT:</span>
+                    <span class="definition">Colesterol total.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CV:</span>
+                    <span class="definition">Cardiovascular.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">CVF:</span>
+                    <span class="definition">Capacidad vital forzada.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">DC:</span>
+                    <span class="definition">Densidad calórica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">DLP:</span>
+                    <span class="definition">Dislipemia.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">DM1:</span>
+                    <span class="definition">Diabetes mellitus tipo 1.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">DM:</span>
+                    <span class="definition">Diabetes mellitus.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">DM2:</span>
+                    <span class="definition">Diabetes mellitus tipo 2.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">EC:</span>
+                    <span class="definition">Enfermedad coronaria.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ECG:</span>
+                    <span class="definition">Electrocardiograma.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ECNT:</span>
+                    <span class="definition">Enfermedad crónica no transmisible.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ECV:</span>
+                    <span class="definition">Enfermedad cardiovascular.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">EDAM:</span>
+                    <span class="definition">Educación diabetológica para el automanejo.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">EMV:</span>
+                    <span class="definition">Enfermedad macrovascular.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ENFR:</span>
+                    <span class="definition">Encuesta Nacional de Factores de Riesgo.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ENT:</span>
+                    <span class="definition">Enfermedades no transmisibles</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">EPOC:</span>
+                    <span class="definition">Enfermedad pulmonar obstructiva crónica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ER:</span>
+                    <span class="definition">Enfermedad renal.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ERC:</span>
+                    <span class="definition">Enfermedad Renal Crónica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">FR:</span>
+                    <span class="definition">Factor de riesgo.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">FRCV:</span>
+                    <span class="definition">Factores de riesgo para enfermedades cardiovasculares.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">GA:</span>
+                    <span class="definition">Glucemia en ayunas.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">GAA:</span>
+                    <span class="definition">Glucemia en ayunas alterada.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">GAPA:</span>
+                    <span class="definition">Guías alimentarias para la población argentina.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">GLP1:</span>
+                    <span class="definition">Péptido similar al glucagón tipo 1.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">GPC:</span>
+                    <span class="definition">Guía de práctica clínica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">HbA1C:</span>
+                    <span class="definition">Hemoglobina glicosilada A1c</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">HC:</span>
+                    <span class="definition">Historia clínica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">HDLc:</span>
+                    <span class="definition">Colesterol HDL.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">HTA:</span>
+                    <span class="definition">Hipertensión arterial.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">IAM:</span>
+                    <span class="definition">Infarto agudo de miocardio.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">iDPP4:</span>
+                    <span class="definition">Inhibidores de la dipeptidil peptidasa 4.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">IECA:</span>
+                    <span class="definition">Inhibidores de la enzima convertidora de angiotensina.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">IFGe:</span>
+                    <span class="definition">Índice de Filtrado Glomerular Estimado.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">IG:</span>
+                    <span class="definition">índice glucémico.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">IMC:</span>
+                    <span class="definition">Índice de masa corporal. Se calcula dividiendo el peso (kg) sobre el cuadrado de la talla (m). IMC= Peso (kg)/ talla2. Se considera normal entre 18,5 a 24,9.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">iSGLT2:</span>
+                    <span class="definition">inhibidores del cotransporte sodio-glucosa tipo 2.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">KDIGO:</span>
+                    <span class="definition">Kidney Disease Improvement Global Outcome.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">LABA:</span>
+                    <span class="definition">Broncodilatadores ß2 adrenérgico de acción larga.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">LABA/CI:</span>
+                    <span class="definition">Asociación en un único inhalador de broncodilatadores ß2 adrenérgico de acción larga y corticoide inhalado.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">LAMA:</span>
+                    <span class="definition">Broncodilatadores antimuscarínicos de acción larga.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">LC:</span>
+                    <span class="definition">Laringoscopia</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">LDLc:</span>
+                    <span class="definition">Colesterol LDL.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">mcg:</span>
+                    <span class="definition">Microgramos. La abreviatura µg se evita por posibles errores de comprensión en las dosis.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">mg:</span>
+                    <span class="definition">miligramo.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">ml:</span>
+                    <span class="definition">mililitro.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">mMRC:</span>
+                    <span class="definition">Escala de disnea modificada del Consejo de Investigación Médica del Reino Unido (Medical Research Council).</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">MSN:</span>
+                    <span class="definition">Ministerio de Salud de la Nación. <a href="http://www.msal.gov.ar" target="_blank" style="text-decoration: underline; color: #2563eb;">www.msal.gov.ar</a></span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">NPH:</span>
+                    <span class="definition">Neutral Protamine Hagedorn.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">OCD:</span>
+                    <span class="definition">Oxigenoterapia crónica domiciliaria.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">OMS:</span>
+                    <span class="definition">Organización Mundial de la Salud. <a href="http://www.who.org" target="_blank" style="text-decoration: underline; color: #2563eb;">www.who.org</a></span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">OPS:</span>
+                    <span class="definition">Organización Panamericana de la Salud. <a href="http://www.paho.org" target="_blank" style="text-decoration: underline; color: #2563eb;">www.paho.org</a></span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PA:</span>
+                    <span class="definition">Presión arterial.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PAD:</span>
+                    <span class="definition">Presión arterial diastólica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PAS:</span>
+                    <span class="definition">Presión arterial sistólica.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PaO2:</span>
+                    <span class="definition">Presión arterial de oxígeno.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PHQ-9:</span>
+                    <span class="definition">Patient Health Questionnaire.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PNA:</span>
+                    <span class="definition">Primer nivel de atención.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PROTu:</span>
+                    <span class="definition">Proteinuria.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">PTOG75:</span>
+                    <span class="definition">Prueba de tolerancia oral a la glucosa.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">RAC:</span>
+                    <span class="definition">Relación albúmina/creatinina en orina matinal.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">RCVG:</span>
+                    <span class="definition">Riesgo cardiovascular global.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">SaO2:</span>
+                    <span class="definition">Saturación de oxígeno (oximería de pulso).</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">SGLT2:</span>
+                    <span class="definition">Cotransportador sodio glucosa tipo 2.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">SP:</span>
+                    <span class="definition">Sobrepeso.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">SU:</span>
+                    <span class="definition">Sulfonilurea.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">TGA:</span>
+                    <span class="definition">Tolerancia a la glucosa alterada.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">TG:</span>
+                    <span class="definition">Triglicéridos.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">TZD:</span>
+                    <span class="definition">Tiazolidinedionas.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">U/ml:</span>
+                    <span class="definition">Unidades internacionales por mililitro.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">Ultra-LABA:</span>
+                    <span class="definition">Broncodilatador ß2 adrenérgico de acción ultra larga de una sola aplicación al día.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">VEF<span class="acronym-small">1</span>:</span>
+                    <span class="definition">Volumen espiratorio forzado en el primer segundo.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">VPN23:</span>
+                    <span class="definition">Vacuna polisacárida contra el neumococo de 23 serotipos.</span>
+                </div>
+                <div class="abbreviations-item">
+                    <span class="acronym">VCN13:</span>
+                    <span class="definition">Vacuna conjugada contra el neumococo de 13 serotipos.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

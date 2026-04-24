@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipo de desarrollo</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;         
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #4b5563;
+        }
+        /* Contenedor principal del contenido */
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        /* Estilos del cuadro de contenido */
+        .content-box {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .content-box h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        .content-box h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-top: 1rem;
+        }
+        .content-box p, .content-box ul {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .content-box ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-bottom: 1rem;
+        }
+        .content-box li {
+            margin-bottom: 0.5rem;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Equipo de desarrollo</span>
+        </div>
+    </div>
+    <div class="main-container scrollable-content">
+        <div class="content-box">
+            <h1>Sobre el desarrollo de Salud-ENT</h1>
+            <h2>Equipo de Trabajo:</h2>
+            <p>
+                El desarrollo de la App fue financiado y coordinado por la Organización Panamericana de la Salud en el marco de la cooperación técnica para las Enfermedades no transmisibles y sus factores de riesgo.
+            </p>
+            <p>
+                Consultor de Enfermedades no transmisibles. OPS/OMS - Dr. Sebastian Laspiur.
+            </p>
+            <h2>Actualización Dev MSAL:</h2>
+            <ul>
+                <li>Tsp. Robledo Sanchez Alberto  (arobledo@msal.gov.ar)</li>
+                <li>Anl. Mariano Reggiardo (mreggiardo@gmail.com)</li>
+            </ul>
+            <h2>Desarrolladores externos:</h2>
+            <ul>
+                <li>Ing. Daniel Arcondo (darcondo@botforjobs.com)</li>
+                <li>Anl. Matías Ambrus (mambrus@botforjobs.com)</li>
+            </ul>
+            <h2>Colaboradores:</h2>
+            <ul>
+                <li>Milva Santa Cruz (Bot For Jobs)</li>
+                <li>Diego Bustos (Bot For Jobs)</li>
+                <li>Fernando Gascino. Dirección de Sistemas de información, Ministerio de Salud de la nación</li>
+            </ul>
+            <p>
+                Los contenidos y diseños fueron desarrollados por el Ministerio de Salud de la Nación a través de la Direccion de Abordaje integral de las Enfermedades no Transmisibles.
+            </p>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

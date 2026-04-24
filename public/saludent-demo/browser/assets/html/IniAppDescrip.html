@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerca de esta aplicación</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;         
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .content-box {
+            padding: 1rem;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        .content-box h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        .content-box p {
+            font-size: 1rem;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Acerca de esta aplicación</span>
+        </div>
+    </div>
+    <!-- Contenido principal con padding y scroll -->
+    <div class="main-container scrollable-content">
+        <div class="content-box">
+            <!-- Título de la aplicación -->
+            <h1>App Salud-ENT</h1>
+            <!-- Párrafos de texto -->
+            <p>
+                La presente aplicación fue desarrollada por la OPS Argentina durante el año 2021 en el marco de la cooperación técnica de Enfermedades no transmisibles en coordinación con la Dirección de Información en Salud y la Dirección Nacional de Abordaje Integral de Enfermedades No Transmisibles del Ministerio de Salud de la Nación.
+            </p>
+            <p>
+                Los contenidos temáticos utilizados corresponden a las diferentes publicaciones, guías de práctica clínica y manuales desarrollados y suministrados por el Ministerio de Salud de la Nación.
+            </p>
+            <p>
+                El objetivo de la presente herramienta es contribuir con el equipo de salud facilitando el acceso a las recomendaciones y recursos dirigidas a la mejora de los cuidados de personas con enfermedades no transmisibles y/o con factores de riesgo.
+            </p>
+            <p>
+                En Octubre de 2023 se realizó la presente versión 1.6 actualizando contenidos clínicos.
+            </p>
+            <p>
+                Para los contenidos de salud mental en el primer nivel de atención podrá utilizarse la app MHGAP de la OMS disponible en : Play Store-mhGAP-IG 2.0 APP (e-mhGAP)
+            </p>
+        </div>
+    </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad física: Metas (Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #2e3134; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 120px; /* Margen para el contenido final */
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 10px 5px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Lista con viñetas (Simulación de BulletLabel) */
+        .bullet-list {
+            list-style: disc;
+            margin: 5px 0 5px 30px;
+            padding-left: 0;
+        }
+        .bullet-list li {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            text-align: justify;
+        }
+        .bullet-list li b {
+            font-weight: 700;
+        }
+        
+        /* Ajuste para el último bullet point que tenía un gran margen */
+        .last-bullet {
+            margin-bottom: 100px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Actividad física: Metas (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <h2 class="fisi-label-title">
+                Cuidados para iniciar un programa de ejercicios
+            </h2>
+
+            <ul class="bullet-list">
+                <li>
+                    Hidratación adecuada antes, durante y después del ejercicio.
+                </li>
+                <li>
+                    Entrada en calor al comienzo de la sesión y elongación al finalizar.
+                </li>
+                <li>
+                    Calzado y medias adecuadas para prevenir lesiones en los pies.
+                </li>
+                <li>
+                    Usar ropa cómoda que permita la termorregulación.
+                </li>
+                <li>
+                    Mantener un horario de práctica regular, creando un hábito.
+                </li>
+                <li>
+                    Evitar las horas de máxima temperatura.
+                </li>
+            </ul>
+
+            <h2 class="fisi-label-title">
+                Consideraciones especiales para personas con enfermedades crónicas:
+            </h2>
+
+            <ul class="bullet-list">
+                <li>
+                    Para entrenar la aptitud cardiovascular en pacientes con HTA, EPOC y DBT se recomienda que se mantenga una intensidad moderada de ejercicio.
+                </li>
+                <li>
+                    En los pacientes con sobrepeso y obesidad se puede trabajar a intensidad elevada evitando el alto impacto, es decir, evitando saltos o fases de vuelo de ambos pies.
+                </li>
+                <li>
+                    Respecto de los ejercicios de fuerza en pacientes con sobrepeso y obesidad, se debe tener especial atención con los ejercicios a cuerpo libre ya que la carga en esos casos es el propio peso corporal.
+                </li>
+                <li>
+                    En pacientes con DBT es fundamental revisar los pies antes y después de la sesión de ejercicios e interrumpir la actividad física de pie en el caso de tener lesiones.
+                </li>
+                <li>
+                    Se deben evitar las actividades de alto impacto en las que exista una fase de vuelo donde los dos pies estén en el aire, ya que pueden influir de manera negativa sobre las lesiones en el pie en pacientes con DBT.
+                </li>
+                <li>
+                    Las personas con HTA deben controlar la respuesta de la PA durante el ejercicio a los ajustes en la medicación.
+                </li>
+                <li>
+                    Las personas con EPOC deben controlar su índice de disnea durante la sesión de ejercicio aeróbico para monitorear mejor la intensidad del ejercicio.
+                </li>
+                <li class="last-bullet">
+                    Hidratación adecuada antes, durante y después del ejercicio.
+                </li>
+            </ul>
+
+            <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+
+        </div>
+
+    </div>
+
+</body>
+</html>

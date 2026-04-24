@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Recursos p/equipo de salud</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --obesi-primary-color: #007bff; /* Color de ejemplo para simular StaticResource ObesiPrimaryColor */
+            --obesi-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--obesi-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+        .toolbar { 
+            background-color: white; /* Sin color */ 
+            border-bottom: 1px solid #ddd; 
+            display: flex; 
+            align-items: center; 
+            padding: 10px 15px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+        } 
+
+        .back-button { 
+            background: none; 
+            border: none; 
+            cursor: pointer; 
+            padding: 5px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: var(--text-color); 
+            transition: color 0.2s; 
+        } 
+          
+        .toolbar-title { 
+            flex-grow: 1; 
+            text-align: center; 
+            font-size: 1.15rem; 
+            font-weight: 600; 
+            color: var(--text-color); 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            padding: 0 10px; 
+        } 
+
+        .toolbar-placeholder { 
+            width: 34px; /* Para equilibrar el botón de retroceso */ 
+        } 
+
+        /* --- 3. Contenido Principal y Estilos de Recurso --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout y BackgroundColor */
+            display: flex;
+            flex-direction: column;
+            background-color: var(--obesi-background-color);
+        }
+        
+        /* Simulación de Style="{StaticResource ObesiLabelBold}" */
+        .obesi-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 10px 10px 10px 10px; /* Ajuste para el margen */
+            cursor: pointer; /* Indica que es clickable */
+            user-select: none;
+        }
+        
+        /* Contenedor de Fila Horizontal */
+        .resource-row {
+            display: flex;
+            align-items: flex-start; 
+            margin-bottom: 30px; 
+            padding: 0 10px;
+        }
+        
+        /* Simulación de Frame + Image Container */
+        .image-container {
+            flex-grow: 1;
+            border: 2px solid var(--obesi-primary-color);
+            background-color: white;
+            border-radius: 8px; 
+            padding: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-right: 15px;
+        }
+
+        .resource-image {
+            max-width: 100%;
+            height: auto;
+            min-height: 180px; 
+            display: block;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Simulación de Share Button */
+        .share-button {
+            background-color: var(--obesi-primary-color);
+            border: none;
+            cursor: pointer;
+            border-radius: 10px; 
+            height: 50px;
+            width: 50px;
+            padding: 0;
+            margin: 0 0 30px 0; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0; 
+        }
+
+        .share-icon {
+            /* Imagen PNG para compartir */
+            width: 30px; 
+            height: 30px;
+            object-fit: contain;
+        }
+
+        /* Ajuste de margen para botones de compartir en móvil */
+        @media (max-width: 600px) {
+            .share-button {
+                margin: 0;
+            }
+            .resource-row {
+                align-items: center; 
+            }
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Recursos p/equipo de salud
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main class="content-grid">
+        <div class="stack-layout">
+            
+            <!-- Recurso #1 -->
+            <p class="obesi-label-bold" onclick="openResource('10')">
+                Recurso #1 “Guía de Práctica Clínica Nacional sobre Diagnóstico y Tratamiento de la Obesidad en adultos.”
+            </p>
+            <div class="resource-row">
+                <!-- Frame/Image Container -->
+                <div class="image-container" onclick="openResource('10')">
+                    <img 
+                        src="/assets/img/ob_rec1.png" 
+                        alt="Guía de Práctica Clínica Nacional sobre Obesidad" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/300x180/007bff/ffffff?text=ob_rec1.png';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare1')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <!-- Recurso #2 -->
+            <p class="obesi-label-bold" onclick="openResource('11')">
+                Recurso #2 Resolución N° 742/ 2009: Aprobación e incorporación al Programa Médico Obligatorio de prestaciones básicas esenciales para la cobertura de la obesidad en pacientes.”
+            </p>
+            <div class="resource-row">
+                <!-- Frame/Image Container -->
+                <div class="image-container" onclick="openResource('11')">
+                    <img 
+                        src="/assets/img/ob_rec2.png" 
+                        alt="Resolución N° 742/ 2009 sobre Obesidad" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/300x180/007bff/ffffff?text=ob_rec2.png';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare2')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <!-- Recurso Video: Ultraprocesados -->
+            <p class="obesi-label-bold" onclick="openResource('13')">
+                Ultraprocesados
+            </p>
+            <div class="resource-row">
+                <!-- Image Container (video/gif) -->
+                <div class="image-container" style="border: none; padding: 0;" onclick="openResource('13')">
+                    <img 
+                        src="/assets/img/ob_video2.gif" 
+                        alt="Video Ultraprocesados" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/320x200/4CAF50/ffffff?text=ob_video2.gif';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare4')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <!-- Recurso Video: Alimentación saludable -->
+            <p class="obesi-label-bold" onclick="openResource('14')">
+                Alimentación saludable
+            </p>
+            <div class="resource-row">
+                <!-- Image Container (video/gif) -->
+                <div class="image-container" style="border: none; padding: 0;" onclick="openResource('14')">
+                    <img 
+                        src="/assets/img/ob_video3.gif" 
+                        alt="Video Alimentación saludable" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/320x200/FFC107/ffffff?text=ob_video3.gif';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare5')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <!-- Recurso Video: Mensajes gapa -->
+            <p class="obesi-label-bold" onclick="openResource('15')">
+                Mensajes gapa
+            </p>
+            <div class="resource-row">
+                <!-- Image Container (video/gif) -->
+                <div class="image-container" style="border: none; padding: 0;" onclick="openResource('15')">
+                    <img 
+                        src="/assets/img/ob_video4.gif" 
+                        alt="Video Mensajes gapa" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/320x200/9C27B0/ffffff?text=ob_video4.gif';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare6')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <!-- Recurso Video: ob_video5.png -->
+            <p class="obesi-label-bold" onclick="openResource('16')" style="margin-top: 20px;">
+                Recurso Adicional
+            </p>
+            <div class="resource-row">
+                <!-- Image Container (video/png) -->
+                <div class="image-container" style="border: none; padding: 0;" onclick="openResource('16')">
+                    <img 
+                        src="/assets/img/ob_video5.png" 
+                        alt="Video Adicional" 
+                        class="resource-image"
+                        onerror="this.onerror=null; this.src='https://placehold.co/320x200/E91E63/ffffff?text=ob_video5.png';"
+                    />
+                </div>
+                <!-- Share Button (USANDO PNG) -->
+                <button class="share-button" onclick="shareResource('btnShare7')">
+                    <img src="/assets/img/share_48_b.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/30x30/007bff/ffffff?text=S';" />
+                </button>
+            </div>
+
+            <div style="height: 100px;"></div>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+
+        // Funciones de marcador de posición para los Taps (Abre el recurso)
+        function openResource(id) {
+            console.log(`Abriendo recurso asociado al Tapped_${id}. Aquí iría la navegación real.`);
+        }
+
+        // Funciones de marcador de posición para Compartir
+        function shareResource(buttonId) {
+            console.log(`Botón de compartir ${buttonId} presionado. Aquí iría la lógica de compartir.`);
+        }
+    </script>
+</body>
+</html>

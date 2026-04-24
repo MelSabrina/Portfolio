@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación: Manejo (Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #212d21; /* Verde Saludable */
+            --page-background: white;
+            --text-color: #333;
+            --link-color: #1E90FF; /* Azul para enlaces/toggles */
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        /* Espaciador para centrar el título */
+        .toolbar-placeholder {
+            width: 34px;
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 50px;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabel}" */
+        .alim-label {
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 0 5px;
+            text-align: justify;
+        }
+
+        /* Estilo para los títulos colapsables (simula la etiqueta HTML en el XAML) */
+        .collapsible-header {
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 0 5px;
+            text-align: justify;
+            cursor: pointer;
+        }
+
+        .collapsible-header strong u {
+            color: var(--link-color);
+            text-decoration: underline;
+            font-weight: bold;
+            display: inline-block; /* Asegura que el área de clic sea solo el texto */
+        }
+        .collapsible-header strong u:hover {
+            color: var(--alim-primary-color);
+        }
+
+        /* Contenido colapsable (stack1, stack2) */
+        .collapsible-content {
+            display: none; /* Inicialmente oculto (IsVisible=false) */
+            margin-left: 5px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-left: 3px solid var(--alim-primary-color);
+            border-radius: 4px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease-out;
+        }
+        .collapsible-content.active {
+            display: block;
+        }
+        
+        /* Estilo para las etiquetas de porción dentro del contenido colapsable */
+        .content-label {
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 0 5px;
+            text-align: justify;
+        }
+
+        .content-label b {
+            font-weight: bold;
+        }
+        
+        /* Estilo para el margen especial de la última etiqueta */
+        .last-content-label {
+            margin-bottom: 100px; /* Simula Margin="10,0,10,100" */
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación: Manejo (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <p class="alim-label">
+                Como patrón de referencia se usan las GAPA (Guías Alimentarias para la Población Argentina):
+            </p>
+
+            <!-- Título Colapsable 1: Alimentos recomendados -->
+            <div class="collapsible-header" id="label1" data-target="stack1">
+                <strong><u><font color='blue'>Alimentos recomendados:</font></u></strong>
+            </div>
+
+            <!-- Contenido Colapsable 1: Detalles de alimentos recomendados -->
+            <div class="collapsible-content" id="stack1">
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>VERDURAS Y FRUTAS:</b> Es saludable consumir al menos 5 porciones por día. 1 porción equivale: a &frac12; plato playo de verduras o 1 fruta mediana o 1 taza. No se incluyen en este grupo papa, batata, choclo y mandioca.
+                </p>
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>LEGUMBRES, CEREALES, PAPA, PAN Y PASTAS:</b> Es saludable consumir 4 porciones por día: 1 porción equivale: a 60 g de pan (1 mignón) o 125 g en cocido de legumbres o cereales (&frac12; taza), pastas (&frac12; taza), 1 papa mediana o &frac12; choclo o &frac12; mandioca chica.
+                </p>
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>LECHE, YOGUR Y QUESO:</b> Promover el consumo de 3 porciones por día: 1 porción equivale: a 1 taza de leche líquida o 1 vaso de yogur o 1 rodaja de queso cremoso del tamaño de un mazo de cartas o 1 cucharada tipo postre de queso crema.
+                </p>
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>CARNES Y HUEVOS:</b> Es saludable consumir 1 porción por día: 1 porción equivale: al tamaño de la palma de la mano de cualquier tipo de carne (pollo, vaca, pescado, cerdo, otras) o 1 huevo.
+                </p>
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>ACEITES, FRUTAS SECAS Y SEMILLAS:</b> Es saludable consumir 2 porciones por día: 1 porción equivale: a 1 cucharada sopera de aceite o 1 puñado (puño cerrado) de frutas secas o 1 cucharada sopera de semillas.
+                </p>
+
+            </div>
+
+
+            <!-- Título Colapsable 2: Alimentos NO recomendados -->
+            <div class="collapsible-header" id="label2" data-target="stack2">
+                <strong><u><font color='blue'>Alimentos NO recomendados:</font></u></strong>
+            </div>
+
+            <!-- Contenido Colapsable 2: Detalles de alimentos NO recomendados -->
+            <div class="collapsible-content" id="stack2">
+
+                <p class="content-label">
+                    <!-- LabelTextType="Html" -->
+                    <b>ALIMENTOS DE CONSUMO OPCIONAL:</b>
+                </p>
+
+                <p class="content-label last-content-label">
+                    <!-- LabelTextType="Html" -->
+                    Tienen excesivas cantidades de grasas, azúcares y/o sal, además de conservantes, aditivos, colorantes. Su alta disponibilidad y publicidad, alientan al sobreconsumo. Ejemplos de estos productos alimenticios son: galletitas dulces, saladas, amasados de pastelerías (pastelitos fritos, churros, medialunas, bizcochos de grasa, facturas, otros), golosinas, bebidas azucaradas como gaseosas, aguas saborizadas, jugos industrializados y jugos en polvo (para diluir), productos de copetín (maní salado, palitos salados, papas, mandioca y/o batatas fritas, chizitos, otros), embutidos y chacinados (salchichas, chorizo, morcilla, otros), fiambres, achuras, carnes procesadas (preformados de carne o pollo, hamburguesas, bastones de pescados, otros), helados, manteca, margarina, dulce de leche, mermeladas (industrializadas), aderezos tales como mayonesa, kétchup, mostaza, salsa golf, salsa de soja, otros.
+                </p>
+
+            </div>
+            
+            <!-- Etiqueta dummy para espaciado final, solo si el stack content es muy corto -->
+            <p class="alim-label" style="height: 50px;"></p>
+
+        </div>
+
+    </div>
+    
+    <!-- 3. JavaScript para la funcionalidad de acordeón -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Selecciona todos los encabezados colapsables que contienen el texto subrayado en azul
+            const headers = document.querySelectorAll('.collapsible-header');
+
+            headers.forEach(header => {
+                header.addEventListener('click', function() {
+                    // Obtiene el ID del stack de contenido a mostrar/ocultar
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+
+                    if (targetContent) {
+                        // Alternar la clase 'active' para mostrar u ocultar el contenido
+                        targetContent.classList.toggle('active');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

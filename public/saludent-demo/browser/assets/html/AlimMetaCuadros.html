@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación (Metas->Cuadros)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #1a251a; /* Verde Saludable */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px;
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Simula StackLayout en Grid.Row 0 */
+            padding-bottom: 120px; /* Espacio para el botón flotante */
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabel}" */
+        .alim-label {
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 0 5px;
+            text-align: justify;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelBold}" */
+        .alim-label-bold {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 20px 5px 10px 5px;
+            color: var(--alim-primary-color);
+        }
+
+        /* Estilo para las imágenes */
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto 20px auto; /* Margin para separar */
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+        }
+
+        /* Margen especial para la última imagen */
+        .last-image {
+            margin-bottom: 100px; /* Simula Margin="0,0,0,100" */
+        }
+
+        /* --- 4. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #388E3C;
+            transform: scale(1.05);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación (Metas->Cuadros)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <p class="alim-label">
+                La “Gráfica de la Alimentación Diaria”, diseñada especialmente para nuestro país, acompaña a las recomendaciones y hace referencia al consumo de diferentes grupos de alimentos que se sugieren distribuir a lo largo del día.
+            </p>
+
+            <!-- Imagen: Gráfica de la Alimentación Diaria (al_meta01.png) -->
+            <img class="content-image" src="/assets/img/al_meta01.png" alt="Gráfica de la Alimentación Diaria" loading="lazy">
+            <!-- Nota: ImageZoom="al_meta01_z.png" se ignora según solicitud. -->
+
+            <p class="alim-label-bold">
+                Desayunos y meriendas
+            </p>
+
+            <!-- Imagen: Desayunos y meriendas (al_desameri.png) -->
+            <img class="content-image" src="/assets/img/al_desameri.png" alt="Cuadro de Desayunos y meriendas" loading="lazy">
+            <!-- Nota: ImageZoom="al_desameri_z.png" se ignora según solicitud. -->
+
+            <p class="alim-label-bold">
+                Almuerzos y cenas
+            </p>
+
+            <!-- Imagen: Almuerzos y cenas (al_almucena.png) -->
+            <img class="content-image" src="/assets/img/al_almucena.png" alt="Cuadro de Almuerzos y cenas" loading="lazy">
+            <!-- Nota: ImageZoom="al_almucena_z.png" se ignora según solicitud. -->
+
+            <p class="alim-label">
+                En almuerzos y cenas, se recomienda que un plato tenga la siguiente proporción de alimentos:
+            </p>
+
+            <!-- Imagen: Recomendaciones almuerzos y cenas (al_recom.png) -->
+            <img class="content-image last-image" src="/assets/img/al_recom.png" alt="Recomendaciones para la proporción del plato en almuerzos y cenas" loading="lazy">
+            <!-- Nota: ImageZoom="al_recom_z.png" se ignora según solicitud. -->
+
+        </div>
+
+    </div>
+
+
+</body>
+</html>

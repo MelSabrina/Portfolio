@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC: Recursos p/equipo de salud</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --pulm-primary-color: #007bff; /* Azul, simulando PulmPrimaryColor */
+            --taba-primary-color: #dc3545; /* Rojo/Naranja, simulando TabaPrimaryColor */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 50px; /* Espacio extra al final */
+        }
+
+        .pulm-label-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--pulm-primary-color);
+            margin: 15px 0 10px 0;
+            padding-left: 5px;
+        }
+
+        .diab-label-bold {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--pulm-primary-color);
+            cursor: pointer;
+            margin: 20px 10px 10px 10px;
+            text-decoration: underline;
+        }
+
+        /* Contenedor de imagen y botón (StackLayout Orientation="Horizontal") */
+        .resource-container {
+            display: flex;
+            align-items: flex-start;
+            margin: 0 10px 100px 10px;
+        }
+
+        .image-frame {
+            border: 2px solid var(--taba-primary-color);
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: calc(100% - 70px); /* Ajuste para dejar espacio al botón */
+        }
+
+        .resource-image {
+            max-width: 100%;
+            height: auto;
+            min-height: 180px;
+            display: block;
+            border-radius: 4px;
+        }
+
+        .share-button {
+            height: 50px;
+            width: 50px;
+            border-radius: 10px;
+            background-color: var(--pulm-primary-color);
+            border: none;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            flex-shrink: 0; /* Asegura que el botón no se encoja */
+        }
+
+        .share-button img {
+            width: 28px; /* Tamaño del icono dentro del botón */
+            height: 28px;
+        }
+
+        .share-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-1px);
+        }
+        
+        /* --- 4. Custom Message Box (Reemplazo de DisplayAlert) --- */
+        #messageBox {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 2000;
+            font-size: 0.9rem;
+            text-align: center;
+            max-width: 90%;
+        }
+
+        #messageBox.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // URLs de los recursos
+        const URL1 = "https://bancos.salud.gob.ar/recurso/diagnostico-y-tratamiento-de-la-epoc";
+        const URL2 = "https://www.youtube.com/watch?v=3I_OXxfSV7w";
+
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para mostrar el mensaje box (reemplazo de DisplayAlert)
+        function showMessage(message) {
+            const msgBox = document.getElementById('messageBox');
+            msgBox.textContent = message;
+            msgBox.classList.add('show');
+            
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                msgBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Función para abrir el enlace 1 (TapGestureRecognizer_Tapped1)
+        function openResource1() {
+            window.open(URL1, '_blank');
+        }
+
+        // Función para compartir el enlace 1 (btnShare1_Clicked)
+        function shareResource1() {
+            // Usar execCommand('copy') ya que navigator.clipboard.writeText puede fallar en iFrames
+            const input = document.createElement('input');
+            input.value = URL1;
+            document.body.appendChild(input);
+            input.select();
+            
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.error('Fallo al copiar:', err);
+            }
+            document.body.removeChild(input);
+
+            if (success) {
+                showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            } else {
+                showMessage("No se pudo copiar el enlace. Intente copiarlo manualmente: " + URL1);
+            }
+        }
+
+        // Función para abrir el enlace 2 (TapGestureRecognizer_Tapped2)
+        function openResource2() {
+            window.open(URL2, '_blank');
+        }
+
+        // Función para compartir el enlace 2 (btnShare3_Clicked)
+        function shareResource2() {
+            // Usar execCommand('copy')
+            const input = document.createElement('input');
+            input.value = URL2;
+            document.body.appendChild(input);
+            input.select();
+            
+            let success = false;
+            try {
+                success = document.execCommand('copy');
+            } catch (err) {
+                console.error('Fallo al copiar:', err);
+            }
+            document.body.removeChild(input);
+
+            if (success) {
+                showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            } else {
+                showMessage("No se pudo copiar el enlace. Intente copiarlo manualmente: " + URL2);
+            }
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC: Recursos p/equipo de salud
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="pulm-label-title">
+                Recursos para equipo de salud
+            </p>
+            
+            <!-- Recurso 1: Guía de lectura rápida -->
+            <p class="diab-label-bold" onclick="openResource1()">
+                Guía de lectura rápida Diagnóstico y Tratamiento de la EPOC
+            </p>
+
+            <div class="resource-container"> 
+                <div class="image-frame">
+                    <img 
+                        src="/assets/img/pu_recprof1.png" 
+                        alt="Guía de lectura rápida Diagnóstico y Tratamiento de la EPOC" 
+                        class="resource-image"
+                        onclick="openResource1()"
+                    />
+                </div>
+
+                <button class="share-button" onclick="shareResource1()" title="Compartir Enlace 1">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir" />
+                </button>
+            </div>
+
+            <!-- Recurso 2: Uso de Inhaladores -->
+            <p class="diab-label-bold" onclick="openResource2()">
+                Uso de Inhaladores
+            </p>
+
+            <div class="resource-container"> 
+                <div class="image-frame">
+                    <img 
+                        src="/assets/img/pu_rec2.png" 
+                        alt="Uso de Inhaladores (video)" 
+                        class="resource-image"
+                        onclick="openResource2()"
+                    />
+                </div>
+
+                <button class="share-button" onclick="shareResource2()" title="Compartir Enlace 2">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir" />
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- Custom Message Box (Reemplazo de DisplayAlert) -->
+    <div id="messageBox"></div>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad física: Evaluación (Cuadros y algorit.)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #3b424a; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 20px;
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabel}" */
+        .fisi-label {
+            margin: 10px 5px;
+            font-size: 1rem;
+            text-align: justify;
+            color: var(--text-color);
+        }
+
+        /* Estilo para imágenes (simula ZoomImage omitido) */
+        .content-image {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Imagen final con margen extra (simula Margin="0,0,0,100") */
+        .final-image {
+            margin-bottom: 100px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Actividad física: Evaluación (Cuadros y algorit.)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <p class="fisi-label">
+                Ser <b>insuficientemente activo</b> no es lo mismo que ser sedentario. Ser insuficientemente activo implica no alcanzar las recomendaciones mundiales de actividad física y salud, mientras que ser <b>sedentario</b> consiste en pasar muchas horas en comportamientos sedentarios.
+            </p>
+
+            <p class="fisi-label">
+                Ambos son <b>factores de riesgo</b> que se traducen en deterioros sustanciales en salud.
+            </p>
+
+            <!-- Imagen: af_cuad1.png (ZoomImage omitido) -->
+            <img class="content-image final-image" 
+                 src="/assets/img/af_cuad1.png" 
+                 alt="Tabla de Recomendaciones de actividad física"
+                 loading="lazy">
+
+        </div>
+
+    </div>
+
+</body>
+</html>

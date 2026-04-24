@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación: Evaluación (Recomendaciones)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #4CAF50; /* Simulación de AlimPrimaryColor (Verde para Nutrición) */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; 
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Simulación de AlimButtonTextColor (asumido blanco o neutro) */
+            background-color: white; 
+            padding-bottom: 120px; 
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelTitle}" */
+        .alim-label-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--alim-primary-color);
+            margin: 10px;
+            padding-top: 10px;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelBold}" */
+        .alim-label-bold {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 20px 10px 10px 10px;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabel}" */
+        .alim-label {
+            font-size: 1rem;
+            margin: 10px;
+            text-align: justify;
+        }
+
+        /* --- 4. Simulación de BulletLabel (Lista no ordenada) --- */
+        .bullet-list {
+            list-style-type: none; /* Quita el marcador de lista predeterminado */
+            padding-left: 20px; /* Sangría para la lista */
+            margin: 10px 0;
+        }
+
+        .bullet-item {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        /* Simula el punto con color primario */
+        .bullet-item::before {
+            content: '•'; 
+            color: var(--alim-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        
+        /* Margen especial para el último párrafo */
+        .last-paragraph {
+            margin: 10px 10px 100px 10px;
+        }
+
+        /* --- 5. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #388E3C; 
+            transform: scale(1.05);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación: Evaluación (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Título Principal -->
+            <h1 class="alim-label-title">
+                Anamnesis alimentaria:
+            </h1>
+
+            <!-- Primer Párrafo -->
+            <p class="alim-label">
+                Su objetivo principal es obtener un amplio conocimiento acerca de la alimentación habitual de la persona. Consiste en un interrogatorio que permite conocer:
+            </p>
+
+            <!-- Lista de Anamnesis (Simulación de BulletLabel) -->
+            <ul class="bullet-list">
+                <li class="bullet-item">Consumo por grupo de alimentos y bebidas</li>
+                <li class="bullet-item">Cómo, dónde y con quién come</li>
+                <li class="bullet-item">Preferencias y rechazos alimentarios</li>
+                <li class="bullet-item">Acceso físico y económico a alimentos</li>
+                <li class="bullet-item">Intolerancias y/o alergias alimentarias</li>
+            </ul>
+            
+            <!-- Segundo Párrafo -->
+            <p class="alim-label">
+                Pueden utilizarse diferentes métodos:
+            </p>
+
+            <!-- Título de Frecuencia de consumo -->
+            <p class="alim-label-bold">
+                Frecuencia de consumo
+            </p>
+
+            <!-- Párrafo de Frecuencia de consumo -->
+            <p class="alim-label">
+                Se utiliza para conocer la frecuencia de consumo de un alimento o grupo de alimentos en un periodo de tiempo concreto a partir de un listado.
+            </p>
+
+            <!-- Párrafo introductorio de Frecuencia de consumo -->
+            <p class="alim-label">
+                Los cuestionarios de frecuencia de consumo de alimentos se suelen estructurar en tres partes:
+            </p>
+
+            <!-- Lista de Frecuencia de consumo (Simulación de BulletLabel) -->
+            <ul class="bullet-list">
+                <li class="bullet-item">Lista de alimentos</li>
+                <li class="bullet-item">Frecuencias de consumo en unidades de tiempo</li>
+                <li class="bullet-item">Porciones estándar de referencia para cada alimento</li>
+            </ul>
+
+            <!-- Título de Recordatorio -->
+            <p class="alim-label-bold">
+                Recordatorio de 24 o 48 hs.
+            </p>
+
+            <!-- Párrafo final con margen especial -->
+            <p class="alim-label last-paragraph">
+                Se solicita que la persona registre todas las comidas y bebidas consumidas y sus cantidades durante un período de uno o dos días. Sirve para registrar y cuantificar las comidas y bebidas consumidas en un período anterior a la consulta. Pueden usarse fotos o recipientes con medidas caseras.
+            </p>
+
+        </div>
+
+    </div>
+    
+
+</body>
+</html>

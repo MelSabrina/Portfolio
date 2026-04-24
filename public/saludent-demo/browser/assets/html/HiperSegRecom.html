@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Seguimiento - Principales recomendaciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            padding-top: 16px;
+            margin-bottom: 32px;
+        }
+
+        .main-title {
+            font-family: 'Lora', serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.3;
+            margin: 0 0 16px 0;
+        }
+
+        .title-divider {
+            position: relative;
+            width: 50%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 0 auto;
+        }
+
+        .title-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* Accordion Item */
+        .accordion-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.06);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(27, 42, 74, 0.12);
+        }
+
+        /* Accordion Header (clickeable) */
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+            background: white;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: var(--program-light);
+        }
+
+        .accordion-header.active {
+            background: var(--program-light);
+            border-bottom: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .accordion-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--navy);
+            flex: 1;
+        }
+
+        /* Arrow icon */
+        .accordion-arrow {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--program-color);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Accordion Content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 3000px;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-inner {
+            padding: 20px;
+        }
+
+        /* Content text */
+        .content-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .content-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-text.bold {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .content-text.italic {
+            font-style: italic;
+            margin-left: 20px;
+            background: var(--program-light);
+            padding: 12px 16px;
+            border-left: 3px solid var(--program-color);
+            border-radius: 6px;
+            margin-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        /* Content list */
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+
+        .content-list:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 10px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .content-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 24px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="title-section">
+            <h1 class="main-title">Seguimiento</h1>
+            <div class="title-divider"></div>
+        </div>
+
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Frecuencia de seguimiento</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text bold">La frecuencia y el contenido de las visitas de seguimiento dependerá de las características de cada persona.</p>
+                    <p class="content-text">Citar cada mes al inicio del tratamiento para ajustar la medicación hasta que se alcance el valor de PA objetivo.</p>
+                    <p class="content-text">Citar cada 3 a 6 meses, excepto circunstancias individuales como la presencia de insuficiencia cardíaca o diabetes, intolerancia al tratamiento, dificultades para la adherencia, etc., luego de alcanzar un valor de PA estable.</p>
+                    <p class="content-text">Asegurar la disponibilidad y acceso a los medicamentos.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Detección de daño de órgano blanco</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">El daño de órgano blanco (DOB) se refiere principalmente a:</p>
+                    <ul class="content-list">
+                        <li>hipertrofia ventricular izquierda (HVI).</li>
+                        <li>fibrilación auricular (FA).</li>
+                        <li>dilatación de aurícula izquierda (AI).</li>
+                        <li>deterioro de la función renal y albuminuria.</li>
+                    </ul>
+                    <p class="content-text">El daño de órgano blanco detectado por cualquier método se asocia a incremento de eventos cardiovasculares mayores (IAM, angina de pecho, ACV, insuficiencia cardíaca) y muerte.</p>
+                    <p class="content-text">Ante la presencia de daño de órgano blanco, la conducta es el adecuado control de la presión arterial, por lo tanto, en la mayoría de los pacientes no se justifica retrasar el inicio del tratamiento antihipertensivo hasta tener los estudios.</p>
+                    <p class="content-text bold">La frecuencia de los test dependerá de la presencia o ausencia de DOB.</p>
+                    <p class="content-text bold">Solicitar dentro del año de diagnóstico, para valorar la presencia de daño de órgano blanco:</p>
+                    <ul class="content-list">
+                        <li>Electrocardiograma (ECG)</li>
+                        <li>Estimación del filtrado glomerular (IFGe) e</li>
+                        <li>Índice albúmina/creatinina en muestra de orina aislada matinal.</li>
+                    </ul>
+                    <p class="content-text">De encontrarse disponible, la realización de un ecocardiograma podría mejorar la sensibilidad para detectar HVI, dilatación auricular y dilatación de raíz aórtica.</p>
+                    <p class="content-text italic">Si una persona presenta ECG normal y albuminuria negativa muy probablemente no presente daño de órgano blanco secundario a HTA.</p>
+                    <p class="content-text">Si al diagnóstico o durante el seguimiento, encuentra alguna de las siguientes alteraciones:</p>
+                    <ul class="content-list">
+                        <li>Albuminuria igual o mayor a 30 mg/g (dos determinaciones).</li>
+                        <li>Deterioro del filtrado glomerular (IFGe) por debajo de 60 ml/min/1,73 m2.</li>
+                        <li>ECG que sugiere daño de órgano blanco: hipertrofia ventricular izquierda, fibrilación auricular, dilatación de aurícula izquierda.</li>
+                    </ul>
+                    <p class="content-text">Solicite un ecocardiograma para aumentar la precisión diagnóstica y cuantificar el daño.</p>
+                    <p class="content-text italic">La presencia de fibrilación auricular (FA) requiere derivación precoz para valoración y asesoramiento a fin de comenzar la anticoagulación oral y disminuir el riesgo de ACV embólico.</p>
+                    <p class="content-text">En presencia de daño de órgano blanco, se recomienda:</p>
+                    <ul class="content-list">
+                        <li>Ajustar el tratamiento antihipertensivo con metas más estrictas cercanas a 130/80 mmHg.</li>
+                        <li>Repetir ECG, IFGe e índice albúmina/creatinina en muestra de orina aislada 1 vez al año.</li>
+                        <li>Realizar ecocardiograma cada 2 a 3 años.</li>
+                    </ul>
+                    <p class="content-text">La regresión del daño de órgano blanco se asocia a mejor pronóstico y reducción del número de eventos cardiovasculares mayores y mortalidad.</p>
+                    <p class="content-text">En ausencia de daño de órgano blanco, se sugiere:</p>
+                    <ul class="content-list">
+                        <li>Repetir ECG, IFGe e índice albúmina/creatinina en muestra de orina aislada, cada 1 a 3 años.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Test desaconsejados</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">NO se sugiere realizar:</p>
+                    <ul class="content-list">
+                        <li>Ergometría para diagnóstico de HTA, o para guiar el tratamiento antihipertensivo ya que no se ha podido establecer clara asociación entre la respuesta hipertensiva al ejercicio y la ocurrencia de eventos cardiovasculares mayores.</li>
+                        <li>Ecodoppler de vasos de cuello para evaluar daño de órgano blanco de la HTA. La medición del espesor íntima media carotídeo muy probablemente no mejore la predicción del riesgo cardiovascular respecto de la evaluación basada en los factores de riesgo cardiovasculares.</li>
+                        <li>Fondo de ojo para detección de retinopatía hipertensiva en forma rutinaria ya que no tiene un tratamiento específico más allá del control de la presión arterial y no aporta información adicional a la brindada por las pruebas para detectar daño de órgano blanco a nivel cardiaco y renal.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 4 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Cuándo interconsultar</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>HTA en menores de 30 años.</li>
+                        <li>Sospecha de HTA secundaria no medicamentosa.</li>
+                        <li>IFGe menor a 30 mL/min/1,732.</li>
+                        <li>HTA en el embarazo.</li>
+                        <li>HTA resistente al tratamiento con tres drogas a dosis máxima tolerada.</li>
+                        <li>Aumento progresivo de la PA, a pesar de un tratamiento correcto.</li>
+                        <li>Dificultades terapéuticas: intolerancias o contraindicaciones múltiples.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+
+            // Close all accordions
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.classList.remove('active');
+            });
+
+            // If wasn't active, open it
+            if (!isActive) {
+                header.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>

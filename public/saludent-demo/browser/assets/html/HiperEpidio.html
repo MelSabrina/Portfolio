@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hipertensión (Epidemiología)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Colores de la app */
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --cream-dark: #DDD9D2;
+            --steel: #5A7290;
+            --text-main: #2C2C2C;
+
+            /* Color del programa Hipertensión */
+            --program-color: #ef5350;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Ocultar toolbar - lo maneja el banner de la app */
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .mapa-mortalidad {
+            margin: 40px 0;
+        }
+
+        /* Sección tipo burbuja */
+        .section-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+            border-left: 4px solid var(--program-color);
+        }
+
+        /* Título de sección */
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--program-light);
+        }
+
+        /* Párrafos */
+        .content-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .content-text:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Lista mejorada */
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .content-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .content-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 24px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        /* Highlight / Dato clave */
+        .highlight-box {
+            background: var(--program-light);
+            border-left: 3px solid var(--program-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box strong {
+            color: var(--program-color);
+            font-weight: 600;
+        }
+
+        /* Datos estadísticos */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, var(--program-color) 0%, #d32f2f 100%);
+            color: white;
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(239, 83, 80, 0.2);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        /* Imágenes */
+        .image-container {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .image-caption {
+            font-size: 13px;
+            color: var(--steel);
+            margin-top: 12px;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .image-caption strong {
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        /* Badge de fuente */
+        .source-badge {
+            display: inline-block;
+            background: var(--cream-dark);
+            color: var(--navy);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        /* Separador visual */
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--cream-dark), transparent);
+            margin: 24px 0;
+        }
+
+        /* Quote / Dato importante */
+        .quote-box {
+            background: var(--navy);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            font-style: italic;
+            box-shadow: 0 4px 12px rgba(27, 42, 74, 0.2);
+        }
+
+        .quote-box::before {
+            content: '"';
+            font-size: 48px;
+            color: var(--gold);
+            line-height: 0;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* === MAPA MORTALIDAD === */
+        .mapa-mortalidad {
+            margin: 16px 0;
+        }
+
+        .map-header {
+            margin-bottom: 10px;
+        }
+
+        .map-title {
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 0 0 10px 0;
+            text-align: center;
+        }
+
+        .gender-toggle {
+            display: flex;
+            gap: 6px;
+            background: var(--cream-dark);
+            padding: 3px;
+            border-radius: 10px;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 6px 10px;
+            border: none;
+            background: transparent;
+            color: var(--steel);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .toggle-btn.active {
+            background: white;
+            color: var(--program-color);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.98);
+        }
+
+        .map-container {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+            margin-bottom: 8px;
+        }
+
+        .map-svg-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .map-svg-container svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Leyenda horizontal */
+        .map-legend-horizontal {
+            margin-bottom: 20px;
+        }
+
+        .legend-unit-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        /* Prevenir outline azul en provincias */
+        .map-svg-container svg g,
+        .map-svg-container svg path {
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        .map-svg-container svg g:focus,
+        .map-svg-container svg path:focus {
+            outline: none !important;
+        }
+
+        .selected-info {
+            background: linear-gradient(135deg, var(--program-color) 0%, #d32f2f 100%);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-align: center;
+            min-height: 52px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(239, 83, 80, 0.25);
+            margin-top: 8px;
+        }
+
+        .selected-info.placeholder {
+            background: var(--cream-dark);
+            color: var(--steel);
+            box-shadow: none;
+        }
+
+        .info-province {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .info-value {
+            font-size: 22px;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+            line-height: 1;
+        }
+
+        .info-unit {
+            font-size: 11px;
+            font-weight: 500;
+            font-family: 'Montserrat', sans-serif;
+            opacity: 0.9;
+            margin-left: 4px;
+        }
+
+        .info-hint {
+            font-size: 13px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .legend {
+            background: transparent;
+            padding: 0;
+            margin-top: 12px;
+        }
+
+        /* Leyenda tabla vertical */
+        .map-legend-horizontal {
+            max-width: 280px;
+            margin: 0 auto 24px auto;
+            background: var(--cream);
+            padding: 14px;
+            border-radius: 8px;
+        }
+
+        .legend-unit-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--navy);
+            text-align: center;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(27, 42, 74, 0.1);
+        }
+
+        .legend-items-horizontal {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .legend-color {
+            width: 32px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .legend-label {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 13px;
+            color: var(--text-main);
+            flex: 1;
+        }
+
+        .legend-q {
+            font-weight: 600;
+            color: var(--program-color);
+            min-width: 24px;
+        }
+
+        .legend-range {
+            font-weight: 400;
+        }
+
+        .legend-source {
+            font-size: 11px;
+            color: var(--steel);
+            font-style: italic;
+            line-height: 1.4;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        /* Gráficos de personas */
+        .people-chart {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 20px 0;
+        }
+
+        .people-chart.compact {
+            gap: 1px;
+            flex-wrap: nowrap;
+        }
+
+        .people-chart.compact svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .people-chart svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .person-dark {
+            fill: var(--program-color, #ef5350);
+        }
+
+        .person-light {
+            fill: var(--program-color, #ef5350);
+            opacity: 0.35;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Introducción -->
+        <div class="section-card">
+            <p class="content-text">
+                La HTA constituye el principal factor de riesgo cardiovascular, asociándose al desarrollo de enfermedad cerebrovascular, enfermedad coronaria, insuficiencia cardíaca, fibrilación auricular, aneurisma de aorta, disección de aorta, enfermedad vascular periférica, demencia y enfermedad renal crónica, impactando negativamente en la mortalidad total, en la discapacidad y en los costos sociosanitarios.
+            </p>
+        </div>
+
+        <!-- Datos clave de ENFR 2018 -->
+        <div class="section-card">
+            <div class="section-title">4° Encuesta Nacional de Factores de Riesgo (2018)</div>
+
+            <p class="content-text">
+                La encuesta que incluyó mediciones de presión arterial (PA) muestra:
+            </p>
+
+            <ul class="content-list">
+                <li>Prevalencia de HTA por autorreporte en torno al 35%, similar a ediciones previas.</li>
+                <li>Prevalencia de HTA combinada: que incluye a quienes se reconocen hipertensos y toman antihipertensivos o presentaron valores elevados de presión arterial al momento de la encuesta, fue del 46,6%.</li>
+                <li>Entre quienes respondieron tener HTA, 6 de cada 10 tuvieron la presión arterial elevada en las mediciones.</li>
+                <li>Entre quienes respondieron no tener HTA, 3 de cada 10 presentaron presión arterial elevada.</li>
+            </ul>
+        </div>
+
+        <!-- Highlight del dato importante -->
+        <div class="highlight-box">
+            <p class="content-text">
+                <strong>Datos clave:</strong> Existen aproximadamente 16 millones de personas con HTA en nuestro país, de las cuales el 80% son menores de 65 años. Los resultados confirman el alto nivel de subdiagnóstico y las elevadas tasas de mal control.
+            </p>
+        </div>
+
+        <!-- Stats grid -->
+        <div class="stat-grid">
+            <div class="stat-card">
+                <span class="stat-value">19%</span>
+                <span class="stat-label">Defunciones atribuibles a HTA a nivel mundial</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-value">10M</span>
+                <span class="stat-label">Muertes anuales por HTA globalmente</span>
+            </div>
+        </div>
+
+        <!-- Mortalidad -->
+        <div class="section-card">
+            <div class="section-title">Mortalidad en Argentina</div>
+
+            <div class="quote-box">
+                Más de 100 mil personas fallecieron a causa de enfermedades del sistema circulatorio, de las cuales el 38% ocurrieron en menores de 75 años
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Factores de riesgo -->
+        <div class="section-card">
+            <div class="section-title">Factores de Riesgo Modificables</div>
+
+            <p class="content-text">
+                El desarrollo de HTA está estrechamente ligado a los estilos de vida actuales:
+            </p>
+
+            <ul class="content-list">
+                <li>Alimentación inadecuada con alto contenido de sodio, grasa y calorías</li>
+                <li>Inactividad física</li>
+                <li>Uso nocivo de alcohol</li>
+                <li>Obesidad (factor de gran magnitud por su crecimiento exponencial)</li>
+                <li>Aislamiento social, estrés laboral, crisis vitales</li>
+                <li>Ansiedad y/o depresión</li>
+            </ul>
+
+            <p class="content-text">
+                La adopción de estilos de vida saludable basados en una alimentación saludable reducida en sodio, la práctica regular de AF, la prevención del consumo de tabaco y del uso nocivo de alcohol, la prevención y el tratamiento de la obesidad e intervenciones tendientes a controlar el estrés, contribuyen a prevenir el desarrollo de la HTA y las enfermedades cardiovasculares.
+            </p>
+        </div>
+
+        <!-- Gráficos -->
+        <div class="image-container">
+            <span class="source-badge">4° ENFR</span>
+            <div style="font-weight: 600; margin-bottom: 12px; color: var(--navy);">
+                Prevalencia combinada de presión arterial elevada (18 años y más)
+            </div>
+            <div style="margin-bottom: 12px; font-size: 14px;">
+                <strong>Total:</strong> 46,6% | <strong>Varón:</strong> 55,7% | <strong>Mujer:</strong> 38,7%
+            </div>
+            <div class="people-chart compact">
+                <!-- Varón 1 - oscuro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-dark" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 1 - oscura -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-dark" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 2 - oscuro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-dark" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 2 - oscura -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-dark" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 3 - claro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-light" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 3 - clara -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-light" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 4 - claro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-light" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 4 - clara -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-light" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 5 - claro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-light" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <span class="source-badge">4° ENFR</span>
+            <div style="font-weight: 600; margin-bottom: 12px; color: var(--navy);">
+                Personas con PA elevada entre las que NO se reconocían hipertensas
+            </div>
+            <div style="margin-bottom: 12px; font-size: 14px;">
+                <strong>Total:</strong> 32,0%
+            </div>
+            <div class="people-chart">
+                <!-- Varón 1 - oscuro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-dark" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 1 - clara -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-light" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 2 - claro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-light" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+            </div>
+        </div>
+
+        <div class="image-container">
+            <span class="source-badge">4° ENFR</span>
+            <div style="font-weight: 600; margin-bottom: 12px; color: var(--navy);">
+                Personas con PA elevada entre las que SÍ se reconocían hipertensas
+            </div>
+            <div style="margin-bottom: 12px; font-size: 14px;">
+                <strong>Total:</strong> 59,1%
+            </div>
+            <div class="people-chart">
+                <!-- Varón 1 - oscuro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-dark" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 1 - oscura -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-dark" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 2 - oscuro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-dark" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-dark" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+                <!-- Mujer 2 - clara -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14.07a7.35,7.35,0,0,0-5.5-2.31h0a7.36,7.36,0,0,0-5.5,2.31c-3.87,4-3.73,11.74-3.7,12.61a1.87,1.87,0,0,0,1.88,1.82H18a1.87,1.87,0,0,0,1.82-1.94,21.54,21.54,0,0,1,1.1-7.21l.27,4.47L18.28,34.28a1.17,1.17,0,0,0,.92,1.5l1.51.27V47.1a1.89,1.89,0,0,0,3.77,0V36.48c.51,0,1,0,1.54,0V47.1a1.88,1.88,0,1,0,3.76,0V36.21l1.44-.2a1.19,1.19,0,0,0,1-1.51L29.5,23.82l.16-4.28a22,22,0,0,1,1,7,1.88,1.88,0,0,0,1.82,1.94h.06a1.87,1.87,0,0,0,1.88-1.82C34.48,25.81,34.62,18.06,30.75,14.07Z"/><path class="person-light" d="M25.23,10.65a4.59,4.59,0,1,0-4.59-4.59A4.59,4.59,0,0,0,25.23,10.65Z"/></svg>
+                <!-- Varón 3 - claro -->
+                <svg viewBox="0 0 50.46 50.46"><path class="person-light" d="M30.75,14a7.38,7.38,0,0,0-5.5-2.31h0A7.4,7.4,0,0,0,19.71,14C15.84,18,16,25.73,16,26.6a1.88,1.88,0,0,0,1.88,1.83H18a1.89,1.89,0,0,0,1.82-1.95,22.27,22.27,0,0,1,.91-6.67v13h0V47a1.89,1.89,0,0,0,3.77,0V32.76H26V47a1.88,1.88,0,1,0,3.76,0V19.82a22.57,22.57,0,0,1,.91,6.67,1.89,1.89,0,0,0,1.82,1.94h.06a1.88,1.88,0,0,0,1.88-1.83C34.48,25.73,34.62,18,30.75,14Z"/><path class="person-light" d="M25.23,10.72a4.59,4.59,0,1,0-4.59-4.58A4.59,4.59,0,0,0,25.23,10.72Z"/></svg>
+            </div>
+        </div>
+
+        <!-- Mapa Interactivo de Mortalidad -->
+        <div id="mapa-mortalidad-container"></div>
+
+    </div>
+
+    <script src="../js/mapa-mortalidad.js"></script>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Inicializar mapa
+        function initMapa() {
+            const container = document.getElementById('mapa-mortalidad-container');
+            if (container) {
+                new MapaMortalidad('mapa-mortalidad-container', {
+                    programColor: '#ef5350'
+                });
+            } else {
+                console.error('Container not found');
+            }
+        }
+
+        // Intentar inicializar inmediatamente o cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMapa);
+        } else {
+            initMapa();
+        }
+    </script>
+</body>
+</html>

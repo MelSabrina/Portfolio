@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enf. Renal: Evaluación(Recomendaciones)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --rena-primary-color: #3b3e41; /* Azul profundo para Renal */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Layout --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio predeterminado entre elementos */
+        }
+
+        /* --- 4. Estilos de Texto (Simulación de StaticResources) --- */
+        .rena-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 0;
+        }
+        
+        /* Estilos para el texto en negrita incrustado */
+        .rena-label b {
+            font-weight: 700;
+        }
+
+        .rena-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 10px 0 0 0; /* Un poco de margen para destacar títulos/secciones */
+        }
+        
+        .rena-label-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--rena-primary-color);
+            margin: 20px 0 10px 0; /* Más espacio arriba */
+            line-height: 1.3;
+        }
+
+        .rena-bullet {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-left: 20px; /* Sangría para simular viñeta */
+            list-style-type: disc;
+        }
+
+        .rena-label-note {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin: 5px 0 20px 0; 
+        }
+
+        /* --- 5. Estilos de Imagen --- */
+        .resource-image-container {
+            display: block;
+            margin: 10px 0 10px 0; 
+            width: 100%;
+            overflow: hidden; 
+            border-radius: 4px;
+        }
+        
+        .resource-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            border: 1px solid #eee; /* Borde sutil */
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG simple) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Enf. Renal: Evaluación (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Título 1 -->
+            <h2 class="rena-label-title">
+                ¿Cómo se diagnostica y define la ERC? 
+            </h2>
+
+            <!-- Texto 1 -->
+            <p class="rena-label">
+                El diagnóstico es sencillo. Se necesita establecer el filtrado glomerular estimado (FGe) basado en los niveles de creatinina (Cr) en una muestra de sangre y la presencia de daño renal en una muestra de orina aislada, imágenes renales o antecedentes clínicos.
+            </p>
+
+            <!-- Texto 2 (con HTML incrustado) -->
+            <p class="rena-label">
+                La <b>enfermedad renal crónica</b> se define como la <b>disminución de la función renal</b>, expresada por un FGe &lt; 60 ml/min/1,73 m2 o como la presencia de daño renal de forma persistente (proteinuria, alteraciones en el sedimento de orina o en las pruebas de imagen renal) durante al menos tres meses. Implica daño funcional o estructural renal mantenido en el tiempo. A partir de entonces se clasifica en etapas y categorías que definen los riesgos de progresión de la enfermedad y de mortalidad.
+            </p>
+
+            <!-- Título Bold 1 -->
+            <p class="rena-label-bold">
+                1) Medición del FGe basado en la creatinina plasmática (CrP): 
+            </p>
+
+            <!-- Texto 3 -->
+            <p class="rena-label">
+                En personas mayores a 18 años se utilizarán las fórmulas de MDRD-4 o CKD-EPI para estimar el FGe. 
+            </p>
+
+            <!-- Texto 4 -->
+            <p class="rena-label">
+                En niñas, niños y adolescentes (2 a 17 años) se utilizará la fórmula de Schwartz (2009).
+            </p>
+
+            <!-- Texto 5 (con HTML incrustado) -->
+            <p class="rena-label">
+                Una segunda opción es el cálculo FG en consultorio a través de la fórmula de <b>Cockcroft-Gault</b>, entendiendo que esta fórmula estima la depuración de creatinina y es menos específica.
+            </p>
+
+            <!-- Texto 6 (con HTML incrustado) -->
+            <p class="rena-label">
+                <b>Depuración de Cr estimada:</b> ((140-edad en años) x Peso en Kg) / (72 x CrP) x 0,85 en Mujeres
+            </p>
+
+            <!-- Título Bold 2 -->
+            <p class="rena-label-bold">
+                2) Marcadores de daño renal:
+            </p>
+
+            <!-- Bullet 1 -->
+            <ul style="list-style: none; padding-left: 0;">
+                <li class="rena-bullet">
+                    <b>Albuminuria o Proteinuria:</b> Se prefiere cuantificarlas en una muestra de orina aislada matutina. Se debe solicitar <b>Relación Albúmina/Creatinina (RAC) en primera orina matutina</b>. Si no se dispone de esta determinación, ver opciones alternativas en figura: preferencia de método para determinar presencia de proteinas en orina.
+                </li>
+                <!-- Bullet 2 -->
+                <li class="rena-bullet">
+                    <b>Sedimento urinario con presencia de células sanguíneas</b> (hematíes, leucocitos), piocitos y cilindros celulares. En particular, la presencia de hematuria persistente sin causa urológica demostrada puede es un marcador de lesión renal.
+                </li>
+                <!-- Bullet 3 -->
+                <li class="rena-bullet">
+                    <b>Lesiones macroscópicas</b>: Los riñones evaluados por <b>ecografía renal</b> u otro método (TAC, RNM, etc.) pueden presentar algunas alteraciones que marcan lesión crónica. Ej: cicatrices, <b>múltiples quistes bilaterales</b> (no el quiste simple único), <b>disminución renal, asimetría renal</b> (múltiples quistes bilaterales, disminución renal, asimetría renal).
+                </li>
+                <!-- Bullet 4 -->
+                <li class="rena-bullet">
+                    Lesiones microscópicas: Antecedente de daño renal crónico o enfermedad no reversible probada por biopsia. (Ej: glomerulopatías, nefritis lúpica). 
+                </li>
+            </ul>
+
+            <!-- Título Bold 3 -->
+            <p class="rena-label-bold">
+                3) Cronicidad
+            </p>
+
+            <!-- Texto 7 (con HTML incrustado) -->
+            <p class="rena-label">
+                Tanto el FGe disminuido como cualquier marcador de daño renal debe tener una <b>persistencia</b> de 3 meses o más para definir cronicidad.
+            </p>
+
+            <!-- Título 2 -->
+            <h2 class="rena-label-title">
+                ¿Cómo se clasifica la ERC?
+            </h2>
+
+            <!-- Texto 8 -->
+            <p class="rena-label">
+                La ERC se clasifica según el FGe y el daño renal en 6 etapas 
+            </p>
+
+            <!-- Título Bold 4 -->
+            <p class="rena-label-bold">
+                Mediciones que definen ERC
+            </p>
+
+            <!-- Imagen 1: re_evalcuad1.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_evalcuad1.png" 
+                     alt="Mediciones que definen ERC" 
+                     class="resource-image">
+            </div>
+
+            <!-- Título Bold 5 -->
+            <p class="rena-label-bold">
+                Preferencia de método para determinar presencia de proteínas en orina
+            </p>
+
+            <!-- Imagen 2: re_evalcuad2.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_evalcuad2.png" 
+                     alt="Determinar presencia de proteínas en orina" 
+                     class="resource-image">
+            </div>
+
+            <!-- Título Bold 6 -->
+            <p class="rena-label-bold">
+                Relación entre proteinuria y albuminuria.
+            </p>
+
+            <!-- Imagen 3: re_evalcuad3.png -->
+            <div class="resource-image-container">
+                <img src="/assets/img/re_evalcuad3.png" 
+                     alt="Equivalencia clínica entre proteinuria y albuminuria" 
+                     class="resource-image">
+            </div>
+
+            <!-- Nota 1 -->
+            <p class="rena-label-note">
+                Nota: RAC: relación albúmina/creatinina en orina matutina.RPC: relación proteínas totales/creatinina en orina matutina.
+            </p>
+
+            <!-- Título Bold 7 -->
+            <p class="rena-label-bold">
+                Definiciones específicas de daño renal.
+            </p>
+
+            <!-- Imagen 4: re_evalcuad4.png -->
+            <div class="resource-image-container" style="margin-bottom: 100px;">
+                <img src="/assets/img/re_evalcuad4.png" 
+                     alt="Definiciones de daño renal" 
+                     class="resource-image">
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

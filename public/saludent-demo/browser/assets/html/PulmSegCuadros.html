@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC: Seguimiento(Cuadros y algoritmos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --pulm-blue: #007bff;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0 100px 0; /* Padding extra abajo para simular margen final */
+        }
+
+        .pulm-label-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--pulm-blue);
+            margin: 15px 0 5px 0;
+            padding-left: 5px;
+        }
+
+        .pulm-label-note {
+            font-size: 0.85rem;
+            font-style: italic;
+            color: #666;
+            margin: 0 0 15px 0;
+            padding-left: 5px;
+        }
+
+        .pulm-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            margin: 15px 0 5px 0;
+            padding-left: 5px;
+        }
+
+        .pulm-label {
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            padding-left: 5px;
+            text-align: justify;
+        }
+        
+        /* Estilos de Imagen - Importante: Imágenes son 100% responsivas */
+        .content-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px; /* Separación entre imágenes y contenido */
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript para el back button -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC: Seguimiento(Cuadros y algoritmos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Escala mMRC -->
+            <p class="pulm-label-title">
+                Escala modificada de evaluación de la disnea
+            </p>
+
+            <p class="pulm-label-note">
+                (mMRC: Consejo de Investigación Médica del Reino Unido)
+            </p>
+
+            <p class="pulm-label-title">
+                AUTOADMINISTRADA
+            </p>
+
+            <img 
+                src="/assets/img/pu_segcuad1.png" 
+                alt="Escala modificada de evaluación de la disnea (mMRC)" 
+                class="content-image"
+            />
+            
+            <!-- Cuestionario PHQ-9 -->
+            <p class="pulm-label-bold">
+                Cuestionario PHQ-9 para la detección de depresión
+            </p>
+
+            <p class="pulm-label">
+                El cuestionario PHQ-9 (Patient Health Questionnaire) emplea una escala tipo Likert y ha sido validado al castellano en contexto de atención primaria. El puntaje de resultados varía entre 0 y 27. La presencia de un puntaje menor a 5 puede considerarse como ausencia de depresión. Se han propuesto como límites los valores de 5 a 9 (depresión leve), 10 a 14 (depresión moderada), 15 a 19 (depresión moderada a severa) y más de 20 (depresión severa).
+            </p>
+
+            <p class="pulm-label-bold">
+                Durante las últimas 2 semanas, ¿qué tan seguido ha tenido molestias debido a los siguientes problemas?
+            </p>
+
+            <img 
+                src="/assets/img/pu_segcuad2.png" 
+                alt="Cuestionario PHQ-9 para la detección de depresión" 
+                class="content-image"
+            />
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

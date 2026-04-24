@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asma: Manejo (Recomendaciones)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --asma-primary-color: #303535; /* Teal/Cian */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 120px; /* Espacio extra al final */
+        }
+
+        .asma-label {
+            font-size: 1rem;
+            margin: 10px 5px;
+            text-align: justify;
+        }
+
+        /* Estilo para las viñetas adaptado de BulletLabel */
+        .bullet-list {
+            list-style: none; /* Quitamos el estilo de viñeta predeterminado */
+            padding: 0 10px;
+            margin: 10px 0;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            text-align: justify;
+        }
+
+        .bullet-item::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            color: var(--asma-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em; 
+            margin-right: 5px;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+        
+        /* Margen inferior específico para el último elemento */
+        .margin-bottom-100 {
+            margin-bottom: 100px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Asma: Manejo (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="asma-label">
+                El tratamiento farmacológico del asma incluye:
+            </p>
+            
+            <ul class="bullet-list">
+                
+                <li class="bullet-item">
+                    <b>Fármacos de mantenimiento:</b> son los que logran el control a largo plazo, disminuyendo las exacerbaciones y mejorando la calidad de vida de la persona. Se utilizan a diario independientemente de la presencia de síntomas.
+                </li>
+                
+                <li class="bullet-item margin-bottom-100">
+                    <b>Fármacos de rescate:</b> son los que brindan alivio de forma inmediata. Se utilizan a demanda para el control de los síntomas o previo al ejercicio físico en quienes lo requieren.
+                </li>
+                
+            </ul>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos p/equipo de salud</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --asma-primary-color: #4f5555; /* Teal/Cian */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Layout --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .asma-label-bold {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            cursor: pointer;
+            text-decoration: underline; /* Para indicar que es interactivo */
+        }
+        
+        .margin-bottom-10 {
+            margin-bottom: 10px;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: flex-start; /* Alineación para la imagen y el botón de compartir */
+            gap: 10px;
+        }
+
+        .image-frame {
+            border: 2px solid var(--asma-primary-color);
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex-grow: 1;
+        }
+
+        .resource-image {
+            display: block;
+            width: 100%; /* La imagen tomará todo el ancho disponible en el frame */
+            max-width: 300px; /* Limite opcional para dispositivos muy grandes */
+            height: auto;
+            min-height: 180px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+
+        .share-button {
+            background-color: var(--asma-primary-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background-color 0.3s, transform 0.1s;
+            margin-top: 10px; /* Alineación vertical */
+        }
+
+        .share-button:active {
+            transform: scale(0.95);
+        }
+
+        .share-button img {
+            width: 30px;
+            height: 30px;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // URLs de los recursos
+        const URL_PROTOCOLO = "https://bancos.salud.gob.ar/recurso/protocolo-de-orientacion-para-el-diagnostico-y-tratamiento-del-asma-en-adultos";
+        const URL_INHALADORES = "https://www.youtube.com/watch?v=3I_OXxfSV7w";
+
+        // 1. Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // 2. Función para abrir enlaces
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // 3. Función para compartir (copiar al portapapeles)
+        function shareLink(url, buttonId) {
+            const button = document.getElementById(buttonId);
+            const originalHTML = button.innerHTML;
+            
+            // Usamos navigator.clipboard para copiar
+            navigator.clipboard.writeText(url).then(() => {
+                // Confirmación visual
+                button.innerHTML = '¡Copiado!';
+                button.style.backgroundColor = '#4CAF50'; // Color verde para éxito
+                
+                // Revertir después de 1.5 segundos
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.backgroundColor = 'var(--asma-primary-color)';
+                }, 1500);
+
+            }).catch(err => {
+                console.error('Error al copiar al portapapeles:', err);
+                // Fallback para entornos donde el portapapeles no es accesible
+                button.innerHTML = 'Error';
+                button.style.backgroundColor = '#F44336'; // Color rojo para error
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.backgroundColor = 'var(--asma-primary-color)';
+                }, 1500);
+            });
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG simple) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos p/equipo de salud
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Bloque 1: Protocolo de Orientación -->
+            <div>
+                <div class="asma-label-bold" onclick="openLink(URL_PROTOCOLO)">
+                    Protocolo de orientación para el diagnóstico y tratamiento del Asma en adultos:
+                </div>
+
+                <div class="item-row">
+                    <!-- Frame y Image1 -->
+                    <div class="image-frame">
+                        <img id="Image1" 
+                             src="/assets/img/as_rec1.png" 
+                             alt="Protocolo de orientación para el diagnóstico y tratamiento del Asma en adultos" 
+                             class="resource-image"
+                             onclick="openLink(URL_PROTOCOLO)">
+                    </div>
+
+                    <!-- Botón de compartir 2 -->
+                    <button class="share-button" id="btnShare2" onclick="shareLink(URL_PROTOCOLO, 'btnShare2')" title="Compartir enlace">
+                        <img src="/assets/img/share_48_b.png" alt="Compartir">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bloque 2: Uso de inhaladores -->
+            <div>
+                <div class="asma-label-bold margin-bottom-10" onclick="openLink(URL_INHALADORES)">
+                    Uso de inhaladores:
+                </div>
+
+                <div class="item-row">
+                    <!-- Frame y Image2 -->
+                    <div class="image-frame">
+                        <img id="Image2" 
+                             src="/assets/img/as_rec3.png" 
+                             alt="Uso de inhaladores (video)" 
+                             class="resource-image"
+                             onclick="openLink(URL_INHALADORES)">
+                    </div>
+
+                    <!-- Botón de compartir 4 -->
+                    <button class="share-button" id="btnShare4" onclick="shareLink(URL_INHALADORES, 'btnShare4')" title="Compartir enlace">
+                        <img src="/assets/img/share_48_b.png" alt="Compartir">
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

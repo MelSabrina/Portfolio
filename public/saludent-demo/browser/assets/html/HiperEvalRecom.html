@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Evaluación (Recomendaciones)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* SECTION HEADERS */
+        .section-header {
+            padding-top: 8px;
+            margin-bottom: 36px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            margin: 0;
+            color: var(--program-color);
+        }
+
+        /* Línea divisoria con rombo */
+        .section-divider {
+            position: relative;
+            width: 60%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 12px auto 0;
+        }
+
+        .section-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* ACCORDION PRINCIPAL */
+        .accordion-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.06);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(27, 42, 74, 0.12);
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px;
+            cursor: pointer;
+            user-select: none;
+            background: white;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: var(--program-light);
+        }
+
+        .accordion-header.active {
+            background: var(--program-light);
+            border-bottom: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .accordion-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--navy);
+            flex: 1;
+        }
+
+        .accordion-arrow {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--program-color);
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 2500px;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-inner {
+            padding: 20px;
+        }
+
+        /* SUB-ACCORDION (anidado) */
+        .sub-accordion {
+            margin: 12px 0;
+        }
+
+        .sub-accordion-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--cream);
+            border-radius: 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .sub-accordion-header:hover {
+            background: var(--program-light);
+        }
+
+        .sub-accordion-header.active {
+            background: var(--program-light);
+        }
+
+        .sub-accordion-title {
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--program-color);
+            flex: 1;
+        }
+
+        .sub-accordion-arrow {
+            font-size: 16px;
+            color: var(--program-color);
+            transition: transform 0.3s ease;
+        }
+
+        .sub-accordion-header.active .sub-accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        .sub-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sub-accordion-content.active {
+            max-height: 1200px;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sub-accordion-inner {
+            padding: 12px 16px 12px 20px;
+        }
+
+        /* CONTENT */
+        .content-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .content-text:last-child {
+            margin-bottom: 0;
+        }
+
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 16px 0;
+        }
+
+        .content-list:first-child {
+            margin-top: 0;
+        }
+
+        .content-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .content-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 24px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        /* HIGHLIGHT BOX */
+        .highlight {
+            background: var(--program-light);
+            border-left: 3px solid var(--program-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+            font-weight: 500;
+            color: var(--navy);
+        }
+
+        /* BADGE / DEFINITION */
+        .definition {
+            background: var(--navy);
+            color: white;
+            padding: 16px;
+            border-radius: 10px;
+            margin: 16px 0;
+            border-left: 4px solid var(--gold);
+        }
+
+        .definition strong {
+            color: var(--gold);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* IMAGES */
+        .image-container {
+            margin: 16px 0;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        /* TABLE WRAPPER */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 16px 0;
+            scroll-behavior: smooth;
+        }
+
+        /* CUSTOM SCROLLBAR */
+        .table-wrapper::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: var(--cream-dark);
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: var(--program-color);
+            border-radius: 3px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: var(--program-dark);
+        }
+
+        /* TABLE */
+        .diagnostic-table {
+            width: 100%;
+            min-width: 650px;
+            border-collapse: collapse;
+            font-size: 13px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .diagnostic-table thead {
+            background: var(--cream-dark);
+        }
+
+        .diagnostic-table th {
+            padding: 10px 8px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--navy);
+            border-bottom: 2px solid var(--program-color);
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .diagnostic-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e5e5e5;
+            vertical-align: middle;
+        }
+
+        .diagnostic-table th {
+            vertical-align: middle;
+        }
+
+        .diagnostic-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .diagnostic-table .method-col {
+            font-weight: 600;
+            color: var(--navy);
+            min-width: 100px;
+        }
+
+        .diagnostic-table .sub-method {
+            padding-left: 16px;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 12px;
+        }
+
+        .diagnostic-table .value-col {
+            text-align: center;
+            font-weight: 600;
+            color: var(--program-color);
+            white-space: nowrap;
+        }
+
+        .diagnostic-table .note-col {
+            font-size: 12px;
+            color: var(--steel);
+            line-height: 1.4;
+            max-width: 200px;
+        }
+
+        /* VALUES BOX */
+        .values-box {
+            background: var(--cream);
+            border: 2px solid var(--program-color);
+            border-radius: 10px;
+            padding: 16px;
+            margin: 16px 0;
+        }
+
+        .values-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .values-box strong {
+            color: var(--program-color);
+            font-weight: 600;
+        }
+
+        /* COLORED TEXT */
+        .text-red {
+            color: var(--program-color);
+            font-weight: 600;
+        }
+
+        .text-blue {
+            color: #6CACE4;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- SECCIÓN: DIAGNÓSTICO -->
+        <!-- ══════════════════════════════════════════════════════════ -->
+
+        <div class="section-header">
+            <h1 class="section-title">Diagnóstico</h1>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- 1. Cómo realizar el diagnóstico -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Cómo realizar el diagnóstico</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">
+                        El diagnóstico se realiza mediante la medición de la presión arterial (PA) por cualquier integrante del equipo de salud.
+                    </p>
+                    <p class="content-text">
+                        Se sugiere siempre que esté disponible, emplear tensiómetros automáticos validados de brazo, con el objetivo de obtener valores más precisos y reproducibles de PA, ya que estos instrumentos evitan la subestimación por el vacío auscultatorio (gap sistólico), el redondeo de las cifras obtenidas y poseer menos variabilidad interobservador.
+                    </p>
+                    <div class="highlight">
+                        ⚠️ Es importante utilizar un manguito adecuado al diámetro del brazo del paciente.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. A quienes realizar el rastreo -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">A quienes realizar el rastreo</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">
+                        Se recomienda el rastreo de HTA con toma de PA en consultorio a las personas de 18 años o más.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Frecuencia de rastreo -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Frecuencia de rastreo</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>
+                            Entre 18 y 40 años sin <span class="text-blue">factores de riesgo</span> y PA igual o menor a 130/80 mmHg: al menos 1 vez cada 3 a 5 años.
+                        </li>
+                        <li>
+                            En mayores de 40 años o en presencia de factores de riesgo o valores de presión arterial sistólica (PAS) 130 a 139 y/o presión arterial diastólica (PAD) 80 a 89 mmHg: al menos 1 vez al año.
+                        </li>
+                        <li>
+                            A los fines prácticos, puede ser conveniente tomar la PA en cada contacto con el sistema de salud.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Puntos de corte para el diagnóstico de HTA -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Puntos de corte para el diagnóstico de HTA</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">
+                        <strong>Punto de corte para diagnosticar HTA en consultorio</strong>
+                    </p>
+                    <p class="content-text">
+                        Valores promediados (de al menos 2 tomas) en al menos dos consultas realizadas en diferentes días de:
+                    </p>
+                    <div class="values-box">
+                        <ul class="content-list">
+                            <li>Presión arterial sistólica ≥ <strong>140 mmHg</strong> y/o</li>
+                            <li>Presión arterial diastólica ≥ <strong>90 mmHg</strong></li>
+                        </ul>
+                    </div>
+
+                    <!-- Sub-accordion: Criterios diagnóstico -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Criterios diagnóstico de HTA según método</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content active">
+                            <div class="sub-accordion-inner">
+                                <div class="table-wrapper" id="tableWrapper">
+                                    <table class="diagnostic-table">
+                                        <thead>
+                                            <tr>
+                                                <th colspan="2">Método de medición de presión arterial</th>
+                                                <th style="text-align: center;">PAS (mmHg)<br>≥</th>
+                                                <th style="text-align: center; width: 40px;">y/o</th>
+                                                <th style="text-align: center;">PAD (mmHg)<br>≥</th>
+                                                <th style="width: 200px;">Notas</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="method-col" colspan="2">En consultorio</td>
+                                                <td class="value-col">140</td>
+                                                <td class="value-col">y/o</td>
+                                                <td class="value-col">90</td>
+                                                <td class="note-col">En al menos dos consultas realizadas en días distintos. En cada consulta realizar al menos 2 mediciones y promediarlas</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="method-col" rowspan="3">MAPA</td>
+                                                <td class="sub-method">Promedio diurno</td>
+                                                <td class="value-col">135</td>
+                                                <td class="value-col">y/o</td>
+                                                <td class="value-col">85</td>
+                                                <td class="note-col" rowspan="3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="sub-method">Promedio nocturno</td>
+                                                <td class="value-col">120</td>
+                                                <td class="value-col">y/o</td>
+                                                <td class="value-col">70</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="sub-method">Promedio de 24 horas</td>
+                                                <td class="value-col">130</td>
+                                                <td class="value-col">y/o</td>
+                                                <td class="value-col">80</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="method-col" colspan="2">MDPA</td>
+                                                <td class="value-col">135</td>
+                                                <td class="value-col">y/o</td>
+                                                <td class="value-col">85</td>
+                                                <td class="note-col">En el promedio de las mediciones realizadas. Se debe realizar por al menos 4 días (idealmente 7)</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. HTA de guardapolvo blanco e HTA oculta -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">HTA de guardapolvo blanco e HTA oculta</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <div class="definition">
+                        <strong>HTA de guardapolvo blanco:</strong>
+                        Presencia de valores persistentemente elevados de presión arterial en consultorio con normotensión ambulatoria y sin presencia de daño de órgano blanco.
+                    </div>
+
+                    <div class="definition">
+                        <strong>HTA oculta:</strong>
+                        Presencia de valores normales de presión arterial en consultorio, pero con cifras elevadas de presión arterial fuera del mismo. En personas con presión arterial normal en consultorio que presenten daño de órgano blanco, sospechar HTA oculta. La HTA es la primera causa de hipertrofia ventricular izquierda, por lo cual su presencia orienta, en primer término, a HTA conocida o desconocida.
+                    </div>
+
+                    <p class="content-text">
+                        Ante la sospecha de HTA de guardapolvo blanco e hipertensión oculta se recomienda realizar un monitoreo domiciliario de presión arterial (MDPA) o bien, un monitoreo ambulatorio de presión arterial de 24 hs (MAPA) para el diagnóstico adecuado de HTA.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- SECCIÓN: CONSEJOS -->
+        <!-- ══════════════════════════════════════════════════════════ -->
+
+        <div class="section-header" style="padding-top: 18px;">
+            <h1 class="section-title">Consejos</h1>
+            <div class="section-divider"></div>
+        </div>
+
+        <!-- 1. Técnica de toma de PA -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Técnica de toma de PA</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <p class="content-text">
+                        Respetar la técnica de toma de presión arterial es un aspecto clave para garantizar la validez de los valores hallados.
+                    </p>
+                    <p class="content-text">
+                        En la primera consulta tomar la PA en ambos brazos, y hacer el seguimiento posterior en el brazo que presente el valor más elevado.
+                    </p>
+
+                    <!-- Sub: Condiciones de la Toma -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Condiciones de la Toma</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content">
+                            <div class="sub-accordion-inner">
+                                <ul class="content-list">
+                                    <li>Evitar el consumo de cafeína, mate, tabaco y la práctica de ejercicio 30 minutos antes de la medición.</li>
+                                    <li>Permanecer al menos 5 minutos en reposo, sentado tranquilo y en silencio, antes de realizar las mediciones.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub: Posición -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Posición</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content">
+                            <div class="sub-accordion-inner">
+                                <p class="content-text">
+                                    Sentada con ambos pies apoyados en el piso y sin cruzar las piernas; la espalda sobre el respaldo de la silla; el brazo desnudo, evitando arremangar la ropa, para que ésta no lo comprima; apoyado cómodamente con la palma hacia abajo para evitar contraer los músculos, de modo que, el punto medio del húmero se encuentre a la altura del corazón.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub: Elección y colocación del manguito -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Elección y colocación del manguito</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content">
+                            <div class="sub-accordion-inner">
+                                <p class="content-text">
+                                    El manguito tiene que cubrir el 80% a 100% de la circunferencia del brazo en adultos. Colocar el borde inferior del manguito 2 cm por encima del pliegue del codo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub: Medición -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Medición</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content">
+                            <div class="sub-accordion-inner">
+                                <ul class="content-list">
+                                    <li>
+                                        <strong>Tensiómetro automático validado (método oscilométrico):</strong> presionar el botón, aguardar a que el aparato devuelva la cifra de presión arterial y anotarla tal cual se muestra, sin redondeos. Esperar 30 segundos y repetir la operación -en caso de que el proceso no se repita automáticamente-. Promediar ambas mediciones y registrar el valor final, evitando el redondeo de cifras.
+                                    </li>
+                                    <li>
+                                        <strong>Tensiómetro aneroide:</strong> colocar la campana del estetoscopio sobre la arteria humeral, sin que quede cubierta por el manguito. Insuflar el manguito 20 a 30 mmHg por encima del punto en que desaparece el pulso radial y desinsuflar a una velocidad de 2 mmHg/segundo, para detectar el momento preciso en que aparecen los ruidos de Korotkoff. Realizar al menos 2 mediciones, promediando las mismas. Si la diferencia de las tomas es mayor a 10 mmHg en la PAS y/o 5 mmHg de la PAD, realizar al menos una medición adicional.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub: Registro -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion(this)">
+                            <span class="sub-accordion-title">Registro</span>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content">
+                            <div class="sub-accordion-inner">
+                                <p class="content-text">
+                                    Consignar en la historia clínica los valores de cada brazo (promedio sin redondear).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. Monitoreo domiciliario de presión arterial -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Monitoreo domiciliario de presión arterial</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>
+                            Emplear un tensiómetro automático validado con manguito adecuado que cubra 80 a 100% de la circunferencia del brazo.
+                        </li>
+                        <li>
+                            Evitar el consumo de alimentos, cafeína, mate y tabaco la media hora previa a las mediciones.
+                        </li>
+                        <li>
+                            Permanecer sentado tranquilo y en silencio por al menos 5 minutos antes de la medición: paciente sentado, con la espalda apoyada en el respaldo de la silla, sin cruzar las piernas; colocar el manguito sobre el brazo desnudo del paciente sin arremangar la ropa; brazo relajado apoyado con la palma hacia abajo, de modo que el punto medio del húmero se encuentre a la altura del corazón. Identificar el brazo de mayor valor y tomar siempre en ese.
+                        </li>
+                        <li>
+                            Realizar las mediciones preferentemente antes del desayuno y la cena.
+                        </li>
+                        <li>
+                            Realizar dos mediciones por la mañana y dos por la noche al menos por cuatro días.
+                        </li>
+                    </ul>
+                    <div class="values-box">
+                        <strong>Interpretación:</strong> promediar los valores, excluyendo los registrados el primer día. Diagnóstico de HTA con valores promediados iguales o mayores de PAS 135 y/o PAD 85 mmHg.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. Cuando sospechar HTA secundaria -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Cuando sospechar HTA secundaria</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>Inicio antes de los 30-40 años.</li>
+                        <li>Inicio de HTA diastólica en mayores de 65 años de edad.</li>
+                        <li>Desarrollo abrupto de HTA, especialmente con valores muy elevados (mayor a 170-180 mm Hg de PAS).</li>
+                        <li>HTA resistente: valores de presión arterial por encima de la meta a pesar de estar recibiendo 3 fármacos a dosis máximas o dosis máximas toleradas (habitualmente un AC-D más un IECA o ARAII más un diurético).</li>
+                        <li>Empeoramiento repentino de las cifras de presión arterial previamente bien controlada.</li>
+                        <li>HTA acelerada o maligna (con cifras mayores a 180/110 mmhg).</li>
+                        <li>Desproporción entre los valores de presión arterial no tan elevados en consultorio y la presencia marcada de daño de órgano blanco.</li>
+                        <li>Hipopotasemia (potasio sérico menor a 3,5 meq/l) espontánea o muy marcada (menor a 3 meq/l) ante el empleo de dosis bajas de diuréticos.</li>
+                        <li>Signos físicos o hallazgos en estudios complementarios compatibles con alguna causa específica de HTA secundaria.</li>
+                    </ul>
+
+                    <p class="content-text" style="margin-top: 20px;">
+                        <strong>Las causas más frecuentes de HTA secundaria son:</strong>
+                    </p>
+                    <ul class="content-list">
+                        <li>Enfermedad renovascular y enfermedades del parénquima renal.</li>
+                        <li>Apnea obstructiva del sueño.</li>
+                        <li>Hiperaldosteronismo primario.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+
+            // Toggle current
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+
+            // Si se está abriendo, scroll suave hacia el accordion
+            if (!isActive) {
+                setTimeout(() => {
+                    const headerRect = header.getBoundingClientRect();
+                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                    const targetPosition = headerRect.top + scrollTop - 20; // 20px de margen arriba
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }, 100); // Pequeño delay para que empiece la animación del accordion
+            }
+        }
+
+        function toggleSubAccordion(header) {
+            const content = header.nextElementSibling;
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Keep the diagnostic table visible by default
+        document.addEventListener('DOMContentLoaded', () => {
+            // La tabla de criterios diagnóstico ya está marcada con .active en el HTML
+        });
+    </script>
+</body>
+</html>

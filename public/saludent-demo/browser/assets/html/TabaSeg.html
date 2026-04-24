@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Seguimiento</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #626262; /* Gris oscuro para las viñetas */
+            --taba-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 20px;
+        }
+        
+        /* Simulación de TabaLabelBold */
+        .taba-label-bold {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 10px 5px 20px 5px;
+            font-weight: 700;
+        }
+
+        /* Simulación de BulletLabel/TabaBullet */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 15px; /* Más espacio entre viñetas */
+            padding-left: 10px; 
+            position: relative;
+        }
+        
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Seguimiento
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label-bold">
+                Acompañar en el seguimiento del/la paciente.
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Es importante que el/la profesional de la salud programe consultas con el/la paciente
+                </li>
+                <li class="taba-bullet">
+                    Al menos 4 a 8 consultas en un periodo de 3 a 6 meses para alcanzar y mantener la cesación
+                </li>
+                <li class="taba-bullet">
+                    Volver a intentar la cesación en el caso que vuelva a fumar: no se requiere un tiempo de latencia. Guiarse por la motivación y la situación clínica.
+                </li>
+                <li class="taba-bullet">
+                    En aquellos casos en los que el/la paciente no alcanzó la cesación se recomienda volver a evaluar el estado de motivación y realizar nuevamente una intervención motivacional.
+                </li>
+            </ul>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

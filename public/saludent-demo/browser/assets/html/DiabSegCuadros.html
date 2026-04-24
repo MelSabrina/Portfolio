@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Seguimiento(Cuadros/algoritmos)</title>
+    <style>
+
+        /* Definición de variables y estilos base */
+        :root {
+            --diab-primary-color: #007bff; /* Color primario para el botón y las viñetas */
+            --page-background: white; /* Color de fondo de la ContentPage */
+            --text-color: #333;
+            --secondary-text-color: #555;
+            --font-family: 'Inter', sans-serif;
+            --hiper-button-text-color: white; 
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* 1. Toolbar (Barra de navegación) - SIN COLOR */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Mismo ancho que el botón de retroceso para centrar el título */
+        }
+
+        /* 2. Contenido Principal (Simula ScrollView y Grid) */
+        .scroll-container {
+            padding: 10px; /* Padding del Grid en XAML */
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Simula StackLayout */
+        .stack-content {
+            background-color: var(--hiper-button-text-color); /* Blanco */
+        }
+
+        /* Estilo DiabLabel (Simula Label estándar en este contexto) */
+        .diab-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+        
+        /* Estilo DiabBullet (simulación de viñeta personalizada) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+            margin-bottom: 1.25rem;
+        }
+        .bullet-item {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.75rem; /* Espacio para la viñeta */
+            color: var(--secondary-text-color);
+            font-size: 1rem;
+        }
+        /* Viñeta azul personalizada */
+        .bullet-item::before {
+            content: '•'; 
+            color: var(--diab-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0.75rem; 
+            top: 0;
+            font-size: 1.2rem;
+        }
+
+        /* Contenedor de la imagen (Simula ZoomImage) */
+        .zoom-image-container {
+            /* Aplica el Margin="0,0,0,100" del XAML */
+            margin-top: 0;
+            margin-bottom: 100px; 
+            margin-left: 0;
+            margin-right: 0;
+            /* Estilos para el título de la imagen (que era el Title del ZoomImage) */
+            padding-bottom: 5px;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .zoom-image-container img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+
+        /* 3. Botón de Navegación Fijo (Simulando NavButton) */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Seguimiento(Cuadros/algoritmos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container">
+        
+        <div class="stack-content">
+
+            <!-- DiabLabel 1 -->
+            <p class="diab-label">
+                En personas con DM2, se recomienda realizar seguimiento con Hemoglobina A1c: 
+            </p>
+
+            <!-- BulletLabel 1 -->
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    Cada 3 a 6 meses (ajustado a las necesidades individuales) hasta alcanzar metas de control glucémico.
+                </li>
+
+                <!-- BulletLabel 2 -->
+                <li class="bullet-item">
+                    Cada 6 meses en aquellas personas que mantienen meta glucémica y esquema terapéutico estable.
+                </li>
+            </ul>
+                 
+            <!-- DiabLabel 2 -->
+            <p class="diab-label">
+                En personas con DM2 en tratamiento con fármacos antidiabéticos con bajo riesgo de hipoglucemias (metformina, pioglitazona, iDPP4, iSGLT2 y aGLP1), se sugiere no indicar automonitoreo (AMG) debido a que no mejora los resultados clínicos.
+            </p>
+
+            <!-- ZoomImage (simulado) -->
+            <div class="zoom-image-container">
+                <!-- Título de la imagen (Title="...") -->
+                <p>AMG: Valores deseables de glucosa capilar</p>
+                <!-- La imagen original era db_segalg1.png -->
+                <img src="/assets/img/db_segalg1.png" alt="Algoritmo de Automonitoreo Glucémico (AMG)">
+            </div>
+
+        </div>
+    </div>
+    
+    <!-- 3. Nav Button (Simulando NavButton) -->
+    <div class="nav-button-container">
+        <button class="nav-button" title="Volver a Home de Diabetes">
+            <!-- Simulación SVG del FavIcon: diabetes_w.png -->
+            <!-- La imagen original era diabetes_w.png. Se usa un SVG para mejor rendimiento y estética. -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20.42 4.58a5.45 5.45 0 00-7.71 0L12 5.29l-0.71-0.71a5.45 5.45 0 00-7.71 0A5.45 5.45 0 003.58 12L12 20.42 20.42 12a5.45 5.45 0 000-7.42z" fill="white"/>
+            </svg>
+        </button>
+    </div>
+
+    
+    <script>
+        /**
+         * Función para volver a la página anterior, vinculada al botón de retroceso.
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

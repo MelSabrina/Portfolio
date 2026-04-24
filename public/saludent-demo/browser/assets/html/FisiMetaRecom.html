@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad física: Metas (Recomend.)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #4e545a; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 120px; /* Margen para el contenido final */
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 10px 5px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabel}" */
+        .fisi-label {
+            margin: 10px 5px;
+            font-size: 1rem;
+            text-align: justify;
+            color: var(--text-color);
+        }
+        
+        /* Simulación de Style="{StaticResource FisiLabelBold}" */
+        .fisi-label-bold {
+            margin: 15px 5px 5px 5px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: justify;
+        }
+        
+        /* Simulación de Style="{StaticResource FisiLabelNote}" */
+        .fisi-label-note {
+            margin: 10px 5px;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #6c757d; /* Gris para nota */
+            text-align: justify;
+        }
+
+        /* Lista con viñetas (Simulación de BulletLabel) */
+        .bullet-list {
+            list-style: disc;
+            margin: 5px 0 5px 30px;
+            padding-left: 0;
+        }
+        .bullet-list li {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            text-align: justify;
+        }
+        .bullet-list li b {
+            font-weight: 700;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Actividad física: Metas (Recomend.)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <h2 class="fisi-label-title">
+                Programa de ejercicio físico
+            </h2>
+
+            <p class="fisi-label">
+                El <b>ejercicio físico</b> es una subcategoría de la actividad física que se realiza de manera planificada, estructurada y repetitiva, diseñada para mejorar o mantener uno o más componentes de la <b>aptitud física.</b>
+            </p>
+
+            <p class="fisi-label">
+                En este sentido, un programa de ejercicio físico debería considerar <b>todos los componentes de la aptitud física</b> relacionados con la salud tanto para la promoción de la salud como parte del tratamiento de enfermedades no transmisibles.
+            </p>
+                                
+            <h2 class="fisi-label-title">
+                Recomendaciones para personas adultas (de 18 a 64 años):
+            </h2>
+
+            <ul class="bullet-list">
+                <li>
+                    Realizar actividades físicas con <b>regularidad.</b>
+                </li>
+                <li>
+                    A lo largo de la semana, acumular un mínimo de entre 150 y 300 minutos de actividad física aeróbica de intensidad moderada, o bien un mínimo de entre 75 y 150 minutos de actividad física aeróbica de intensidad vigorosa, o bien una combinación equivalente de actividades de intensidad moderada y vigorosa.
+                </li>
+                <li>
+                    Realizar actividades de <b>fortalecimiento muscular</b> de intensidad moderada o más elevada dos o más días a la semana.
+                </li>
+                <li>
+                    <b>Limitar</b> el tiempo que dedican a <b>actividades sedentarias.</b>
+                </li>
+                <li>
+                    Con el fin de reducir los efectos perjudiciales para la salud de un nivel alto de sedentarismo, procurar <b>realizar más actividad física</b> de intensidad moderada a vigorosa de la recomendada.
+                </li>
+            </ul>
+
+            <h2 class="fisi-label-title">
+                Recomendaciones para personas adultas mayores (65 años y más):
+            </h2>
+
+            <ul class="bullet-list">
+                <li>
+                    A las pautas anteriores se agrega la recomendación de incluir, al menos tres o más días a la semana, actividades físicas multicomponente variadas que den prioridad al <b>equilibrio funcional y a un entrenamiento de fuerza</b> de intensidad moderada o elevada, para mejorar su capacidad funcional y evitar caídas.
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Organización de la sesión de ejercicios:
+            </p>
+
+            <p class="fisi-label">
+                <b>Entrada en calor</b> (5 a 10 min): Permite al cuerpo adaptarse a los cambios fisiológicos que se darán en la fase de acondicionamiento. Se recomienda incluir actividades de movilidad articular, resistencia aeróbica y muscular a intensidad de leve a moderada. La entrada en calor también mejora el rango de movimiento y puede reducir el riesgo de lesión.
+            </p>
+
+            <p class="fisi-label">
+                <b>Fase de acondicionamiento</b> (20-60 min): está orientada a mantener o mejorar una o varias dimensiones de la aptitud física, es decir, puede incluir, ejercicios aeróbicos, de resistencia muscular, de flexibilidad y/o neuromotores.
+            </p>
+
+            <p class="fisi-label">
+                <b>Vuelta a la calma</b> (5 - 10 min): se busca una recuperación gradual de los parámetros hasta alcanzar valores cercanos a los de reposo.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Prescripción del ejercicio para promoción de la salud en personas adultas sanas
+            </h2>
+
+            <p class="fisi-label-bold">
+                Recomendaciones sobre ejercicio aeróbico (para mejorar la aptitud cardiovascular)
+            </p>
+
+            <p class="fisi-label-bold">
+                Tipo:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Se recomienda un ejercicio regular, de naturaleza rítmica, que sea continuo y que involucre a los grandes grupos musculares. (ej.: caminar, pasear en bicicleta, correr, nadar, bailar, patinar, etc).
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Frecuencia, duración e intensidad:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Se recomienda realizar una sesión de ejercicios de 30 minutos diarios a intensidad moderada al menos 5 veces a la semana, o
+                </li>
+                <li>
+                    25 minutos de actividad física a intensidad elevada al menos 3 días por semana,o
+                </li>
+                <li>
+                    una combinación equivalente en duración, frecuencia e intensidad.
+                </li>
+            </ul>
+
+            <p class="fisi-label-note">
+                *El ejercicio de intensidad leve a moderada puede ser beneficioso en individuos físicamente inactivos y que además pasan mucho tiempo en actividades sedentarias.
+            </p>
+
+            <p class="fisi-label-bold">
+                Progresión:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Debe ser gradual, ajustando la duración, frecuencia y / o la intensidad del ejercicio.
+                </li>
+                <li>
+                    Este enfoque puede mejorar la adherencia y reducir los riesgos de lesiones musculoesqueléticas.
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Recomendaciones sobre fortalecimiento muscular:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Se recomienda incluir al menos <b>2 sesiones semanales de fortalecimiento muscular</b> que estimulen los grandes grupos musculares (piernas: cuádriceps, isquiotibiales, glúteos, aductores, gemelos; tronco: dorsales, pectorales, abdominales y espinales; brazos: bíceps, tríceps y deltoides).
+                </li>
+                <li>
+                    Para cada grupo muscular se debe mantener un período de recuperación de al menos 48 horas. Es decir, 2-3 sesiones por semana, en días no consecutivos.
+                </li>
+                <li>
+                    Se pueden usar equipamientos para realizar ejercicio con carga externa como equipamiento de musculación, pesos o ejercicios con el propio peso corporal. Hay que tener en cuenta de no sobrecargar las articulaciones, especialmente para aquellos que recién se inician o que tienen sobrepeso y obesidad.
+                </li>
+                <li>
+                    Para mejorar la fuerza muscular se recomiendan entre 2- 4 series de entre 8–12 repeticiones a intensidad elevada, es decir, la carga tiene que ser tal que logre hacer las últimas con fatiga. Los intervalos de descanso de 2-3 minutos entre cada serie de repeticiones son efectivos. El descanso puede ser utilizado para trabajar un grupo muscular que no haya estado involucrado en el ejercicio.
+                </li>
+                <li>
+                    Para personas sedentarias que recién se inician, 10-15 repeticiones son efectivas para mejorar la fuerza.
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Progresión:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Se recomienda una progresión gradual, reduciendo las pausas, incrementando las repeticiones por serie, la velocidad de ejecución, incrementando las series e incrementando la carga.
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Recomendaciones sobre flexibilidad:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Se recomienda entrenar la flexibilidad entre 2 y 3 días a la semana. Una serie de ejercicios de flexibilidad para cada uno de los grandes grupos musculares son suficientes. Se recomienda repetir el ejercicio de 2 a 4 veces.
+                </li>
+                <li>
+                    Mantener el estiramiento de manera estática entre 10 y 30 segundos hasta el punto de sentir opresión o una leve molestia.
+                </li>
+                <li>
+                    El ejercicio de flexibilidad es más efectivo cuando el músculo se calienta a través de una actividad aeróbica de leve a moderada o de forma pasiva a través de métodos externos como compresas de calor húmedas o baños calientes.
+                </li>
+            </ul>
+
+            <p class="fisi-label-bold">
+                Recomendaciones sobre aptitud neuromotora (equilibrio y coordinación):
+            </p>
+
+            <ul class="bullet-list">
+                <li style="margin-bottom: 100px;">
+                    Se recomiendan ejercicios que involucren habilidades motoras (equilibrio, agilidad, coordinación, marcha), entrenamiento de ejercicios propioceptivos y actividades de otras disciplinas (tai chi y yoga). Se recomienda estimular este componente entre 2 y 3 veces por semana.
+                </li>
+            </ul>
+
+            <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+        </div>
+
+    </div>
+
+</body>
+</html>

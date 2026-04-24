@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Manejo (Recom.)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #625f5f; /* Rojo fuerte */
+            --taba-background-color: white;
+            --taba-highlight-bg: #fef0f0; /* Color de fondo para simular TabaLabelBackgroundColor */
+            --taba-note-bg: #fffbf0; /* Para notas */
+            --taba-backdrop-color: #625f5f; /* Para borde de Frame */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px; /* Espacio al final para el scroll */
+        }
+        
+        /* Simulación de TabaLabelBold */
+        .taba-label-bold {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 15px 5px 5px 5px;
+        }
+
+        /* Simulación de TabaLabel */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 5px 5px;
+        }
+
+        /* Simulación de TabaLabelNote */
+        .taba-label-note {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            margin: 10px 5px;
+            padding: 8px;
+            background-color: var(--taba-note-bg);
+            border-left: 4px solid var(--taba-primary-color);
+            border-radius: 3px;
+        }
+
+        /* Simulación de TabaLabelTitle */
+        .taba-label-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--taba-primary-color);
+            margin: 25px 5px 10px 5px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        /* Simulación de BulletLabel/TabaBullet */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            padding-left: 10px; /* Espacio para la viñeta custom */
+            position: relative;
+        }
+        
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+        
+        /* Simulación de Frame (Ejemplo) */
+        .content-frame {
+            margin: 10px 10px 10px 10px;
+            padding: 10px;
+            border: 1px solid var(--taba-backdrop-color);
+            background-color: var(--taba-highlight-bg);
+            border-radius: 5px;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Manejo (Recom.)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label-bold">
+                ¿Cómo intervenir para ayudar a dejar de fumar?
+            </p>
+
+            <p class="taba-label">
+                <b>Intervenciones breves:</b> 
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Averiguar y aconsejar: Asistir evaluando si está listo para dejar.
+                </li>
+                <li class="taba-bullet">
+                    Ayudar con herramientas conductuales y farmacológicas a quienes están preparados para dejar.
+                </li>
+                <li class="taba-bullet">
+                    Acompañar en el seguimiento.
+                </li>
+            </ul>
+
+            <p class="taba-label-note">
+                Las intervenciones duran entre 3 y 10 minutos y se deben implementar en todas las consultas independientemente del motivo de la consulta de el/la paciente.
+            </p>
+
+            <p class="taba-label">
+                <b>Intervenciones intensivas (individuales y/o grupales):</b>
+            </p>
+
+            <p class="taba-label">
+                Son realizadas por profesionales dedicados a la cesación tabáquica. Las consultas son específicas para dejar de fumar. Pueden ser ofrecidas a todo tipo de población tanto en los formatos grupales, individuales, telefónicos, etc. con el complemento de materiales escritos u en otros formatos.
+            </p>
+
+            <p class="taba-label">
+                Consultar al 0800-999-3040.
+            </p>
+
+            <p class="taba-label-note">
+                Ambas intervenciones podrán ser presencial y/o distancia por telemedicina
+            </p>
+
+            <p class="taba-label">
+                Luego de <b>Averiguar</b> si es fumador:
+            </p>
+
+            <p class="taba-label">
+                <b>Aconsejar la cesación</b> con un consejo claro, firme y personalizado asociado a la situación clínica del paciente; explicar los beneficios a corto y a largo plazo de dejar de fumar y transmitir que existen  tratamientos  efectivos que pueden ayudarlo.
+            </p>
+
+            <p class="taba-label">
+                El consejo debe dirigirse a <b>dejar de fumar completamente</b>, porque fumar pocos cigarrillos sigue generándole importantes riesgos para la salud.
+            </p>
+
+            <p class="taba-label-bold">
+                Ejemplo:
+            </p>
+
+            <!-- Simulación de Frame -->
+            <div class="content-frame">
+                <p class="taba-label" style="margin: 0;">
+                    “Como tu médico/a, te aconsejo dejar de fumar. Es la decisión más importante que podés tomar para cuidar tu salud. Muchas personas lo logran diariamente y antes de intentarlo sentían que era imposible. Dejar de fumar rejuvenece. Te vas a liberar de una adicción y te vas a sentir mejor. Yo te puedo ayudar. Mientras que te terminas de hacer la idea, fuma siempre afuera, no fumes ni en el auto ni en ningún lugar cerrado”.
+                </p>
+            </div>
+
+            <p class="taba-label-bold">
+                Utilice el estilo motivacional de la atención ya que esto aumenta la tasa de éxito:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Expresar empatía y escuchar de manera reflexiva.
+                </li>
+                <li class="taba-bullet">
+                    Ayudar a tomar conciencia de las consecuencias de fumar y su discordancia con el nivel de salud deseado.
+                </li>
+                <li class="taba-bullet">
+                    Evitar discutir ya que esto genera mayor resistencia y hace que la persona no se sienta comprendida.
+                </li>
+                <li class="taba-bullet">
+                    Fomentar la autoeficacia manifestando confianza en la posibilidad de éxito.
+                </li>
+            </ul>
+
+            <p class="taba-label">
+                <b>Asistir</b> preguntando si está dispuesto a hacer un intento serio y en qué plazo.
+            </p>
+
+            <p class="taba-label-bold">
+                Para quienes están dispuestos a dejar en el próximo mes:
+            </p>
+
+            <p class="taba-label">
+                Si está disponible, articule con un servicio de cesación intensivo para aumentar el tiempo de intervención, ya que a mayor tiempo y número de contacto interpersonales, mayor es el aumento de las tasas de cesación.
+            </p>
+
+            <p class="taba-label">
+                <b>Ayudar</b> con herramientas conductuales y ofrecer opciones farmacológicas.
+            </p>
+
+            <p class="taba-label">
+                Como parte de la consejería para la modificación del comportamiento se recomienda utilizar los siguientes componentes psicoterapéuticos:
+            </p>
+
+            <p class="taba-label">
+                1) Desarrollo de habilidades, resolución de problemas y técnicas de afrontamiento del estrés.
+            </p>
+
+            <p class="taba-label">
+                2) Brindar acompañamiento y estímulo.
+            </p>
+
+            <p class="taba-label">
+                3) Acciones concretas para modificar el comportamiento:
+            </p>
+
+            <ul class="bullet-list" style="margin-top: 5px;">
+                <li class="taba-bullet">
+                    Pedir que realice un <b>listado</b> personal de lo que ganará al dejar de fumar.
+                </li>
+                <li class="taba-bullet">
+                    Brindar una planilla de <b>autoregistro del consumo</b> para que anote en qué momentos fuma y así poder ver a qué situaciones se asocia (ej. el estrés, los sentimientos negativos, la compañía de otros fumadores, beber alcohol o café o mate o bebidas cola).
+                </li>
+                <li class="taba-bullet">
+                    Brindar información de <b>consejería práctica</b> con materiales impresos o grabaciones con estrategias sencillas como lavarse los dientes, tomar agua, llamar a alguien por teléfono, leer, realizar actividad física, tomar algo frío, realizar respiraciones profundas, etc.
+                </li>
+                <li class="taba-bullet">
+                    Proponer una fecha cercana para dejar completamente (<b>Día D</b>).
+                </li>
+                <li class="taba-bullet">
+                    Dar a conocer la línea gratuita de ayuda al fumador con acceso desde todo el país <b>0800-999-3040</b>.
+                </li>
+                <li class="taba-bullet">
+                    Hacer hincapié en los <b>beneficios</b> que comenzarán a ocurrir desde el momento en que deje de fumar.
+                </li>
+                <li class="taba-bullet">
+                    Trabajar sobre los <b>motivos personales</b> para dejar de fumar. Interrogar acerca de las preocupaciones y las dudas relacionadas con el abandono del cigarrillo y valorar los logros conseguidos hasta ese momento (ambiente libre de humo - ALH, no realizar acopio de cigarrillos).
+                </li>
+                <li class="taba-bullet">
+                    Informar sobre la naturaleza <b>adictiva</b> del tabaquismo y sobre las claves para el éxito.
+                </li>
+                <li class="taba-bullet">
+                    Informar sobre los <b>síntomas de abstinencia</b>:
+                    <br><b>•</b> Ganas intensas de fumar. Cefalea.
+                    <br><b>•</b> Disforia, inquietud, nerviosismo.
+                    <br><b>•</b> Aumento del apetito, insomnio, somnolencia.
+                    <br><b>•</b> Palpitaciones y sudoración.
+                </li>
+                <li class="taba-bullet">
+                    Recordar que la <b>sensación intensa de fumar dura sólo 3 a 4 minutos</b>. Las mismas serán  cada vez más tenues y menos frecuentes en la medida en que transcurren más días sin fumar <i>(craving=deseo imperioso de fumar).</i>
+                </li>
+            </ul>
+
+            <h2 class="taba-label-title">
+                Recomendaciones
+            </h2>
+
+            <p class="taba-label-bold">
+                Recomendaciones para personas que están dejando de fumar:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Cuando deje de fumar, despréndase de encendedores, fósforos y por supuesto, cigarrillos. Elimine todo vestigio de cigarrillo de su casa y lugar de trabajo (ceniceros, encendedores).
+                </li>
+                <li class="taba-bullet">
+                    El deseo compulsivo de fumar dura pocos minutos (2 ó 3 minutos). Utilizar las técnicas de respiración y de relajación: Cada vez que tenga el deseo irrefrenable de fumar, efectúe unas 5 a 6 respiraciones profundas, hasta sentir el aire ingresar y salir de sus pulmones. Puede utilizar también la respiración abdominal.
+                </li>
+                <li class="taba-bullet">
+                    Tenga a mano algún sustituto para llevarse a la boca: frutas, chicles, caramelos dietéticos, etc. Lavarse los dientes también es de mucha ayuda. Tenga sus manos ocupadas con algún tipo de objeto, en lo posible que no remita a un cigarrillo como puede ser lapiceras o lápices, etc.
+                </li>
+                <li class="taba-bullet">
+                    La actividad física es una aliada. Manténgase en movimiento. Realice actividad física, camine.
+                </li>
+                <li class="taba-bullet">
+                    No se permita el pensamiento de: ''total, una pitada no me va a hacer daño''.
+                </li>
+                <li class="taba-bullet">
+                    No haga sobremesa.
+                </li>
+                <li class="taba-bullet">
+                    Recurra a personas de su entorno, como puede ser su familia, comunicándoles que está haciendo el esfuerzo para dejar de fumar. Es muy importante la ayuda del núcleo más cercano.
+                </li>
+                <li class="taba-bullet">
+                    Trate de cumplir una dieta balanceada para evitar aumentar de peso. Si está constipado es recomendable aumentar la ingesta de fibras.
+                </li>
+                <li class="taba-bullet" style="margin-bottom: 100px;">
+                    Evite el café o el mate, sobre todo si estaban muy emparentados al rito de fumar mientras se tomaban alguna de estas infusiones. Reemplácelas momentáneamente por otras, por ejemplo, té.
+                </li>
+            </ul>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

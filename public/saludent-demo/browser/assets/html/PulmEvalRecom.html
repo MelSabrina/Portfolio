@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC: Evaluación (Recomendaciones)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            /* Color Primario (Simulando PulmPrimaryColor) - Cian oscuro */
+            --pulm-primary-color: #1f2222;
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: var(--pulm-primary-color);
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenedor de Contenido y Scroll --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px; /* Ancho máximo para legibilidad en escritorio */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos StackLayout / Label */
+            padding-bottom: 100px; /* Espacio extra al final */
+        }
+
+        /* --- 4. Estilos de Tipografía (Simulando StaticResource PulmLabelX) --- */
+
+        /* PulmLabel (Texto regular) */
+        .pulm-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            text-align: justify;
+        }
+        
+        /* PulmLabelBold */
+        .pulm-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 5px 0;
+        }
+
+        /* --- 5. Estilos de Listas (Simulando BulletLabel) --- */
+        .pulm-bullet-list {
+            list-style: none; /* Quitamos el estilo de lista predeterminado */
+            padding-left: 0;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .pulm-bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .pulm-bullet-list li::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            position: absolute;
+            left: 0;
+            color: var(--pulm-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+        
+        /* Estilo específico para el último BulletLabel con margen extra */
+        .pulm-bullet-list .last-bullet {
+            margin-bottom: 50px; /* Adaptación del Margin="0,10,10,100" */
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Simulando Header con Back button) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC: Evaluación (Recomendaciones)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="pulm-label">
+                El diagnóstico de EPOC se realiza a través de la confirmación de una limitación al flujo aéreo persistente, donde la obstrucción puede presentar algún grado de reversibilidad, pero nunca normalizarse.
+            </p>
+
+            <p class="pulm-label">
+                Sus manifestaciones clínicas más relevantes son la <b>disnea</b> (por lo general progresiva), <b>tos crónica y producción de esputo.</b>
+            </p>
+
+            <p class="pulm-bold">
+                ¿Cómo realizar el diagnóstico?
+            </p>
+
+            <p class="pulm-label">
+                Con espirometría pre y post broncodilatadores para identificar la obstrucción mediante una relación VEF1/CVF (Volumen espiratorio forzado el 1 segundo / Capacidad vital forzada) post broncodilatador (BD) menor del 70%.
+            </p>
+
+            <p class="pulm-bold">
+                ¿En quiénes sospechar EPOC y solicitar espirometría?
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 1 -->
+                <li>Ante la presencia de algún <b>síntoma respiratorio</b> crónico como tos o expectoración de 3 meses, disnea o sibilancias (auscultadas o autoreportadas) tanto en fumadores o exfumadores. </li>
+                <!-- BulletLabel 2 -->
+                <li>Ante <b>carga tabáquica</b> mayor a 40 paquetes/año (aun en quienes no presentan síntomas respiratorios) tanto en fumadores o exfumadores.</li>
+            </ul>
+
+            <p class="pulm-label">
+                También ante síntomas respiratorios asociados a exposición ambiental crónica o antecedentes como:
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 3 -->
+                <li>Exposición al humo de biomasa o exposición laboral a polvo y partículas.</li>
+                <!-- BulletLabel 4 -->
+                <li>Fumador pasivo de más de 20 hs. semanales.</li>
+                <!-- BulletLabel 5 -->
+                <li>Antecedentes personales de tuberculosis, infecciones respiratorias bajas a repetición en la infancia, historia de asma no controlado.</li>
+                <!-- BulletLabel 6 (Con margen especial) -->
+                <li class="last-bullet">Antecedentes familiares de EPOC severa o déficit de alfa 1 antitripsina.</li>
+            </ul>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad: Evaluación (Recomend)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            /* Definición de colores base */
+            --obesi-primary-color: #2D6A4F;
+            --obesi-label-bg-color: #F8F9FA;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */ 
+         .toolbar { 
+             background-color: white; /* Sin color */ 
+             border-bottom: 1px solid #ddd; 
+             display: flex; 
+             align-items: center; 
+             padding: 10px 15px; 
+             position: sticky; 
+             top: 0; 
+             z-index: 1000; 
+             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
+         } 
+
+         .back-button { 
+             background: none; 
+             border: none; 
+             cursor: pointer; 
+             padding: 5px; 
+             display: flex; 
+             align-items: center; 
+             justify-content: center; 
+             color: var(--text-color); 
+             transition: color 0.2s; 
+         } 
+          
+         .toolbar-title { 
+             flex-grow: 1; 
+             text-align: center; 
+             font-size: 1.15rem; 
+             font-weight: 600; 
+             color: var(--text-color); 
+             white-space: nowrap; 
+             overflow: hidden; 
+             text-overflow: ellipsis; 
+             padding: 0 10px; 
+         } 
+
+         .toolbar-placeholder { 
+             width: 34px; /* Para equilibrar el botón de retroceso */ 
+         } 
+
+        /* 3. Contenido principal */
+        .content-container {
+            /* Padding para evitar que el contenido se solape con el toolbar */
+            padding-top: 10px;
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .stack-layout {
+            background-color: var(--obesi-label-bg-color);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        /* Estilos de Texto */
+        .obesi-label-bold {
+            /* Correspondiente a ObesiLabelBold */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: justify;
+        }
+
+        .obesi-bullet {
+            /* Correspondiente a ObesiBullet */
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            padding-left: 1.5em; /* Espacio para el bullet */
+            position: relative;
+            text-align: justify;
+        }
+
+        .obesi-bullet::before {
+            content: '•'; /* Punto para simular el bullet */
+            color: var(--obesi-primary-color);
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+        }
+
+        .final-bullet {
+            margin-bottom: 100px; /* Para simular Margin="0,10,10,100" */
+        }
+
+        /* Contenido del bullet en HTML */
+        .bullet-content b {
+            font-weight: 700;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Obesidad: Evaluación (Recomend) <!-- Título de la página -->
+        </div> 
+        <div class="toolbar-placeholder"></div> <!-- Placeholder para balancear el back button -->
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content -->
+            <p class="obesi-label-bold">
+                Es de suma relevancia pedir permiso para hablar sobre obesidad a quienes no consulten por ese motivo o bien para realizar cualquier practica diagnostica o proponer un tratamiento. Se debe respetar la voluntad de las personas. A aquellas personas que no deseen hablar o abordar la obesidad, se les puede ofrecer la oportunidad de regresar cuando lo deseen en busca de información o bien de un tratamiento.
+            </p>
+
+            <p class="obesi-label-bold">
+                ¿A quiénes se recomienda realizar el rastreo?
+            </p>
+
+            <!-- BulletLabel 1 -->
+            <div class="obesi-bullet">
+                <span class="bullet-content">
+                    <b>A todas las personas </b>y registrarlo en la HC.
+                </span>
+            </div>
+
+            <p class="obesi-label-bold">
+                ¿Cómo realizar el rastreo?
+            </p>
+
+            <!-- BulletLabel 2 -->
+            <div class="obesi-bullet">
+                <span class="bullet-content">
+                    Con el cálculo del Índice de Masa Corporal y la medición de la Circunferencia de Cintura
+                </span>
+            </div>
+
+            <p class="obesi-label-bold">
+                ¿Con que frecuencia realizar el rastreo?
+            </p>
+
+            <!-- BulletLabel 3 (Con Margin especial) -->
+            <div class="obesi-bullet final-bullet">
+                <span class="bullet-content">
+                    En personas sin antecedentes personales ni familiares de obesidad y con un IMC y CC que no indican presencia de riesgo, se sugiere realizarlo al menos una vez al año, con previa solicitud de consentimiento. Realizar estas mediciones al menos una vez al año brinda la oportunidad de conversar con las personas acerca del abordaje de este problema de salud. En caso de presentarse antecedentes o evidenciarse algún riesgo en los parámetros antropométricos medidos, se podría efectuar la medición con mayor frecuencia, siempre que la persona así lo desee.
+                </span>
+            </div>
+            
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos p/equipo de salud</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #303336; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 20px;
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 25px 5px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelBold}" */
+        .fisi-label-bold {
+            margin: 20px 5px 10px 5px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: justify;
+            cursor: pointer;
+        }
+
+        /* Estilo para el contenedor de imagen y botón */
+        .horizontal-stack {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        /* Simulación de Frame con BorderColor */
+        .image-frame {
+            border: 2px solid var(--fisi-primary-color);
+            border-radius: 10px;
+            padding: 5px;
+            background-color: white;
+            flex-grow: 1;
+            min-height: 180px;
+            display: flex;
+            align-items: center;
+            overflow: hidden; /* Asegura que la imagen no se salga */
+        }
+
+        .image-frame img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            object-fit: contain; /* No hacer zoom */
+            min-height: 180px;
+        }
+
+        /* Botón de Compartir */
+        .share-button {
+            background-color: var(--fisi-primary-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            min-width: 50px;
+            margin-left: 10px;
+            margin-top: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: background-color 0.2s;
+        }
+
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+
+        .share-button img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        /* Contenedor de mensajes de alerta personalizados */
+        #message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+            z-index: 2000;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos p/equipo de salud
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <h2 class="fisi-label-title">
+                Recursos para el equipo de salud
+            </h2>
+
+            <!-- Bloque 1: Cuestionario GPAQ -->
+            <div 
+                class="fisi-label-bold"
+                onclick="handleTap('https://www.who.int/ncds/surveillance/steps/instrument/STEPS_Instrument_V3.0_ES.pdf?ua=1')"
+                title="Haga clic para abrir">
+                Cuestionario Global de Actividad física (GPAQ)
+            </div>
+
+            <div class="horizontal-stack">
+                <div 
+                    class="image-frame"
+                    onclick="handleTap('https://www.who.int/ncds/surveillance/steps/instrument/STEPS_Instrument_V3.0_ES.pdf?ua=1')">
+                    <img src="af_recpr2.png" alt="Imagen 2: Cuestionario Global de Actividad física (GPAQ)" id="Image2">
+                </div>
+                
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://www.who.int/ncds/surveillance/steps/instrument/STEPS_Instrument_V3.0_ES.pdf?ua=1')">
+                    <img src="share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- Bloque 2: Guía GPAQ -->
+            <div 
+                class="fisi-label-bold" 
+                onclick="handleTap('https://www.who.int/es/publications/m/item/global-physical-activity-questionnaire')"
+                title="Haga clic para abrir">
+                Guía de análisis del cuestionario GPAQ
+            </div>
+
+            <div class="horizontal-stack">
+                <div 
+                    class="image-frame"
+                    onclick="handleTap('https://www.who.int/es/publications/m/item/global-physical-activity-questionnaire')">
+                    <img src="af_recpr3.png" alt="Imagen 3: Guía de análisis del cuestionario GPAQ" id="Image3">
+                </div>
+
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://www.who.int/es/publications/m/item/global-physical-activity-questionnaire')">
+                    <img src="share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- El StackButtons (NavButton) ha sido omitido según la solicitud -->
+
+        </div>
+    </div>
+    
+    <!-- Contenedor de mensaje de alerta personalizado (reemplaza DisplayAlert) -->
+    <div id="message-box"></div>
+
+    <script>
+        // Función para mostrar un mensaje flotante
+        function showMessage(message) {
+            const box = document.getElementById('message-box');
+            box.textContent = message;
+            box.style.opacity = 1;
+            box.style.bottom = '20px';
+            
+            setTimeout(() => {
+                box.style.opacity = 0;
+                box.style.bottom = '-50px'; // Lo movemos fuera de la vista
+            }, 3000);
+        }
+
+        // Función para abrir enlaces (simula TapGestureRecognizer_Tapped)
+        function handleTap(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir/copiar al portapapeles (simula btnShare_Clicked)
+        function handleShare(url) {
+            // Utilizamos el truco de copiar a través de un elemento temporal
+            const tempInput = document.createElement('textarea');
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            try {
+                // document.execCommand('copy') es el método compatible
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social.");
+                } else {
+                    showMessage("Error al copiar. Por favor, copie el enlace manualmente.");
+                }
+            } catch (err) {
+                showMessage("Error al copiar. Por favor, copie el enlace manualmente.");
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+
+        // Fallback para las imágenes si no se cargan (Aunque no es requerido, es buena práctica)
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.onerror = function() {
+                    console.error('No se pudo cargar la imagen:', img.src);
+                    // Opcional: reemplazar con texto o un placeholder si es necesario
+                    // img.alt = 'Imagen no disponible'; 
+                };
+            });
+        });
+
+        // Simulación de la función TapGestureRecognizer_Tapped_0 (comentado en el original)
+        // function TapGestureRecognizer_Tapped_0() {
+        //     window.open("https://www.who.int/es/publications/i/item/9789240014886", '_blank');
+        // }
+    </script>
+</body>
+</html>

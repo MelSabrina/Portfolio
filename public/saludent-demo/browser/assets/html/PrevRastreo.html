@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidados Preventivos (Rastreo)</title>
+    <style>
+
+        /* Definición de variables de color (simulando StaticResource) */
+        :root {
+            /* Color primario simulado del MAUI: Azul */
+            --prev-primary-color: #007bff;
+            --text-color: #333;
+            --link-color: blue;
+            --bg-color: white;
+            --frame-bg-color: #f0f8ff; /* Fondo claro para el Frame de alerta */
+        }
+
+        body {
+            /* Usando una pila de fuentes genéricas, no Inter */
+            font-family: 'Montserrat', sans-serif; 
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: opacity 0.2s;
+        }
+
+        .back-button svg {
+            stroke: #333; /* Asegura que el color del icono sea oscuro */
+        }
+
+        .back-button:hover {
+            opacity: 0.7;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- 3. Contenido Principal y Estilos de Tipografía (Simulando MAUI) --- */
+        .content-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 50px; /* Padding extra para evitar que el contenido final se oculte */
+        }
+        
+        .prev-label-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 10px 0 15px 0;
+            color: var(--text-color);
+            text-align: center;
+        }
+
+        .prev-label-bold {
+            font-weight: bold;
+            font-size: 1rem;
+            margin: 15px 0 5px 0;
+            line-height: 1.4;
+            padding-left: 10px;
+        }
+        
+        /* Estilo para los títulos de acordeón/enlaces */
+        .accordion-trigger {
+            font-size: 1rem;
+            color: var(--link-color);
+            text-decoration: underline;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 10px;
+            display: block;
+            margin: 10px 0;
+            background-color: #f8f8f8; /* Un ligero fondo para que parezca clickeable */
+            border-radius: 4px;
+            border-left: 5px solid var(--prev-primary-color);
+            transition: background-color 0.2s;
+        }
+        .accordion-trigger:hover {
+            background-color: #eee;
+        }
+
+        .prev-label {
+            margin: 10px 0;
+            line-height: 1.6;
+            padding: 0 10px;
+        }
+        
+        /* Contenido del acordeón */
+        .accordion-content {
+            padding: 5px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        /* Estilo de la viñeta (simulando BulletLabel) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .bullet-list li:before {
+            content: "•";
+            color: var(--prev-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+        .bullet-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Estilo para el Frame de alerta */
+        .alert-frame {
+            background-color: var(--prev-primary-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 10px;
+        }
+
+        .alert-frame .alert-text {
+            color: white;
+            line-height: 1.5;
+        }
+        
+        /* Estilo para la imagen del cuestionario */
+        .zoom-image-container {
+            margin: 15px 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        
+        .zoom-image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Estilo para los links clickeables que abren nuevas páginas */
+        .action-link {
+            cursor: pointer;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Cuidados Preventivos (Rastreo)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido de la página (Simulando ScrollView y StackLayout) -->
+    <div class="content-container">
+
+        <h1 class="prev-label-title">
+            Cuidados preventivos del adulto (Rastreo)                  
+        </h1>
+
+        <!-- SECCIÓN 1: Consumo de Tabaco -->
+        <div class="accordion-trigger" data-target="stack01">
+            Consumo de Tabaco
+        </div>
+        <div class="accordion-content" id="stack01" style="display: none;">
+            <p class="prev-label-bold">
+                1. Se recomienda la evaluación del tabaquismo y la exposición al humo de tabaco en:
+            </p>
+            <p class="prev-label">
+                Toda persona que consulta al sistema de atención de la salud por cualquier motivo.               
+            </p>
+            <p class="prev-label-bold">
+                2. ¿Qué evaluar?                 
+            </p>
+            <ul class="bullet-list">
+                <li>
+                    <strong>Consumo de tabaco en cualquiera de sus formas:</strong> incluye cigarrillo tradicional, para armar, uso de dispositivos electrónicos (cigarrillo electrónico – CE- , productos de tabaco calentado  PTC-), pipa de agua, otros.
+                </li>
+                <li>
+                    <strong>Exposición pasiva al humo de tabaco o aerosol de cigarrillo electrónico.</strong>
+                </li>
+            </ul>
+            <p class="prev-label-bold">
+                3. ¿Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+            <p class="prev-label">
+                De manera sistemática en cada consulta por todos los integrantes del equipo de salud.              
+            </p>
+            <p class="prev-label">
+                <!-- CAMBIO SOLICITADO: Usar <a> con href a la ruta local -->
+                Para información de cómo evaluar a la persona que fuma 
+                <a href="/assets/html/TabaEvalCuadros.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+
+        <!-- SECCIÓN 2: Consumo de Alcohol -->
+        <div class="accordion-trigger" data-target="stack02">
+            Consumo de Alcohol
+        </div>
+        <div class="accordion-content" id="stack02" style="display: none;">
+             <p class="prev-label-bold">
+                1.Se recomienda la evaluación de consumo de alcohol:
+            </p>
+
+            <p class="prev-label">
+                A todas las personas que consulten al sistema de salud. Son oportunidades para el rastreo: 
+            </p>
+            <ul class="bullet-list">
+                <li>Los controles de salud.</li>
+                <li>Consultas de seguimiento de enfermedades crónicas. </li>
+                <li>Consultas por salud sexual y control prenatal.</li>
+                <li>Antes de prescribir fármacos que interactúen con alcohol.</li>
+                <li>Si se detectan problemas que pueden estar relacionados con el consumo de alcohol: hipertensión arterial, trastornos gastrointestinales o hepáticos, ansiedad, depresión u otros trastornos del estado de ánimo.</li>
+            </ul>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+            <p class="prev-label">
+                Mediante el cuestionario “AUDIT C”
+            </p>
+
+            <div class="zoom-image-container">
+                <!-- Se usa el path de imagen solicitado: /assets/img/nombre png -->
+                <img src="/assets/img/cp_audit_c.png" alt="Cuestionario Audit C">
+            </div>
+
+            <p class="prev-label">
+                En el caso de detectarse un rastreo positivo: <strong>4 o más para personas adultas de sexo femenino, 5 o más para personas adultas de sexo masculino</strong> completar la evaluación con el cuestionario AUDIT completo (10 preguntas) para discriminar el patrón de consumo. Para acceder al AUDIT <a href="/assets/html/AlcoRecuTest.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+        
+        <!-- SECCIÓN 3: Hipertensión Arterial -->
+        <div class="accordion-trigger" data-target="stack03">
+            Hipertensión Arterial
+        </div>
+        <div class="accordion-content" id="stack03" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿A quiénes realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                A todas las personas de 18 o más años.
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Mediante la medición de la presión arterial en el consultorio. 
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    En personas de entre 18 y 40 años sin factores de riesgo (FR) y PA igual o menor a 130/80 mmHg: al menos cada <strong>3 a 5 años.</strong>
+                </li>
+                <li>
+                    En personas mayores de 40 años o en presencia de FR o valores de presión arterial sistólica (PAS) 130 a 139 y/o presión arterial diastólica (PAD) 80 a 89 mmHg: al menos <strong>1 vez al año.</strong>
+                </li>
+            </ul>
+  
+            <div class="alert-frame">
+                <p class="alert-text">
+                    Los factores de riesgo de desarrollar HTA: son edad, sobrepeso/obesidad, sedentarismo/AF insuficiente, elevado consumo de sodio, uso crónico de corticoides o antiinflamatorios no esteroides (AINE), historia de HTA en familiares de 1° grado, mujeres con antecedentes de HTA en el embarazo, enfermedad renal crónica (ERC), diabetes mellitus, entre otros.
+                </p>
+            </div>
+
+            <p class="prev-label-bold">
+                De manera práctica, puede ser conveniente tomar la PA en cada contacto con el sistema de salud.
+            </p>
+
+            <p class="prev-label">
+                Para conocer los puntos de corte para el diagnóstico de HTA <a href="/assets/html/HiperEvalCuadros.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+        <!-- SECCIÓN 4: Diabetes Mellitus Tipo 2 -->
+        <div class="accordion-trigger" data-target="stack04">
+            Diabetes Mellitus Tipo 2
+        </div>
+        <div class="accordion-content" id="stack04" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿A quiénes realizar la evaluación para detección temprana?
+            </p>
+            <p class="prev-label" style="padding-left: 20px;">
+                a) A todas las personas <strong>mayores de 45 años</strong> 
+            </p>
+            <p class="prev-label" style="padding-left: 20px;">
+                b) A todas las personas <strong>mayores de 45 años que presenten al menos 1 factor de riesgo:</strong> 
+            </p>
+            <ul class="bullet-list" style="padding-left: 30px;">
+                <li>Familiar de primer grado con DM2.</li>
+                <li>Mujeres con antecedentes de diabetes gestacional o macrosomía fetal.</li>
+                <li>Tolerancia a la glucosa alterada (TGA) o glucemia alterada en ayunas (GAA).</li>
+                <li>Sobrepeso: índice de masa corporal (IMC) 25-29.9 kg/m2; u obesidad: IMC igual o mayor a 30 kg/m2.</li>
+                <li>AF insuficiente, sedentarismo.</li>
+                <li>Enfermedad cardiovascular establecida, HTA.</li>
+                <li>Dislipemia: colesterol HDL menor a 35 mg/dl o triglicéridos mayores a 250 mg/dl).</li>
+                <li>Tabaquismo.</li>
+                <li>Síndrome de ovario poliquístico.</li>
+            </ul>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación para detección temprana?
+            </p>
+            <p class="prev-label">
+                Mediante la glucemia plasmática en ayunas. 
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+            <p class="prev-label">
+                Si el resultado de la glucemia en ayunas es normal (en personas sin factores de riesgo: &lt; 110 mg/dl y con factores de riesgo: &lt; 100 mg/dl), se sugiere repetir cada 3 a 5 años o más frecuentemente según criterio médico.
+            </p>
+
+            <p class="prev-label">
+                Para acceder al algoritmo diagnóstico de diabetes <a href="/assets/html/DiabEvalCuadros.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+        <!-- SECCIÓN 5: Obesidad -->
+        <div class="accordion-trigger" data-target="stack05">
+            Obesidad
+        </div>
+        <div class="accordion-content" id="stack05" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿A quiénes realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                A personas con sospecha de obesidad que concurren al sistema de salud y acepten realizarlo. Pedir permiso para conversar sobre la temática. Abordar el tema con respeto, procurando acompañar a la persona en su voluntad en todo momento.  
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Se sugiere utilizar el cálculo del Índice de Masa Corporal (Peso (kg) / Talla (m)2) y la medición de la Circunferencia de Cintura, en el marco de una evaluación integral, con previo consentimiento de la persona.
+            </p>
+
+            <p class="prev-label">
+                Para acceder a información de la evaluación inicial de la persona con obesidad <a href="/assets/html/ObesEvalCuadros.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+        
+        <!-- SECCIÓN 6: Enfermedad Pulmonar Obstructiva Crónica -->
+        <div class="accordion-trigger" data-target="stack06">
+            Enfermedad Pulmonar Obstructiva Crónica
+        </div>
+        <div class="accordion-content" id="stack06" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    <strong>Ante la presencia de algún síntoma respiratorio crónico</strong> como tos o expectoración de 3 meses; <strong>disnea o sibilancias</strong> (auscultadas o autoreportadas) tanto en fumadores o exfumadores.
+                </li>
+                <li>
+                    <strong>Ante carga tabáquica mayor a 40 paquetes/año</strong> (aun en quienes no presentan síntomas respiratorios) tanto en fumadores o exfumadores.
+                </li>
+            </ul>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Mediante la realización de una espirometría pre y post broncodilatadores 
+            </p>
+
+            <p class="prev-label">
+                Para acceder a información sobre sospecha de EPOC <a href="/assets/html/PulmEvalCuadros.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+
+        <!-- SECCIÓN 12 (Ordenado en el original como 12): Enfermedad Renal Crónica -->
+        <div class="accordion-trigger" data-target="stack12">
+            Enfermedad Renal Crónica
+        </div>
+        <div class="accordion-content" id="stack12" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <p class="prev-label">
+                A toda persona de 50 o más años, o previamente si presentan obesidad, hipertensión arterial o diabetes mellitus.
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Por determinación de creatininemia <a href="/assets/html/RenaRecuCalc1.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    y la estimación del Filtrado Glomerular (FGe)
+                </a> y dosaje de marcadores de daño renal (preferentemente relación albúmina/ creatinina en orina matinal)
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <ul class="bullet-list">
+                <li>En personas de 50 y más años, sin ERC previa, ni DM: cada 1 a 3 años.</li>
+                <li>En personas de 18 y más años con sobrepeso u obesidad: cada 1 a 3 años. </li>
+                <li>En personas con HTA controlada sin ERC previa: cada 1 a 3 años.</li>
+                <li>En personas con diabetes mellitus sin ERC previa: en forma anual.</li>
+                <li>En personas con diagnóstico de ERC: según FGe y relación albúmina creatinina en orina (RAC). </li>
+            </ul>
+
+            <p class="prev-label-bold">
+                Para información de diagnóstico de ERC <a href="/assets/html/RenaEvalRecom.html" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+
+        <!-- SECCIÓN 7: Dislipemia y Riesgo Cardiovascular -->
+        <div class="accordion-trigger" data-target="stack07">
+            Dislipemia y Riesgo Cardiovascular
+        </div>
+        <div class="accordion-content" id="stack07" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <p class="prev-label">
+                A personas de 40 o más años o previamente, en presencia de factores de riesgo cardiovascular
+            </p>
+
+            <div class="alert-frame">
+                <p class="alert-text">
+                    Principales FRCV para anticipar el rastreo en personas adultas menores de 40 años: Enfermedad coronaria (EC) en familiares de primer o segundo grado: en familiares de sexo masculino menores de 50 años o de sexo femenino menores de 60 años, antecedentes de hipercolesterolemia familiar, signos clínicos de hipercolesterolemia familiar: arco corneal, xantelasmas o xantomas, Diabetes mellitus, tabaquismo, HTA, obesidad, menopausia precoz (antes de los 40 años).
+                </p>
+            </div>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Mediante la determinación de colesterol total (CT) y de estar disponible la determinación adicional de lipoproteínas de alta densidad (HDL) y los triglicéridos (TG) para el cálculo de lipoproteína de baja densidad (LDL), que es la que mejor se correlaciona con la ocurrencia de ECVM y muerte.
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿ Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Se aconseja una medición cada 5 años, pudiendo realizarse con una frecuencia mayor en personas con otros FRCV o valores de laboratorio cercanos a aquellos que justifican el inicio de estatinas.  
+            </p>
+
+            <p class="prev-label">
+                Para acceder a la Calculadora de riesgo cardiovascular <a href="https://www.paho.org/es/hearts-americas/calculadora-riesgo-cardiovascular" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">
+                    haga clic aquí
+                </a>
+            </p>
+        </div>
+
+
+        <!-- SECCIÓN 8: Cáncer Cervicouterino -->
+        <div class="accordion-trigger" data-target="stack08">
+            Cáncer Cervicouterino
+        </div>
+        <div class="accordion-content" id="stack08" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <p class="prev-label">
+                A todas las personas con cuello de útero entre los 25 a los 64 años de edad.
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Entre los 25 y 29 años de edad, así como personas gestantes, la prueba recomendada es el PAP. A partir de los 30 años, se recomienda tamizar con test de VPH y toma conjunta de citología y leer las citologías de las mujeres con test de VPH positivo.
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿ Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <ul class="bullet-list">
+                <li>SI el rastreo se realiza con PAP: Luego de dos PAP anuales consecutivos negativos, repetirlo cada tres años.</li>
+                <li>SI el rastreo se realiza con test de VPH: Luego de un test de VPH negativo, repetirlo cada cinco años.</li>
+            </ul>
+
+            <p class="prev-label">
+                Links de interés:
+            </p>
+            
+            <p class="prev-label">
+                <a href="https://bancos.salud.gob.ar/recurso/recomendaciones-para-el-tamizaje-seguimiento-y-tratamiento-de-mujeres-para-la-prevencion" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">Recomendaciones para el tamizaje, seguimiento y tratamiento de mujeres para la prevención del cáncer cérvico uterino en el marco de la incorporación de la prueba de HPV</a>
+            </p>
+
+            <p class="prev-label">
+                <a href="https://www.argentina.gob.ar/salud/instituto-nacional-del-cancer/institucional/pnpcc" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">Programa Nacional de Prevención de Cáncer Cervicouterino</a>
+            </p>
+        </div>
+
+        <!-- SECCIÓN 9: Cáncer de Mama -->
+        <div class="accordion-trigger" data-target="stack09">
+            Cáncer de Mama
+        </div>
+        <div class="accordion-content" id="stack09" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <p class="prev-label">
+                A las mujeres entre 50 y 69 años sin antecedentes personales ni familiares de cáncer de mama. 
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                La mamografía es el test de elección para la detección temprana de cáncer de mama en mujeres asintomáticas. 
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿ Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Se sugiere realizar una mamografía cada 2 años. 
+            </p>
+
+            <div class="alert-frame">
+                <p class="alert-text">
+                    Las mujeres con historia familiar requieren ser evaluadas por médicos especialistas en patología mamaria para recibir una recomendación individualizada basada en su riesgo.
+                </p>
+            </div>
+            
+            <p class="prev-label">
+                Links de interés:
+            </p>
+            <p class="prev-label">
+                <a href="https://bancos.salud.gob.ar/recurso/el-cancer-de-mama-en-8-palabras-guia-para-aps" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">El Cáncer de mama en 8 palabras: Guía para APS</a>
+            </p>
+
+            <p class="prev-label">
+                <a href="https://www.argentina.gob.ar/salud/instituto-nacional-del-cancer/institucional/pncm" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">Programa Nacional de Control de Cáncer de Mama</a>
+            </p>
+            
+        </div>
+
+        <!-- SECCIÓN 10: Cáncer de Colon -->
+        <div class="accordion-trigger" data-target="stack10">
+            Cáncer de Colon
+        </div>
+        <div class="accordion-content" id="stack10" style="display: none;">
+            <p class="prev-label-bold">
+                1. ¿En quiénes realizar la evaluación? 
+            </p>
+
+            <p class="prev-label">
+                A todas las personas entre los 50 a 75 años de edad. 
+            </p>
+
+            <p class="prev-label-bold">
+                2. ¿Cómo realizar la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Mediante el test de sangre oculta en materia fecal inmunoquímico (TSOMFI).
+            </p>
+
+            <p class="prev-label-bold">
+                3. ¿ Cuál es la frecuencia sugerida para la evaluación?
+            </p>
+
+            <p class="prev-label">
+                Se sugiere realizar una TSOMFI con una periodicidad bienal.
+            </p>
+
+            <div class="alert-frame">
+                <p class="alert-text">
+                    Las personas consideradas de alto riesgo (colitis ulcerosa y enfermedad de Crohn o con antecedentes personales o familiares de pólipos o cáncer colorrectal) requieren ser evaluadas por médicos especialistas, para recibir una recomendación individualizada acorde a su riesgo.
+                </p>
+            </div>
+            
+            <p class="prev-label">
+                Links de interés:
+            </p>
+
+            <p class="prev-label">
+                <a href="https://bancos.salud.gob.ar/recurso/recomendaciones-para-el-tamizaje-organizado-de-cancer-colorrectal-en-poblacion-de-riesgo-0" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">Recomendaciones para el tamizaje organizado de cáncer colorrectal en población de riesgo promedio en Argentina</a>
+            </p>
+
+            <p class="prev-label">
+                <a href="https://www.argentina.gob.ar/salud/instituto-nacional-del-cancer/institucional/el-inc/pnccr" class="action-link" style="color: blue; text-decoration: underline; font-weight: bold;" target="_self">Programa Nacional de Prevención y Detección Temprana del Cáncer Colorrectal</a>
+            </p>
+            
+        </div>
+
+        <!-- SECCIÓN 11: Recomendaciones de NO hacer en rastreo oncológico -->
+        <div class="accordion-trigger" data-target="stack11">
+            Recomendaciones de NO hacer en rastreo oncológico
+        </div>
+        <div class="accordion-content" id="stack11" style="display: none;">
+            <p class="prev-label-bold">
+                Rastreo de cáncer de próstata.
+            </p>
+
+            <p class="prev-label">
+                El diagnóstico temprano del cáncer de próstata a través de pruebas de tamizaje es controvertido. Debido al grupo etario que afecta, es frecuente que el paciente finalmente fallezca con el cáncer de próstata y no debido al mismo.
+            </p>
+
+            <div class="alert-frame">
+                <p class="alert-text">
+                    Por este motivo, NO se sugiere realizar pruebas de rastreo de cáncer de próstata en la población general.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 3. Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para manejar el acordeón
+        document.addEventListener('DOMContentLoaded', () => {
+            const triggers = document.querySelectorAll('.accordion-trigger');
+            
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const targetContent = document.getElementById(targetId);
+                    
+                    if (targetContent) {
+                        const isVisible = targetContent.style.display === 'block';
+                        
+                        // Cerrar todos los demás acordeones
+                        document.querySelectorAll('.accordion-content').forEach(content => {
+                            content.style.display = 'none';
+                        });
+                        
+                        // Si el contenido estaba oculto, lo muestra
+                        if (!isVisible) {
+                            targetContent.style.display = 'block';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Función de alerta para enlaces externos/placeholder
+        function openLink(placeholderUrl) {
+            // NOTA: Se usa un alert simulado ya que no se permiten alerts nativos.
+            console.log("Abriendo enlace placeholder: " + placeholderUrl);
+            // alert("Abriendo enlace (Placeholder): " + placeholderUrl); 
+            // window.open(placeholderUrl, '_blank'); // Descomentar para abrir realmente el enlace
+        }
+        
+        // Función de alerta personalizada (para reemplazar alert() en el entorno de desarrollo)
+        function alert(message) {
+            console.log('ALERT: ' + message);
+            // Si necesitas una UI de alerta, agrégala aquí. Por ahora, solo loguea.
+        }
+    </script>
+</body>
+</html>

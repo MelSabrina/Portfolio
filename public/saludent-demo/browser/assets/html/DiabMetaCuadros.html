@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Metas (Cuadros/algoritmos)</title>
+    <style>
+
+        /* Estilos base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Contenedor principal de la imagen */
+        .content-area {
+            background-color: white; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+        
+        /* Estilo para la imagen estática */
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #0056b3; /* Color primario de Diabetes */
+        }
+        .algorithm-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Metas (Cuadros/algoritmos)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <div class="container">
+        <!-- body content -->
+        <div class="content-area">
+
+            <!-- Contenedor de la imagen estática -->
+            <div class="image-container">
+                <div class="image-title">Diabetes - Metas (Algoritmo 1)</div>
+                
+                <img id="mainImage" 
+                     class="algorithm-image"
+                     src="/assets/img/db_algoritmo2.png" 
+                     alt="Algoritmo de Metas en el Tratamiento de la Diabetes">
+                     
+                <!-- Manejo de errores de imagen (placeholder si db_algoritmo2.png no carga) -->
+                <script>
+                    document.getElementById('mainImage').onerror = function() {
+                        this.src = 'https://placehold.co/600x400/CCCCCC/333333?text=Algoritmo+no+disponible';
+                    };
+                </script>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

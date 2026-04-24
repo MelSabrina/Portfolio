@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Metas terapéuticas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            background: white;
+            border-left: 4px solid var(--program-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        /* Accordion Item */
+        .accordion-item {
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.06);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .accordion-item:hover {
+            box-shadow: 0 4px 12px rgba(27, 42, 74, 0.12);
+        }
+
+        /* Accordion Header (clickeable) */
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            cursor: pointer;
+            user-select: none;
+            background: white;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: var(--program-light);
+        }
+
+        .accordion-header.active {
+            background: var(--program-light);
+            border-bottom: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .accordion-title {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--navy);
+            flex: 1;
+        }
+
+        /* Arrow icon */
+        .accordion-arrow {
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--program-color);
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-header.active .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Accordion Content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 1200px;
+            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-inner {
+            padding: 20px;
+        }
+
+        /* Content list */
+        .content-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .content-list li {
+            position: relative;
+            padding-left: 28px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .content-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 24px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        .content-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Content text */
+        .content-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        /* Button container */
+        .button-container {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--program-color);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .cta-button:hover {
+            background: #d32f2f;
+            box-shadow: 0 6px 16px rgba(239, 83, 80, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header">
+            <h1 class="section-title">Metas generales de control de tensión arterial (TA)</h1>
+        </div>
+
+        <!-- Accordion Item 1 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Personas entre 18 a 79 años</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>Valores de presión arterial en consultorio menores a 140/90 mmHg como meta general.</li>
+                        <li>En presencia de alto riesgo cardiovascular y bajo riesgo de efectos adversos, considerar valores cercanos a 130/80 mmHg.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 2 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Personas mayores a 80 años</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>Valores de presión arterial en consultorio menores a 150/90 mmHg como objetivo terapéutico primario en personas que inician tratamiento luego de los 80 años.</li>
+                        <li>En quienes se encuentren en tratamiento desde edades más tempranas y no presenten efectos adversos, no disminuir la medicación sólo por haber alcanzado los 80 años.</li>
+                    </ul>
+                    <p class="content-text" style="margin-top: 20px;">
+                        En personas mayores, de 80 o más años o con signos de fragilidad que deambulan por sus medios, tener en cuenta las cifras de presión arterial sistólica tomadas en posición de pie (luego de al menos un minuto en esa posición), para guiar el tratamiento.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion Item 3 -->
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAccordion(this)">
+                <span class="accordion-title">Personas con daño de órgano blanco</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content">
+                <div class="accordion-inner">
+                    <ul class="content-list">
+                        <li>Valores cercanos a 130/80 mmHg.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Button -->
+        <div class="button-container">
+            <button class="cta-button" onclick="handleButtonClick()">
+                Calculadora de riesgo cardiovascular
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        function toggleAccordion(header) {
+            const content = header.nextElementSibling;
+            const isActive = header.classList.contains('active');
+
+            // Close all accordions
+            document.querySelectorAll('.accordion-header').forEach(h => {
+                h.classList.remove('active');
+                h.nextElementSibling.classList.remove('active');
+            });
+
+            // If wasn't active, open it
+            if (!isActive) {
+                header.classList.add('active');
+                content.classList.add('active');
+            }
+        }
+
+        function handleButtonClick() {
+            window.open("https://www.paho.org/es/hearts-americas/calculadora-riesgo-cardiovascular", "_blank");
+        }
+    </script>
+</body>
+</html>

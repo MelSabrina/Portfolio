@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Combinación de fármacos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --cream-dark: #DDD9D2;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+            overflow: visible;
+        }
+
+        .section-header {
+            background: white;
+            border-left: 4px solid var(--program-color);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(27, 42, 74, 0.08);
+        }
+
+        .section-title {
+            font-family: 'Lora', serif;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--navy);
+            margin: 0;
+        }
+
+        /* Subsection */
+        .subsection {
+            margin-bottom: 24px;
+        }
+
+        .subsection-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--program-light);
+        }
+
+        /* Table */
+        .combo-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.06);
+        }
+
+        .combo-table tr {
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .combo-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .combo-table td {
+            padding: 16px;
+            vertical-align: top;
+        }
+
+        .combo-table .category-col {
+            font-weight: 600;
+            color: var(--navy);
+            width: 35%;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .combo-table .options-col {
+            width: 65%;
+        }
+
+        /* List inside table */
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .options-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-main);
+        }
+
+        .options-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .options-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 18px;
+            line-height: 1.2;
+            font-weight: bold;
+        }
+
+        /* Mobile optimization */
+        @media (max-width: 480px) {
+            .combo-table .category-col {
+                width: 40%;
+                font-size: 13px;
+            }
+
+            .options-list li {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="section-header">
+            <h1 class="section-title">Combinación de Fármacos Antihipertensivos</h1>
+        </div>
+
+        <!-- Combinación de 2 fármacos -->
+        <div class="subsection">
+            <h2 class="subsection-title">Combinación de 2 fármacos</h2>
+            <table class="combo-table">
+                <tr>
+                    <td class="category-col">Opciones<br>preferenciales</td>
+                    <td class="options-col">
+                        <ul class="options-list">
+                            <li>IECA + AC-D</li>
+                            <li>ARAII + AC-D</li>
+                            <li>IECA + diurético (TZ-STZ)</li>
+                            <li>ARAII + diurético (TZ-STZ)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="category-col">Opciones para quienes hayan iniciado con BB</td>
+                    <td class="options-col">
+                        <ul class="options-list">
+                            <li>BB + AC-D</li>
+                            <li>BB + IECA</li>
+                            <li>BB + ARAII</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="category-col">Otras opciones</td>
+                    <td class="options-col">
+                        <ul class="options-list">
+                            <li>BB + diurético (TZ-STZ), debido a sus efectos metabólicos.</li>
+                            <li>AC-D + diurético (TZ-STZ), debido a que es una combinación menos estudiada.</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Combinación de 3 fármacos -->
+        <div class="subsection">
+            <h2 class="subsection-title">Combinación de 3 fármacos</h2>
+            <table class="combo-table">
+                <tr>
+                    <td class="category-col">Opciones<br>preferenciales</td>
+                    <td class="options-col">
+                        <ul class="options-list">
+                            <li>ARAII + AC-D + diurético (TZ-STZ)</li>
+                            <li>IECA + AC-D + diurético (TZ-STZ)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="category-col">Opciones<br>alternativas</td>
+                    <td class="options-col">
+                        <ul class="options-list">
+                            <li>BB + AC-D + diurético (TZ-STZ)</li>
+                            <li>BB + IECA + diurético (TZ-STZ)</li>
+                            <li>BB + IECA + AC-D</li>
+                            <li>BB + ARAII + diurético (TZ-STZ)</li>
+                            <li>BB + ARAII + AC-D</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

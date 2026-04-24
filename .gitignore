@@ -1,0 +1,30 @@
+# Dependencies
+node_modules/
+
+# Large video files exceeding GitHub's 100MB limit
+public/videos/horiz_1080.mp4
+public/videos/habitaciones_traseras.mp4
+
+# Build output
+dist/
+
+# AI assistant instructions — private
+CLAUDE.md
+.claude/
+*.jsonl
+
+# Env / secrets
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log*

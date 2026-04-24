@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seg. Vial: Recursos para profesionales</title>
+    <!-- Estilo de fuente Inter recomendado -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+
+        /* --- Variables --- */
+        :root {
+            --text-color: #333;
+            --vial-primary-color: #a4a6a4; /* Simulación de StaticResource VialPrimaryColor */
+            --button-bg-color: var(--vial-primary-color);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .back-button:hover {
+            opacity: 0.7;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal --- */
+        .content-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+            /* Simulación de BackgroundColor="{StaticResource HiperButtonTextColor}" (blanco) */
+        }
+        
+        /* Estilo para VialLabelBold (Texto de título de recurso) */
+        .vial-label-bold {
+            font-weight: 700;
+            margin: 10px 0;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .vial-label-bold:hover {
+            color: var(--vial-primary-color);
+            text-decoration: underline;
+        }
+
+        /* Estilos del Frame (Simulado) y la Imagen */
+        .resource-section {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+        }
+        
+        .resource-frame {
+            border: 1px solid var(--vial-primary-color);
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        
+        .resource-frame:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-image {
+            width: 100%; /* Adaptable */
+            min-height: 180px; /* Simula MinimumHeightRequest */
+            height: auto;
+            object-fit: contain; /* Para asegurar que no se distorsione el contenido del placeholder */
+            display: block;
+            border-radius: 4px;
+        }
+        
+        /* Estilo del Botón de Compartir (Button ImageSource="share_48_b.png") */
+        .share-button {
+            background-color: var(--button-bg-color);
+            border: none;
+            border-radius: 10px; /* CornerRadius="10" */
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            margin-left: 10px;
+            margin-top: -30px; /* Ajuste para centrar verticalmente con respecto a la imagen/frame */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .share-button img {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* --- 4. Mensaje de Notificación (Reemplazo de DisplayAlert) --- */
+        .toast-message {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .toast-message.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    
+</style>
+</head>
+<body>
+
+    <!-- 1. Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Seg. Vial: Recursos para profesionales
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido de la página -->
+    <div class="content-container">
+
+        <!-- Recurso 1: Agencia Nacional de Seguridad Vial -->
+        <h3 class="vial-label-bold" onclick="openLink('https://www.argentina.gob.ar/seguridadvial')">
+            Página de la Agencia Nacional de Seguridad Vial:
+        </h3>
+        
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.argentina.gob.ar/seguridadvial')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec5.png" 
+                     alt="Recurso Agencia Nacional de Seguridad Vial"
+                     onerror="this.src='https://placehold.co/400x180/4CAF50/ffffff?text=sv_rec5.png'">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 1" onclick="shareLink('https://www.argentina.gob.ar/seguridadvial')">
+                <!-- Share Icon (Usando PNG filename con placeholder) -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+        <!-- Recurso 2: OPS/OMS -->
+        <h3 class="vial-label-bold" onclick="openLink('https://www.paho.org/es/temas/seguridad-vial')">
+            Página de la OPS/OMS dedicada a la seguridad vial:
+        </h3>
+
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.paho.org/es/temas/seguridad-vial')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec6.png" 
+                     alt="Recurso OPS/OMS"
+                     onerror="this.src='https://placehold.co/400x180/4CAF50/ffffff?text=sv_rec6.png'">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 2" onclick="shareLink('https://www.paho.org/es/temas/seguridad-vial')">
+                <!-- Share Icon (Usando PNG filename con placeholder) -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+        <!-- Nota: StackLayout x:Name="StackButtons" (NavButton) ha sido omitido. -->
+        
+    </div>
+    
+    <!-- 3. Mensaje de Notificación -->
+    <div id="toast" class="toast-message"></div>
+
+    <!-- 4. Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para mostrar el mensaje de éxito (reemplazo de DisplayAlert)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Mostrar por 3 segundos
+        }
+
+        // Función para abrir enlaces
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir (copiar al portapapeles)
+        function shareLink(url) {
+            const message = "Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)";
+            
+            // Usar la API del portapapeles (navigator.clipboard) si está disponible, con fallback a execCommand
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast(message);
+                }).catch(err => {
+                    console.error('No se pudo usar navigator.clipboard. Fallback a execCommand.', err);
+                    fallbackCopyTextToClipboard(url, message);
+                });
+            } else {
+                fallbackCopyTextToClipboard(url, message);
+            }
+        }
+        
+        // Fallback usando document.execCommand('copy')
+        function fallbackCopyTextToClipboard(text, message) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Evitar que el teclado virtual aparezca en móviles
+            textArea.style.position = "fixed"; 
+            textArea.style.left = "-9999px";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(message);
+                } else {
+                    showToast('Error: No se pudo copiar el enlace al portapapeles.');
+                }
+            } catch (err) {
+                showToast('Error: Falló la copia manual.');
+                console.error('Fallback: Error al intentar copiar: ', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

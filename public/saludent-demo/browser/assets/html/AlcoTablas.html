@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Tablas de medicamentos</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --background-color: white;
+            --font-family: 'Inter', sans-serif;
+            --list-bullet-color: #3f51b5; /* Usaremos un color para simular el estilo MAUI */
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* Contenido Principal */
+        main {
+            padding: 10px; /* Simula Grid Padding="10" */
+            /* Evita que el margen inferior grande del último texto cause overflow */
+        }
+        
+        .stack-layout {
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px 0;
+            padding: 0 5px;
+        }
+
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 8px 0;
+            padding: 0 5px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* Estilo para BulletLabel (Lista de viñetas personalizada) */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding: 0 5px;
+            font-size: 1rem;
+        }
+
+        .bullet-item::before {
+            content: "\2022"; /* Viñeta redonda */
+            color: var(--list-bullet-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em; 
+            margin-right: 5px;
+            line-height: 1.5;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alcohol: Tablas de medicamentos
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main id="contenido">
+        <div class="stack-layout">
+
+            <div class="alco-label-title">
+                Tratamiento Farmacológico
+            </div>
+            
+            <div class="alco-label">
+                Aquí se implementan una serie de sustancias químicas capaces de influir en las funciones psicoemocionales del sistema nervioso central, ayudando a mejorar la calidad de vida del paciente en cuestión. Estas sustancias pueden ser:
+            </div>
+
+            <!-- Lista de BulletLabels -->
+            <ul class="bullet-list">
+                <li class="bullet-item">los neurolépticos o antipsicóticos</li>
+                <li class="bullet-item">ansiolíticos o tranquilizantes</li>
+                <li class="bullet-item">antidepresivos (IRSS, IMAO y otros)</li>
+                <li class="bullet-item">psicoestimulantes</li>
+                <li class="bullet-item">hipnóticos</li>
+                <li class="bullet-item">antiepilépticos</li>
+                <li class="bullet-item">antirrecurrenciales (moderadores del ánimo)</li>
+                <li class="bullet-item">antiparkinsonianos</li>
+                <li class="bullet-item">e hipnoanalgésicos</li>
+            </ul>
+
+            <div class="alco-label">
+                La administración de cualquiera de estos fármacos estará a cargo de médico especialista, y dependerá de variables como: la farmacodinamia, farmacocinética y la biodisponibilidad de cada fármaco.
+            </div>
+
+            <div class="alco-label" style="margin-bottom: 100px;">
+                Por otro lado, es importante tener en cuenta las características de la persona, su historia familiar, contexto sociocultural, el modelo de intervención del profesional o equipo a cargo y de la relación terapéutica establecida.
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

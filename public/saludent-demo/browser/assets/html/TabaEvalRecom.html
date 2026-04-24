@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Evaluación (Recom.)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #4b4040; /* Color representativo para tabaco (rojo fuerte) */
+            --taba-background-color: white;
+            --taba-highlight-bg: #ffe0e0; /* Color de fondo para simular TabaLabelBackgroundColor */
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            margin-bottom: 100px; /* Espacio para el final de la página */
+        }
+        
+        /* Simulación de Style="{StaticResource TabaLabelBold}" */
+        .taba-label-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 15px 10px 5px 10px;
+        }
+
+        /* Simulación de Style="{StaticResource TabaLabel}" */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 5px 10px;
+        }
+
+        /* Simulación de Style="{StaticResource TabaLabelTitle}" */
+        .taba-label-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--taba-primary-color);
+            margin: 25px 10px 10px 10px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        
+        /* Simulación de Style="{StaticResource TabaBullet}" */
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 5px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        /* Crear el punto (bullet) */
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        /* Estilo para el Frame de Alta Dependencia */
+        .highlight-frame {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid var(--taba-primary-color);
+            background-color: var(--taba-highlight-bg);
+            border-radius: 5px;
+        }
+        
+        /* Estilo para el link del test de Fagerström */
+        .fagerstrom-link {
+            text-decoration: none;
+            color: blue;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Clase para el texto en el bullet (strong y underline) */
+        .bullet-link-text {
+            font-weight: bold;
+            text-decoration: underline;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - ESTRUCTURA SOLICITADA -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Evaluación (Recom.)
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label-bold">
+                Indagar, anotar y aconsejar
+            </p>
+
+            <p class="taba-label">
+                Preguntar a toda persona que consulta al sistema de atención de la salud por cualquier motivo y registrarlo en la historia clínica:
+            </p>
+
+            <p class="taba-label">
+                <b>Consumo </b>(qué fuma/consume tabaco todos o algunos días): Cigarrillo tradicional, para armar, uso de dispositivos electrónicos (cigarrillo electrónico (CE), nuevos productos de tabaco calentado), otros.
+            </p>
+
+            <p class="taba-label">
+                <b>Exposición</b> al humo de tabaco o aerosol de cigarrillo electrónico. Exposición de tercera mano (tóxicos del humo del tabaco que se depositan en las superficies).
+            </p>
+
+            <p class="taba-label-bold">
+                Cigarrillo electrónico -> ATENCIÓN
+            </p>
+
+            <p class="taba-label">
+                Algunas personas usan el cigarrillo electrónico porque creen que les ayudaría a dejar de fumar, aunque <b>lo que hace es mantener la dependencia a la nicotina inhalada.</b> A su vez, el uso de CE se relaciona con desarrollo de enfermedad pulmonar aguda grave incluso en jóvenes.
+            </p>
+
+
+            <p class="taba-label-bold">
+                ACONSEJAR:
+            </p>
+
+            <p class="taba-label">
+                Consejo para dejar de fumar siempre, y ofrecer tratamiento efectivo a tal fin.
+            </p>
+
+            <h2 class="taba-label-title">
+                Recomendaciones
+            </h2>
+
+            <p class="taba-label-bold">
+                1. Evaluar el deseo de dejar de fumar/consumir tabaco/usar cigarrillo electrónico:
+            </p>
+
+            <p class="taba-label">
+                No preparados para dejar:
+            </p>
+
+            <p class="taba-bullet">
+                No piensa dejar (precontemplación)
+            </p>
+
+            <p class="taba-bullet">
+                Piensa dejar, pero no en el próximo mes (quizá en los próximos 6 a 12 meses) (contemplación)
+            </p>
+
+            <p class="taba-label">
+                Preparados:
+            </p>
+
+            <p class="taba-bullet">
+                Piensa dejar en el próximo mes (preparación)
+            </p>
+
+            <p class="taba-label-bold">
+                2a. Distinguir a los fumadores con alta dependencia a la nicotina:
+            </p>
+
+            <div class="highlight-frame">
+                <p class="taba-label" style="margin: 0;">
+                    ALTA DEPENDENCIA: Si fuma más de 20 cig/día o fuma dentro de los primeros 30 minutos de levantarse
+                </p>
+            </div>
+
+            <p class="taba-label-bold">
+                2b. Evaluar la dependencia física a la nicotina
+            </p>
+
+            <p class="taba-bullet">
+                Cantidad de cigarrillos/día,
+            </p>
+
+            <p class="taba-bullet">
+                Tiempo desde que se levanta hasta que prende su primer cigarrillo,
+            </p>
+
+            <p class="taba-bullet">
+                <!-- Enlace modificado para apuntar a la ruta solicitada -->
+                <a href="/assets/html/TabaRecuTest.html" class="fagerstrom-link">
+                    <span class="bullet-link-text">O bien test de dependencia a la nicotina (Fagerström)</span>
+                </a>
+            </p>
+                
+            <p class="taba-label-bold">
+                2c. Evaluar intentos previos para dejar de fumar
+            </p>
+
+            <p class="taba-label">
+                Duración, método, motivos de recaída
+            </p>
+
+            <p class="taba-label">
+                <b>2d. Adicional:</b>
+            </p>
+
+            <p class="taba-label">
+                <b>Calcular carga tabáquica:</b> Paquetes/año: paquetes de 20 cigarrillos fumados por día multiplicado por los años de fumador.
+            </p>
+
+            <p class="taba-label">
+                Si presenta más de 40 paquetes/año solicitar espirometría para evaluar obstrucción al flujo aéreo.
+            </p>
+
+            <p class="taba-label">
+                Interrogar por el consumo de tabaco en otras formas (masticado, pipa, narguile o pipa de agua) y cigarrillo electrónico.
+            </p>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

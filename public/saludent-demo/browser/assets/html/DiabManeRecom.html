@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Manejo (Recomendaciones)</title>
+    <!-- Se eliminó <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+
+        /* Definición de variables CSS para simular StaticResource */
+        :root {
+            --diab-primary-color: #007bff; /* Un azul primario para Diabetes */
+            --diab-backdrop-color: #e6f0ff; /* Azul muy claro para fondos/bordes de notas */
+            --hiper-button-text-color: white; 
+            --text-color: #333;
+            --secondary-text: #555;
+            --card-background: white;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: var(--text-color);
+            line-height: 1.6;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: var(--card-background); 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Contenedor principal del contenido */
+        .content-container {
+            padding: 15px;
+            max-width: 900px;
+            margin: auto;
+        }
+        
+        /* Estilo para la tarjeta de contenido (reemplaza bg-white p-4 rounded-lg shadow-md) */
+        .content-card {
+            background-color: var(--card-background);
+            padding: 1rem; /* p-4 */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* shadow-md */
+        }
+        
+        /* Estilo DiabLabelTitle */
+        .label-title {
+            font-size: 1.25rem; /* similar a h3 */
+            font-weight: bold;
+            color: var(--diab-primary-color);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-left: 0.5rem;
+            border-left: 4px solid var(--diab-primary-color);
+        }
+
+        /* Estilo DiabLabel y DiabLabelBold */
+        .label-text {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--secondary-text);
+            padding: 0 5px;
+        }
+        .label-bold {
+            font-weight: bold;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            padding: 0 5px;
+        }
+
+        /* Estilo DiabBullet (Lista de puntos) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+        }
+        .bullet-item {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .bullet-item::before {
+            content: '•';
+            color: var(--diab-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Estilo Frame (Nota destacada) */
+        .frame-note-transparent {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px solid var(--diab-backdrop-color);
+            border-radius: 10px;
+            background-color: transparent;
+        }
+        .frame-note-highlight {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 20px;
+            background-color: var(--diab-backdrop-color);
+            color: var(--text-color);
+        }
+        
+        .frame-note-highlight p {
+            font-style: italic;
+            margin: 0;
+        }
+
+        /* Estilo para listas anidadas dentro de BulletLabel (sustituye a ml-4 mt-1 en el HTML) */
+        .nested-bullet-list {
+            list-style: none;
+            padding-left: 15px;
+            margin-left: 1rem; /* ml-4 */
+            margin-top: 0.25rem; /* mt-1 */
+        }
+
+        .nested-bullet-list li {
+            margin-bottom: 0.25rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+        
+        .nested-bullet-list li::before {
+            content: '#';
+            color: var(--diab-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 15px;
+            top: 0;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Manejo (Recomendaciones)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <!-- ScrollView y Contenido -->
+    <div class="content-container">
+
+        <!-- body content (Tarjeta de contenido) -->
+        <div class="content-card">
+
+            <h3 class="label-title">a) Adopción de un estilo de vida saludable que incluya</h3>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    Un plan de alimentación saludable reducido en sodio. El método del plato es útil para moderar el tamaño de las porciones y facilitar la selección de alimentos de los distintos grupos, respetando las proporciones recomendadas, en el almuerzo y la cena.
+                </li>
+                <li class="bullet-item">
+                    Al menos 150 minutos de actividad física semanal de intensidad moderada.
+                </li>
+                <li class="bullet-item">
+                    No fumar y evitar la exposición al humo ambiental de tabaco.
+                </li>
+                <li class="bullet-item">
+                    Limitar el consumo de alcohol: no más de una medida estándar en mujeres y no más de dos en hombres. El alcohol puede inducir hipoglucemias, especialmente si se utiliza insulina o secretagogos de insulina. Si se consume alcohol hacerlo siempre con una comida o colación que contenga hidratos de carbono.
+                </li>
+            </ul>
+
+            <h3 class="label-title">b) Educación diabetológica para el automanejo (EDAM):</h3>
+
+            <p class="label-text">
+                <strong>Se recomienda que todas las personas con DM2 reciban 10 a 12 hs de EDAM</strong> preferentemente dentro del primer año del diagnóstico, de modo individual o grupal (o combinaciones), a cargo de un equipo de salud capacitado. <strong>Se sugiere un refuerzo de 2 a 4 horas</strong> pasado un año del programa inicial, cuando no se logren las metas de control glucémico, en cada intensificación del tratamiento o cuando el profesional tratante lo considere necesario.
+            </p>
+
+            <h3 class="label-title">c) Tratamiento farmacológico</h3>
+
+            <p class="label-bold" style="color: var(--diab-primary-color);">
+                <strong>TRATAMIENTO INICIAL EN PERSONAS SIN HIPERGLUCEMIA SINTOMÁTICA AL DIAGNÓSTICO</strong>
+            </p>
+
+            <p class="label-bold" style="color: var(--diab-primary-color);">
+                1. Iniciar tratamiento farmacológico con metformina (cuando no presenten contraindicaciones).
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    Comenzar con una dosis baja 500 mg/día después de la cena e ir subiendo la dosis lentamente según tolerancia. Dosis habitual 1700 a 2000 mg/día. Dosis máxima 2550 mg/día. Si aparecen efectos gastrointestinales (diarrea, náuseas, vómitos, flatulencia y dolor abdominal), regresar a la dosis anterior y aumentar nuevamente luego de unos días o usar formulaciones de liberación prolongada.
+                </li>
+                <li class="bullet-item">
+                    <strong>Precauciones:</strong> <br>
+                    <ul class="nested-bullet-list">
+                        <li>disminuir la dosis a la mitad (no más de 1.000 mg/día) cuando el IFGe se encuentra entre 30 y 45 ml/min/1,73 m<sup><small>2</small></sup>.</li>
+                        <li>No iniciar si IFGe es menor de 45 ml/min/1,73 m<sup><small>2</small></sup>.</li>
+                    </ul>
+                </li>
+                <li class="bullet-item">
+                    <strong>Contraindicaciones:</strong> <br>
+                    <ul class="nested-bullet-list">
+                        <li>insuficiencia cardíaca aguda o descompensada.</li>
+                        <li>Insuficiencia hepática.</li>
+                        <li>enfermedad renal crónica (IFGe menor de 30 ml/minuto/1,73 m<sup><small>2</small></sup>).</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="label-text" style="color: var(--diab-primary-color);">
+                Considerar el inicio del tratamiento de DM2 solo con estilo de vida saludable para lograr el control glucémico, en aquellas personas que así lo prefieran, siempre que presenten valores de HbA1c cercanos a su meta individualizada (hasta 1,5% por encima de la misma) y no presenten complicaciones micro ni macrovasculares. Continuarlo como único tratamiento, sólo si se mantiene un adecuado control glucémico. En la práctica solo un pequeño porcentaje de personas logran sostenerlo en el tiempo.
+            </p>
+
+            <p class="label-bold" style="color: var(--diab-primary-color);">
+                2. En el caso de que la metformina se encuentre contraindicada o no sea tolerada se debe iniciar con alguna de las siguientes opciones:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    Sulfonilureas (gliclazida, glimepirida, glipizida).
+                </li>
+                <li class="bullet-item">
+                    Inhibidores de DPP4 (iDPP4: vildagliptina, sitagliptina y linagliptina).
+                </li>
+                <li class="bullet-item">
+                    Meglitinidas (repaglinida).
+                </li>
+                <li class="bullet-item">
+                    Tiazolidinedionas (pioglitazona).
+                </li>
+            </ul>
+            
+            <!-- Frame 1: Ninguno de estos grupos presenta un claro beneficio por sobre otro -->
+            <div class="frame-note-transparent">
+                <p style="color: var(--diab-primary-color);">
+                    <strong>Ninguno de estos grupos presenta un claro beneficio por sobre otro</strong>
+                </p>
+            </div>
+
+            <!-- Frame 2: En personas que al momento del diagnóstico... -->
+            <div class="frame-note-highlight">
+                <p>
+                    En personas que al momento del diagnóstico de DM2 presenten valores de HbA1c mayores a 2% de su meta, SIN síntomas de hiperglucemia se sugiere considerar el inicio de tratamiento farmacológico con <u>dos antidiabéticos orales (ADO).</u>
+                </p>
+            </div>
+
+            <p class="label-text">
+                Opciones:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    1. Metformina más una de las siguientes: <br>
+                    <ul class="nested-bullet-list">
+                        <li>Sulfonilureas (gliclazida, glimepirida o glipizida).</li>
+                        <li>iDPP4 (vildagliptina, sitagliptina o linagliptina).</li>
+                        <li>Repaglinida.</li>
+                        <li>Pioglitazona.</li>
+                    </ul>
+                </li>
+                <li class="bullet-item">
+                    2. Cuando la metformina está contraindicada o no es tolerada, elegir una de las siguientes combinaciones: <br>
+                    <ul class="nested-bullet-list">
+                        <li>Sulfonilureas más pioglitazona o iDPP4.</li>
+                        <li>iDPP4 más sulfonilurea o repaglinida o pioglitazona.</li>
+                        <li>Pioglitazona más sulfonilureas o repaglinida o iDPP4.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <p class="label-text">
+                En personas con DM2 en tratamiento con estilo de vida saludable más metformina u otro ADO, que tengan buena adherencia al tratamiento y no alcancen meta de HbA1c en 3 a 6 meses, adicionar un segundo ADO:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">Sulfonilureas (gliclazida, glimepirida, glipizida).</li>
+                <li class="bullet-item">iDPP4 (vildagliptina, sitagliptina y linagliptina).</li>
+                <li class="bullet-item">Repaglinida.</li>
+                <li class="bullet-item">Pioglitazona.</li>
+            </ul>
+
+            <p class="label-text">
+                En personas en tratamiento con dos ADO y buena adherencia, que persisten sin alcanzar meta en 3 a 6 meses:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">adicionar otro ADO o insulina. </li>
+                <li class="bullet-item">ajustar dosis en forma progresiva hasta alcanzar meta.</li>
+            </ul>
+
+            <p class="label-text">
+                En personas con <strong>DM2 con enfermedad cardiovascular establecida</strong> que no alcancen meta de HbA1c con uno o dos antidiabéticos:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">Se recomienda adicionar un inhibidor del SGLT2 (iSGLT2): preferentemente empagliflozina o alternativamente canagliflozina.</li>
+                <li class="bullet-item">Se sugiere, como alternativa a los iSGLT2, adicionar un análogo del GLP1 (aGLP1) en presencia de obesidad: liraglutida (preferentemente) o dulaglutida.</li>
+            </ul>
+
+            <p class="label-text">
+                Dado que los iSGLT2 y los aGLP1 fueron evaluados en poblaciones similares, se prefiere el uso de los iSGLT2 por sobre los aGLP1 ya que estos últimos son inyectables, de mayor costo y requieren tratar a un número mayor de personas para alcanzar un beneficio similar.
+            </p>
+
+            <p class="label-bold" style="color: var(--diab-primary-color);">
+                <strong>TRATAMIENTO INICIAL EN PERSONAS CON HIPERGLUCEMIA SINTOMÁTICA (pérdida de peso, poliuria, polifagia, polidipsia), al momento del dignóstico de DM2:</strong>
+            </p>
+
+            <p class="label-bold">
+                A. iniciar tratamiento con insulina NPH al momento de acostarse (bedtime),
+            </p>
+
+            <p class="label-bold">
+                B. asociar con metformina (en ausencia de contraindicación).
+            </p>
+
+            <p class="label-bold" style="color: var(--diab-primary-color); margin-bottom: 5rem;">
+                En personas con riesgo aumentado de hipoglucemias y en quienes iniciaron tratamiento con insulina NPH y presentan hipoglucemias severas y/o nocturnas, se sugiere considerar el uso de análogos de insulina de acción lenta (levemir, glargina 100 U/ml, glargina 300 U/ml o degludec), por ser similares a la insulina NPH para el control metabólico, pero presentar menos hipoglucemias nocturnas.
+            </p>
+
+        </div>
+    </div>
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

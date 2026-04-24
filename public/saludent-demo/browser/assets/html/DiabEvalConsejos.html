@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Evaluación (Consejos)</title>
+    <style>
+
+        /* Estilos base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Fondo sutil */
+            color: #333;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Estilos de contenido */
+        .content-area {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+        
+        .diab-label-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            color: #0056b3; /* Color primario simulado */
+        }
+
+        /* Estilo de viñetas (simulando BulletLabel) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 50px; /* Margen inferior para el final del contenido */
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+        .bullet-list li::before {
+            content: '•';
+            color: #0056b3; /* Color primario simulado */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+        }
+        /* Para hacer que <b> y <u> se vean bien dentro de la viñeta */
+        .bullet-list li b {
+            font-weight: bold;
+        }
+        .bullet-list li u {
+            text-decoration: underline;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Evaluación (Consejos)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <div class="container">
+        <!-- body content -->
+        <div class="content-area">
+
+            <h3 class="diab-label-title">
+                Si presenta:
+            </h3>
+
+            <ul class="bullet-list">
+                <li>
+                    <b>Glucemia alterada en ayunas</b> (GAA: 110 a 125 mg/dl <u>sin factores</u> de riesgo o 100 a 125 mg/dl <u>con factores de riesgo</u> para DM2): <b>solicitar</b> PTOG75 de forma preferencial o GPA periódicas.
+                </li>
+                <li>
+                    <b>Glucemia plasmática en ayunas</b> (GPA) igual o mayor de 126 mg/dl: <b>repetir</b> glucemia plasmática en ayunas.
+                </li>
+                <li>
+                    <b>Glucemias discordantes</b> (GAA y una glucemia normal): <b>solicitar</b> PTOG75 de forma preferencial o GPA periódicas.
+                </li>
+                <li>
+                    <b>Glucemias discordantes</b> (un registro de GPA igual o mayor a 126 mg/dl y una GPA normal): <b>repetir</b> GPA o bien PTOG75.
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Función para volver a la página anterior.
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

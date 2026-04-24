@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabaco: Recursos para pacientes</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #5f5e5e; /* Gris oscuro para botones/bordes */
+            --taba-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout principal */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 150px; /* Espacio para el último elemento */
+        }
+        
+        /* Simulación de TabaLabelBold (interactiva) */
+        .taba-label-bold {
+            font-size: 1.05rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 15px 0 10px 0;
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Simulación de TabaLabel */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 5px 0 20px 0;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        
+        /* Simulación de StackLayout Orientation="Horizontal" */
+        .resource-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 0 10px;
+        }
+
+        /* Simulación de Frame (contenedor de imagen) */
+        .resource-frame {
+            border: 2px solid var(--taba-primary-color);
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .resource-image {
+            max-width: 100%;
+            min-height: 180px;
+            height: auto;
+            display: block;
+            margin: 0;
+            border-radius: 4px;
+        }
+
+        /* Estilo del botón de compartir (Share Button) */
+        .share-button {
+            background-color: var(--taba-primary-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .share-button:active {
+            transform: scale(0.95);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .share-icon {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        /* Mensaje de notificación (Reemplazo de DisplayAlert) */
+        #notification-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #444;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transition: opacity 0.3s, bottom 0.3s;
+            z-index: 2000;
+            font-size: 0.9rem;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            min-width: 280px;
+        }
+
+        #notification-box.show {
+            opacity: 1;
+            bottom: 30px;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tabaco: Recursos para pacientes
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal -->
+    <main>
+        <div class="stack-layout">
+            
+            <!-- Línea telefónica con seguimiento -->
+            <label class="taba-label-bold" style="cursor: default;">
+                Línea telefónica con seguimiento
+            </label>
+            <label class="taba-label">
+                0800-999-3040 para fumadores y para ayudar a la derivación a equipos de tratamiento de la adicción de salud
+            </label>
+            
+            <!-- Recurso 1: Materiales de autoayuda -->
+            <label class="taba-label-bold" onclick="openResource1()">
+                Materiales de autoayuda
+            </label>
+            
+            <div class="resource-row">
+                <!-- Imagen clickable (Simula Frame y Image) -->
+                <div class="resource-frame" onclick="openResource1()">
+                    <img src="/assets/img/ta_rec3.png" 
+                         alt="Portada de manual de autoayuda para dejar de fumar" 
+                         class="resource-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x180/E0E0E0/333333?text=Manual+Autoayuda'">
+                </div>
+
+                <!-- Botón de compartir (Share Button) -->
+                <button class="share-button" onclick="shareResource1()">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/28x28/B22222/FFFFFF?text=S'">
+                </button>
+            </div>
+
+            <!-- Recurso 2: Florencia: asistente virtual de la OMS -->
+            <label class="taba-label-bold" onclick="openResource2()">
+                Florencia: asistente virtual de la OMS para ayudar a dejar de fumar
+            </label>
+
+            <div class="resource-row" style="margin-bottom: 100px;">
+                <!-- Imagen clickable (Simula Frame y Image) -->
+                <div class="resource-frame" onclick="openResource2()">
+                    <img src="/assets/img/ta_rec4.png" 
+                         alt="Asistente virtual Florencia de la OMS" 
+                         class="resource-image"
+                         onerror="this.onerror=null; this.src='https://placehold.co/400x180/E0E0E0/333333?text=Asistente+Florencia'">
+                </div>
+
+                <!-- Botón de compartir (Share Button) -->
+                <button class="share-button" onclick="shareResource2()">
+                    <img src="/assets/img/share_48_w.png" alt="Compartir" class="share-icon"
+                         onerror="this.onerror=null; this.src='https://placehold.co/28x28/B22222/FFFFFF?text=S'">
+                </button>
+            </div>
+
+        </div>
+    </main>
+    
+    <!-- Mensaje de notificación -->
+    <div id="notification-box"></div>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // URLs de los recursos
+        const URL_RESOURCE_1 = "https://bancos.salud.gob.ar/recurso/manual-de-autoayuda-para-dejar-de-fumar";
+        const URL_RESOURCE_2 = "https://www.paho.org/es/temas/prevencion-control-tabaco/florencia-recurso-digital-que-ayuda-dejar-fumar-tabaco";
+        
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+
+        /**
+         * Muestra una notificación temporal (reemplaza DisplayAlert).
+         * @param {string} message 
+         */
+        function showNotification(message) {
+            const box = document.getElementById('notification-box');
+            box.textContent = message;
+            box.classList.add('show');
+            setTimeout(() => {
+                box.classList.remove('show');
+            }, 3000);
+        }
+
+        /**
+         * Copia un texto al portapapeles y muestra una notificación.
+         * Se utiliza document.execCommand('copy') por restricciones del entorno (iframe).
+         * @param {string} textToCopy 
+         */
+        function copyToClipboard(textToCopy) {
+            try {
+                const textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+
+                showNotification("Se copió el link en el portapapeles. Utilice <Pegar> en su red social.");
+
+            } catch (err) {
+                console.error('Error al copiar:', err);
+                showNotification("Error: No se pudo copiar el link automáticamente.");
+            }
+        }
+
+        // --- Funciones de Apertura de Recursos (Simulan TapGestureRecognizer) ---
+
+        function openResource1() {
+            window.open(URL_RESOURCE_1, '_blank');
+        }
+
+        function openResource2() {
+            window.open(URL_RESOURCE_2, '_blank');
+        }
+
+        // --- Funciones de Compartir (Simulan btnShare_Clicked) ---
+
+        function shareResource1() {
+            copyToClipboard(URL_RESOURCE_1);
+        }
+
+        function shareResource2() {
+            copyToClipboard(URL_RESOURCE_2);
+        }
+    </script>
+</body>
+</html>

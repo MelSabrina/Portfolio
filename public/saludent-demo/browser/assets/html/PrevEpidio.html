@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seg. Vial: Recursos para pacientes</title>
+    <!-- Se usa una fuente genérica, sin enlace a Google Fonts (No Inter) -->
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --text-color: #333;
+            /* Color primario para la temática de Seguridad Vial (verde) */
+            --vial-primary-color: #727873; 
+            --button-bg-color: var(--vial-primary-color);
+        }
+
+        body {
+            /* Usamos una pila de fuentes genéricas sin Inter */
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: opacity 0.2s;
+        }
+        
+        .back-button svg {
+            stroke: #333; /* Asegura que el color del icono sea oscuro */
+        }
+
+        .back-button:hover {
+            opacity: 0.7;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .content-container {
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* VialLabelBold */
+        .vial-label-bold {
+            font-weight: 700;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin: 15px 0 10px 0;
+        }
+        
+        /* VialLabelTitle */
+        .vial-label-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--vial-primary-color);
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* VialLabel */
+        .vial-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* Título de recurso clickeable */
+        .resource-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin: 20px 0 10px 0;
+            cursor: pointer;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .resource-title:hover {
+            color: var(--vial-primary-color);
+            text-decoration: underline;
+        }
+
+        /* Estilos del Frame (Simulado) y la Imagen */
+        .resource-section {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0 40px 0;
+        }
+        
+        .resource-frame {
+            border: 1px solid var(--vial-primary-color);
+            background-color: white;
+            padding: 10px;
+            border-radius: 8px;
+            flex-grow: 1;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        
+        .resource-frame:hover {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .resource-image {
+            width: 100%;
+            height: auto; 
+            object-fit: contain;
+            display: block;
+            border-radius: 4px;
+        }
+        
+        /* Estilo del Botón de Compartir (Usando PNG) */
+        .share-button {
+            background-color: var(--button-bg-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            cursor: pointer;
+            margin-left: 15px; 
+            margin-top: -30px; 
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .share-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .share-button img {
+            width: 28px; 
+            height: 28px;
+        }
+
+        /* --- 4. Mensaje de Notificación (Toast) --- */
+        .toast-message {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .toast-message.show {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        /* Media Query para móvil */
+        @media (max-width: 600px) {
+             .toolbar-title {
+                font-size: 1rem;
+             }
+             .vial-label-title {
+                 font-size: 1.3rem;
+             }
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Seg. Vial: Recursos para pacientes
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido de la página -->
+    <div class="content-container">
+
+        <!-- Sección de Información General -->
+        <p class="vial-label-bold">
+            Red Federal de Asistencia a Víctimas y Familiares de Víctimas de Siniestros Viales 
+        </p>
+
+        <p class="vial-label-title">
+            Línea 149 Opción 2
+        </p>
+
+        <p class="vial-label">
+            La Agencia Nacional de Seguridad Vial acompaña y asesora de forma gratuita a las víctimas de los siniestros viales y sus familiares en las instancias posteriores a la emergencia. Esta Red Federal funciona como un nexo que organiza y administra los recursos existentes de nación, provincias, municipios y organismos privados adheridos, para lograr una rápida y efectiva respuesta que ayude a mitigar los daños ocasionados por el siniestro vial. Ofrece orientación jurídica (no patrocinio), psicológica, de salud post hospitalaria y en servicios sociales, con el objetivo de eliminar repetidas situaciones burocráticas que sólo acrecientan el dolor.
+        </p>
+        
+        <!-- Recurso 1: Red Federal de Asistencia -->
+        <h3 class="resource-title" onclick="openLink('https://www.argentina.gob.ar/seguridadvial/redfederal')">
+            Red Federal de Asistencia a Víctimas y Familiares de Víctimas de Siniestros Viales
+        </h3>
+        
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.argentina.gob.ar/seguridadvial/redfederal')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec1.png" 
+                     alt="sv_rec1.png">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 1" onclick="shareLink('https://www.argentina.gob.ar/seguridadvial/redfederal')">
+                <!-- Ícono de compartir como PNG -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+        <!-- Recurso 2: Consejos para manejar seguro en moto -->
+        <h3 class="resource-title" onclick="openLink('https://www.youtube.com/watch?v=cvHWmatDws0')">
+            Consejos para manejar seguro en moto (Fuente: ANSV): 
+        </h3>
+
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.youtube.com/watch?v=cvHWmatDws0')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec2.png" 
+                     alt="sv_rec2.png">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 2" onclick="shareLink('https://www.youtube.com/watch?v=cvHWmatDws0')">
+                <!-- Ícono de compartir como PNG -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+        <!-- Recurso 3: Consejos para ciclistas -->
+        <h3 class="resource-title" onclick="openLink('https://www.youtube.com/watch?v=7GP9zueFWkA')">
+            Consejos para ciclistas 
+        </h3>
+
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.youtube.com/watch?v=7GP9zueFWkA')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec3.png" 
+                     alt="sv_rec3.png">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 3" onclick="shareLink('https://www.youtube.com/watch?v=7GP9zueFWkA')">
+                <!-- Ícono de compartir como PNG -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+        <!-- Recurso 4: Sillitas para chicos -->
+        <h3 class="resource-title" onclick="openLink('https://www.youtube.com/shorts/eZkQ6ca3wis')">
+            Todo lo que querías saber sobre las sillitas para chicos (Fuente: ANSV)
+        </h3>
+
+        <div class="resource-section">
+            <div class="resource-frame" onclick="openLink('https://www.youtube.com/shorts/eZkQ6ca3wis')">
+                <img class="resource-image" 
+                     src="/assets/img/sv_rec4.png" 
+                     alt="sv_rec4.png">
+            </div>
+            
+            <button class="share-button" title="Compartir Recurso 4" onclick="shareLink('https://www.youtube.com/shorts/eZkQ6ca3wis')">
+                <!-- Ícono de compartir como PNG -->
+                <img src="/assets/img/share_48_b.png" alt="share_48_b.png">
+            </button>
+        </div>
+        
+    </div>
+    
+    <!-- 3. Mensaje de Notificación (Toast) -->
+    <div id="toast" class="toast-message"></div>
+
+    <!-- 4. Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+
+        // Función para mostrar el mensaje de éxito (Reemplazo de DisplayAlert)
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000); // Mostrar por 3 segundos
+        }
+
+        // Función para abrir enlaces en una nueva pestaña
+        function openLink(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir (copiar al portapapeles)
+        function shareLink(url) {
+            const message = "Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)";
+            
+            // Usar la API del portapapeles (preferido)
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url).then(() => {
+                    showToast(message);
+                }).catch(err => {
+                    console.error('No se pudo usar navigator.clipboard. Fallback a execCommand.', err);
+                    fallbackCopyTextToClipboard(url, message);
+                });
+            } else {
+                // Fallback para entornos donde navigator.clipboard no está disponible
+                fallbackCopyTextToClipboard(url, message);
+            }
+        }
+        
+        // Fallback usando document.execCommand('copy')
+        function fallbackCopyTextToClipboard(text, message) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            
+            // Colocar fuera de la vista para que no afecte el scroll
+            textArea.style.position = "fixed"; 
+            textArea.style.left = "-9999px";
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast(message);
+                } else {
+                    showToast('Error: No se pudo copiar el enlace al portapapeles.');
+                }
+            } catch (err) {
+                showToast('Error: Falló la copia manual.');
+                console.error('Fallback: Error al intentar copiar: ', err);
+            }
+
+            document.body.removeChild(textArea);
+        }
+    </script>
+</body>
+</html>

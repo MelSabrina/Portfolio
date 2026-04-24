@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tratamiento 1: 10 a 20 cig/día</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --taba-primary-color: #6b6a6a; /* Rojo fuerte */
+            --taba-background-color: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--taba-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px; /* Espacio al final para el scroll */
+        }
+        
+        /* Simulación de TabaLabelBold */
+        .taba-label-bold {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.4;
+            color: var(--text-color);
+            margin: 15px 5px 5px 5px;
+        }
+
+        /* Simulación de TabaLabel */
+        .taba-label {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin: 5px 5px;
+        }
+
+        /* Simulación de BulletLabel/TabaBullet */
+        .bullet-list {
+            list-style: none;
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .taba-bullet {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            padding-left: 10px; /* Espacio para la viñeta custom */
+            position: relative;
+        }
+        
+        .taba-bullet::before {
+            content: '•'; 
+            color: var(--taba-primary-color); 
+            font-weight: bold;
+            font-size: 1.2rem;
+            position: absolute;
+            left: -10px;
+            top: 0;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso (SVG) --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Tratamiento 1: personas que fuman 10 a 20 cig/día
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main>
+        <div class="stack-layout">
+            
+            <p class="taba-label">
+                <b>Tratamiento farmacológico efectivo:</b>
+            </p>
+
+            <p class="taba-label-bold">
+                Terapia de reemplazo nicotínico (TRN), bupropión o vareniclina.
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    El grado de dependencia orientará la dosis y la necesidad de combinación de fármacos (no usar sistemáticamente en fumadores de 10 o menos cigarrillos).
+                </li>
+                <li class="taba-bullet">
+                    Tenga en cuenta que cada cigarrillo libera 1 a 2 mg de nicotina.
+                </li>
+                <li class="taba-bullet">
+                    El día D se refiere a una fecha concreta a corto plazo desde la que deja de fumar totalmente.
+                </li>
+            </ul>
+
+            <p class="taba-label">
+                <b>Terapia de reemplazo nicotínico (TRN)</b>: incluyen parches, chicles, comprimidos y spray nasal. Tener precaución para su uso dentro de las 2 semanas de un infarto agudo de miocardio o arritmias graves o angina inestable.
+            </p>
+
+            <p class="taba-label-bold">
+                Parches de nicotina 7, 14, 21 mg/día (venta libre):
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    <u>Desde el día D</u>, uno por día durante 8 a 12 semanas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Modo de uso</u>: aplicar sobre piel sana y rotar lugar de aplicación del nuevo parche cada día.
+                </li>
+                <li class="taba-bullet">
+                    <u>Alta dependencia:</u> 21 mg/día o más (usando más de un parche), o asociar los parches con otros modos de presentación de TRN, o asociar parches con otras opciones farmacológicas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Efectos adversos más frecuentes:</u> alteración del sueño (sacar por la noche), sueños vívidos, reacciones cutáneas leves.
+                </li>
+            </ul>
+
+            <p class="taba-label-bold">
+                Chicles de nicotina de 2 y 4 mg (venta libre):
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    <u>desde el día D:</u> 1 chicle cada 1 o 2 hs (dosis máxima 24 chicles de 2 mg/día) durante 8 a 12 semanas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Modo de uso:</u> masticar el chicle lentamente hasta obtener un sabor picante, dejar el chicle en el carrillo en reposo varios minutos y luego volver a masticar hasta obtener el sabor picante. Repetir esto hasta que el chicle pierda el sabor. Evitar alimentos y bebidas ácidas (cítricos, café, mate) desde 15 min antes y durante su uso.
+                </li>
+                <li class="taba-bullet">
+                    <u>Alta dependencia:</u> chicles de 4 mg solos o asociados a otras TRN.
+                </li>
+                <li class="taba-bullet">
+                    <u>Efectos adversos más frecuentes:</u> hipo, eructos, dispepsia, dolor de la articulación témporomandibular.
+                </li>
+            </ul>
+
+            <p class="taba-label-bold">
+                Comprimidos dispersables de nicotina de 1 y 2 mg (venta libre):
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    <u>Desde el día D:</u> 1 comprimido cada 1 o 2 hs (dosis máxima 24 comp. de 1 mg/día) durante 8 a 12 semanas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Modo de uso:</u> dejar que se disuelva en la boca (no tragar ni masticar). Se recomienda no ingerir alimentos y bebidas ácidas (cítricos, café, mate) desde 15 minutos previos y durante su uso.
+                </li>
+                <li class="taba-bullet">
+                    <u>Alta dependencia:</u> comprimidos de 2 mg solos o asociados a otras TRN.
+                </li>
+                <li class="taba-bullet">
+                    <u>Efectos adversos más frecuentes:</u> hipo, náuseas y pirosis. Cefalea y tos.
+                </li>
+            </ul>
+
+            <p class="taba-label-bold">
+                Spray nasal de nicotina (prescripción bajo receta):
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    Una aplicación (0,5 mg) en cada fosa nasal (total 1 mg por dosis) una a dos veces por hora. Aumentar de acuerdo con los síntomas de abstinencia (mínimo 8; máximo 40 dosis/día (5 dosis/hora) por 12 semanas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Modo de uso:</u> aplicar horizontalmente hacia el tabique nasal y no inhalar. Evitar en personas con hiperreactividad bronquial. Usar con precaución en arritmias graves, angina inestable y dentro de las 2 semanas de un infarto agudo de miocardio.
+                </li>
+                <li class="taba-bullet">
+                    Utilizarlo especialmente en fumadores con alta dependencia no asmáticos ni adictos a sustancias.
+                </li>
+                <li class="taba-bullet">
+                    Su eficacia es algo superior a otras formas de TRN, facilita el manejo del craving (deseo intenso irrefrenable de fumar) pero presenta más riesgo de generar adicción al spray.
+                </li>
+            </ul>
+
+            <p class="taba-label-bold">
+                Bupropión comprimidos de liberación prolongada de 150 mg (receta archivada):
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    <u>Modo de uso:</u> comenzar 7 a 14 días antes del día D con 1 o 2 comprimidos de 150 mg /día (preferentemente por la mañana) y completar 8 a 12 semanas. En caso de 300 mg/día, la segunda dosis 8 hs después de la primera.
+                </li>
+                <li class="taba-bullet">
+                    <u>Contraindicaciones:</u> epilepsia, alguna convulsión alguna vez en la vida, antecedentes de traumatismo de cráneo grave (fractura craneana, pérdida de conocimiento prolongada). Trastornos de la conducta alimentaria. Cualquier situación clínica o fármacos que predisponga a convulsiones (ej.: hipoglucemiantes, insulina, teofilina, antipsicóticos, antidepresivos, corticoides sistémicos). Ingesta de IMAO. Alcoholismo activo. Precaución: Diabetes, antirretrovirales.
+                </li>
+                <li class="taba-bullet">
+                    <u>Efectos adversos más frecuentes:</u> el efecto adverso más grave es la aparición de convulsiones (1/10000). Los más frecuentes: alteración del sueño, boca seca, cefalea, prurito, reacciones alérgicas.
+                </li>
+                <li class="taba-bullet">
+                    <u>Advertencia:</u> se describen en algunos casos ánimo deprimido y agitación y aparición de hipertensión durante el tratamiento.
+                </li>
+            </ul>
+
+            <p class="taba-label-bold">
+                Vareniclina comprimidos de 0,5 y 1 mg:
+            </p>
+
+            <ul class="bullet-list">
+                <li class="taba-bullet">
+                    <u>Modo de uso:</u> comenzar 7 a 14 días antes del día D con 1 comprimido de 0,5 mg /día por la tarde durante 3 días, luego 0,5 mg/día a la mañana y a la tarde por 4 días y luego completar 12 semanas con comprimidos de 1mg por la mañana y uno por la tarde.
+                </li>
+                <li class="taba-bullet">
+                    <u>Contraindicaciones:</u> ajustar dosis en insuficiencia renal y diálisis.
+                </li>
+                <li class="taba-bullet">
+                    <u>Efectos adversos más frecuentes:</u> nauseas, sueños vívidos, alteraciones del sueño.
+                </li>
+                <li class="taba-bullet" style="margin-bottom: 100px;">
+                    <u>Advertencia:</u> usar con precaución ante uso de maquinaria pesada. Evitar ante portación de armas.
+                </li>
+            </ul>
+
+        </div>
+    </main>
+    
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        } 
+    </script>
+</body>
+</html>

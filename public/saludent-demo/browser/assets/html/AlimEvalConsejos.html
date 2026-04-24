@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentación (Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --alim-primary-color: #4CAF50; /* Verde Saludable */
+            --page-background: white;
+            --text-color: #333;
+            --link-color: #007bff;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; 
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--alim-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; 
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px; 
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            background-color: var(--page-background); 
+            padding-bottom: 120px; 
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabel}" */
+        .alim-label {
+            font-size: 1rem;
+            margin: 10px 10px 15px 10px;
+            text-align: justify;
+        }
+
+        /* Simulación de Style="{StaticResource AlimLabelBold}" (para el enlace) */
+        .alim-label-bold-link {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--link-color);
+            margin: 10px;
+            cursor: pointer;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .alim-label-bold-link:hover {
+            color: var(--alim-primary-color);
+        }
+
+        /* Contenedor Horizontal para Imagen y Botón */
+        .horizontal-stack {
+            display: flex;
+            align-items: flex-end; /* Alinea los elementos a la parte inferior para que el botón esté a la altura del pie de la imagen */
+            gap: 10px;
+            margin: 0 10px 30px 10px; /* Margen para toda la sección */
+        }
+
+        /* Simulación de Frame alrededor de la imagen */
+        .image-frame {
+            flex-grow: 1;
+            border: 1px solid var(--alim-primary-color);
+            background-color: white;
+            padding: 5px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px var(--shadow-color);
+            min-height: 180px;
+            display: flex;
+            align-items: stretch;
+            margin-right: 10px;
+        }
+
+        .resource-image {
+            width: 100%;
+            height: auto;
+            min-height: 170px; /* Mantiene la altura mínima del Frame */
+            display: block;
+            object-fit: contain;
+            margin: auto; /* Centra la imagen dentro del frame */
+            cursor: pointer;
+        }
+        
+        /* Botón de Compartir */
+        .share-button {
+            width: 50px;
+            height: 50px;
+            border-radius: 10px;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            margin-bottom: 20px; /* Ajuste para alinear con el margen de la imagen */
+            flex-shrink: 0;
+        }
+
+        .share-button:hover {
+            background-color: #388E3C; 
+            transform: scale(1.05);
+        }
+
+        /* Icono de Compartir (SVG) */
+        .share-icon {
+            width: 24px;
+            height: 24px;
+            stroke: white;
+            fill: none;
+        }
+
+        /* --- 4. Botón de Navegación Fijo (NavButton) --- */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 950;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--alim-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #388E3C; 
+            transform: scale(1.05);
+        }
+
+        /* --- 5. Custom Message Box (Reemplazo de alert()) --- */
+        #messageBox {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 16px;
+            position: fixed;
+            z-index: 2000;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        #messageBox.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Alimentación (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Párrafos de texto -->
+            <p class="alim-label">
+                La consulta con el equipo de salud es una oportunidad para realizar la evaluación de la ingesta alimentaria y poder brindar la consejería adecuada sobre una alimentación saludable.
+            </p>
+
+            <p class="alim-label">
+                El Ministerio de Salud de la Nación ofrece cursos virtuales destinados tanto a nutricionistas, médicos/as y otros integrantes del equipo de salud sobre educación alimentaria.
+            </p>
+
+            <!-- Título/Enlace Clickeable -->
+            <p class="alim-label-bold-link" onclick="openLink('https://pvs.msal.gov.ar/')">
+                Plataforma virtual de salud:
+            </p>
+
+            <!-- StackLayout Orientation="Horizontal" con Frame e Image y el Button -->
+            <div class="horizontal-stack">
+
+                <!-- Frame con Image -->
+                <div class="image-frame">
+                    <img class="resource-image" 
+                         src="/assets/img/al_rec6.png" 
+                         alt="Imagen de Recurso de Salud"
+                         onclick="openLink('https://pvs.msal.gov.ar/')"
+                    >
+                </div>
+
+                <!-- Botón de Compartir -->
+                <button class="share-button" onclick="shareLink()">
+                    <!-- Icono de compartir (share_48_w) -->
+                    <svg class="share-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" y1="2" x2="12" y2="15"></line>
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+
+    <!-- 4. Custom Message Box (Reemplazo de DisplayAlert) -->
+    <div id="messageBox"></div>
+
+    <script>
+        /**
+         * Simula DisplayAlert: Muestra un mensaje temporal en la pantalla.
+         */
+        function showMessage(text) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = text;
+            messageBox.classList.add('show');
+
+            // Ocultar después de 3 segundos
+            setTimeout(() => {
+                messageBox.classList.remove('show');
+            }, 3000);
+        }
+
+        /**
+         * Simula TapGestureRecognizer_Tapped_16: Abre el enlace en una nueva pestaña.
+         */
+        function openLink(url) {
+            // Simula await Launcher.OpenAsync(url)
+            window.open(url, '_blank');
+        }
+
+        /**
+         * Simula btnShare5_Clicked: Copia el enlace al portapapeles y notifica al usuario.
+         */
+        async function shareLink() {
+            const linkToCopy = "https://pvs.msal.gov.ar/";
+            
+            // Usar método de fallback para copiar al portapapeles (compatible en iframes)
+            try {
+                const tempInput = document.createElement('input');
+                tempInput.value = linkToCopy;
+                tempInput.style.position = 'absolute';
+                tempInput.style.left = '-9999px'; // Lo hace invisible
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                // Muestra el mensaje de éxito (reemplazo de DisplayAlert)
+                showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            } catch (err) {
+                console.error('Error al intentar copiar al portapapeles:', err);
+                showMessage("Error al copiar el enlace. Por favor, inténtelo de nuevo.");
+            }
+        }
+    </script>
+</body>
+</html>

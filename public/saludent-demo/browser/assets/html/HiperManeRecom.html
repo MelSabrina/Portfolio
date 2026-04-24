@@ -1,0 +1,931 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTA: Manejo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B2A4A;
+            --gold: #C9A84C;
+            --cream: #EDEAE4;
+            --text-main: #2C2C2C;
+            --program-color: #ef5350;
+            --program-dark: #d32f2f;
+            --program-light: rgba(239, 83, 80, 0.1);
+
+            /* Cross-program colors */
+            --af-color: #F2A900;
+            --af-light: rgba(242, 169, 0, 0.1);
+            --alim-color: #E87722;
+            --alim-light: rgba(232, 119, 34, 0.1);
+            --tabaco-color: #9B8BBA;
+            --tabaco-light: rgba(155, 139, 186, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cream);
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .toolbar {
+            display: none !important;
+        }
+
+        .main-container {
+            padding: 16px;
+            padding-bottom: 80px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        /* Title section */
+        .title-section {
+            text-align: center;
+            padding-top: 16px;
+            margin-bottom: 32px;
+        }
+
+        .main-title {
+            font-family: 'Lora', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1.3;
+            margin: 0 0 16px 0;
+        }
+
+        .title-divider {
+            position: relative;
+            width: 50%;
+            height: 1px;
+            background: var(--program-color);
+            margin: 0 auto;
+        }
+
+        .title-divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--program-color);
+            font-size: 10px;
+            background: var(--cream);
+            padding: 0 8px;
+        }
+
+        /* Intro paragraphs */
+        .intro-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .intro-text:last-of-type {
+            margin-bottom: 32px;
+        }
+
+        .intro-text.medium {
+            font-weight: 500;
+        }
+
+        /* Accordions */
+        .accordion {
+            margin-bottom: 12px;
+        }
+
+        .accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            user-select: none;
+            box-shadow: 0 2px 6px rgba(27, 42, 74, 0.06);
+            transition: box-shadow 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: var(--program-light);
+            box-shadow: 0 4px 12px rgba(27, 42, 74, 0.12);
+        }
+
+        .accordion-header.active {
+            background: var(--program-light);
+            border-bottom: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .accordion-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--navy);
+            flex: 1;
+        }
+
+        .accordion-arrow {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--program-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-header.active .accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-content.active {
+            max-height: 3500px;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .accordion-body {
+            padding: 20px 16px;
+        }
+
+        /* Sub-accordions */
+        .sub-accordion {
+            margin-bottom: 12px;
+        }
+
+        .sub-accordion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px;
+            background: var(--cream);
+            border-radius: 10px;
+            cursor: pointer;
+            border: 1px solid rgba(239, 83, 80, 0.15);
+            transition: all 0.2s ease;
+        }
+
+        .sub-accordion-header:hover {
+            background: white;
+            border-color: rgba(239, 83, 80, 0.3);
+        }
+
+        .sub-accordion-arrow {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--program-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 12px;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .sub-accordion-header.active .sub-accordion-arrow {
+            transform: rotate(90deg);
+        }
+
+        .sub-accordion-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--program-color);
+            flex: 1;
+        }
+
+        .sub-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sub-accordion-content.active {
+            max-height: 1500px;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sub-accordion-body {
+            padding: 16px 12px 8px 12px;
+        }
+
+        /* Prev-label (destacado) */
+        .prev-label {
+            background: var(--program-light);
+            border-left: 3px solid var(--program-color);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 15px;
+            line-height: 1.6;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        /* Bullet lists */
+        .bullet-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 24px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .bullet-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .bullet-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--program-color);
+            font-size: 20px;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        /* Cross-program bullet colors */
+        .bullet-list.af li::before {
+            color: var(--af-color);
+        }
+
+        .bullet-list.alim li::before {
+            color: var(--alim-color);
+        }
+
+        .bullet-list.tabaco li::before {
+            color: var(--tabaco-color);
+        }
+
+        .bullet-list li b,
+        .bullet-list li strong {
+            font-weight: 700;
+        }
+
+        /* Normal paragraph */
+        .normal-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin: 0 0 20px 20px;
+        }
+
+        .normal-text.medium {
+            font-weight: 500;
+        }
+
+        /* Navigation buttons */
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--program-color);
+            color: white;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(239, 83, 80, 0.3);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 16px 0;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(239, 83, 80, 0.4);
+        }
+
+        .nav-button-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .nav-button-left {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        /* Cross-program buttons with icons */
+        .program-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 15px;
+            color: white;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin: 16px 0;
+            cursor: pointer;
+        }
+
+        .program-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .program-button img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .program-button.af {
+            background: var(--af-color);
+            box-shadow: 0 4px 12px rgba(242, 169, 0, 0.3);
+        }
+
+        .program-button.af:hover {
+            box-shadow: 0 6px 16px rgba(242, 169, 0, 0.4);
+        }
+
+        .program-button.alim {
+            background: var(--alim-color);
+            box-shadow: 0 4px 12px rgba(232, 119, 34, 0.3);
+        }
+
+        .program-button.alim:hover {
+            box-shadow: 0 6px 16px rgba(232, 119, 34, 0.4);
+        }
+
+        .program-button.tabaco {
+            background: var(--tabaco-color);
+            box-shadow: 0 4px 12px rgba(155, 139, 186, 0.3);
+        }
+
+        .program-button.tabaco:hover {
+            box-shadow: 0 6px 16px rgba(155, 139, 186, 0.4);
+        }
+
+        /* Clickeable terms */
+        .clickeable-term {
+            font-weight: 700;
+            font-style: italic;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .clickeable-term.af {
+            color: var(--af-color);
+        }
+
+        .clickeable-term.alim {
+            color: var(--alim-color);
+        }
+
+        .clickeable-term.tabaco {
+            color: var(--tabaco-color);
+        }
+
+        .clickeable-term:hover {
+            opacity: 0.8;
+        }
+
+        /* Bottom sheet backdrop */
+        .bs-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(27, 42, 74, 0.35);
+            z-index: 200;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+
+        .bs-backdrop.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Bottom sheet */
+        .bs-sheet {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: calc(100% - 32px);
+            max-width: 688px;
+            background: var(--cream);
+            border-radius: 20px 20px 0 0;
+            z-index: 201;
+            transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
+            max-height: 82dvh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        .bs-sheet.open {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bs-handle {
+            width: 36px;
+            height: 4px;
+            background: #DDD9D2;
+            border-radius: 50px;
+            margin: 12px auto 0;
+            flex-shrink: 0;
+        }
+
+        .bs-header {
+            padding: 16px 24px 12px;
+            flex-shrink: 0;
+        }
+
+        .bs-header.af {
+            border-bottom: 2px solid var(--af-color);
+        }
+
+        .bs-header.alim {
+            border-bottom: 2px solid var(--alim-color);
+        }
+
+        .bs-header.tabaco {
+            border-bottom: 2px solid var(--tabaco-color);
+        }
+
+        .bs-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--navy);
+        }
+
+        .bs-body {
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 24px 32px;
+        }
+
+        .bs-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .bs-body::-webkit-scrollbar-thumb {
+            background: #DDD9D2;
+            border-radius: 3px;
+        }
+
+        .bs-body .bullet-list {
+            margin-bottom: 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 24px;
+            }
+
+            .accordion-title {
+                font-size: 15px;
+            }
+
+            .nav-button,
+            .program-button {
+                font-size: 14px;
+                padding: 12px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Title -->
+        <div class="title-section">
+            <h1 class="main-title">Manejo</h1>
+            <div class="title-divider"></div>
+        </div>
+
+        <!-- Intro -->
+        <p class="intro-text">
+            Los fármacos antihipertensivos representan la piedra angular del tratamiento de la HTA por haber demostrado el control de la PA y la reducción de eventos cardiovasculares mayores y muerte. Pequeñas reducciones en la PA pueden reducir significativamente los riesgos asociados de morbilidad y mortalidad.
+        </p>
+
+        <p class="intro-text medium">
+            No demorar el inicio del tratamiento farmacológico.
+        </p>
+
+        <!-- Accordion 1: Intervenciones farmacológicas en población general -->
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('acc1')">
+                <span class="accordion-title">Intervenciones farmacológicas en población general</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content" id="acc1">
+                <div class="accordion-body">
+                    <p class="prev-label">
+                        Se estima que más de la mitad de las personas con HTA necesitan terapia combinada para lograr el control de sus cifras de presión y una de cada cinco necesitará terapia con 3 o más fármacos para lograr el control de sus cifras de presión.
+                    </p>
+
+                    <ul class="bullet-list">
+                        <li>Iniciar tratamiento con <b>un antihipertensivo a dosis media o dos antihipertensivos a dosis baja.</b></li>
+                        <li>Realizar visitas de seguimiento e intensificar tratamiento <strong>en forma mensual</strong>, hasta alcanzar meta.</li>
+                    </ul>
+
+                    <div class="nav-button-left">
+                        <a href="HiperManeAlg1.html" class="nav-button">Ir a tablas de combinación</a>
+                    </div>
+
+                    <ul class="bullet-list">
+                        <li>Siempre evaluar la adherencia antes de intensificar y monitorear en forma continua la tolerancia y efectos adversos.</li>
+                        <li>Asociar dos fármacos a dosis media en lugar de un solo fármaco a dosis altas, aumenta la potencia antihipertensiva sin aumentar proporcionalmente los efectos adversos.</li>
+                        <li>Preferir fármacos combinados en un mismo comprimido de una sola toma al día, podría favorecer la adherencia al tratamiento.</li>
+                        <li>Los antagonistas cálcicos dihidropiridínicos y los diuréticos son los fármacos antihipertensivos con mayor tasa de efectos adversos cuando se utilizan en dosis máximas.</li>
+                        <li>Como regla general, no asociar IECA + ARAII, por presentar elevado riesgo de efectos adversos (Ej. falla renal e hiperkalemia).</li>
+                        <li>A quienes no alcancen meta de control con 3 fármacos a la dosis máxima tolerada, referenciar al nivel de atención superior.</li>
+                    </ul>
+
+                    <div class="nav-button-container">
+                        <a href="HiperManeAlg3.html" class="nav-button">Ver Vía Clínica</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion 2: Intervenciones farmacológicas en poblaciones especiales -->
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('acc2')">
+                <span class="accordion-title">Intervenciones farmacológicas en poblaciones especiales</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content" id="acc2">
+                <div class="accordion-body">
+
+                    <!-- Sub-accordion 1: Mujeres en edad fértil -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion('sub1')">
+                            <div class="sub-accordion-title">Mujeres en edad fértil</div>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content" id="sub1">
+                            <div class="sub-accordion-body">
+                                <ul class="bullet-list">
+                                    <li>No usar IECA o ARAII y, en quienes los reciben, suspender su uso si se constata embarazo para evitar efectos adversos graves en el feto.</li>
+                                    <li>El uso de IECA o ARAII se asocia a efectos adversos graves en el feto (teratogénicos y/o fetotóxicos). En Argentina aproximadamente 6 de cada 10 embarazos no son planificados, por lo tanto, en las mujeres con HTA preexistente, no siempre es factible la suspensión oportuna o temprana de estas drogas, que permita evitar el daño potencial asociado.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-accordion 2: Personas con Diabetes mellitus -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion('sub2')">
+                            <div class="sub-accordion-title">Personas con Diabetes mellitus con o sin ERC</div>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content" id="sub2">
+                            <div class="sub-accordion-body">
+                                <ul class="bullet-list">
+                                    <li>Iniciar tratamiento con IECA o ARA II a dosis media ya que podrían ofrecer beneficios adicionales en reducción de albuminuria, proteinuria y/o disminución de la caída del filtrado glomerular. Alternativamente dos fármacos antihipertensivos a dosis baja (preferentemente IECA o ARAII + amlodipina).</li>
+                                    <li>Realizar visitas de seguimiento e intensificar tratamiento <strong>en forma mensual</strong>, hasta alcanzar meta.</li>
+                                    <li>Al intensificar preferir un antagonista cálcico dihidropiridínico (AC-D), ej: amlodipina.</li>
+                                    <li>Todos los grupos de fármacos son efectivos en esta población para reducir eventos cardiovasculares mayores y muerte.</li>
+                                    <li>Los IECA y ARA, así como los AC-D asociados a los IECA o ARAII podrían ofrecer beneficios adicionales en reducción de albuminuria, proteinuria y/o disminución de la caída del filtrado glomerular en esta población.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-accordion 3: Enfermedad Renal Crónica -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion('sub3')">
+                            <div class="sub-accordion-title">Enfermedad Renal Crónica</div>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content" id="sub3">
+                            <div class="sub-accordion-body">
+                                <ul class="bullet-list">
+                                    <li>Iniciar con IECA o ARAII y mantenerlos en la intensificación.</li>
+                                    <li>Realizar visitas de seguimiento e intensificar tratamiento <strong>en forma mensual</strong>, hasta alcanzar meta.</li>
+                                    <li>Al intensificar preferir un antagonista cálcico dihidropiridínico (AC-D), ej: amlodipina.</li>
+                                    <li>Los IECA y ARA, así como los AC-D asociados a los IECA o ARAII, podrían ofrecer beneficios adicionales en reducción de albuminuria, proteinuria y/o disminución de la caída del filtrado glomerular en esta población.</li>
+                                    <li>Las personas con ERC con FGe menor a 45 ml/min/m2 requieren la evaluación conjunta con nefrología.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sub-accordion 4: Enfermedad coronaria -->
+                    <div class="sub-accordion">
+                        <div class="sub-accordion-header" onclick="toggleSubAccordion('sub4')">
+                            <div class="sub-accordion-title">Enfermedad coronaria</div>
+                            <div class="sub-accordion-arrow">›</div>
+                        </div>
+                        <div class="sub-accordion-content" id="sub4">
+                            <div class="sub-accordion-body">
+                                <ul class="bullet-list">
+                                    <li>En personas con fracción de eyección mayor o igual al 50%: iniciar tratamiento con BB, IECA o ARAII. Si al mes del tratamiento y buena adherencia al mismo no se alcanza meta, asociar un segundo fármaco a dosis baja o media.</li>
+                                    <li>En personas con síndrome coronario agudo reciente (menos de 1 año) se prioriza el uso de BB debido a sus propiedades anti-isquémicas.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion 3: Urgencia hipertensiva -->
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('acc3')">
+                <span class="accordion-title">Urgencia hipertensiva</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content" id="acc3">
+                <div class="accordion-body">
+                    <ul class="bullet-list">
+                        <li>En personas de 18 años o más, con <b>urgencias hipertensivas</b> (valores de PA mayor a 180/120 mmHg <b>sin signos ni síntomas</b> de evento cardiovascular en curso) se sugiere manejo ambulatorio iniciando, reforzando o intensificando el tratamiento con antihipertensivos orales, para una disminución gradual de la PA ya que la atención en servicios de emergencias no reduce los eventos cardiovasculares mayores dentro de los 6 meses, comparado con el manejo ambulatorio.</li>
+                    </ul>
+
+                    <p class="normal-text medium">
+                        No demorar el inicio del tratamiento farmacológico.
+                    </p>
+
+                    <ul class="bullet-list">
+                        <li>Es necesario diferenciar entre <b>urgencia hipertensiva</b> (asintomáticos), <b>emergencia hipertensiva</b> (presencia de síntomas específicos de daño agudo de órgano blanco) y <b>pseudocrisis o falsas urgencias</b> (elevaciones reactivas transitorias de la PA, debido a estimulación simpática como estrés, dolor, retención urinaria).</li>
+                        <li>La emergencia hipertensiva requiere evaluación inmediata en servicios de emergencias más allá de los valores de PA.</li>
+                    </ul>
+
+                    <div class="nav-button-container">
+                        <a href="HiperManeAlg2.html" class="nav-button">Ver protocolo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Accordion 4: Intervenciones no farmacológicas -->
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('acc4')">
+                <span class="accordion-title">Intervenciones no farmacológicas</span>
+                <div class="accordion-arrow">›</div>
+            </div>
+            <div class="accordion-content" id="acc4">
+                <div class="accordion-body">
+
+                    <!-- ACTIVIDAD FÍSICA -->
+                    <ul class="bullet-list af">
+                        <li>Realizar al menos <span class="clickeable-term af" onclick="openSheet('sheet-af-minutos')">150 minutos semanales de actividad física de intensidad moderada</span>, preferentemente en sesiones de al menos 30 minutos.</li>
+                    </ul>
+
+                    <span class="clickeable-term af" onclick="openSheet('sheet-af-consejos')" style="font-size: 15px; margin-left: 24px; display: inline-block; margin-bottom: 16px;">Consejos para reducir el comportamiento sedentario y aumentar la actividad física diaria</span>
+
+                    <span class="clickeable-term af" onclick="openSheet('sheet-af-cuidados')" style="font-size: 15px; margin-left: 24px; display: inline-block; margin-bottom: 20px;">Cuidados generales para realizar ejercicios y actividad física</span>
+
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <a href="FisiMetaRecom.html" class="program-button af">
+                            <img src="../icons/ACTIVIDADFISICA-ICO.svg" alt="Actividad Física">
+                            Ver más
+                        </a>
+                    </div>
+
+                    <!-- ALIMENTACIÓN -->
+                    <ul class="bullet-list alim">
+                        <li>Un plan alimentario saludable reducido en sodio (5 g de sal por día, que equivale a 2 g de sodio) contribuye al control de la presión arterial y a reducir eventos cardiovasculares.</li>
+                    </ul>
+
+                    <span class="clickeable-term alim" onclick="openSheet('sheet-alim-sal')" style="font-size: 15px; margin-left: 24px; display: inline-block; margin-bottom: 20px;">Consejos para reducir el consumo de sal</span>
+
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <a href="AlimMetaRecom.html" class="program-button alim">
+                            <img src="../icons/ALIMENTACION-ICO.svg" alt="Alimentación">
+                            Ver más
+                        </a>
+                    </div>
+
+                    <!-- ALCOHOL & TABACO -->
+                    <ul class="bullet-list">
+                        <li>Evitar el consumo nocivo de alcohol y no exceder una unidad de bebida estándar diaria en mujeres y dos unidades en varones para mejorar el control de la presión arterial. En quienes no consumen, no alentar su inicio.</li>
+                    </ul>
+
+                    <ul class="bullet-list tabaco">
+                        <li><span class="clickeable-term tabaco" onclick="openSheet('sheet-tabaco')">No fumar y evitar la exposición al humo de tabaco o aerosol de cigarrillo electrónico.</span></li>
+                    </ul>
+
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <a href="TabaManeRecom.html" class="program-button tabaco">
+                            <img src="../icons/TABACO-ICO.svg" alt="Tabaco">
+                            Ver más
+                        </a>
+                    </div>
+
+                    <!-- FINAL -->
+                    <ul class="bullet-list">
+                        <li>Ante la presencia de factores psicosociales concomitantes como estrés, ansiedad y/o depresión, se sugiere practicar 30 a 90 minutos semanales de alguna técnica con fines de relajación (por ejemplo: técnicas de respiración, meditación, musicoterapia, entrenamiento en asertividad, entre otras), como coadyuvante de la medicación antihipertensiva, para contribuir a mejorar el control de la presión arterial.</li>
+                        <li>En presencia de depresión concomitante ofrecer tratamiento de la depresión para reducir la mortalidad cardiovascular.</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bottom sheet backdrop -->
+    <div class="bs-backdrop" id="bs-backdrop"></div>
+
+    <!-- Bottom sheet: AF - 150 minutos -->
+    <div class="bs-sheet" id="sheet-af-minutos">
+        <div class="bs-handle"></div>
+        <div class="bs-header af">
+            <div class="bs-title">Actividad física de intensidad moderada</div>
+        </div>
+        <div class="bs-body">
+            <ul class="bullet-list af">
+                <li>o 75 minutos de actividad física vigorosa o una combinación equivalente de ambas.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom sheet: AF - Consejos sedentarismo -->
+    <div class="bs-sheet" id="sheet-af-consejos">
+        <div class="bs-handle"></div>
+        <div class="bs-header af">
+            <div class="bs-title">Consejos para reducir el sedentarismo</div>
+        </div>
+        <div class="bs-body">
+            <ul class="bullet-list af">
+                <li>Usar escaleras en lugar de ascensores</li>
+                <li>Elegir transporte activo (andar a pie o en bicicleta, patines, patineta)</li>
+                <li>Realizar actividades de mantenimiento de la casa, limpieza, jardinería, entre otras</li>
+                <li>Reducir e interrumpir el comportamiento sedentario: pararse y moverse durante 3 minutos cada media hora cuando se realizan actividades sedentarias prolongadas; ej. subir y bajar 1 piso por escalera.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom sheet: AF - Cuidados -->
+    <div class="bs-sheet" id="sheet-af-cuidados">
+        <div class="bs-handle"></div>
+        <div class="bs-header af">
+            <div class="bs-title">Cuidados generales para ejercicio</div>
+        </div>
+        <div class="bs-body">
+            <ul class="bullet-list af">
+                <li>Hidratación adecuada antes, durante y después del ejercicio.</li>
+                <li>Entrada en calor al comienzo del ejercicio y elongación al finalizar el mismo.</li>
+                <li>Calzado y medias adecuadas para prevenir lesiones en los pies.</li>
+                <li>Mantener un horario de práctica regular, creando un hábito.</li>
+                <li>Evitar las horas de máxima temperatura.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom sheet: Alimentación - Sal -->
+    <div class="bs-sheet" id="sheet-alim-sal">
+        <div class="bs-handle"></div>
+        <div class="bs-header alim">
+            <div class="bs-title">Consejos para reducir el consumo de sal</div>
+        </div>
+        <div class="bs-body">
+            <ul class="bullet-list alim">
+                <li>Cocinar sin sal. Si fuera necesario agregarle un poco al finalizar la preparación.</li>
+                <li>Evitar llevar el salero a la mesa.</li>
+                <li>Utilizar condimentos aromáticos en reemplazo de sal: jugo de limón, vinagre, cebolla, ajo, hierbas aromáticas y especias: albahaca, ají molido, azafrán, cardamomo, clavo de olor, comino, cúrcuma, curry, estragón, jengibre, laurel, nuez moscada, orégano, perejil, pimienta, pimentón, romero, salvia, tomillo, entre otros.</li>
+                <li>Tener en cuenta que los condimentos que son mezclas de hierbas (condimento para pizza, para pescados o carnes) contienen sal. No usar saborizantes en polvo o caldos deshidratados como condimentos.</li>
+                <li>Deshabituar el paladar al sabor salado. Las personas tenemos un umbral de captación de sodio que disminuye cuando mantenemos un consumo reducido de sal o de alimentos salados. Luego de algunas semanas sin consumir sal, la preferencia por el sabor salado se reduce.</li>
+                <li>Retrasar y/o evitar la incorporación de sal en las comidas de los niños, niñas y adolescentes.</li>
+                <li>Preferir alimentos naturales frescos o mínimamente procesados.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bottom sheet: Tabaco -->
+    <div class="bs-sheet" id="sheet-tabaco">
+        <div class="bs-handle"></div>
+        <div class="bs-header tabaco">
+            <div class="bs-title">Recomendaciones sobre tabaco</div>
+        </div>
+        <div class="bs-body">
+            <ul class="bullet-list tabaco">
+                <li>Interrogar sobre el consumo de tabaco diario u ocasional y sobre su exposición al humo ambiental de tabaco.</li>
+                <li>Registrarlo en la historia clínica.</li>
+                <li>Brindar un consejo de varios minutos en toda persona que fuma.</li>
+                <li>Ofrecer ayuda a quienes están listos para dejar a través de intervenciones breves integradas a todo motivo de consulta o bien intensivas por personal entrenado con un estilo de atención motivacional, conteniendo consejería para la modificación del comportamiento y fármacos efectivos para la cesación.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        // Accordion functionality
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allHeaders = document.querySelectorAll('.accordion-header');
+
+            allContents.forEach((c, i) => {
+                if (c.id !== id) {
+                    c.classList.remove('active');
+                    allHeaders[i].classList.remove('active');
+                }
+            });
+
+            const isOpening = !content.classList.contains('active');
+            content.classList.toggle('active');
+            header.classList.toggle('active');
+
+            if (isOpening) {
+                setTimeout(() => {
+                    header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 100);
+            }
+        }
+
+        // Sub-accordion functionality
+        function toggleSubAccordion(id) {
+            const content = document.getElementById(id);
+            const header = content.previousElementSibling;
+
+            content.classList.toggle('active');
+            header.classList.toggle('active');
+        }
+
+        // Bottom sheet functionality
+        const backdrop = document.getElementById('bs-backdrop');
+        let activeSheet = null;
+
+        function openSheet(sheetId) {
+            if (activeSheet) closeSheet();
+
+            const sheet = document.getElementById(sheetId);
+            backdrop.classList.add('open');
+            sheet.classList.add('open');
+            activeSheet = sheetId;
+        }
+
+        function closeSheet() {
+            if (!activeSheet) return;
+
+            const sheet = document.getElementById(activeSheet);
+            sheet.classList.remove('open');
+            backdrop.classList.remove('open');
+            activeSheet = null;
+        }
+
+        backdrop.addEventListener('click', closeSheet);
+
+        document.querySelectorAll('.bs-sheet').forEach(sheet => {
+            let startY = 0;
+            const body = sheet.querySelector('.bs-body');
+
+            sheet.addEventListener('touchstart', e => {
+                startY = e.touches[0].clientY;
+            }, { passive: true });
+
+            sheet.addEventListener('touchend', e => {
+                const endY = e.changedTouches[0].clientY;
+                const deltaY = endY - startY;
+
+                // Solo cerrar si: swipe down (deltaY > 60) Y scroll está en el tope (scrollTop <= 5)
+                if (deltaY > 60 && body.scrollTop <= 5) {
+                    closeSheet();
+                }
+            }, { passive: true });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Test de Consumo (Versión Corta)</title>
+    <style>
+
+        :root {
+            --alco-primary-color: #73b6dd;
+            --alco-button-text-color: #333333;
+            --alco-label-background-color: #f3f4f6;
+            --alco-backdrop-color: #d1d5db;
+            --alco-text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f0f2f5;
+            color: var(--alco-text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--alco-button-text-color);
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--alco-button-text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: #d1d5db;
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .info-label {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .question-group {
+            background-color: var(--alco-primary-color);
+            color: var(--alco-button-text-color);
+            padding: 1rem;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s ease;
+        }
+
+        .question-group.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .question-label {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            padding-left: 25px;
+            min-height: 20px;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .radio-checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: var(--alco-button-text-color);
+            border-radius: 50%;
+        }
+
+        .radio-option:hover input ~ .radio-checkmark {
+            background-color: #e0e0e0;
+        }
+
+        .radio-option input:checked ~ .radio-checkmark {
+            background-color: var(--alco-button-text-color);
+        }
+
+        .radio-checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--alco-primary-color);
+        }
+
+        .radio-option input:checked ~ .radio-checkmark:after {
+            display: block;
+        }
+
+        .button {
+            background-color: var(--alco-primary-color);
+            color: var(--alco-button-text-color);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .button:hover {
+            background-color: #1a3c9e;
+            transform: translateY(-2px);
+        }
+
+        .result-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .result-label {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #d9534f;
+            margin-right: 1rem;
+        }
+
+        .result-frame {
+            height: 100px;
+            width: 100px;
+            border: 1px solid var(--alco-backdrop-color);
+            border-radius: 8px;
+            background-color: var(--alco-label-background-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d9534f;
+        }
+        
+        .image-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Esta nueva regla asegura que la imagen se adapte al contenedor */
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Test de Consumo de Alcohol (Versión Corta)</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="container">
+            <div>
+                <p class="info-label">
+                    Versión breve del Audit: incluye las primeras 3 preguntas del test completo.
+                </p>
+                <p class="info-label">
+                    Tiene evidencia robusta de validez, confiabilidad, sensibilidad y especificidad.
+                </p>
+                <p class="info-label">
+                    Sirve para ser utilizado como instrumento rápido de identificación. Sugerido para que utilicen promotores/as de salud.
+                </p>
+
+                <div id="stk01" class="question-group">
+                    <label class="question-label">1. ¿Con qué frecuencia toma una bebida que contiene alcohol?</label>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta1" value="0" id="q1o0" checked>
+                        <span class="radio-checkmark"></span>
+                        <label for="q1o0">(0) Nunca</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta1" value="1" id="q1o1">
+                        <span class="radio-checkmark"></span>
+                        <label for="q1o1">(1) Una o menos veces al mes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta1" value="2" id="q1o2">
+                        <span class="radio-checkmark"></span>
+                        <label for="q1o2">(2) De 2 a 4 veces al mes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta1" value="3" id="q1o3">
+                        <span class="radio-checkmark"></span>
+                        <label for="q1o3">(3) De 2 a 3 veces a la semana</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta1" value="4" id="q1o4">
+                        <span class="radio-checkmark"></span>
+                        <label for="q1o4">(4) 4 o más veces a la semana</label>
+                    </div>
+                </div>
+
+                <div id="stk02" class="question-group">
+                    <label class="question-label">2. ¿Cuántas bebidas alcohólicas estándar toma en un día típico en el que está bebiendo?</label>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta2" value="0" id="q2o0" checked>
+                        <span class="radio-checkmark"></span>
+                        <label for="q2o0">(0) 1 o 2</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta2" value="1" id="q2o1">
+                        <span class="radio-checkmark"></span>
+                        <label for="q2o1">(1) 3 o 4</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta2" value="2" id="q2o2">
+                        <span class="radio-checkmark"></span>
+                        <label for="q2o2">(2) 5 o 6</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta2" value="3" id="q2o3">
+                        <span class="radio-checkmark"></span>
+                        <label for="q2o3">(3) 7, 8, o 9</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta2" value="4" id="q2o4">
+                        <span class="radio-checkmark"></span>
+                        <label for="q2o4">(4) 10 o más</label>
+                    </div>
+                </div>
+
+                <div id="stk03" class="question-group">
+                    <label class="question-label">3. ¿Con qué frecuencia toma 6 o más tragos estándar en una ocasión?</label>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta3" value="0" id="q3o0" checked>
+                        <span class="radio-checkmark"></span>
+                        <label for="q3o0">(0) Nunca</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta3" value="1" id="q3o1">
+                        <span class="radio-checkmark"></span>
+                        <label for="q3o1">(1) Menos de una vez al mes</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta3" value="2" id="q3o2">
+                        <span class="radio-checkmark"></span>
+                        <label for="q3o2">(2) Mensualmente</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta3" value="3" id="q3o3">
+                        <span class="radio-checkmark"></span>
+                        <label for="q3o3">(3) Semanalmente</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" name="pregunta3" value="4" id="q3o4">
+                        <span class="radio-checkmark"></span>
+                        <label for="q3o4">(4) A diario o casi a diario</label>
+                    </div>
+                </div>
+
+                <button id="btnSave" class="button">Calcular Resultado</button>
+
+                <div class="result-section">
+                    <span class="result-label">Resultado:</span>
+                    <div class="result-frame">
+                        <span id="lblResult" class="result-value">0</span>
+                    </div>
+                </div>
+
+                <div class="image-container">
+                    <img src="/assets/img/al_tabla9.png" alt="Tabla de resultados del test">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnSave = document.getElementById('btnSave');
+            const lblResult = document.getElementById('lblResult');
+
+            const stk02 = document.getElementById('stk02');
+            const stk03 = document.getElementById('stk03');
+            const pregunta1Radios = document.querySelectorAll('input[name="pregunta1"]');
+
+            function setQuestionVisibility() {
+                const q1Value = parseInt(document.querySelector('input[name="pregunta1"]:checked').value, 10);
+                const isEnabled = q1Value > 0;
+
+                if (isEnabled) {
+                    stk02.classList.remove('disabled');
+                    stk03.classList.remove('disabled');
+                } else {
+                    stk02.classList.add('disabled');
+                    stk03.classList.add('disabled');
+                    document.querySelector('input[name="pregunta2"][value="0"]').checked = true;
+                    document.querySelector('input[name="pregunta3"][value="0"]').checked = true;
+                }
+            }
+            
+            // Listener para los contenedores de las opciones de radio.
+            document.querySelectorAll('.radio-option').forEach(optionDiv => {
+                optionDiv.addEventListener('click', () => {
+                    const radioInput = optionDiv.querySelector('input[type="radio"]');
+                    if (radioInput && !radioInput.checked) {
+                        radioInput.checked = true;
+                        // Disparar el evento change para actualizar la visibilidad
+                        const changeEvent = new Event('change', { bubbles: true });
+                        radioInput.dispatchEvent(changeEvent);
+                    }
+                });
+            });
+
+            pregunta1Radios.forEach(radio => {
+                radio.addEventListener('change', setQuestionVisibility);
+            });
+
+            btnSave.addEventListener('click', () => {
+                let total = 0;
+                const radios = document.querySelectorAll('input[type="radio"]:checked');
+                radios.forEach(radio => {
+                    const parentGroup = radio.closest('.question-group');
+                    if (parentGroup && !parentGroup.classList.contains('disabled')) {
+                         total += parseInt(radio.value, 10);
+                    }
+                });
+                lblResult.textContent = total;
+            });
+
+            // Llamada inicial para establecer el estado correcto al cargar la página.
+            setQuestionVisibility();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC: Manejo (Recomend)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            /* Color Primario (Referencia, aunque solo se usa en viñetas) */
+            --pulm-primary-color: #353a3a;
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: #555;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenedor de Contenido y Scroll --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 700px; /* Ancho máximo para legibilidad */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* Equivalente al StackLayout principal (body content) */
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos */
+            padding-bottom: 100px; /* Margen final para el último elemento */
+        }
+
+        /* Estilo PulmLabel (Texto introductorio) */
+        .pulm-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-top: 10px;
+        }
+
+        /* --- 4. Estilos de Viñetas (BulletLabel) --- */
+        .pulm-bullet-list {
+            list-style: none; /* Quitamos el estilo de lista predeterminado */
+            padding-left: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .pulm-bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 15px; /* Espacio entre viñetas */
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .pulm-bullet-list li::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            position: absolute;
+            left: 0;
+            color: var(--pulm-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Estilo específico para el último elemento con gran margen inferior */
+        .last-bullet {
+            margin-bottom: 100px !important; /* Adaptando el Margin="0,10,10,100" */
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript para el back button -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC: Manejo (Recomend)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <!-- body content (StackLayout) -->
+        <div class="stack-content">
+
+            <!-- Label introductorio -->
+            <p class="pulm-label">
+                La decisión de iniciar tratamiento inhalatorio se toma en función de:
+            </p>
+
+            <!-- Lista de viñetas (BulletLabels) -->
+            <ul class="pulm-bullet-list">
+                
+                <li>
+                    Severidad de la obstrucción en la espirometría (% del VEF1 post BD).
+                </li>
+
+                <li>
+                    Presencia de exacerbaciones.
+                </li>
+
+                <li class="last-bullet">
+                    Presencia de síntomas respiratorios crónicos (disnea, tos y/o expectoración).
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

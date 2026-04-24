@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPOC: Evaluación (Consejos)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Generales --- */
+        :root {
+            /* Color Primario (Simulando PulmPrimaryColor) - Cian oscuro */
+            --pulm-primary-color: #373737;
+            --page-background: white;
+            --text-color: #333;
+            --link-color: blue;
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .back-button:hover {
+            color: var(--pulm-primary-color);
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenedor de Contenido y Scroll --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px; /* Ancho máximo para legibilidad en escritorio */
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio entre elementos StackLayout / Label */
+            padding-bottom: 150px; /* Espacio para el dummy al final */
+        }
+
+        /* --- 4. Estilos de Tipografía (Simulando StaticResource PulmLabelX) --- */
+        
+        /* PulmLabelBold */
+        .pulm-bold {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 15px 0 5px 0;
+        }
+
+        /* PulmLabel (usado en comorbilidades) */
+        .pulm-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding-left: 30px; /* Simula Margin="30,-20,0,0" */
+        }
+
+        /* --- 5. Estilos de Listas (Simulando BulletLabel) --- */
+        .pulm-bullet-list {
+            list-style: none; /* Quitamos el estilo de lista predeterminado */
+            padding-left: 0;
+            margin-top: -5px;
+            margin-bottom: 10px;
+        }
+
+        .pulm-bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 1rem;
+            text-align: justify;
+        }
+
+        .pulm-bullet-list li::before {
+            content: '•'; /* Usamos un punto como viñeta */
+            position: absolute;
+            left: 0;
+            color: var(--pulm-primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            line-height: 1;
+        }
+
+        /* Estilo para los enlaces de tap-link (incluyendo el toggle de Comorbilidades) */
+        .tap-link {
+            text-decoration: underline;
+            color: var(--link-color);
+            font-weight: bold;
+        }
+
+        /* Estilo para el texto clicable de comorbilidades */
+        #comorbilidades-toggle {
+            cursor: pointer;
+            text-decoration: underline;
+            color: var(--link-color);
+            font-weight: bold;
+        }
+
+        /* Contenido Colapsable (stack1) */
+        .stack-collapsed {
+            display: none;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            padding-left: 30px; /* Ajuste para que se vea indentado */
+        }
+
+        /* Clase para el último elemento del stack colapsado */
+        .stack-collapsed .last-item {
+            margin-bottom: 20px; /* Simula el Margin="30,0,0,20" */
+        }
+
+        .dummy-margin {
+            height: 100px; /* Simula el margen del dummy al final */
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript para el colapsable y el back button -->
+    <script>
+        // Función para simular el toggle (show:stack1)
+        function toggleStack(id) {
+            const stack = document.getElementById(id);
+            if (stack) {
+                const isVisible = stack.style.display === 'block';
+                stack.style.display = isVisible ? 'none' : 'block';
+            }
+        }
+
+        // Función de retroceso
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar (Simulando Header con Back button) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            EPOC: Evaluación (Consejos)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <p class="pulm-bold">
+                Se recomienda que en la evaluación del paciente con EPOC se investigue acerca de antecedentes o presencia de:
+            </p>
+
+            <ul class="pulm-bullet-list">
+                <!-- BulletLabel 1 (Tabaquismo - AHORA CON HREF) -->
+                <li>
+                    <a href="/assets/html/TabaEvalCuadros.html" class="tap-link" title="Ir a tablas de evaluación de tabaquismo">Tabaquismo</a>
+                </li>
+
+                <!-- BulletLabel 2 -->
+                <li>Exacerbaciones: empeoramiento de los síntomas que se indica de forma aguda, principalmente la disnea basal, tos y/o producción de esputo atribuible a la EPOC de base y no a sus comorbilidades o diagnósticos diferenciales.</li>
+
+                <!-- BulletLabel 3 -->
+                <li>Síntomas y cómo esos síntomas interfieren en la vida cotidiana</li>
+
+                <!-- BulletLabel 4 (Comorbilidades - Toggle local) -->
+                <li>
+                    <span id="comorbilidades-toggle" onclick="toggleStack('stack1')" role="button" aria-expanded="false" aria-controls="stack1">Comorbilidades:</span>
+                    En la EPOC, es frecuente encontrar enfermedades comórbidas, es decir, otros trastornos o enfermedades coexistentes. Estas comorbilidades pueden ser consecuencia del tabaquismo, de la evolución o el tratamiento de la EPOC, o bien, las que se asocian a la edad y al estilo de vida. Entre otras:
+                </li>
+            </ul>
+
+            <!-- StackLayout Colapsable (stack1) -->
+            <div id="stack1" class="stack-collapsed" aria-hidden="true">
+                <p class="pulm-label">-apnea del sueño, hipertensión pulmonar,</p>
+                <p class="pulm-label">-cardiopatía isquémica, accidente cerebro vascular, arteriopatía periférica,</p>
+                <p class="pulm-label">-osteoporosis, artrosis,</p>
+                <p class="pulm-label">-ansiedad y depresión,</p>
+                <p class="pulm-label">-asma, tromboembolismo de pulmón (TEP), neumonía, neumotórax,</p>
+                <p class="pulm-label">-insuficiencia cardíaca derecha -cor pulmonale-,</p>
+                <p class="pulm-label">-cáncer de pulmón y otros cánceres relacionados al tabaco,</p>
+                <p class="pulm-label last-item">-hipertensión arterial, diabetes mellitus, otras.</p>
+            </div>
+
+            <!-- Continuación de la lista de BulletLabels -->
+            <ul class="pulm-bullet-list" style="margin-top: 0;">
+
+                <!-- BulletLabel 5 -->
+                <li>Déficit alfa 1 antitripsina (AAT) ante diagnóstico de EPOC en personas con carga baja tabáquica, o con historia familiar de EPOC o de déficit de AAT, o ante la impresión clínica de desproporción entre la severidad de la EPOC y el riesgo del paciente.</li>
+
+                <!-- BulletLabel 6 (Ansiedad y depresión - AHORA CON HREF) -->
+                <li>
+                    Ansiedad y 
+                    <a href="/assets/html/PulmSegCuadros.html" class="tap-link" title="Ir a cuadros de seguimiento de depresión">depresión:</a>
+                    en particular en aquellos con enfermedad severa: realizar cuestionario PHQ 2 como test de rastreo rápido (consiste en las dos primeras preguntas del PHQ 9) y en caso de alguna respuesta positiva completar el cuestionario (PHQ 9).
+                </li>
+
+                <!-- BulletLabel 7 -->
+                <li>Medición de la saturación de oxígeno ($SaO_2$) con oximetría de pulso ante $VEF1 < 40$% o $<1,5$ litros.</li>
+
+            </ul>
+
+            <!-- Simulación del dummy con margen al final -->
+            <div class="dummy-margin" id="dummy"></div>
+
+        </div>
+
+    </div>
+    
+</body>
+</html>

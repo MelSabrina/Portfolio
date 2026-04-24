@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cálculo de colesterol LDL</title>
+    <style>
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f3f4f6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 1rem;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            background-color: #ffffff;
+            max-width: 48rem;
+            width: 100%;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .scrollable-content {
+            overflow-y: auto;
+        }
+        /* Estilos para la barra de herramientas (Toolbar) */
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;         
+            color: #333333;
+            border-radius: 12px 12px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-left: 0;
+        }
+        .back-button {
+            background: none;
+            border: none;
+            color: #333333;
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+        .back-button:hover {
+            color: #4b5563;
+        }
+        .content-section {
+            padding: 1.5rem;
+        }
+        .input-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        @media (min-width: 768px) {
+            .input-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .input-group label {
+            font-weight: bold;
+            color: #4b5563;
+            margin-bottom: 0.25rem;
+        }
+        .input-group input {
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+        }
+        .input-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+        .calculate-btn {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+            margin-bottom: 1.5rem;
+            border: none;
+            cursor: pointer;
+        }
+        .calculate-btn:hover {
+            
+        }
+        .results-box {
+            border: 1px dashed #d1d5db;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+        .results-box h2 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+        }
+        .result-item label {
+            color: #4b5563;
+        }
+        .result-item span {
+            font-weight: bold;
+            color: #b91c1c;
+            text-align: right;
+            white-space: pre-wrap;
+        }
+        .disclaimer {
+            font-size: 0.75rem;
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        
+        /* Custom Alert Box */
+        .custom-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .custom-alert h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #dc2626;
+            margin-bottom: 0.75rem;
+        }
+        .custom-alert p {
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 1rem;
+        }
+        .custom-alert button {
+            padding: 0.5rem 1rem;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-weight: bold;
+            border-radius: 9999px;
+            transition: background-color 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .custom-alert button:hover {
+            
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="back-button" onclick="goBack()">
+                &lt; Volver
+            </button>
+            <div class="toolbar-title-container">
+                <span class="toolbar-title">Cálculo de colesterol LDL</span>
+            </div>
+        </div>
+        
+        <!-- Contenido principal -->
+        <div class="content-section">
+            <div class="input-grid">
+                <div class="input-group" style="grid-column: span 2;">
+                    <label for="total">Colesterol Total (mg/dL)</label>
+                    <input type="number" id="total" placeholder="en mg/dL">
+                </div>
+                <div class="input-group" style="grid-column: span 2;">
+                    <label for="hdl">HDL (mg/dL)</label>
+                    <input type="number" id="hdl" placeholder="en mg/dL">
+                </div>
+                <div class="input-group" style="grid-column: span 2;">
+                    <label for="tg">Triglicéridos (mg/dL)</label>
+                    <input type="number" id="tg" placeholder="en mg/dL">
+                </div>
+            </div>
+    
+            <button id="calculateBtn" class="calculate-btn">
+                Calcular valor LDL
+            </button>
+    
+            <div class="results-box">
+                <h2>Resultados</h2>
+                <div class="result-item">
+                    <label>Colesterol LDL</label>
+                    <span id="ldlResult"></span>
+                </div>
+                <p class="disclaimer">
+                    El valor de LDL-c ha sido calculado por la Ecuación de Sampson
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Custom Alert Box -->
+    <div id="customAlert" class="custom-alert">
+        <h3>Error</h3>
+        <p id="alertMessage"></p>
+        <button id="alertCloseBtn">Aceptar</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const totalInput = document.getElementById('total');
+            const hdlInput = document.getElementById('hdl');
+            const tgInput = document.getElementById('tg');
+            const calculateBtn = document.getElementById('calculateBtn');
+            const ldlResult = document.getElementById('ldlResult');
+            
+            // Custom Alert elements
+            const customAlert = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            const alertCloseBtn = document.getElementById('alertCloseBtn');
+
+            const displayCustomAlert = (message) => {
+                alertMessage.textContent = message;
+                customAlert.style.display = 'flex';
+            };
+
+            alertCloseBtn.addEventListener('click', () => {
+                customAlert.style.display = 'none';
+            });
+            
+            // Función para el botón de volver (no funcional en este entorno)
+            window.goBack = () => {
+               window.history.back();
+            };
+
+            const calculaLDL = (total, hdl, tg) => {
+                const nohdl = total - hdl;
+                const result = (total / 0.948) - (hdl / 0.971) - ((tg / 8.56) + (tg * nohdl / 2140) - (tg * tg / 16100)) - 9.44;
+                return Math.round(result).toString() + " mg/dL";
+            };
+
+            // Pre-llenar los campos con valores de ejemplo
+            totalInput.value = '200';
+            hdlInput.value = '50';
+            tgInput.value = '150';
+
+            calculateBtn.addEventListener('click', () => {
+                const total = totalInput.value.trim();
+                const hdl = hdlInput.value.trim();
+                const tg = tgInput.value.trim();
+
+                if (total === "" || hdl === "" || tg === "" ||
+                    parseFloat(total) === 0 || parseFloat(hdl) === 0 || parseFloat(tg) === 0) {
+                    displayCustomAlert("Debe completar todos los datos");
+                    return;
+                }
+
+                const totalVal = parseFloat(total);
+                const hdlVal = parseFloat(hdl);
+                const tgVal = parseFloat(tg);
+                
+                ldlResult.textContent = calculaLDL(totalVal, hdlVal, tgVal);
+            });
+            
+            // Simular el clic del botón al cargar la página para mostrar los resultados iniciales
+            calculateBtn.click();
+        });
+    </script>
+</body>
+</html>

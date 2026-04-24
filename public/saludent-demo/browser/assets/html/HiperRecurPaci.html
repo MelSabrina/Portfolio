@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos para pacientes</title>
+    <style>
+
+        :root {
+            --hiper-primary-color: #75AADB;
+            --hiper-button-text-color: #333333;
+            --hiper-text-color: #333;
+            --hiper-bg-color: #f0f2f5;
+            --hiper-title-color: #75AADB;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--hiper-bg-color);
+            color: var(--hiper-text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            color: var(--hiper-button-text-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .toolbar-title-container {
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .toolbar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--hiper-button-text-color);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0;
+            transition: color 0.3s ease;
+            max-width: 70px;
+        }
+
+        .back-button:hover {
+            color: #e0f2fe;
+        }
+
+        .main-container {
+            padding: 1rem;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        .content-section {
+            width: 100%;
+            max-width: 600px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .label-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--hiper-text-color);
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .resource-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .image-frame {
+            border: 2px solid var(--hiper-primary-color);
+            border-radius: 8px;
+            padding: 5px;
+            background-color: white;
+            flex-grow: 1;
+            cursor: pointer;
+        }
+
+        .resource-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            display: block;
+        }
+
+        .share-button {
+            background-color: var(--hiper-primary-color);
+            border: none;
+            border-radius: 10px;
+            width: 50px;
+            height: 50px;
+            margin-left: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .share-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .share-button img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .dummy-space {
+            height: 100px;
+        }
+
+        /* Custom Modal CSS */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+        
+        .modal-message {
+            margin-bottom: 20px;
+        }
+        
+        .modal-button {
+            background-color: var(--hiper-primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            &lt; Volver
+        </button>
+        <div class="toolbar-title-container">
+            <span class="toolbar-title">Recursos para pacientes</span>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="content-section">
+            <!-- Hipertensión arterial -->
+            <h3 class="label-title" onclick="openHipertension()">Hipertensión arterial:</h3>
+            <div class="resource-row">
+                <div class="image-frame" onclick="openHipertension()">
+                    <img class="resource-image" src="../img/ht_rec3.png" alt="Recurso de Hipertensión arterial">
+                </div>
+                <button class="share-button" onclick="shareHipertension()">
+                    <img src="../img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- Accidente cerebrovascular - ACV -->
+            <h3 class="label-title" onclick="openACV()">Accidente cerebrovascular - ACV:</h3>
+            <div class="resource-row">
+                <div class="image-frame" onclick="openACV()">
+                    <img class="resource-image" src="../img/ht_rec4.png" alt="Recurso de Accidente cerebrovascular">
+                </div>
+                <button class="share-button" onclick="shareACV()">
+                    <img src="../img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+
+            <!-- Enfermedades cardiovasculares -->
+            <h3 class="label-title" onclick="openCardiovasculares()">Enfermedades cardiovasculares:</h3>
+            <div class="resource-row">
+                <div class="image-frame" onclick="openCardiovasculares()">
+                    <img class="resource-image" src="../img/ht_rec5.png" alt="Recurso de Enfermedades cardiovasculares">
+                </div>
+                <button class="share-button" onclick="shareCardiovasculares()">
+                    <img src="../img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+            
+            <!-- Video informativo -->
+            <h3 class="label-title" onclick="openVideo()">Video informativo sobre las enfermedades crónicas</h3>
+            <div class="resource-row">
+                <div class="image-frame" onclick="openVideo()">
+                    <img class="resource-image" src="../img/ht_video1.png" alt="Video informativo">
+                </div>
+                <button class="share-button" onclick="shareVideo()">
+                    <img src="../img/share_48_w.png" alt="Compartir">
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Modal for Alerts -->
+    <div id="customAlertModal" class="modal">
+        <div class="modal-content">
+            <h4 class="modal-title">Compartir</h4>
+            <p class="modal-message"></p>
+            <button class="modal-button" onclick="closeCustomAlert()">Ok</button>
+        </div>
+    </div>
+    
+    <!-- Hidden input to assist with clipboard copy -->
+    <input type="text" id="clipboardHelper" style="position:absolute; left:-9999px;" readonly>
+
+    <script>
+        // Custom Alert Functions
+        function showCustomAlert(message) {
+            const modal = document.getElementById('customAlertModal');
+            modal.querySelector('.modal-message').textContent = message;
+            modal.style.display = 'flex';
+        }
+
+        function closeCustomAlert() {
+            const modal = document.getElementById('customAlertModal');
+            modal.style.display = 'none';
+        }
+
+        // Navigation and Link Functions
+        function goBack() {
+            window.history.back();
+        }
+
+        function openHipertension() {
+            window.open("https://www.argentina.gob.ar/salud/glosario/hipertension", "_blank");
+        }
+        
+        function openACV() {
+            window.open("https://www.argentina.gob.ar/salud/primerosauxilios/situaciones/acv", "_blank");
+        }
+
+        function openCardiovasculares() {
+            window.open("https://www.argentina.gob.ar/salud/glosario/enfermedadcardiovascular", "_blank");
+        }
+
+        function openVideo() {
+            window.open("https://www.youtube.com/watch?v=5OsYIjmcHjo", "_blank");
+        }
+
+        // Clipboard Functions
+        function copyToClipboard(text) {
+            const clipboardHelper = document.getElementById('clipboardHelper');
+            clipboardHelper.value = text;
+            clipboardHelper.select();
+            clipboardHelper.setSelectionRange(0, 99999); // For mobile devices
+            try {
+                document.execCommand('copy');
+                return true;
+            } catch (err) {
+                console.error('Failed to copy text: ', err);
+                return false;
+            }
+        }
+
+        function shareHipertension() {
+            const link = "https://www.argentina.gob.ar/salud/glosario/hipertension";
+            if (copyToClipboard(link)) {
+                showCustomAlert("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            }
+        }
+
+        function shareACV() {
+            const link = "https://www.argentina.gob.ar/salud/primerosauxilios/situaciones/acv";
+            if (copyToClipboard(link)) {
+                showCustomAlert("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            }
+        }
+
+        function shareCardiovasculares() {
+            const link = "https://www.argentina.gob.ar/salud/glosario/enfermedadcardiovascular";
+            if (copyToClipboard(link)) {
+                showCustomAlert("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            }
+        }
+
+        function shareVideo() {
+            const link = "https://www.youtube.com/watch?v=5OsYIjmcHjo";
+            if (copyToClipboard(link)) {
+                showCustomAlert("Se copió el link en el portapapeles. Utilice <Pegar> en su red social (Facebook, WhatsApp, Twitter, etc.)");
+            }
+        }
+    </script>
+</body>
+</html>

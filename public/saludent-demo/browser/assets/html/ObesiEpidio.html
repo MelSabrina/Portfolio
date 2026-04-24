@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obesidad (Epidemiología)</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --obesi-primary-color: #3d3e3e; /* Color principal asumido */
+            --obesi-label-bg-color: #F8F9FA; /* Fondo claro para el contenido */
+            --text-color: #333;
+            --note-color: #6c757d;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        /* Uso del CSS proporcionado para la barra */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky; /* Se mantiene visible al inicio y se pega al scrollear */
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* 3. Contenido principal */
+        .content-container {
+            /* 60px es una altura segura para el toolbar pegajoso */
+            margin-top: 0;
+            padding-top: 10px; 
+            padding-bottom: 20px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .stack-layout {
+            background-color: var(--obesi-label-bg-color);
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        /* Estilos de Texto */
+        .obesi-label {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .obesi-label b {
+            font-weight: 700;
+        }
+
+        .obesi-label-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--obesi-primary-color);
+            margin: 10px 0 5px 0;
+        }
+
+        .obesi-label-note {
+            font-size: 0.85rem;
+            color: var(--note-color);
+            margin: 10px 0 10px 0;
+            text-align: left;
+        }
+
+        /* Estilos de Imagen */
+        .content-image {
+            width: 100%;
+            height: auto;
+            margin: 15px 0;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) - Sticky, con SVG y Placeholder -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Obesidad (Epidemiología) <!-- Título corregido para coincidir con el contenido -->
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Scrollable -->
+    <main class="content-container">
+        <div class="stack-layout">
+
+            <!-- body content (Texto) -->
+            <p class="obesi-label">
+                La obesidad es un problema de salud metabólico, crónico, epidémico, heterogéneo, estigmatizado, de origen multifactorial y prevenible, caracterizado por el aumento de la grasa corporal cuya distribución y magnitud condicionan la salud de la persona.
+            </p>
+
+            <p class="obesi-label">
+                Es un problema que nació y que crece en el seno de una sociedad y no es mera responsabilidad individual de quienes la tienen. Influyen en su desarrollo tanto factores genéticos, psicológicos y metabólicos como aspectos relacionados al entorno en el que la persona se desenvuelve tanto vinculares como laborales, económicos, socioculturales y ambientales.
+            </p>
+
+            <p class="obesi-label">
+                Desde 1975 se triplico su prevalencia en todo el mundo y continua en creciente aumento. En Argentina <b>el exceso de peso está presente en el 61,6% de la población adulta </b> (36,3% sobrepeso y 25,3% obesidad), en el 41,1% de la población de 5 a 17 años (sobrepeso 20,7% y obesidad 20,4%) y en 13,6% de la población menos de 5 años (10% sobrepeso y 3,6% obesidad).
+            </p>
+
+            <p class="obesi-label">
+                La obesidad puede acarrear múltiples problemas de salud, tanto físicos como psicológicos y sociales. Se estima que <b>el exceso de peso es responsable del 44% de los casos de diabetes mellitus, el 23% de los de cardiopatía isquémica y entre el 7 y el 41% de diversos tipos de canceres. </b> Además, se vincula con mayor riesgo de desarrollar dislipemia, hígado graso, litiasis vesicular, apnea obstructiva del sueño, enfermedad cerebrovascular, insuficiencia cardiaca, hipertrofia ventricular izquierda, hipertensión arterial, osteoporosis, alteraciones hormonales, reproductivas y de la fertilidad, entre otras.
+            </p>
+
+            <p class="obesi-label">
+                Mas allá de esto, una de las aristas que impactan ampliamente en la calidad de vida de las personas y a su vez perpetúan el problema, es el sesgo de peso/estigma. Según el Instituto Nacional contra la Discriminación, la Xenofobia y el Racismo (INADI) la obesidad y el sobrepeso constituyen la segunda causa de discriminación más reportada en Argentina y, en el sistema de salud, es uno de los ámbitos donde se materializa esa discriminación, alejando a las personas del sistema de atención.
+            </p>
+
+            <p class="obesi-label">
+                El trato digno y respetuoso, la escucha activa, la solicitud de consentimiento para conversar o bien realizar alguna practica vinculada con la prevención, el diagnostico o el tratamiento de la obesidad, así como el cuidado al momento de devolver resultados es mandatario para garantizar el derecho a la información y a la salud de las personas.
+            </p>
+
+            <h2 class="obesi-label-title">
+                Prevalencia de exceso de peso por autorreporte en población de 18 años y más. Argentina, 2018
+            </h2>
+
+            <p class="obesi-label">
+                <b>Fuente:</b> 4° ENFR
+                <br><b>Total:</b> 61,6%
+                <br><b>Varones:</b> 68,5%
+                <br><b>Mujeres:</b> 55,0%
+            </p>
+
+            <!-- Imágenes de Epidemiología (sin zoom) -->
+            <img src="/assets/img/ob_epi1.png" class="content-image" alt="Gráfico de prevalencia de exceso de peso - Obesidad 1"/>
+            <img src="/assets/img/ob_epi2.png" class="content-image" alt="Gráfico de prevalencia de exceso de peso - Obesidad 2"/>
+            <img src="/assets/img/ob_epi3.png" class="content-image" alt="Gráfico de prevalencia de exceso de peso - Obesidad 3"/>
+
+            <h2 class="obesi-label-title">
+                Prevalencia de obesidad por autorreporte en población de 18 años y más. Argentina, 2018
+            </h2>
+
+            <p class="obesi-label">
+                <b>Fuente:</b>
+                <br><b>Total:</b> 25,3%
+                <br><b>Varones:</b> 26,6%
+                <br><b>Mujeres:</b> 24,2%
+            </p>
+
+            <img src="/assets/img/ob_epi4.png" class="content-image" alt="Gráfico de prevalencia de obesidad - Obesidad 4"/>
+            <img src="/assets/img/ob_epi5.png" class="content-image" alt="Gráfico de prevalencia de obesidad - Obesidad 5"/>
+            <img src="/assets/img/ob_epi6.png" class="content-image" alt="Gráfico de prevalencia de obesidad - Obesidad 6"/>
+
+            <h2 class="obesi-label-title">
+                Mortalidad por obesidad en mujeres según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </h2>
+
+            <img src="/assets/img/ob_mortmujer.png" class="content-image" alt="Gráfico de mortalidad por obesidad en mujeres"/>
+
+            <p class="obesi-label-note">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+            <h2 class="obesi-label-title">
+                Mortalidad por obesidad en varones según jurisdicciones. Tasas ajustadas por edad por 100.000 habitantes. Argentina, 2019
+            </h2>
+
+            <img src="/assets/img/ob_mortvaron.png" class="content-image" alt="Gráfico de mortalidad por obesidad en varones"/>
+
+            <p class="obesi-label-note" style="margin-bottom: 100px;">
+                Fuente: Área de Vigilancia de la Salud y Monitoreo de Programas de la DNAIENT en base a registros de mortalidad de la DEIS. Argentina, 2021
+            </p>
+
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial, como se solicitó.
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

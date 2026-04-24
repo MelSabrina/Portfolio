@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consejos para sumar minutos de actividad física</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #2e3133; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            /* Simula StackLayout y BackgroundColor="{StaticResource HiperButtonTextColor}" (blanco) */
+            padding-bottom: 20px;
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 10px 5px;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabel}" */
+        .fisi-label {
+            margin: 10px 5px;
+            font-size: 1rem;
+            text-align: justify;
+            color: var(--text-color);
+        }
+
+        /* Lista con viñetas (Simulación de BulletLabel) */
+        .bullet-list {
+            list-style: disc;
+            margin: 5px 0 5px 30px;
+            padding-left: 0;
+        }
+        .bullet-list li {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            text-align: justify;
+        }
+        
+        /* Etiqueta final con margen extra (simula Margin="10,10,10,100") */
+        .final-label {
+            margin-bottom: 100px;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Consejos para sumar minutos de actividad física
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <h2 class="fisi-label-title">
+                En el trabajo / estudio / hogar:
+            </h2>
+
+            <p class="fisi-label">
+                Si <b>el trabajo o estudio exige que se permanezca mucho tiempo sentado</b> y/o en posiciones sostenidas, se presenta un doble desafío: reducir el comportamiento sedentario prolongado y aumentar la práctica de actividad física de acuerdo a las recomendaciones internacionales.
+            </p>
+
+            <p class="fisi-label">
+                Recomendaciones:
+            </p>
+
+            <ul class="bullet-list">
+                <li>
+                    Incluir al menos 30 minutos de actividad física aeróbica de intensidad moderada- elevada todos los días, sea en el trabajo/estudio/hogar, en los desplazamientos o durante el tiempo libre.
+                </li>
+                <li>
+                    Reducir el comportamiento sedentario a partir de interrupciones cortas cada vez que se pueda con pausas activas de 3 a 5 minutos, cada 30-45 minutos que se permanece en comportamiento sedentario.
+                </li>
+            </ul>
+
+            <p class="fisi-label">
+                Si el <b>trabajo o estudio exige una actividad física de intensidad moderada o elevada</b> (caminatas continuas, levantar peso, trabajos de construcción) se sugiere hacer ejercicios de estiramientos y de fortalecimiento muscular durante al menos 10 minutos consecutivos.
+            </p>
+
+            <p class="fisi-label">
+                En el <b>hogar</b>, las tareas de limpieza, jardinería y mantenimiento, ayudan a sumar minutos de actividad física.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Desplazamientos:
+            </h2>
+
+            <p class="fisi-label">
+                Se recomienda <b>utilizar el transporte activo</b> siempre que sea posible (caminar, andar en bicicleta), especialmente en los viajes cortos.
+            </p>
+
+            <p class="fisi-label">
+                Si el viaje es largo se puede aprovechar el <b>último tramo en transporte activo.</b> También es aconsejable utilizar escaleras en lugar de ascensores como estrategia para sumar minutos de actividad física de mayor intensidad.
+            </p>
+
+            <h2 class="fisi-label-title">
+                Tiempo libre:
+            </h2>
+
+            <p class="fisi-label final-label">
+                El tiempo libre es una excelente oportunidad para ser más físicamente activo. Por ejemplo practicar un deporte, bailar, realizar actividades programadas, hacer actividades al aire libre, pasear, visitar lugares a pie, jugar en la plaza en familia. Además, es el dominio ideal para incluir un <b>programa de ejercicio físico.</b>
+            </p>
+
+            <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+        </div>
+
+    </div>
+
+</body>
+</html>

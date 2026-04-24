@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Seguimiento (Recomendaciones)</title>
+    <style>
+
+        /* Definición de variables y estilos base */
+        :root {
+            --diab-primary-color: #007bff; /* Azul primario para Diabetes */
+            --page-background: #f7f7f7;
+            --text-color: #333;
+            --secondary-text-color: #555;
+            --card-background: white;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* 1. Toolbar (Barra de navegación) */
+        .toolbar {
+            background-color: var(--card-background); /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Mismo ancho que el botón de retroceso para centrar el título */
+        }
+
+        /* 2. Contenido Principal */
+        .content-container {
+            padding: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content-card {
+            background-color: var(--card-background);
+            padding: 1rem;
+            border-radius: 0.5rem; 
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Estilo para los títulos de sección (Simulando HiperLabel) */
+        .section-title {
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            padding-left: 5px;
+            color: var(--secondary-text-color);
+            font-size: 1rem;
+        }
+
+        /* Estilo DiabBullet: Simulación de lista con viñeta personalizada */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+        .bullet-item {
+            margin-bottom: 0.75rem;
+            position: relative;
+            padding-left: 1.75rem; /* Espacio para la viñeta */
+            color: var(--secondary-text-color);
+            font-size: 1rem;
+        }
+        .bullet-item::before {
+            content: '•'; /* Viñeta */
+            color: var(--diab-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0.75rem; /* Ajuste la posición de la viñeta */
+            top: 0;
+            font-size: 1.2rem;
+        }
+        .bullet-item b {
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        
+        /* Estilo para el Label especial de IFGe (Simulando DiabLabelBold) */
+        .ifge-link-container {
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px;
+            padding: 5px;
+            border-radius: 4px;
+        }
+        .ifge-link {
+            color: blue;
+            text-decoration: underline;
+            font-weight: 900; /* Extra bold */
+            cursor: pointer;
+        }
+        .ifge-link:hover {
+            color: #004799; /* Oscurecer un poco al pasar el ratón */
+        }
+        
+        /* Estilo del último label con margen extra (margin-bottom: 100) */
+        .last-recommendation {
+            margin-top: 1rem;
+            margin-bottom: 6rem; /* Margen grande inferior */
+            padding-left: 10px;
+            color: var(--secondary-text-color);
+        }
+
+        /* 3. Botón de Navegación Fijo (Simulando NavButton) */
+        .nav-button-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 900;
+        }
+        .nav-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--diab-primary-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .nav-button:hover {
+            background-color: #0056b3;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <!-- Icono de flecha de retroceso -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Seguimiento (Recomend)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="content-container">
+        
+        <div class="content-card">
+            
+            <!-- HbA1c -->
+            <p class="section-title">
+                - Medir la <b>HbA1c</b>:
+            </p>
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    <b>cada tres o seis meses</b> hasta alcanzar la meta de control glucémico.
+                </li>
+                <li class="bullet-item">
+                    cada 6 meses alcanzada la meta y siempre que el tratamiento se mantenga sin cambios.
+                </li>
+            </ul>
+
+            <!-- Fondo de ojo -->
+            <p class="section-title">
+                - Realizar un <b>fondo de ojo</b>:
+            </p>
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    <b>en forma anual </b>
+                </li>
+                <li class="bullet-item">
+                    o con mayor frecuencia ante presencia de retinopatía.
+                </li>
+            </ul>
+
+            <!-- Evaluación completa de los pies -->
+            <p class="section-title">
+                - Realizar la <b>evaluación completa de los pies</b> (historia clínica, inspección, palpación de pulsos arteriales y de la temperatura, y valoración de la sensibilidad):
+            </p>
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    <b>al diagnóstico </b>de diabetes 
+                </li>
+                <li class="bullet-item">
+                    <b>durante el seguimiento, </b>una vez por año o con mayor frecuencia según riesgo para detectar y tratar los problemas activos del pie y los factores de riesgo de desarrollar úlcera de pie diabético. 
+                </li>
+            </ul>
+
+            <!-- Estratificar función y daño renal (ENLACE IFGe) -->
+            <div class="ifge-link-container">
+                - <b>Estratificar función y daño renal </b>basado en el <a href="/assets/html/RenaRecuCalc1.html" class="ifge-link" title="Ir a Calculadora de IFGe">cálculo de IFGe</a> por creatinina plasmática y la relación albúmina/creatinina en muestra de primera orina matinal:
+            </div>
+
+            <ul class="bullet-list">
+                <li class="bullet-item">
+                    en forma anual. 
+                </li>
+                <li class="bullet-item">
+                    o con mayor frecuencia según el grado de deterioro de la función renal.
+                </li>
+            </ul>
+
+            <!-- Automonitoreo glucémico (AMG) -->
+            <p class="section-title">
+                - <b>Automonitoreo glucémico (AMG). </b>En personas con DM2, su utilidad es limitada y se reserva principalmente para guiar el tratamiento en quienes reciben medicación con riesgo aumentado de hipoglucemia.
+            </p>
+
+            <!-- Última recomendación -->
+            <p class="last-recommendation">
+                - Se sugiere no realizar AMG en quienes reciban antidiabéticos con bajo riesgo de hipoglucemia, ya que no mejora los resultados clínicos.
+            </p>
+
+        </div>
+    </div>
+    
+    <!-- 3. Nav Button (simulado) -->
+    <div class="nav-button-container">
+        <button class="nav-button" title="Volver a Home de Diabetes">
+            <!-- Simulación SVG de diabetes_w.png (ícono de salud o corazón) -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.42 4.58a5.45 5.45 0 00-7.71 0L12 5.29l-0.71-0.71a5.45 5.45 0 00-7.71 0A5.45 5.45 0 003.58 12L12 20.42 20.42 12a5.45 5.45 0 000-7.42z" fill="white"/>
+            </svg>
+        </button>
+    </div>
+
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+        
+        // La función handleTapCommand ya no es necesaria para el enlace,
+        // ya que el <a> se encarga de la navegación directamente.
+    </script>
+</body>
+</html>

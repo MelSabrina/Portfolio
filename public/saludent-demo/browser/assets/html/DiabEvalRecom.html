@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Evaluación (Recomend)</title>
+    <style>
+
+        /* Estilos base */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Fondo sutil */
+            color: #333;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Estilos de contenido */
+        .content-area {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+        .diab-label {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .diab-label-bold {
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .diab-label-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            border-left: 4px solid #0056b3; /* Color primario simulado */
+            padding-left: 10px;
+        }
+
+        /* Estilo de viñetas (simulando BulletLabel) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 15px;
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        .bullet-list li::before {
+            content: '•';
+            color: #0056b3; /* Color primario simulado */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Estilo para imágenes y zoom */
+        .zoom-image-container {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: box-shadow 0.3s;
+        }
+        .zoom-image-container:hover {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .zoom-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 4px;
+        }
+        .zoom-title {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 5px;
+        }
+
+        /* Estilo del botón */
+        .diab-button {
+            background-color: #0056b3; /* Color primario simulado */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin: 20px auto 50px auto;
+            transition: background-color 0.3s;
+            max-width: 300px;
+        }
+        .diab-button:hover {
+            background-color: #004494;
+        }
+
+        /* Modal para zoom */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 90%;
+            max-width: 900px;
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Evaluación (Recomend)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <div class="container">
+        <!-- body content -->
+        <div class="content-area">
+
+            <p class="diab-label">
+                Se sugiere el rastreo de diabetes mediante la <b>glucemia plasmática en ayunas a:</b>
+            </p>
+
+            <p class="diab-label">
+                1) Todas las personas a partir <b>de 45 años.</b>
+            </p>
+
+            <p class="diab-label">
+                2) Todas las personas <b>menores de 45 años que presenten al menos 1 factor de riesgo:</b>
+            </p>
+
+            <ul class="bullet-list">
+                <li>Familiar de primer grado con diabetes mellitus tipo 2 (DM2).</li>
+                <li>Mujeres con antecedentes de diabetes gestacional o macrosomía fetal.</li>
+                <li>Tolerancia a la glucosa alterada (TGA) o glucemia alterada en ayunas (GAA).</li>
+                <li>Sobrepeso (IMC 25-29.9 kg/m2) u obesidad (IMC igual o mayor a 30 kg/m2).</li>
+                <li>Actividad física insuficiente, sedentarismo.</li>
+                <li>Enfermedad cardiovascular establecida, hipertensión arterial.</li>
+                <li>Dislipemia: colesterol HDL menor a 35 mg/dl o triglicéridos mayores a 250 mg/dl.</li>
+                <li>Tabaquismo.</li>
+                <li>Síndrome de ovario poliquístico.</li>
+            </ul>
+
+            <p class="diab-label">
+                Se sugiere <b>no utilizar HbA1c como prueba inicial</b> para el diagnóstico de DM2, dada su baja sensibilidad como método diagnóstico, mayor costo, menor disponibilidad y falta de estandarización en nuestro medio.
+            </p>
+
+            <h3 class="diab-label-title">
+                Frecuencia de rastreo:
+            </h3>
+
+            <p class="diab-label">
+                Si el resultado de la glucemia en ayunas es normal, repetir cada 3 a 5 años o más frecuentemente según criterio médico.
+            </p>
+
+            <p class="diab-label-bold">
+                Los criterios diagnósticos de DM dependen del método utilizado:
+            </p>
+
+            <!-- ZoomImage db_critdiag.png -->
+            <div class="zoom-image-container" onclick="openModal('/assets/img/db_critdiag_z.png')">
+                <img class="zoom-image" src="/assets/img/db_critdiag.png" alt="Criterios diagnósticos Diabetes Mellitus">
+                <p class="zoom-title">Criterios diagnósticos Diabetes Mellitus</p>
+            </div>
+
+            <p class="diab-label-bold">
+                Para establecer el diagnóstico de DM2 se requieren dos determinaciones con valores iguales o por encima del punto de corte diagnóstico sea de un mismo método o de 2 métodos diferentes.
+            </p>
+
+            <p class="diab-label-bold">
+                El único método que NO requiere una segunda determinación para establecer el diagnóstico es la glucemia plasmática al azar igual o mayor a 200 mg/dl en presencia de síntomas (poliuria, polidipsia, polifagia, pérdida de peso).
+            </p>
+
+            <h3 class="diab-label-title" style="margin-top: 40px;">
+                Instrumento Findrisc
+            </h3>
+
+            <p class="diab-label">
+                Es un cuestionario útil para identificar personas con riesgo aumentado de desarrollar DM2. Puede ser aplicado por el equipo de salud o autoadministrado. Consta de 8 variables (edad, IMC, circunferencia abdominal, actividad física, consumo de frutas y verduras, uso de antihipertensivos, antecedentes de glucemia elevada, historia familiar de diabetes) que se relacionan con la probabilidad de desarrollar diabetes a 10 años. Puntaje: de 0 a 26 puntos.
+            </p>
+
+            <p class="diab-label-bold">
+                Interpretación
+            </p>
+
+            <!-- ZoomImage db_frisk.png -->
+            <div class="zoom-image-container" onclick="openModal('/assets/img/db_frisk_z.png')">
+                <img class="zoom-image" src="/assets/img/db_frisk.png" alt="Interpretación resultado Findrisc">
+                <p class="zoom-title">Interpretación resultado Findrisc</p>
+            </div>
+
+            <p class="diab-label-bold">
+                Punto de corte sugerido para solicitar una glucemia plasmática en ayunas es de 12 puntos (riesgo moderado). 
+            </p>
+
+            <button class="diab-button" onclick="btnTest_Clicked()">
+                Instrumento Findrisc
+            </button>
+
+        </div>
+    </div>
+    
+    <!-- Modal de Zoom para imágenes -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        /**
+         * Función para volver a la página anterior.
+         */
+        function goBack() {
+            window.history.back();
+        }
+
+        /**
+         * Manejador de click para el botón del test Findrisc (placeholder).
+         */
+        function btnTest_Clicked() {
+            // Lógica para navegar o mostrar el instrumento Findrisc
+            console.log("Navegando al Instrumento Findrisc...");
+            // Nota: Aquí se ejecutaría la navegación real en la aplicación MAUI/Web
+            // Por ejemplo: window.location.href = 'findrisc_test.html';
+            alert("Se activaría el Instrumento Findrisc.");
+        }
+
+        /**
+         * Abre el modal de zoom con la imagen de alta resolución (zoom).
+         * @param {string} imageSrc La URL de la imagen de zoom (e.g., db_critdiag_z.png).
+         */
+        function openModal(imageSrc) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            
+            // Reemplaza el src de la imagen modal con la versión de zoom
+            modalImg.src = imageSrc;
+            modal.style.display = "flex";
+        }
+
+        /**
+         * Cierra el modal de zoom.
+         */
+        function closeModal() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+        
+        // No usamos window.onload para compatibilidad con la ejecución inmediata en entornos modernos,
+        // pero aseguramos que el JS funcione al final del body.
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Manejo de hipoglucemia</title>
+    <style>
+
+        /* Definición de variables CSS (simulando StaticResource) */
+        :root {
+            --diab-primary-color: #007bff; /* Azul primario */
+            --text-color: #333;
+            --secondary-text: #555;
+            --card-background: white;
+            --page-background: #f7f7f7;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            color: var(--text-color);
+            line-height: 1.6;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: var(--card-background); /* Fondo blanco */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--diab-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        /* Contenedor principal del contenido */
+        .content-container {
+            padding: 10px; /* Padding del Grid en XAML */
+            max-width: 900px;
+            margin: auto;
+        }
+        
+        /* Estilo para la tarjeta de contenido (body content) */
+        .content-card {
+            background-color: var(--card-background);
+            padding: 1rem;
+            border-radius: 0.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Estilo DiabLabelTitle */
+        .diab-label-title {
+            font-size: 1.5rem; /* similar a h2 */
+            font-weight: bold;
+            color: var(--diab-primary-color);
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            padding-left: 5px;
+        }
+
+        /* Estilo DiabLabel */
+        .diab-label {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            color: var(--secondary-text);
+            padding: 0 5px;
+        }
+
+        /* Estilo de la imagen */
+        .diab-image {
+            width: 100%;
+            max-width: 600px; /* Para que no sea excesivamente grande en escritorio */
+            height: auto;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 20px auto; /* Margin="10,0,10,20" y centrado */
+            display: block;
+            border: 1px solid #ddd;
+        }
+        
+        /* Último label con el margen inferior de 100px */
+        .diab-label-bottom-margin {
+            margin: 0 10px 100px 10px; /* Margin="10,0,10,100" */
+            font-size: 0.9rem;
+            color: var(--secondary-text);
+        }
+        
+        /* Asegurar que las etiquetas <strong> y <u> dentro de los labels sean visibles */
+        .diab-label strong, .diab-label-bottom-margin strong {
+            color: var(--text-color);
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <!-- Icono de flecha de retroceso (usando SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Manejo de hipoglucemia
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <!-- Contenido principal (simulando Grid y ScrollView) -->
+    <div class="content-container">
+
+        <!-- body content (StackLayout) -->
+        <div class="content-card">
+
+            <!-- Title -->
+            <h3 class="diab-label-title">
+                Manejo de hipoglucemia
+            </h3>
+
+            <!-- Label 1 -->
+            <p class="diab-label">
+                Se denomina hipoglucemia al valor de glucemia menor o igual a 70 mg/dl.
+            </p>
+
+            <!-- Image (ImageSource="db_manealg2.png") -->
+            <img class="diab-image" 
+                 src="/assets/img/db_manealg2.png" 
+                 alt="Diagrama de flujo para el manejo de hipoglucemia"
+                 title="Diabetes: Protocolo tratamiento 2"
+            >
+
+            <!-- Label 2 (Footer text) -->
+            <!-- Usamos innerHTML para manejar el <br/> del texto original -->
+            <p class="diab-label-bottom-margin">
+                AMG: automonitoreo glucémico HC: hidratos de carbono IM: intramuscular SC: subcutánea IV: intravenoso.<br/> (*) Ejemplo: 2 ampollas y media de 20 ml de dextrosa al 50% o 5 ampollas de 20 ml al 25% o 250 ml de dextrosa al 10%. Luego de administrar glucagon, colocar al paciente en decúbito lateral para evitar broncoaspiración. Si la asistencia la recibió en su domicilio, contactar en forma inmediata al equipo de salud, aunque se recupere.
+            </p>
+                
+        </div>
+        
+    </div>
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

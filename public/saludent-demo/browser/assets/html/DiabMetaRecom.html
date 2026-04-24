@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diabetes: Metas (Recomendaciones)</title>
+    <style>
+
+        /* Estilos base (similar al anterior, asegurando la coherencia) */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* Fondo sutil */
+            color: #333;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 15px;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* Toolbar: Sin color y con botón de retroceso */
+        .toolbar {
+            background-color: white; /* Sin color (blanco) */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333; /* Color del ícono */
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        /* Contenedor principal de las metas */
+        .content-area {
+            background-color: white; /* Simulación del BackgroundColor="{StaticResource HiperButtonTextColor}" */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 15px;
+        }
+
+        /* Estilo de viñetas (simulando BulletLabel) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 0; /* Para controlar el margen final con el último li */
+        }
+        .bullet-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 15px; /* Espacio entre viñetas */
+            line-height: 1.6;
+        }
+        .bullet-list li:first-child {
+             margin-top: 20px; /* Margen superior de la primera viñeta */
+        }
+        .bullet-list li:last-child {
+             margin-bottom: 100px; /* Margen inferior de la última viñeta (simulando 100px) */
+        }
+        .bullet-list li::before {
+            content: '•';
+            color: #0056b3; /* Color primario simulado */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+            top: 0;
+        }
+
+        /* Estilo para el texto en negrita dentro de las viñetas */
+        .bullet-list b {
+            font-weight: 700;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Sin color) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Diabetes: Metas (Recomendaciones)
+        </div>
+        <!-- Espacio para mantener el título centrado (opcional) -->
+        <div style="width: 24px; margin-right: 15px;"></div>
+    </div>
+
+    <div class="container">
+        <!-- body content -->
+        <div class="content-area">
+
+            <ul class="bullet-list">
+                <li>
+                    Meta general de <b>7%</b> para la mayoría de las personas.
+                </li>
+                <li>
+                    Cercana a <b>6,5%</b> en personas con expectativa de vida mayor a 10 años, sin complicaciones ni comorbilidades, y que solo utilizan antidiabéticos con bajo riesgo de hipoglucemias.
+                </li>
+                <li>
+                    Cercana a <b>8%</b> en personas mayores con fragilidad y/o funcionalmente dependientes, con comorbilidades significativas, expectativa de vida menor a 10 años o alto riesgo de las consecuencias de las hipoglucemias.
+                </li>
+                <li>
+                    En personas con enfermedades en etapa terminal y expectativa de vida limitada utilizar el tratamiento farmacológico solo con el objetivo de evitar hiperglucemias sintomáticas (valores de HbA1c cercanos a <b>8,5%</b>).
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <script>
+        /**
+         * Función para volver a la página anterior (simulando windows.history.back()).
+         */
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enf. Renal: Manejo (Recomendac.)</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --page-background: white;
+            --text-color: #333;
+            --rena-primary-color: #3c4147; /* Azul profundo para Renal */
+            --font-family: 'Inter', sans-serif;
+            --padding-content: 10px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Layout --- */
+        .scroll-container {
+            flex-grow: 1;
+            padding: var(--padding-content);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .stack-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Espacio predeterminado entre elementos */
+        }
+
+        /* --- 4. Estilos de Texto (Simulación de StaticResources) --- */
+        .rena-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin-bottom: 5px;
+        }
+
+        .rena-label-bold {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--rena-primary-color);
+            margin: 15px 0 5px 0;
+        }
+
+        /* --- 5. Estilos de Viñeta (BulletLabel) --- */
+        .rena-bullet-list {
+            list-style: none; /* Quitamos la viñeta predeterminada de la UL */
+            padding-left: 0;
+            margin: 0;
+        }
+        
+        .rena-bullet {
+            font-size: 1rem;
+            color: var(--text-color);
+            padding-left: 20px; /* Espacio para el punto simulado */
+            position: relative;
+            margin-bottom: 10px;
+            text-align: justify;
+        }
+
+        .rena-bullet::before {
+            content: "\2022"; /* Carácter de viñeta (punto) */
+            color: var(--rena-primary-color); /* Color del punto (usando el color primario renal) */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        /* Espacio extra al final del contenido para simular el margin del último BulletLabel */
+        .final-spacer {
+            height: 100px; 
+            width: 100%;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG simple) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Enf. Renal: Manejo (Recomendac.)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal y Scroll -->
+    <div class="scroll-container" id="contenido">
+        
+        <div class="stack-content">
+
+            <!-- Objetivo del manejo -->
+            <p class="rena-label-bold">
+                Objetivos del manejo
+            </p>
+            <p class="rena-label">
+                Disminuir la velocidad de progresión de la **ERC** o su agudización y reducir las complicaciones (específicas de la ERC, eventos cardiovasculares e infecciones).
+            </p>
+
+            <!-- Estratificación -->
+            <p class="rena-label-bold">
+                Estratificación por grados y pronóstico de la ERC
+            </p>
+            <p class="rena-label">
+                La ERC debe estratificarse por filtrado glomerular (**G**) y por daño renal marcado por albuminuria (**A**).
+            </p>
+            <p class="rena-label">
+                Esto delimita grupos evolutivos de riesgo de progresión de ERC o mortalidad y ayuda a diferenciar qué pacientes se deben referir al nefrólogo.
+            </p>
+
+            <!-- Herramientas -->
+            <p class="rena-label-bold">
+                Herramientas
+            </p>
+            <p class="rena-label">
+                El manejo en el PNA del paciente con ERC debe centrarse en:
+            </p>
+
+            <!-- Lista de Viñetas (BulletLabels) -->
+            <ul class="rena-bullet-list">
+                <!-- Bullet 1 -->
+                <li class="rena-bullet">
+                    El control habitual de factores de riesgo cardiovascular: **hipertensión, diabetes, tabaquismo, dislipemias, obesidad**.
+                </li>
+                
+                <!-- Bullet 2 -->
+                <li class="rena-bullet">
+                    Las medidas de **nefroprotección**: indicar dieta hiposódica o con reducción de carga proteica especialmente en casos con FG &lt; 45 mL/min/1,73 m2, evitar nefrotoxicidad por fármacos (adecuar dosis a FGe, evitar uso no controlado de AINEs y precauciones ante exposición a agentes iodados) y atender condiciones sistémicas (deshidratación, infecciones, insuficiencia cardíaca, obstrucción urinaria). 
+                </li>
+
+                <!-- Bullet 3 -->
+                <li class="rena-bullet">
+                    Manejo inicial de complicaciones asociadas de la ERC (**anemia, hiperuricemia, alteraciones del metabolismo fosfo-cálcico, nutricionales**). Alguna de estas podrían necesitar la asistencia de un especialista.
+                </li>
+
+                <!-- Bullet 4 -->
+                <li class="rena-bullet">
+                    Para reducir complicaciones infectológicas, es obligatoria la **vacunación contra influenza, neumococo y virus de la hepatitis B y SARS CoV2**.
+                </li>
+
+                <!-- Bullet 5 (Último, con margen inferior) -->
+                <li class="rena-bullet">
+                    Manejo inicial de los **eventos renales agudos**.
+                </li>
+            </ul>
+             
+            <!-- Espaciador para simular el margen inferior de 100px del último control -->
+            <div class="final-spacer"></div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

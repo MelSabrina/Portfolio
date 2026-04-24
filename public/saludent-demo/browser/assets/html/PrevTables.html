@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidados Preventivos (Cuadros)</title>
+    <style>
+
+        /* Definición de variables de color */
+        :root {
+            --prev-primary-color: #8d97a1; /* Azul */
+            --text-color: #333;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal --- */
+        .content-container {
+            padding: 10px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .page-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: var(--text-color);
+        }
+
+        .image-wrapper {
+            margin: 10px 0;
+            /* Asegura que la imagen sea completamente responsiva */
+            overflow-x: auto; /* Permite scroll horizontal si la imagen es muy ancha */
+            border: 1px solid #eee;
+            border-radius: 8px;
+        }
+
+        .image-wrapper img {
+            max-width: 100%; /* La imagen se ajusta al contenedor */
+            height: auto;
+            display: block;
+        }
+        
+        /* Estilos específicos para la imagen de tabla (para asegurar que sea legible, a veces requiere ancho fijo si la imagen es un gráfico) */
+        /* Si la tabla es muy ancha, se permite desbordamiento horizontal */
+        .table-image {
+            min-width: 450px; /* Ancho mínimo para legibilidad de tablas, puede requerir ajuste */
+            width: 100%;
+        }
+
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar (Barra de navegación) -->
+    <div class="toolbar">
+        <button class="back-button" onclick="goBack()" title="Volver">
+            <!-- Icono de flecha de retroceso (SVG proporcionado por el usuario) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Cuidados Preventivos (Cuadros)
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido de la página (Simulando ScrollView y StackLayout) -->
+    <div class="content-container">
+
+        <div class="page-title">
+            Cuidados preventivos del adulto (Cuadro)
+        </div>
+
+        <!-- Imagen de la tabla, usando la ruta y nombre exactos solicitados -->
+        <div class="image-wrapper">
+            <img class="table-image" 
+                 src="/assets/img/cp_table.png" 
+                 alt="Tabla resumen de Cuidados Preventivos del Adulto">
+        </div>
+
+    </div>
+
+    <!-- 3. Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

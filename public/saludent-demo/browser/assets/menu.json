@@ -1,0 +1,2281 @@
+{
+  "id": 1,
+  "type": "toolbar",
+  "title": "App Salud-ENT 0.0.12",
+  "toolbar": [
+    {
+      "title": "Módulos",
+      "type": "card",
+      "color": "bg-arg-azul",
+      "icon": "assets/img/module_icon.svg",
+      "data": {
+        "id": 2,
+        "type": "toolbar",
+        "title": "Modulos",
+        "toolbar": [
+          {
+            "title": "Hipertensión Arterial",
+            "type": "card",
+            "color": "bg-arg-arandano",
+            "icon": "assets/img/hipertension_icon.svg",
+            "data": {
+              "id": 3,
+              "type": "toolbar",
+              "title": "Hipertensión Arterial",
+              "toolbar": [
+                {
+                  "title": "Epidemiología",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/HiperEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data": {
+                    "id": 4,
+                    "type": "toolbar",
+                    "title": "Hipertensión (Evaluación)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/HiperEvalRecom.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/HiperEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/metas_b.png",
+                  "html": "assets/html/HiperMetas.html"
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/manejo_b.png",
+                  "data": {
+                    "id": 5,
+                    "type": "toolbar",
+                    "title": "Hipertensión (Manejo)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/HiperManeRecom.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "data": {
+                          "id": 6,
+                          "type": "toolbar",
+                          "title": "HTA: Cuadros y algoritmos",
+                          "toolbar": [
+                            {
+                              "title": "Via Clínica HEARTS",
+                              "type": "item",
+                              "color": "bg-arg-arandano",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/HiperManeAlg3.html"
+                            },
+                            {
+                              "title": "Urgencias",
+                              "type": "item",
+                              "color": "bg-arg-arandano",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/HiperManeAlg2.html"
+                            },
+                            {
+                              "title": "Tabla de Fármacos",
+                              "type": "item",
+                              "color": "bg-arg-arandano",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/HiperManeAlg1.html"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data": {
+                    "id": 7,
+                    "type": "toolbar",
+                    "title": "Hipertensión (Seguimiento)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "card",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/HiperSegRecom.html"
+                      },
+                      {
+                        "title": "Algoritmos y Tablas",
+                        "type": "card",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/HiperSegCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/HiperTablas.html"
+                },
+                {
+                  "title": "Acceso a recursos adicionales",
+                  "type": "item",
+                  "color": "bg-arg-arandano",
+                  "icon": "assets/img/hipertension_w.png",
+                  "data": {
+                    "id": 8,
+                    "type": "toolbar",
+                    "title": "Hipertensión (Recursos)",
+                    "toolbar": [
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/HiperRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-arandano",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/HiperRecurPaci.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Diabetes Mellitus tipo 2",
+            "type": "card",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/diabetes_w.png",
+            "data": {
+                "id": 9,
+                "type": "toolbar",
+                "title": "Diabetes",
+                "toolbar": [
+                  {
+                    "title": "Epidemiología",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/epidemio_b.png",
+                    "html": "assets/html/DiabEpidio.html"
+                  },
+                  {
+                    "title": "Evaluación",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/evaluacion_b.png",
+                    "data": {
+                      "id": 10,
+                      "type": "toolbar",
+                      "title": "Diabetes (Evaluación)",
+                      "toolbar": [
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/DiabEvalRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/DiabEvalConsejos.html"
+                        },
+                        {
+                          "title": "Algoritmos y tablas",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/algoritmos_b.png",
+                          "html": "assets/html/DiabEvalCuadros.html"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": "Metas",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/metas_b.png",
+                    "data": {
+                      "id": 11,
+                      "type": "toolbar",
+                      "title": "Diabetes (Metas)",
+                      "toolbar": [
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/DiabMetaRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/DiabMetaConsejos.html"
+                        },
+                        {
+                          "title": "Algoritmos y tablas",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/algoritmos_b.png",
+                          "html": "assets/html/DiabMetaCuadros.html"
+                        }
+                      ] 
+                    }
+                  },
+                  {
+                    "title": "Manejo",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/manejo_b.png",
+                    "data": {
+                      "id": 12,
+                      "title": "Diabetes (Manejo)",
+                      "type": "toolbar",
+                      "toolbar": [
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/DiabManeRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/DiabManeConsejos.html"
+                        },
+                        {
+                          "title": "Algoritmos y Tablas",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/algoritmos_b.png",
+                          "data": {
+                            "id": 122,
+                            "title": "Diabetes:Manejo(Cuadros/algoritmos)",
+                            "type": "toolbar",
+                            "toolbar": [
+                              {
+                                "title": "Diabetes: Vía Clínica HEARTS-D",
+                                "type": "item",
+                                "color": "bg-bandera-celeste",
+                                "icon": "assets/img/algoritmos_b.png",
+                                "html": "assets/html/DiabManeAlg1.html"
+                              },
+                              {
+                                "title": "Diabetes: Manejo de hipoglucemia",
+                                "type": "item",
+                                "color": "bg-bandera-celeste",
+                                "icon": "assets/img/algoritmos_b.png",
+                                "html": "assets/html/DiabManeAlg2.html"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+
+                    }
+                  },
+                  {
+                    "title": "Seguimiento",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/seguimiento_b.png",
+                    "data":{
+                      "id": 13,
+                      "title": "Diabetes (Seguimiento)",
+                      "type": "toolbar",
+                      "toolbar":[
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/DiabSegRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/DiabSegConsejos.html"
+                        },
+                        {
+                          "title": "Algoritmos y Tablas",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/algoritmos_b.png",
+                          "html": "assets/html/DiabSegCuadros.html"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": "Tabla de Medicamentos",
+                    "type": "card",
+                    "color": "bg-bandera-celeste",
+                    "icon": "assets/img/medicamentos_b.png",
+                    "html": "assets/html/DiabTablas.html"
+                  },
+                  {
+                    "title": "Acceso a recursos adicionales",
+                    "type":"item",
+                    "color":"bg-bandera-celeste",
+                    "icon": "assets/img/diabetes_w.png",
+                    "data":{
+                      "id": 14,
+                      "title": "Diabetes (Recursos)",
+                      "type": "toolbar",
+                      "toolbar":[
+                        {
+                          "title": "Recursos para el equipo de salud",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/DiabRecurProf.html"
+                        },
+                        {
+                          "title": "Recursos para pacientes",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/colaboradores_b.png",
+                          "html": "assets/html/DiabRecurPaci.html"
+                        },
+                        {
+                          "title": "Instrumento Findrisc",
+                          "type": "item",
+                          "color": "bg-bandera-celeste",
+                          "icon": "assets/img/evaluacion_b.png",
+                          "html": "assets/html/DiabRecuTest.html"
+                        }
+
+                      ]
+
+                    }
+                  }
+
+                ]
+            }
+          },
+          {
+            "title": "Alimentación Saludable",
+            "type": "card",
+            "color": "bg-arg-mandarina",
+            "icon": "assets/img/alimentacion_w.png",
+            "data":{
+              "id":15,
+              "title": "Alimentación Saludable",
+              "type":"toolbar",
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "icon": "assets/img/epidemio_b.png",
+                  "color": "bg-arg-mandarina",
+                  "html": "assets/html/AlimEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "color": "bg-arg-mandarina",
+                  "data":{
+                    "id": 16,
+                    "title": "Alimentación (Evaluación)",
+                    "type": "toolbar",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "icon": "assets/img/consejos_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "icon": "assets/img/metas_b.png",
+                  "color": "bg-arg-mandarina",
+                  "data": {
+                    "id": 17,
+                    "title": "Alimentación (Metas)",
+                    "type": "toolbar",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimMetaRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "icon": "assets/img/consejos_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimMetaConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimMetaCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "icon": "assets/img/manejo_b.png",
+                  "color": "bg-arg-mandarina",
+                  "data": {
+                    "id":18,
+                    "title": "Alimentación (Manejo)",
+                    "type": "toolbar",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimManeConsejos.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Acceso a recursos adicionales",
+                  "type": "item",
+                  "icon": "assets/img/alimentacion_w.png",
+                  "color": "bg-arg-mandarina",
+                  "data": {
+                    "id": 19,
+                    "title": "Alimentación (Recursos)",
+                    "type": "toolbar",
+                    "toolbar": [
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "icon": "assets/img/consejos_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "color": "bg-arg-mandarina",
+                        "html": "assets/html/AlimRecurPaci.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Actividad física",
+            "type": "card",
+            "color": "bg-arg-maiz",
+            "icon": "assets/img/fisica_b.png",
+            "data": {
+              "id": 20,
+              "type": "toolbar",
+              "title": "Actividad Física",
+              "toolbar": [
+                {
+                  "title": "Epidemiología",
+                  "type": "card",
+                  "color": "bg-arg-maiz",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/FisiEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-maiz",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data": {
+                    "id": 21,
+                    "type": "toolbar",
+                    "title": "Actividad Física (Evaluación)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-maiz",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/FisiEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-maiz",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/FisiEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-maiz",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/FisiEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-maiz",
+                  "icon": "assets/img/metas_b.png",
+                  "data": {
+                    "id": 22,
+                    "type": "toolbar",
+                    "title": 	"Actividad Física (Metas)",
+                    "toolbar":[
+                      {
+                        "title": 	"Principales Recomendaciones",
+                        "type": 	"item",
+                        "color": 	"bg-arg-maiz",
+                        "icon": 	"assets/img/recomendaciones_b.png",
+                        "html": 	"assets/html/FisiMetaRecom.html"
+                      },
+                      {
+                        "title": 	"Consejos",
+                        "type": 	"item",
+                        "color": 	"bg-arg-maiz",  
+                        "icon": 	"assets/img/consejos_b.png",
+                        "html": 	"assets/html/FisiMetaConsejos.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Acceso a recursos adicionales",
+                  "type": "item",
+                  "color": "bg-arg-maiz",
+                  "icon": "assets/img/fisica_w.png",
+                  "data":{
+                    "id": 23,
+                    "type": "toolbar",
+                    "title": "Actividad Física (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-maiz",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/FisiRecuProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-maiz",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/FisiRecuPaci.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Enfermedad pulmonar",
+            "type": "card",
+            "color": "bg-arg-palta",
+            "icon": "assets/img/pulmonar_w.png",
+            "data":{
+              "id":24,
+              "type":"toolbar",
+              "title":"Enfermedad Pulmonar Obstructiva Crónica (EPOC)",
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/PulmEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data":{
+                    "id": 25,
+                    "type": "toolbar",
+                    "title": "EPOC (Evaluación)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/PulmEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/PulmEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/PulmEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/metas_b.png",
+                  "data":{
+                    "id": 26,
+                    "type": "toolbar",
+                    "title": "EPOC (Metas)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/PulmMetaRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/PulmMetaConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/PulmMetaCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/manejo_b.png",
+                  "data":{
+                    "id": 27,
+                    "type": "toolbar",
+                    "title": "EPOC (Manejo)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/PulmManeRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/PulmManeConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "data": {
+                          "id": 271,
+                          "type": "toolbar",
+                          "title": "EPOC:Manejo(Cuadros/algoritmos)",
+                          "toolbar": [
+                            {
+                              "title": "Tratamiento de la EPOC estable",
+                              "type": "item",
+                              "color": "bg-arg-palta",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/PulmManeAlg1.html"
+                            },
+                            {
+                              "title": "Manejo de la reagudización de la EPOC",
+                              "type": "item",
+                              "color": "bg-arg-palta",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/PulmManeAlg2.html"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data":{
+                    "id": 28,
+                    "type": "toolbar",
+                    "title": "EPOC (Seguimiento)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/PulmSegRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/PulmSegConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/PulmSegCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/PulmTablas.html"
+                },
+                {
+                  "title": "Acceso a recursos adicionales",
+                  "type": "item",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/pulmonar_w.png",
+                  "data":{
+                    "id": 29,
+                    "type": "toolbar",
+                    "title": "EPOC (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/PulmRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/PulmRecurPaci.html"
+                      },
+                      {
+                        "title": "Cuestionario CODE",
+                        "type": "item",
+                        "color": "bg-arg-palta",
+                        "icon": "assets/img/cuestionario_b.png",
+                        "html": "assets/html/PulmRecuTest.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Asma",
+            "type": "card",
+            "color": "bg-arg-lima",
+            "icon": "assets/img/asma_b.png",
+            "data":{
+              "title": "Asma",
+              "type":"toolbar",
+              "id":30,
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/AsmaEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data":{
+                    "id": 31,
+                    "type": "toolbar",
+                    "title": "Asma (Evaluación)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/AsmaEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/AsmaEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/AsmaEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/manejo_b.png",
+                  "data":{
+                    "id": 32,
+                    "type": "toolbar",
+                    "title": "Asma (Manejo)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/AsmaManeRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/AsmaManeConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "data": {
+                          "id":321,
+                          "title": "Asma: Manejo(Cuadros/algoritmos)",
+                          "type": "toolbar",
+                          "toolbar":[
+                            {
+                              "type": "panel",
+                              "color": "bg-arg-lima",
+                              "title": "- Ante síntomas no controlados, riesgo o ocurrencia de crisis: a. Verificar uso correcto de inhaladores y evaluar la adherencia al tratamiento. b. Considerar la intensificación del tratamiento al siguiente paso."
+                            },
+                            {
+                              "title": "Considerar la posibilidad de una reducción escalonada del tratamiento una vez que se logra alcanzar y mantener un buen control del asma durante 3 meses, con el objetivo de identificar el nivel de tratamiento más bajo que proporcione control tanto de los síntomas como de las exacerbaciones y que reduzca al mínimo los efectos secundarios.",
+                              "type": "panel",
+                              "color": "bg-arg-lima"
+                            },
+                            {
+                              "title": "Protocolo tratamiento escalonado",
+                              "type": "item",
+                              "color": "bg-arg-lima",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/AsmaManeAlgo1.html"
+                            },
+                            {
+                              "title": "Protocolo tratamiento crisis asmática",
+                              "type": "item",
+                              "color": "bg-arg-lima",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/AsmaManeAlgo2.html"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data":{
+                    "id": 33,
+                    "type": "toolbar",
+                    "title": "Asma (Seguimiento)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/AsmaSegRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/AsmaSegConsejos.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/AsmaTablas.html"
+                },
+                {
+                  "title":"Acceso a recursos adicionales",
+                  "type":"item",
+                  "color":"bg-arg-lima",
+                  "data":{
+                    "id":35,
+                    "title":"Asma (Recursos)",
+                    "type":"toolbar",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/AsmaRecurProf.html" 
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-lima",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/AsmaRecurPaci.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Enfermedad Renal",
+            "type": "card",
+            "color": "bg-arg-naranja",
+            "icon": "assets/img/renal_w.png",
+            "data": {
+              "id": 34,
+              "title": "Enfermedad Renal",
+              "type": "toolbar",
+              "toolbar": [
+                {
+                  "title": "Epidemiología",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/RenaEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data": {
+                    "id": 35,
+                    "type": "toolbar",
+                    "title": "Enfermedad Renal (Evaluación)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/RenaEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/RenaEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/RenaEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/metas_b.png",
+                  "data": {
+                    "id": 36,
+                    "type": "toolbar",
+                    "title": "Enfermedad Renal (Metas)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/RenaMetaRecom.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/manejo_b.png",
+                  "data": {
+                    "id": 37,
+                    "type": "toolbar",
+                    "title": "Enfermedad Renal (Manejo)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/RenaManeRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/RenaManeConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/RenaManeCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data": {
+                    "id": 38,
+                    "type": "toolbar",
+                    "title": "Enfermedad Renal (Seguimiento)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/RenaSegRecom.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-naranja",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/RenaTablas.html"
+                },
+                {
+                  "title":"Acceso a recursos adicionales",
+                  "type":"item",
+                  "color":"bg-arg-naranja",
+                  "icon": "assets/img/renal_w.png",
+                  "data":{
+                    "id": 39,
+                    "type": "toolbar",
+                    "title": "Enfermedad Renal (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-naranja",
+                        "icon": "assets/img/consejos_b.png",
+                        "data":{
+                              "id": 381,
+                              "title": "Enf. Renal: Recursos p/equipos de salud",
+                              "type": "toolbar",
+                              "toolbar":[
+                                {
+                                  "title": "Cálculo del filtrado glomerular",
+                                  "type": "item",
+                                  "color": "bg-arg-naranja",
+                                  "icon": "assets/img/calc_w.png",
+                                  "html": "assets/html/RenaRecuCalc1.html"
+                                },
+                                {
+                                  "title": "Ajuste de dosis de fármacos",
+                                  "type": "item",
+                                  "color": "bg-arg-naranja",
+                                  "icon": "assets/img/dosis_w.png",
+                                  "html": "assets/html/RenaRecuCalc2.html"
+                                }
+                              ] 
+                          }                                                              
+                      }
+                    ]
+                  }
+                }
+
+              ]
+            }
+          },
+          {
+            "title": "Obesidad",
+            "type": "card",
+            "color": "bg-arg-verdin",
+            "icon": "assets/img/obesidad_b.png",
+            "data": {
+              "id": 40,
+              "type": "toolbar",
+              "title": "Obesidad",
+              "toolbar": [
+                {
+                  "title": "Epidemiología",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/ObesiEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data": {
+                    "id": 41,
+                    "type": "toolbar",
+                    "title": "Obesidad (Evaluación)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/ObesiEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/ObesiEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/ObesiEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/metas_b.png",
+                  "data": {
+                    "id": 42,
+                    "type": "toolbar",
+                    "title": 	"Obesidad (Metas)",
+                    "toolbar":[
+                      {
+                        "title": 	"Principales Recomendaciones",
+                        "type": 	"item",
+                        "color": 	"bg-arg-verdin",
+                        "icon": 	"assets/img/recomendaciones_b.png",
+                        "html": 	"assets/html/ObesiMetaRecom.html"
+                      },
+                      {
+                        "title": 	"Consejos",
+                        "type": 	"item",
+                        "color": 	"bg-arg-verdin",
+                        "icon": 	"assets/img/consejos_b.png",
+                        "html": 	"assets/html/ObesiMetaConsejos.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/manejo_b.png",
+                  "data": {
+                    "id": 43,
+                    "type": "toolbar",
+                    "title": "Obesidad (Manejo)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/ObesiManeRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/ObesiManeConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "data": {
+                          "id": 431,
+                          "type": "toolbar",
+                          "title": "Obesidad:Manejo(Cuadros/algoritmos)",
+                          "toolbar": [
+                            {
+                              "title": "Obesidad: Protocolo tratamiento 1",
+                              "type": "item",
+                              "color": "bg-arg-verdin",
+                              "html": "assets/html/ObesiManeAlg1.html"
+                            },
+                            {
+                              "title": "Obesidad: Protocolo tratamiento 2",
+                              "type": "item",
+                              "color": "bg-arg-verdin",
+                              "html": "assets/html/ObesiManeAlg2.html"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data": {
+                    "id": 44,
+                    "type": "toolbar",
+                    "title": "Obesidad (Seguimiento)",
+                    "toolbar": [
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/ObesiSegRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/ObesiSegConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-verdin",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/ObesiSegCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/ObesiTablas.html"
+                },
+                {
+                  "title": "Acceso a recursos adicionales",
+                  "type": "item",
+                  "icon": "assets/img/obesidad_w.png",
+                  "color": "bg-arg-verdin",
+                  "data":{
+                    "id": 44,
+                    "type": "toolbar",
+                    "title": "Obesidad (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "icon": "assets/img/consejos_b.png",
+                        "color": "bg-arg-verdin",
+                        "html": "assets/html/ObesiRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "color": "bg-arg-verdin",
+                        "html": "assets/html/ObesiRecurPaci.html"
+                      },
+                      {
+                        "title": "Cálculo del índice de Masa Corporal (IMC)",
+                        "type": "item",
+                        "icon": "assets/img/calc_b.png",
+                        "color": "bg-arg-verdin",
+                        "html": "assets/html/ObesiRecuCalc.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Tabaco",
+            "type": "card",
+            "color": "bg-arg-lavanda",
+            "icon": "assets/img/tabaco_w.png",
+            "data":{
+              "id":45,
+              "type":"toolbar",
+              "title":"Tabaco",
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/TabaEpidio.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data":{
+                    "id": 46,
+                    "type": "toolbar",
+                    "title": "Tabaco (Evaluación)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/TabaEvalRecom.html"
+                      },
+                      {
+                        "title": "Consejos",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/TabaEvalConsejos.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "html": "assets/html/TabaEvalCuadros.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Metas",
+                  "type": "card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/metas_b.png",
+                  "html": "assets/html/TabaMetas.html"
+                },
+                {
+                  "title": "Manejo",
+                  "type": "card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/manejo_b.png",
+                  "data":{
+                    "id": 47,
+                    "type": "toolbar",
+                    "title": "Tabaco (Manejo)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/TabaManeRecom.html"
+                      },
+                      {
+                        "title": "Algoritmos y tablas",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/algoritmos_b.png",
+                        "data": {
+                          "id":471,
+                          "type": "toolbar",
+                          "title": "Tabaco:Manejo(Cuadros/algoritmos)",
+                          "toolbar":[
+                            {
+                              "title": "Tratamiento 1: personas que fuman 10 a 20 cig/día",
+                              "type": "item",
+                              "color": "bg-arg-lavanda",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/TabaManeAlg1.html"
+                            },
+                            {
+                              "title": "Tratamiento 2: personas con alta dependencia",
+                              "type": "item",
+                              "color": "bg-arg-lavanda",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/TabaManeAlg2.html"
+                            },
+                            {
+                              "title": "Algoritmo para la Cesación tabáquica",
+                              "type": "item",
+                              "color": "bg-arg-lavanda",
+                              "icon": "assets/img/algoritmos_b.png",
+                              "html": "assets/html/TabaManeAlg3.html"
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "html": "assets/html/TabaSeg.html"
+                },
+                {
+                  "title": "Tabla de Medicamentos",
+                  "type": "card",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/medicamentos_b.png",
+                  "html": "assets/html/TabaTablas.html"
+                },
+                {
+                  "title":"Acceso a recursos adicionales",
+                  "type":"item",
+                  "color":"bg-arg-lavanda",
+                  "icon": "assets/img/tabaco_w.png",
+                  "data":{
+                    "id": 48,
+                    "type": "toolbar",
+                    "title": "Tabaco (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/TabaRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/TabaRecurPaci.html"
+                      },
+                      {
+                        "title": "Test de Fagerström",
+                        "type": "item",
+                        "color": "bg-arg-lavanda",
+                        "icon": "assets/img/evaluacion_b.png",
+                        "html": "assets/html/TabaRecuTest.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+
+            }
+          },
+          {
+            "title": "Alcohol",
+            "type": "card",
+            "color": "bg-gna-verde-jade",
+            "icon": "assets/img/alcohol_w.png",
+            "data":{
+                "id":49,
+                "type":"toolbar",
+                "title":"Alcohol",
+                "toolbar":[
+                  {
+                    "title": "Epidemiología",
+                    "type":"card",
+                    "color": "bg-gna-verde-jade",
+                    "icon": "assets/img/epidemio_b.png",
+                    "html": "assets/html/AlcoEpidio.html"
+                  },
+                  {
+                    "title": "Evaluación",
+                    "type": "card",
+                    "color": "bg-gna-verde-jade",
+                    "icon": "assets/img/evaluacion_b.png",
+                    "data":{
+                      "id": 50,
+                      "type": "toolbar",
+                      "title": "Alcohol (Evaluación)",
+                      "toolbar":[
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/AlcoEvalRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/AlcoEvalConsejos.html"
+                        },
+                        {
+                          "title": "Algoritmos y tablas",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/algoritmos_b.png",
+                          "data":{
+                            "id":501,
+                            "type": "toolbar",
+                            "title": "Alcohol: Evaluación(Cuadros/algoritmos)",
+                            "toolbar":[
+                              {
+                                "title": "Cuestionario AUDIT C (versión corta)",
+                                "type": "item",
+                                "color": "bg-gna-verde-jade",
+                                "icon": "assets/img/algoritmos_b.png",
+                                "html": "assets/html/AlcoRecuTest2.html"
+                              },
+                              {
+                                "title": "Cuestionario AUDIT (versión completa)",
+                                "type": "item",
+                                "color": "bg-gna-verde-jade",
+                                "icon": "assets/img/algoritmos_b.png",
+                                "html": "assets/html/AlcoRecuTest.html"
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": "Metas",
+                    "type": "card",
+                    "color": "bg-gna-verde-jade",
+                    "icon": "assets/img/metas_b.png",
+                    "data":{
+                      "id": 51,
+                      "type": "toolbar",
+                      "title": 	"Alcohol (Metas)",
+                      "toolbar":[
+                        {
+                          "title": 	"Principales Recomendaciones",
+                          "type": 	"item",
+                          "color": 	"bg-gna-verde-jade",
+                          "icon": 	"assets/img/recomendaciones_b.png",
+                          "html": 	"assets/html/AlcoMetaRecom.html"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": 	"Manejo",
+                    "type": 	"card",
+                    "color": 	"bg-gna-verde-jade",
+                    "icon": 	"assets/img/manejo_b.png",
+                    "data":{
+                      "id": 51,
+                      "type": 	"toolbar",
+                      "title": 	"Alcohol (Manejo)",
+                      "toolbar":[
+                        {
+                          "title": 	"Principales Recomendaciones",
+                          "type": 	"item",
+                          "color": 	"bg-gna-verde-jade",
+                          "icon": 	"assets/img/recomendaciones_b.png",
+                          "html": 	"assets/html/AlcoManeRecom.html"
+                        },
+                        {
+                          "title": 	"Algoritmos y tablas",
+                          "type": 	"item",
+                          "color": 	"bg-gna-verde-jade",
+                          "icon": 	"assets/img/algoritmos_b.png",
+                          "html": 	"assets/html/AlcoManeCuadros.html"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": "Seguimiento",
+                    "type": "card",
+                    "color": "bg-gna-verde-jade",
+                    "icon": "assets/img/seguimiento_b.png",
+                    "data":{
+                      "id": 52,
+                      "type": "toolbar",
+                      "title": "Alcohol (Seguimiento)",
+                      "toolbar":[
+                        {
+                          "title": "Principales Recomendaciones",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/recomendaciones_b.png",
+                          "html": "assets/html/AlcoSegRecom.html"
+                        },
+                        {
+                          "title": "Consejos",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/AlcoSegConsejos.html"
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "title": "Tabla de Medicamentos",
+                    "type": "card",
+                    "color": "bg-gna-verde-jade",
+                    "icon": "assets/img/medicamentos_b.png",
+                    "html": "assets/html/AlcoTablas.html"
+                  },
+                  {
+                    "title":"Acceso a recursos adicionales",
+                    "type":"item",
+                    "color":"bg-gna-verde-jade",
+                    "icon": "assets/img/alcohol_w.png",
+                    "data":{
+                      "id": 52,
+                      "type": "toolbar",
+                      "title": "Alcohol (Recursos)",
+                      "toolbar":[
+                        {
+                          "title": "Recursos para el equipo de salud",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/consejos_b.png",
+                          "html": "assets/html/AlcoRecurProf.html"
+                        },
+                        {
+                          "title": "Test de Identificación de Trastornos por Consumo de Alcohol (AUDIT)",
+                          "type": "item",
+                          "color": "bg-gna-verde-jade",
+                          "icon": "assets/img/evaluacion_b.png",
+                          "html": "assets/html/AlcoRecuTest.html"
+                        }
+                      ]
+                    }
+                  }
+                ]
+            }
+          },
+          {
+            "title": "Seguridad vial",
+            "type": "card",
+            "color": "bg-arg-arena",
+            "icon": "assets/img/vial_b.png",
+            "data":{
+              "id": 53,
+              "type":"toolbar",
+              "title":"Seguridad Vial",
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "color": "bg-arg-arena",
+                  "icon": "assets/img/epidemio_b.png",
+                  "html": "assets/html/VialEpideo.html"
+                },
+                {
+                  "title": "Evaluación",
+                  "type": "card",
+                  "color": "bg-arg-arena",
+                  "icon": "assets/img/evaluacion_b.png",
+                  "data":{
+                    "id": 54,
+                    "type": "toolbar",
+                    "title": "Seguridad Vial (Evaluación)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-arena",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/VialEvalRecom.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": 	"Manejo",
+                  "type": 	"card",
+                  "color": 	"bg-arg-arena",
+                  "icon": 	"assets/img/manejo_b.png",
+                  "data":{
+                    "id": 55,
+                    "type": 	"toolbar",
+                    "title": 	"Seguridad Vial (Manejo)",
+                    "toolbar":[
+                      {
+                        "title": 	"Principales Recomendaciones",
+                        "type": 	"item",
+                        "color": 	"bg-arg-arena",
+                        "icon": 	"assets/img/recomendaciones_b.png",
+                        "html": 	"assets/html/VialManeRecom.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title": "Seguimiento",
+                  "type": "card",
+                  "color": "bg-arg-arena",
+                  "icon": "assets/img/seguimiento_b.png",
+                  "data":{
+                    "id": 56,
+                    "type": "toolbar",
+                    "title": "Seguridad Vial (Seguimiento)",
+                    "toolbar":[
+                      {
+                        "title": "Principales Recomendaciones",
+                        "type": "item",
+                        "color": "bg-arg-arena",
+                        "icon": "assets/img/recomendaciones_b.png",
+                        "html": "assets/html/VialSegRecom.html"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "title":"Acceso a recursos adicionales",
+                  "type":"item",
+                  "color":"bg-arg-arena",
+                  "icon": "assets/img/vial_w.png",
+                  "data":{
+                    "id": 56,
+                    "type": "toolbar",
+                    "title": "Seguridad Vial (Recursos)",
+                    "toolbar":[
+                      {
+                        "title": "Recursos para el equipo de salud",
+                        "type": "item",
+                        "color": "bg-arg-arena",
+                        "icon": "assets/img/consejos_b.png",
+                        "html": "assets/html/VialRecurProf.html"
+                      },
+                      {
+                        "title": "Recursos para pacientes",
+                        "type": "item",
+                        "color": "bg-arg-arena",
+                        "icon": "assets/img/colaboradores_b.png",
+                        "html": "assets/html/VialRecurPaci.html"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "title": "Cuidados Preventivos ",
+            "type": "card",
+            "color": "bg-arg-uva",
+            "icon": "assets/img/preventivo_w.png",
+            "data":{
+              "id":57,
+              "type":"toolbar",
+              "title":"Cuidados Preventivos",
+              "toolbar":[
+                {
+                  "title": "Epidemiología",
+                  "type":"card",
+                  "color": "bg-arg-uva",
+                  "icon": "assets/img/epidemiologia_w.png",
+                  "html": "assets/html/PrevEpidio.html"
+                },
+                {
+                  "title": "Rastreo",
+                  "type":"card",
+                  "color": "bg-arg-uva",
+                  "icon": "assets/img/grading_w.png",
+                  "html": "assets/html/PrevRastreo.html"
+                },
+                {
+                  "title": "Tablas y algoritmos",
+                  "type":"card",
+                  "color": "bg-arg-uva",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/PrevTables.html"
+                }
+              ]
+
+            }
+          }
+
+        ]
+      }
+    },
+    {
+      "title": "Compartir App",
+      "type": "card",
+      "color": "bg-arg-verde",
+      "icon": "assets/img/share_w.png",
+      "alert": "https://salud-ent.msal.gob.ar/"
+    },
+    {
+      "title": "Licencia de uso",
+      "type": "card",
+      "color": "bg-arg-verde",
+      "icon": "assets/img/grading_w.png",
+      "html": "assets/html/IniAppLicencia.html"
+    },
+    {
+      "title": "Test y calculadores",
+      "type": "card",
+      "color": "bg-arg-azul",
+      "icon": "assets/img/calc_w.png",
+      "data": {
+        "id": 1596,
+        "type": "toolbar",
+        "title": "Test y calculadores",
+        "toolbar": [
+          {
+            "title": "Cálculo de riesgo CV de OPS",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/calc_w.png",
+            "link": "https://www.paho.org/es/hearts-americas/calculadora-riesgo-cardiovascular"
+          },
+          {
+            "title": "Cálculo de Riesgo Cardiovascular(cv)",
+            "type": "item",
+            "color": "bg-arg-lima",
+            "icon": "assets/img/calculator_icon.svg",
+            "html": "assets/html/hearts-calculator.html"
+          },
+          {
+            "title": "Cálculo del filtrado renal",
+            "type": "item",
+            "color": "bg-arg-naranja",
+            "icon": "assets/img/calc_w.png",
+            "html": "assets/html/RenaRecuCalc.html"
+          },
+          {
+            "title": "Cálculo del colesterol LDL",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/calc_w.png",
+            "html": "assets/html/IniCalcLdl.html"
+          },
+          {
+            "title": "Test de consumo de alcohol AUDIT (Completo)",
+            "type": "item",
+            "color": "bg-arg-palta",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/AlcoRecuTest.html"
+          },
+          {
+            "title": "Test de consumo de alcohol AUDIT C (reducido)",
+            "type": "item",
+            "color": "bg-arg-palta",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/AlcoRecuTest2.html"
+          },
+          {
+            "title": "Cálculo del índice de masa corporal (IMC)",
+            "type": "item",
+            "color": "bg-arg-maiz",
+            "icon": "assets/img/calc_w.png",
+            "html": "assets/html/ObesiRecuCalc.html"
+          },
+          {
+            "title": "Test de Fagerström",
+            "type": "item",
+            "color": "bg-arg-uva",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/TabaRecuTest.html"
+          },
+          {
+            "title": "Instrumento Findrisc",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/DiabRecuTest.html"
+          },
+          {
+            "title": "Cuestionario CODE (Detección de EPOC)",
+            "type": "item",
+            "color": "bg-arg-palta",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/PulmRecuTest.html"
+          },
+          {
+            "title": "Escala evaluación de disnea modificada (mMRC)",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/evaluacion_w.png",
+            "html": "assets/html/InimMRC.html"
+          },
+          {
+            "title": "App para uso PHQ-2 y PHQ-9",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/calc_w.png",
+            "link": "https://play.google.com/store/apps/details?id=com.universaltools.mhgap"
+          },
+          {
+            "title": "Rastreo ansiedad GAD-7",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/calc_w.png",
+            "link": "https://play.google.com/store/apps/details?id=com.universaltools.mhgap"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Recursos Web",
+      "type": "card",
+      "color": "bg-arg-azul",
+      "icon": "assets/img/web_w.png",
+      "data":{
+        "id":69,
+        "type":"toolbar",
+        "title":"Recursos Web",
+        "toolbar":[
+          {
+            "title": "Recursos de MSAL",
+            "type": "item",
+            "color": "arg-gris-niebla",
+            "icon": "assets/img/share_48_b.png",
+            "link": "https://www.argentina.gob.ar/guias-de-practica-clinica-y-documentos-de-apoyo"
+          },
+          {
+            "title": "Cursos virtuales MSAL",
+            "type": "item",
+            "color": "arg-gris-niebla",
+            "icon": "assets/img/share_48_b.png",
+            "link": "https://pvs.msal.gov.ar/"
+          }
+        ]
+      }
+    },
+    {
+      "title": "Vías Clínicas y Algoritmos",
+      "type": "item",
+      "color": "bg-arg-gris-niebla",
+      "icon": "assets/img/algoritmos_b.png",
+      "data": {
+        "id": 89,
+        "type": "toolbar",
+        "title": "Protocolos y Algoritmos",
+        "toolbar": [
+          {
+            "title": "Hipertensión",
+            "type": "item",
+            "color": "bg-arg-tomate",
+            "icon": "assets/img/hipertension_w.png",
+            "data":{
+              "id": 90,
+              "type": "toolbar",
+              "title": "HTA: Cuadros y algoritmos",
+              "toolbar":[
+                {
+                  "title": "Vía Clínica HEARTS",
+                  "type": "item",
+                  "color": "bg-arg-tomate",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/HiperManeAlg3.html"
+                },
+                {
+                  "title": "Urgencias",
+                  "type": "item",
+                  "color": "bg-arg-tomate",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/HiperManeAlg2.html"
+                },
+                {
+                  "title": "Tablas de Fármacos",
+                  "type": "item",
+                  "color": "bg-arg-tomate",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/HiperManeAlg1.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Diabetes Mellitus tipo 2",
+            "type": "item",
+            "color": "bg-bandera-celeste",
+            "icon": "assets/img/diabetes_w.png",
+            "data": {
+              "id": 91,
+              "type": "toolbar",
+              "title": "Diabetes:Manejo(Cuadros/algoritmos)",
+              "toolbar":[
+                {
+                  "title": "Diabetes: Vía Clínica HEARTS-D",
+                  "type": "item",
+                  "color": "bg-bandera-celeste",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/DiabManeAlg1.html"
+                },
+                {
+                  "title": "Diabetes: Manejo de hipoglucemia",
+                  "type": "item",
+                  "color": "bg-bandera-celeste",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/DiabManeAlg2.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Enfermedad Pulmonar",
+            "type": "item",
+            "color": "bg-arg-palta",
+            "icon": "assets/img/pulmonar_w.png",
+            "data":{
+              "id":92,
+              "type":"toolbar",
+              "title": "EPOC:Manejo(Cuadros/algoritmos)",
+              "toolbar":[
+                {
+                  "title": "Tratamiento de la EPOC estable",
+                  "type": "item",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/PulmManeAlg1.html"
+                },
+                {
+                  "title": "Manejo de la reagudización de EPOC",
+                  "type": "item",
+                  "color": "bg-arg-palta",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/PulmManeAlg2.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Asma",
+            "type": "item",
+            "color": "bg-arg-lima",
+            "icon": "assets/img/asma_b.png",
+            "data":{
+              "id": 93,
+              "type": "toolbar",
+              "title": "Asma: Manejo(Cuadros/algoritmos)",
+              "toolbar":[
+                {
+                  "title": "-Ante síntomas no controlados, riesgos o ocurrencia de crisis: a. Verificar uso correcto de inhaladores y evaluar la adherencia al tratamiento. b. Considerar la intensificación del tratamiento al siguiente paso.",
+                  "type": "panel",
+                  "color": "bg-arg-lima"
+                },
+                {
+                  "title": "Considerar la posibilidad de una reducción escalonada del tratamiento una vez que se logra alcanzar y mantener un buen control del asma durante 3 meses, con el objetivo de identificar el nivel de tratamiento más bajo que proporcione control tanto de los síntomas como de las exacerbaciones y que reduzca al mínimo los efectos secundarios.",
+                  "type": "panel",
+                  "color": "bg-arg-lima"
+                },
+                {
+                  "title": "Protocolo tratamiento escalonado",
+                  "type": "item",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/AsmaManeAlgo1.html"
+                },
+                {
+                  "title": "Protocolo tratamiento crisis asmática",
+                  "type": "item",
+                  "color": "bg-arg-lima",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/AsmaManeAlgo2.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Enfermedad Renal",
+            "type": "item",
+            "color": "bg-arg-naranja",
+            "icon": "assets/img/renal_w.png",
+            "html": "assets/html/RenaManeCuadros.html"
+          },
+          {
+            "title": "Obesisdad",
+            "type": "item",
+            "color": "bg-arg-verdin",
+            "icon": "assets/img/obesidad_b.png",
+            "data":{
+              "id":94,
+              "type":"toolbar",
+              "title":"Obesidad:Manejo(Cuadros/algoritmos)",
+              "toolbar":[
+                {
+                  "title": "Obesidad: Protocolo tratamiento 1",
+                  "type": "item",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/ObesiManeAlg1.html"
+                },
+                {
+                  "title": "Obesidad: Protocolo tratamiento 2",
+                  "type": "item",
+                  "color": "bg-arg-verdin",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/ObesiManeAlg2.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Tabaco",
+            "type": "item",
+            "color": "bg-arg-lavanda",
+            "icon": "assets/img/tabaco_w.png",
+            "data": {
+              "id": 95,
+              "type": "toolbar",
+              "title": "Tabaco:Manejo(Cuadros/algoritmos)",
+              "toolbar":[
+                {
+                  "title": "Tratamiento 1: personas que fuman 10 a 20 cig/día",
+                  "type": "item",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/TabaManeAlg1.html"
+                },
+                {
+                  "title": "Tratamiento 1: personas con alta dependencia",
+                  "type": "item",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/TabaManeAlg2.html"
+                },
+                {
+                  "title": "Algoritmo para la Cesación tabáquica",
+                  "type": "item",
+                  "color": "bg-arg-lavanda",
+                  "icon": "assets/img/algoritmos_b.png",
+                  "html": "assets/html/TabaManeAlg3.html"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Alcohol",
+            "type": "item",
+            "color": "bg-gna-verde-jade",
+            "icon": "assets/img/alcohol_w.png",
+            "html": "assets/html/AlcoManeCuadros.html"
+          }
+          
+        ]
+      }
+    }
+  ]
+}

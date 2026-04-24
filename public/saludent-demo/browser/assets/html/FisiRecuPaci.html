@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos para el paciente</title>
+    <style>
+
+        /* --- 1. Variables y Estilos Base --- */
+        :root {
+            --fisi-primary-color: #383b3f; /* Azul primario */
+            --page-background: white;
+            --text-color: #333;
+            --font-family: 'Inter', sans-serif;
+            --shadow-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--page-background);
+            line-height: 1.6;
+            color: var(--text-color);
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - SIN COLOR --- */
+        .toolbar {
+            background-color: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px var(--shadow-color);
+        }
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+        .back-button:hover {
+            color: var(--fisi-primary-color);
+        }
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+
+        /* --- 3. Contenido Principal y Estilos de Texto --- */
+        .scroll-container {
+            padding: 10px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .stack-content {
+            padding-bottom: 20px;
+            background-color: var(--page-background); 
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelTitle}" */
+        .fisi-label-title {
+            margin: 20px 5px 25px 5px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--fisi-primary-color);
+            text-align: left;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* Simulación de Style="{StaticResource FisiLabelBold}" */
+        .fisi-label-bold {
+            margin: 20px 5px 10px 5px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: justify;
+            cursor: pointer;
+        }
+
+        /* Estilo para el contenedor de imagen y botón */
+        .horizontal-stack {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        /* Contenedor de la imagen (simula StackLayout) */
+        .image-container {
+            flex-grow: 1;
+            margin-right: 10px;
+            display: flex;
+            background-color: white;
+            min-height: 320px; /* Mantiene la altura mínima */
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-container img {
+            display: block;
+            width: 100%;
+            height: auto;
+            min-height: 320px;
+            object-fit: contain; /* No hace zoom */
+            border-radius: 10px;
+        }
+
+        /* Botón de Compartir */
+        .share-button {
+            background-color: var(--fisi-primary-color);
+            border: none;
+            border-radius: 10px;
+            height: 50px;
+            width: 50px;
+            min-width: 50px;
+            margin-top: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px var(--shadow-color);
+            transition: background-color 0.2s;
+        }
+
+        .share-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Imagen dentro del botón de compartir */
+        .share-button img {
+            width: 30px;
+            height: 30px;
+        }
+        
+        /* Contenedor de mensajes de alerta personalizados */
+        #message-box {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+            z-index: 2000;
+            text-align: center;
+        }
+        
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- 1. Toolbar -->
+    <div class="toolbar">
+        <button class="back-button" onclick="window.history.back()" title="Volver atrás">
+            <!-- Icono de flecha de retroceso (SVG) -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+        </button>
+        <div class="toolbar-title">
+            Recursos para el paciente
+        </div>
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- 2. Contenido Principal -->
+    <div class="scroll-container" id="contenido">
+
+        <div class="stack-content">
+
+            <h2 class="fisi-label-title">
+                Recursos para el paciente
+            </h2>
+
+            <!-- Pausa Activa: Clase 1 -->
+            <div 
+                class="fisi-label-bold"
+                onclick="handleTap('https://youtu.be/npLbe6QBlXU')"
+                title="Haga clic para abrir">
+                Pausa Activa: Clase 1
+            </div>
+            <div class="horizontal-stack">
+                <div class="image-container" onclick="handleTap('https://youtu.be/npLbe6QBlXU')">
+                    <!-- Nombre de imagen original: af_pausa1.gif -->
+                    <img src="/assets/img/af_pausa1.gif" alt="Pausa Activa Clase 1" id="Image1">
+                </div>
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://youtu.be/npLbe6QBlXU')">
+                    <!-- Nombre de imagen original para el botón: share_48_b.png -->
+                    <img src="/assets/img/share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+
+
+            <!-- Pausa Activa: Clase 2 -->
+            <div 
+                class="fisi-label-bold"
+                onclick="handleTap('https://youtu.be/tvUQC9bhGok')"
+                title="Haga clic para abrir">
+                Pausa Activa: Clase 2
+            </div>
+            <div class="horizontal-stack">
+                <div class="image-container" onclick="handleTap('https://youtu.be/tvUQC9bhGok')">
+                    <!-- Nombre de imagen original: af_pausa2.gif -->
+                    <img src="/assets/img/af_pausa2.gif" alt="Pausa Activa Clase 2" id="Image2">
+                </div>
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://youtu.be/tvUQC9bhGok')">
+                    <!-- Nombre de imagen original para el botón: share_48_b.png -->
+                    <img src="/assets/img/share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+
+
+            <!-- Pausa Activa: Clase 3 -->
+            <div 
+                class="fisi-label-bold"
+                onclick="handleTap('https://youtu.be/71Y-awY97jo')"
+                title="Haga clic para abrir">
+                Pausa Activa: Clase 3
+            </div>
+            <div class="horizontal-stack">
+                <div class="image-container" onclick="handleTap('https://youtu.be/71Y-awY97jo')">
+                    <!-- Nombre de imagen original: af_pausa3.gif -->
+                    <img src="/assets/img/af_pausa3.gif" alt="Pausa Activa Clase 3" id="Image3">
+                </div>
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://youtu.be/71Y-awY97jo')">
+                    <!-- Nombre de imagen original para el botón: share_48_b.png -->
+                    <img src="/assets/img/share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+
+
+            <!-- Pausa Activa: Clase 4 -->
+            <div 
+                class="fisi-label-bold"
+                onclick="handleTap('https://youtu.be/JT4yLbuuHiY')"
+                title="Haga clic para abrir">
+                Pausa Activa: Clase 4
+            </div>
+            <div class="horizontal-stack">
+                <div class="image-container" onclick="handleTap('https://youtu.be/JT4yLbuuHiY')">
+                    <!-- Nombre de imagen original: af_pausa4.gif -->
+                    <img src="/assets/img/af_pausa4.gif" alt="Pausa Activa Clase 4" id="Image4">
+                </div>
+                <button 
+                    class="share-button"
+                    onclick="handleShare('https://youtu.be/JT4yLbuuHiY')">
+                    <!-- Nombre de imagen original para el botón: share_48_b.png -->
+                    <img src="/assets/img/share_48_b.png" alt="Compartir">
+                </button>
+            </div>
+            
+            <!-- StackButtons (NavButton) ha sido omitido según la solicitud -->
+
+        </div>
+    </div>
+    
+    <!-- Contenedor de mensaje de alerta personalizado (reemplaza DisplayAlert) -->
+    <div id="message-box"></div>
+
+    <script>
+        // --- Lógica de la Aplicación ---
+        
+        // Función para mostrar un mensaje flotante (reemplaza DisplayAlert)
+        function showMessage(message) {
+            const box = document.getElementById('message-box');
+            box.textContent = message;
+            box.style.opacity = 1;
+            box.style.bottom = '20px';
+            
+            setTimeout(() => {
+                box.style.opacity = 0;
+                box.style.bottom = '-50px'; // Lo mueve fuera de la vista
+            }, 3000);
+        }
+
+        // Función para abrir enlaces (simula TapGestureRecognizer_Tapped)
+        function handleTap(url) {
+            window.open(url, '_blank');
+        }
+
+        // Función para compartir/copiar al portapapeles (simula btnShare_Clicked)
+        function handleShare(url) {
+            // Utilizamos el truco de copiar a través de un elemento temporal
+            const tempInput = document.createElement('textarea');
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            
+            let successful = false;
+            try {
+                // document.execCommand('copy') es el método compatible en muchos iframes
+                successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage("Se copió el link en el portapapeles. Utilice <Pegar> en su red social.");
+                } else {
+                    showMessage("Error al copiar. Por favor, copie el enlace manualmente.");
+                }
+            } catch (err) {
+                showMessage("Error al copiar. Por favor, copie el enlace manualmente.");
+            }
+            
+            document.body.removeChild(tempInput);
+        }
+        
+        // Función de seguridad para manejar fallas de carga de imágenes
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.onerror = function() {
+                    console.error('No se pudo cargar la imagen:', img.src);
+                    // Opcional: mostrar un mensaje o un fondo sólido si la imagen es crítica.
+                    img.style.backgroundColor = '#ccc';
+                };
+            });
+        });
+
+    </script>
+</body>
+</html>

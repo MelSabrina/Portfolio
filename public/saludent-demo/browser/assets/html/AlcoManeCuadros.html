@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alcohol: Protocolo tratamiento 1</title>
+    <style>
+
+        /* Variables y configuración general */
+        :root {
+            --text-color: #333;
+            --alco-primary-color: #80838f; /* Azul medio para elementos clave */
+            --alco-background-color: white;
+            --font-family: 'Inter', sans-serif;
+            --link-color: blue;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--alco-background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+        
+  max-width: 720px;
+  margin: 0 auto;}
+
+        /* --- 2. Toolbar (Barra de navegación) - ESTILOS SOLICITADOS --- */
+        .toolbar {
+            background-color: white; /* Sin color */
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            transition: color 0.2s;
+        }
+
+        .toolbar-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .toolbar-placeholder {
+            width: 34px; /* Para equilibrar el botón de retroceso */
+        }
+        
+        /* --- Contenido Principal y Estilos de Componentes --- */
+        main {
+            overflow-y: auto;
+            padding: 10px; /* Simula Grid Padding="10" */
+        }
+        
+        .stack-layout {
+            /* Simula StackLayout principal */
+            display: flex;
+            flex-direction: column;
+            padding: 0 5px;
+            padding-bottom: 100px; /* Espacio para el final del contenido */
+        }
+
+        /* Estilos de Label traducidos del XAML */
+        .alco-label {
+            font-size: 1rem;
+            color: var(--text-color);
+            margin: 5px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            text-align: justify;
+        }
+        
+        .alco-label-bold {
+            font-size: 1rem;
+            font-weight: bold;
+            color: var(--text-color);
+            margin: 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+        }
+
+        /* Estilos para el texto de las Zonas de Riesgo (clickable/acordeón) */
+        .risk-zone-label {
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 10px 0;
+            padding: 0 5px;
+            line-height: 1.4;
+            user-select: none; /* Evitar selección de texto al hacer tap */
+        }
+        
+        .risk-zone-label span {
+            font-weight: bold;
+            text-decoration: underline;
+            color: var(--link-color);
+        }
+
+        /* Imágenes (sin zoom) */
+        .content-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px 0 20px 0;
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Contenedores de contenido desplegable (Acordeón) */
+        .accordion-content {
+            display: none;
+            overflow: hidden;
+            padding: 5px 0 10px 0;
+            border-left: 3px solid #eee;
+            margin-left: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .accordion-content.visible {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Estilos para BulletLabel (Lista no ordenada) */
+        .bullet-list {
+            list-style: none;
+            padding-left: 15px;
+            margin: 10px 0;
+        }
+
+        .bullet-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            font-size: 1rem;
+            color: var(--text-color);
+            text-align: justify;
+        }
+
+        .bullet-list li::before {
+            content: '\2022'; /* Símbolo de punto */
+            color: var(--alco-primary-color);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    
+</style>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Toolbar (Barra de navegación) -->
+    <div class="toolbar"> 
+        <button class="back-button" onclick="goBack()" title="Volver"> 
+            <!-- Icono de flecha de retroceso --> 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"> 
+                <line x1="19" y1="12" x2="5" y2="12"></line> 
+                <polyline points="12 19 5 12 12 5"></polyline> 
+            </svg> 
+        </button> 
+        <div class="toolbar-title"> 
+            Alcohol: Protocolo tratamiento 1
+        </div> 
+        <div class="toolbar-placeholder"></div>
+    </div>
+
+    <!-- Contenido Principal (Simula ScrollView y StackLayout) -->
+    <main id="contenido">
+        <div class="stack-layout">
+
+            <div class="alco-label-bold">
+                Protocolo tratamiento 1
+            </div>
+
+            <!-- Imagen ac_algoritmo1.png (sin funcionalidad de zoom) -->
+            <img src="/assets/img/ac_algoritmo1.png"
+                 alt="Protocolo tratamiento 1"
+                 class="content-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=ac_algoritmo1.png'">
+
+            <div class="alco-label-bold" style="margin-top: 20px;">
+                Intervención sugerida en base a puntaje AUDIT
+            </div>
+
+            <!-- Imagen al_tabla11.png (sin funcionalidad de zoom) -->
+            <img src="/assets/img/al_tabla11.png"
+                 alt="Intervención sugerida en base a puntaje AUDIT"
+                 class="content-image"
+                 onerror="this.onerror=null; this.src='https://placehold.co/600x400/E0E0E0/333333?text=al_tabla11.png'">
+
+            <!-- ZONA DE RIESGO I (Acordeón) -->
+            <div id="label1" class="risk-zone-label">
+                <span>
+                    ZONA DE RIESGO I (Puntaje 0-7)
+                </span>
+            </div>
+            <div id="stack1" class="accordion-content">
+                <div class="alco-label" style="text-decoration: underline; font-weight: 500;">
+                    TIPO DE INTERVENCIÓN:
+                </div>
+                <ul class="bullet-list">
+                    <li>
+                        En personas que no consumen bebidas con alcohol, se sugiere desalentar su inicio, para evitar los daños asociados a su consumo.
+                    </li>
+                    <li>
+                        EDUCAR SOBRE EL ALCOHOL: Informar a la persona acerca de los efectos del consumo de alcohol, tanto a nivel psicofísico como social.
+                    </li>
+                    <li>
+                        Brindar retroalimentación positiva.
+                    </li>
+                    <li>
+                        Reforzar hábitos actuales y/o sugerir consumir menos: lo importante es NO aumentar el consumo.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ZONA DE RIESGO II (Acordeón) -->
+            <div id="label2" class="risk-zone-label">
+                <span>
+                    ZONA DE RIESGO II (Puntaje 8-15)
+                </span>
+            </div>
+            <div id="stack2" class="accordion-content">
+                <div class="alco-label" style="text-decoration: underline; font-weight: 500;">
+                    TIPO DE INTERVENCIÓN:
+                </div>
+                <div class="alco-label-bold" style="margin-top: 0;">
+                    CONSEJO SIMPLE:
+                </div>
+                <ul class="bullet-list">
+                    <li>
+                        Señalar a la persona que su patrón de consumo se encuentra en el marco de consumo de riesgo.
+                    </li>
+                    <li>
+                        Proporcionar información sobre daños que conlleva el consumo regular de alcohol.
+                    </li>
+                    <li>
+                        Acordar metas y sugerir estrategias para reducir el consumo Ejemplo: servirse menor cantidad de lo habitual, al tener deseos de consumir, tratar de reemplazarlo por otra actividad para distraerse, tomar solo agua es la mejor opción, pero en caso de estar consumiendo bebidas con alcohol, alternar con otra sin alcohol, rodearse de personas que no tomen o tomen poco, evitar tener bebidas alcohólicas en la casa (reducir la disponibilidad ayuda a consumir menos).
+                    </li>
+                    <li>
+                        Alentar a las personas a implementar estos cambios, destacando que es factible porque no presenta un consumo dependiente.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ZONA DE RIESGO III (Acordeón) -->
+            <div id="label3" class="risk-zone-label">
+                <span>
+                    ZONA DE RIESGO III (Puntaje 16-19)
+                </span>
+            </div>
+            <div id="stack3" class="accordion-content">
+                <div class="alco-label" style="text-decoration: underline; font-weight: 500;">
+                    TIPO DE INTERVENCIÓN:
+                </div>
+                <div class="alco-label-bold" style="margin-top: 0;">
+                    INTERVENCIÓN/TERAPIA BREVE
+                </div>
+                <ul class="bullet-list">
+                    <li>
+                        Señalar a la persona que su consumo de alcohol es un consumo dependiente.
+                    </li>
+                    <li>
+                        Expresar empatía por la persona y no juzgar.
+                    </li>
+                    <li>
+                        Brindar un consejo firme y claro orientado a dejar de consumir.
+                    </li>
+                    <li>
+                        Realizar una evaluación integral para valoración del daño en la salud física, mental y social. La evaluación integral puede incluir identificar otros consumos (ej. tabaco, psicofármacos, otras sustancias), evaluación clínica y de salud mental, evaluación cognitiva, nutricional, del soporte social y familiar, situación laboral, entre los principales. Existen instrumentos para valorar la ansiedad y la depresión (ej. GAD-7 y PHQ-9).
+                    </li>
+                </ul>
+            </div>
+
+            <!-- ZONA DE RIESGO IV (Acordeón) -->
+            <div id="label4" class="risk-zone-label">
+                <span>
+                    ZONA DE RIESGO IV (Puntaje 20-40)
+                </span>
+            </div>
+            <div id="stack4" class="accordion-content">
+                <div class="alco-label" style="text-decoration: underline; font-weight: 500;">
+                    TIPO DE INTERVENCIÓN:
+                </div>
+                <div class="alco-label-bold" style="margin-top: 0;">
+                    INTERVENCIÓN/TERAPIA BREVE
+                </div>
+                <ul class="bullet-list">
+                    <li>
+                        Señalar a la persona que su consumo de alcohol es un consumo dependiente.
+                    </li>
+                    <li>
+                        Expresar empatía por la persona y no juzgar.
+                    </li>
+                    <li>
+                        Brindar un consejo firme y claro orientado a dejar de consumir.
+                    </li>
+                    <li>
+                        Referenciar a equipo especializado. La dependencia del alcohol, por su complejidad, requiere de tratamientos que tengan por objetivo el cese del consumo.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- PERSONAS EN ESTADO GESTANTE (Acordeón) -->
+            <div id="label5" class="risk-zone-label">
+                <span>
+                    PERSONAS EN ESTADO GESTANTE
+                </span>
+            </div>
+            <div id="stack5" class="accordion-content">
+                <ul class="bullet-list" style="padding-top: 5px;">
+                    <li>
+                        En quienes presenten algún consumo de alcohol, brindar un consejo claro y un abordaje interdisciplinario orientado a dejar de consumir para reducir daños tanto en su salud física y mental, como en la del niño/niña. Los trastornos del espectro alcohólico fetal (TEAF) son un grupo de afecciones que pueden presentarse en un niño/a expuesto/a al alcohol durante el embarazo. Estos efectos pueden incluir problemas físicos, del comportamiento y del aprendizaje.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- NIÑOS, NIÑAS Y ADOLESCENTES (Acordeón) -->
+            <div id="label6" class="risk-zone-label">
+                <span>
+                    NIÑOS, NIÑAS Y ADOLESCENTES
+                </span>
+            </div>
+            <div id="stack6" class="accordion-content">
+                <ul class="bullet-list" style="padding-top: 5px;">
+                    <li>
+                        En esta población, se sugiere utilizar el cuestionario AUDIT-C adaptando las preguntas acordes a la edad en el marco de una entrevista semiestructurada para detectar el consumo de alcohol.
+                    </li>
+                    <li>
+                        En quienes no consumen bebidas con alcohol, brindar un consejo claro y personalizado sobre la importancia de no iniciar su consumo para evitar riesgos y daños en su salud y en la de terceros.
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CONSEJOS GENERALES (Acordeón) -->
+            <div id="label7" class="risk-zone-label">
+                <span>
+                    CONSEJOS GENERALES
+                </span>
+            </div>
+            <div id="stack7" class="accordion-content">
+                <div class="alco-label" style="padding: 0; margin-bottom: 5px;">
+                    Recomendar:
+                </div>
+                <ul class="bullet-list">
+                    <li>
+                        No consumir ningún tipo de bebidas con alcohol al manejar automóviles, motocicletas, bicicletas, maquinarias, herramientas o al realizar trabajos de riesgo.
+                    </li>
+                    <li>
+                        No consumir alcohol para intentar manejar emociones, el estrés o para dormir mejor.
+                    </li>
+                    <li>
+                        No consumir alcohol si está al cuidado de niños, adultos mayores y/o personas con alguna enfermedad.
+                    </li>
+                    <li>
+                        No consumir alcohol como “protector cardiovascular”: los beneficios cardiovasculares son alcanzados evitando los factores de riesgo a través de la actividad física, la reducción de sodio, evitando fumar y manteniendo un peso corporal adecuado.
+                    </li>
+                    <li>
+                        Padres y madres de Niños, Niñas y Adolescentes no ofrecerles ni inducirlos a consumir bebidas con alcohol.
+                    </li>
+                </ul>
+            </div>
+
+            <div id="dummy" style="height: 100px;"></div>
+            
+        </div>
+    </main>
+
+    <!-- Lógica de JavaScript -->
+    <script>
+        // Función de retroceso de historial
+        function goBack() { 
+            window.history.back(); 
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Función genérica para toggles de Zona de Riesgo (Acordeón)
+            function setupAccordion(labelId, stackId) {
+                const label = document.getElementById(labelId);
+                const stack = document.getElementById(stackId);
+
+                if (label && stack) {
+                    // El contenido es invisible por defecto a través de CSS
+                    label.addEventListener('click', () => {
+                        stack.classList.toggle('visible');
+                    });
+                }
+            }
+
+            // Configuración de todos los acordeones de Zonas de Riesgo
+            setupAccordion('label1', 'stack1');
+            setupAccordion('label2', 'stack2');
+            setupAccordion('label3', 'stack3');
+            setupAccordion('label4', 'stack4');
+            setupAccordion('label5', 'stack5');
+            setupAccordion('label6', 'stack6');
+            setupAccordion('label7', 'stack7');
+        });
+    </script>
+</body>
+</html>
