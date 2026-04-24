@@ -45,7 +45,7 @@ export const NODES: TreeNode[] = [
     label: { en: 'editorial & graphic', es: 'editorial & gráfica' },
     title: { en: 'Editorial', es: 'Editorial' },
     minWidth: 185,
-    x: 860, y: 330,
+    x: 860, y: 300,
   },
   {
     id: 'otros', kind: 'branch', parentId: 'mel',
