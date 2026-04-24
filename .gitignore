@@ -8,6 +8,9 @@ public/videos/habitaciones_traseras.mp4
 # Build output
 dist/
 
+# Legacy assets — local only, not for repo
+Legacy/
+
 # AI assistant instructions — private
 CLAUDE.md
 .claude/

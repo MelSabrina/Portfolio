@@ -6,6 +6,9 @@ import { RootNode } from './RootNode'
 import { ProjectTextNode } from './ProjectTextNode'
 import { ProjectAppNode } from './ProjectAppNode'
 import { ProjectVideoNode } from './ProjectVideoNode'
+import { ProjectImageNode } from './ProjectImageNode'
+import { ProjectLinkNode } from './ProjectLinkNode'
+import { ProjectBgVideoNode } from './ProjectBgVideoNode'
 
 interface Props { lang: 'en' | 'es' }
 
@@ -17,8 +20,8 @@ interface UIState {
   active:   string | null
 }
 
-const SPAWN_GAP_X =  60   // gap horizontal entre padre y primer hijo
-const SPAWN_GAP_Y =  18   // gap vertical entre hermanos
+const SPAWN_GAP_X = 140   // gap horizontal entre padre y primer hijo
+const SPAWN_GAP_Y =  90   // gap vertical entre hermanos
 const FALLBACK_W  = 155
 const FALLBACK_H  =  68
 
@@ -27,6 +30,73 @@ const ZOOM_MIN    = 0.25
 const ZOOM_MAX    = 2.5
 
 interface Size { w: number; h: number }
+
+interface EdgeIndicator {
+  id:    string
+  color: string
+  side:  'top' | 'bottom' | 'left' | 'right'
+  along: number
+  show:  boolean
+  seed:  number
+}
+
+function nodeHash(id: string): number {
+  let h = 0
+  for (let i = 0; i < id.length; i++) h = (Math.imul(31, h) + id.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+
+function computeEdgeIndicators(
+  nodes:          TreeNode[],
+  positions:      Record<string, Pos>,
+  sizes:          Record<string, Size>,
+  vp:             Vp,
+  activeId:       string | null,
+  activeBranchId: string | null | undefined,
+): EdgeIndicator[] {
+  const W = window.innerWidth
+  const H = window.innerHeight
+  const DEADZONE = 30
+  const out: EdgeIndicator[] = []
+
+  for (const node of nodes) {
+    const pos  = positions[node.id]
+    const size = sizes[node.id] ?? { w: FALLBACK_W, h: FALLBACK_H }
+    if (!pos) continue
+
+    const cx = pos.x * vp.scale + vp.x + (size.w * vp.scale) / 2
+    const cy = pos.y * vp.scale + vp.y + (size.h * vp.scale) / 2
+
+    const dLeft   = -cx
+    const dRight  = cx - W
+    const dTop    = -cy
+    const dBottom = cy - H
+
+    const offScreen = Math.max(dLeft, dRight, dTop, dBottom) >= DEADZONE
+    const dimmed    = activeId !== null
+      && node.id !== activeId
+      && node.parentId === activeBranchId
+    const show = offScreen && !dimmed
+
+    const color = branchColorOf(node.id)
+
+    let side: EdgeIndicator['side']
+    let along: number
+    if (dLeft >= dRight && dLeft >= dTop && dLeft >= dBottom) {
+      side = 'left';   along = Math.max(12, Math.min(H - 12, cy))
+    } else if (dRight > dLeft && dRight >= dTop && dRight >= dBottom) {
+      side = 'right';  along = Math.max(12, Math.min(H - 12, cy))
+    } else if (dTop >= dBottom) {
+      side = 'top';    along = Math.max(12, Math.min(W - 12, cx))
+    } else {
+      side = 'bottom'; along = Math.max(12, Math.min(W - 12, cx))
+    }
+
+    out.push({ id: node.id, color, side, along, show, seed: nodeHash(node.id) })
+  }
+
+  return out
+}
 
 function spawnChildren(parentId: string, parentPos: Pos, parentSize: Size): Record<string, Pos> {
   const children = NODES.filter(n => n.parentId === parentId)
@@ -54,6 +124,29 @@ export function NodeCanvas({ lang }: Props) {
   const vpRef  = useRef(vp)
   useEffect(() => { vpRef.current = vp }, [vp])
 
+  // DOM refs for zero-React-overhead pan/zoom
+  const canvasWorldRef = useRef<HTMLDivElement>(null)
+  const canvasEdgesRef = useRef<SVGSVGElement>(null)
+  const canvasDotsRef  = useRef<HTMLDivElement>(null)
+  const vpSyncRef      = useRef<ReturnType<typeof setTimeout>>()
+
+  // Apply vp directly to DOM — bypasses React render during active interaction
+  const commitVp = useCallback((v: Vp) => {
+    vpRef.current = v
+    const t = `translate(${v.x}px,${v.y}px) scale(${v.scale})`
+    if (canvasWorldRef.current) canvasWorldRef.current.style.transform = t
+    if (canvasEdgesRef.current) canvasEdgesRef.current.style.transform  = t
+    if (canvasDotsRef.current) {
+      const gs = 28 * v.scale
+      const op = Math.min(1, Math.max(0, (v.scale - 0.4) / 0.2))
+      canvasDotsRef.current.style.backgroundSize     = `${gs}px ${gs}px`
+      canvasDotsRef.current.style.backgroundPosition = `${v.x}px ${v.y}px`
+      canvasDotsRef.current.style.opacity            = String(op)
+    }
+  }, [])
+
+  useEffect(() => () => clearTimeout(vpSyncRef.current), [])
+
   const [positions, setPositions] = useState<Record<string, Pos>>(initPositions)
   const posRef = useRef(positions)
   useEffect(() => { posRef.current = positions }, [positions])
@@ -76,6 +169,7 @@ export function NodeCanvas({ lang }: Props) {
   }, [ui.expanded])
 
   const handleNodeClick = useCallback((id: string, kind: string) => {
+    if (suppressNextClick.current) { suppressNextClick.current = false; return }
     if (kind === 'branch') {
       setUi(s => {
         const wasExpanded = s.expanded.has(id)
@@ -102,8 +196,8 @@ export function NodeCanvas({ lang }: Props) {
         const parentSize = sizesRef.current[id] ?? { w: FALLBACK_W, h: FALLBACK_H }
         if (parentPos) {
           const proj  = PROJECTS[id]
-          const rx    = parentPos.x + parentSize.w + 50
-          const vx    = parentPos.x + parentSize.w + 465
+          const rx    = parentPos.x + parentSize.w + 130
+          const vx    = parentPos.x + parentSize.w + 545
           const cy    = parentPos.y + parentSize.h / 2
           const ROW_H = 520
           if (proj.tracks) {
@@ -116,11 +210,61 @@ export function NodeCanvas({ lang }: Props) {
             })
             setPositions(p => ({ ...p, ...offsets }))
           } else {
+            const imgOffsets: Record<string, Pos> = {}
+            if (proj.images?.length) {
+              const COLS  = 2
+              const COL_W = 400
+              const ROW_H = 260
+              const rows  = Math.ceil(proj.images.length / COLS)
+              const imgX0 = rx + 380
+              proj.images.forEach((_, i) => {
+                const layout = proj.imageLayout?.[i]
+                if (layout) {
+                  imgOffsets[`${id}-img-${i}`] = { x: imgX0 + layout.dx, y: cy + layout.dy }
+                } else {
+                  const col  = i % COLS
+                  const row  = Math.floor(i / COLS)
+                  const seed = nodeHash(`${id}-img-${i}`)
+                  imgOffsets[`${id}-img-${i}`] = {
+                    x: imgX0 + col * COL_W + (seed % 40) - 20,
+                    y: cy - (rows * ROW_H) / 2 + row * ROW_H + (seed % 50) - 25,
+                  }
+                }
+              })
+              // Link node: explicit offset takes priority, else anchored below last right-column image
+              if (proj.linkUrl) {
+                if (proj.linkOffset) {
+                  imgOffsets[`${id}-link`] = { x: imgX0 + proj.linkOffset.dx, y: cy + proj.linkOffset.dy }
+                } else {
+                  const lastRight = imgOffsets[`${id}-img-${proj.images.length - 1}`]
+                  if (lastRight) {
+                    const lastW = proj.images[proj.images.length - 1].width ?? 320
+                    const gapY  = proj.imageLayout ? 50 : ROW_H + 30
+                    const linkX = proj.imageLayout ? lastRight.x + lastW - 96 : lastRight.x
+                    imgOffsets[`${id}-link`] = { x: linkX, y: lastRight.y + gapY }
+                  }
+                }
+              }
+              // BgVideo node: custom offset or right of grid fallback
+              if (proj.bgVideo) {
+                const bgOff = proj.bgVideoOffset
+                imgOffsets[`${id}-bgvideo`] = bgOff
+                  ? { x: imgX0 + bgOff.dx, y: cy + bgOff.dy }
+                  : { x: imgX0 + 2 * COL_W + 60, y: cy - 200 }
+              }
+            }
             setPositions(p => ({
               ...p,
               [`${id}-text`]:  { x: rx, y: cy - 120 },
               ...(proj.appUrl   ? { [`${id}-app`]:   { x: vx, y: cy - 280 } } : {}),
               ...(proj.videoUrl ? { [`${id}-video`]: { x: vx, y: cy - 220 } } : {}),
+              // bgVideo fallback when no images
+              ...(!proj.images?.length && proj.bgVideo ? {
+                [`${id}-bgvideo`]: proj.bgVideoOffset
+                  ? { x: rx + 380 + proj.bgVideoOffset.dx, y: cy + proj.bgVideoOffset.dy }
+                  : { x: vx, y: cy - 220 },
+              } : {}),
+              ...imgOffsets,
             }))
           }
         }
@@ -129,7 +273,8 @@ export function NodeCanvas({ lang }: Props) {
   }, [])
 
   // ── Drag nodo ─────────────────────────────────────────────────────────────
-  const dragRef = useRef<{ id: string; offX: number; offY: number; followers: string[] } | null>(null)
+  const dragRef = useRef<{ id: string; offX: number; offY: number; followers: string[]; moved: boolean } | null>(null)
+  const suppressNextClick = useRef(false)
 
   const onNodeMouseDown = useCallback((e: React.MouseEvent, id: string) => {
     if (e.button !== 0) return
@@ -148,8 +293,11 @@ export function NodeCanvas({ lang }: Props) {
         })
       } else if (id === `${activeId}-text`) {
         followers = [
-          ...(proj.appUrl   ? [`${activeId}-app`]   : []),
-          ...(proj.videoUrl ? [`${activeId}-video`] : []),
+          ...(proj.appUrl   ? [`${activeId}-app`]    : []),
+          ...(proj.videoUrl ? [`${activeId}-video`]  : []),
+          ...(proj.linkUrl  ? [`${activeId}-link`]   : []),
+          ...(proj.bgVideo  ? [`${activeId}-bgvideo`] : []),
+          ...(proj.images?.map((_, i) => `${activeId}-img-${i}`) ?? []),
         ]
       }
     }
@@ -159,6 +307,7 @@ export function NodeCanvas({ lang }: Props) {
       offX: (e.clientX - x) / scale - pos.x,
       offY: (e.clientY - y) / scale - pos.y,
       followers,
+      moved: false,
     }
   }, [])
 
@@ -177,24 +326,33 @@ export function NodeCanvas({ lang }: Props) {
     const onWheel = (e: WheelEvent) => {
       e.preventDefault()
       const factor = e.deltaY < 0 ? ZOOM_FACTOR : 1 / ZOOM_FACTOR
-      setVp(v => {
-        const newScale = Math.min(Math.max(v.scale * factor, ZOOM_MIN), ZOOM_MAX)
-        const ratio    = newScale / v.scale
-        return {
-          x:     e.clientX - (e.clientX - v.x) * ratio,
-          y:     e.clientY - (e.clientY - v.y) * ratio,
-          scale: newScale,
-        }
-      })
+      const v = vpRef.current
+      const newScale = Math.min(Math.max(v.scale * factor, ZOOM_MIN), ZOOM_MAX)
+      const ratio    = newScale / v.scale
+      const next: Vp = {
+        x:     e.clientX - (e.clientX - v.x) * ratio,
+        y:     e.clientY - (e.clientY - v.y) * ratio,
+        scale: newScale,
+      }
+      // GPU layer: scale is compositor-only → smooth zoom, pixels update after
+      if (canvasWorldRef.current) canvasWorldRef.current.style.willChange = 'transform'
+      commitVp(next)
+      // Sync React state + release GPU layer when zoom settles → browser re-rasterises
+      clearTimeout(vpSyncRef.current)
+      vpSyncRef.current = setTimeout(() => {
+        setVp(vpRef.current)
+        if (canvasWorldRef.current) canvasWorldRef.current.style.willChange = 'auto'
+      }, 150)
     }
     window.addEventListener('wheel', onWheel, { passive: false })
     return () => window.removeEventListener('wheel', onWheel)
-  }, [])
+  }, [commitVp])
 
   // ── Mouse move / up global ────────────────────────────────────────────────
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
       if (dragRef.current) {
+        dragRef.current.moved = true
         const { id, offX, offY, followers } = dragRef.current
         const { x, y, scale } = vpRef.current
         const nx = (e.clientX - x) / scale - offX
@@ -212,17 +370,22 @@ export function NodeCanvas({ lang }: Props) {
       }
       if (panRef.current) {
         const { startX, startY, vpX, vpY } = panRef.current
-        setVp(v => ({ ...v, x: vpX + (e.clientX - startX), y: vpY + (e.clientY - startY) }))
+        commitVp({ ...vpRef.current, x: vpX + (e.clientX - startX), y: vpY + (e.clientY - startY) })
       }
     }
-    const onUp = () => { dragRef.current = null; panRef.current = null }
+    const onUp = () => {
+      if (dragRef.current?.moved) suppressNextClick.current = true
+      dragRef.current = null
+      if (panRef.current) setVp({ ...vpRef.current })  // sync React state when pan ends
+      panRef.current = null
+    }
     document.addEventListener('mousemove', onMove)
     document.addEventListener('mouseup',   onUp)
     return () => {
       document.removeEventListener('mousemove', onMove)
       document.removeEventListener('mouseup',   onUp)
     }
-  }, [])
+  }, [commitVp])
 
   // ── Content node edges ────────────────────────────────────────────────────
   const contentEdges = (() => {
@@ -245,7 +408,7 @@ export function NodeCanvas({ lang }: Props) {
       const x2 = tPos.x
       const y2 = tPos.y + tSize.h / 2
       const t  = Math.max(Math.abs(x2 - x1) * 0.5, 60)
-      return [{ id: `${fromId}→${toId}`, d: `M ${x1},${y1} C ${x1+t},${y1} ${x2-t},${y2} ${x2},${y2}`, color }]
+      return [{ id: `${fromId}→${toId}`, d: `M ${x1},${y1} C ${x1+t},${y1} ${x2-t},${y2} ${x2},${y2}`, color, dimmed: false }]
     }
 
     const pFb   = { w: FALLBACK_W, h: FALLBACK_H }
@@ -259,14 +422,20 @@ export function NodeCanvas({ lang }: Props) {
       ])
     }
     const txtId = `${active}-text`
+    const imgFb = { w: 320, h: 200 }
     return [
       ...makeSeg(active,  txtId,             pFb,   txtFb),
-      ...(proj.appUrl   ? makeSeg(txtId, `${active}-app`,   txtFb, medFb) : []),
-      ...(proj.videoUrl ? makeSeg(txtId, `${active}-video`, txtFb, medFb) : []),
+      ...(proj.appUrl    ? makeSeg(txtId, `${active}-app`,   txtFb, medFb) : []),
+      ...(proj.videoUrl  ? makeSeg(txtId, `${active}-video`, txtFb, medFb) : []),
+      ...(proj.images?.flatMap((_, i) => makeSeg(txtId, `${active}-img-${i}`, txtFb, imgFb)) ?? []),
+      ...(proj.linkUrl   ? makeSeg(txtId, `${active}-link`,   txtFb, { w: 200, h: 64  }) : []),
+      ...(proj.bgVideo   ? makeSeg(txtId, `${active}-bgvideo`, txtFb, { w: 380, h: 240 }) : []),
     ]
   })()
 
   // ── Bezier edges ──────────────────────────────────────────────────────────
+  const activeNode = ui.active ? NODES.find(n => n.id === ui.active) : null
+
   const edges = NODES.filter(n => n.parentId && visible(n) && positions[n.id] && positions[n.parentId!]).map(n => {
     const from  = positions[n.parentId!]
     const to    = positions[n.id]
@@ -279,8 +448,18 @@ export function NodeCanvas({ lang }: Props) {
     const t  = Math.max(Math.abs(x2 - x1) * 0.5, 60)
     const d     = `M ${x1},${y1} C ${x1 + t},${y1} ${x2 - t},${y2} ${x2},${y2}`
     const color = branchColorOf(n.id)
-    return { id: n.id, d, color }
+    const dimmed = ui.active !== null
+      && n.kind === 'project'
+      && n.id !== ui.active
+      && n.parentId === activeNode?.parentId
+    return { id: n.id, d, color, dimmed }
   })
+
+  const allIndicators = computeEdgeIndicators(
+    NODES.filter(n => visible(n) && n.kind === 'project'),
+    positions, sizes, vp,
+    ui.active, activeNode?.parentId,
+  )
 
   const { x: vpX, y: vpY, scale } = vp
   const gridSize   = 28 * scale
@@ -292,6 +471,7 @@ export function NodeCanvas({ lang }: Props) {
       onMouseDown={onCanvasMouseDown}
     >
       <div
+        ref={canvasDotsRef}
         className="canvas-dots"
         style={{
           backgroundSize:     `${gridSize}px ${gridSize}px`,
@@ -300,19 +480,64 @@ export function NodeCanvas({ lang }: Props) {
         }}
       />
       <svg
+        ref={canvasEdgesRef}
         className="canvas-edges"
         style={{ transform: `translate(${vpX}px,${vpY}px) scale(${scale})` }}
         width="4000" height="4000" viewBox="0 0 4000 4000"
       >
+        {/* Glow pass — lit edges */}
+        <g style={{ filter: 'blur(6px)' }}>
+          {[...edges, ...contentEdges].filter(e => !e.dimmed).map(e => (
+            <path key={`${e.id}-glow`} d={e.d} stroke={e.color} strokeWidth="5" fill="none" opacity="0.55" />
+          ))}
+        </g>
+        {/* Glow pass — dimmed edges, neutral grey */}
+        <g style={{ filter: 'blur(4px)' }}>
+          {[...edges, ...contentEdges].filter(e => e.dimmed).map(e => (
+            <path key={`${e.id}-glow`} d={e.d} stroke="var(--text-muted)" strokeWidth="3" fill="none" opacity="0.45" />
+          ))}
+        </g>
+        {/* Sharp line pass */}
         {[...edges, ...contentEdges].map(e => (
-          <g key={e.id}>
-            <path d={e.d} stroke={e.color} strokeWidth="6"  fill="none" opacity="0.18" />
-            <path d={e.d} stroke={e.color} strokeWidth="1.5" fill="none" opacity="0.85" />
-          </g>
+          <path key={e.id} d={e.d} stroke={e.dimmed ? 'var(--text-muted)' : e.color} strokeWidth="1.5" fill="none" opacity={e.dimmed ? 0.55 : 0.90} />
         ))}
       </svg>
 
+      {/* Edge indicators — before canvas-world → behind all nodes */}
+      {allIndicators.map(ind => {
+        const size   = 240 + (ind.seed % 6) * 8          // 240–280px per instance
+        const offset = 68 + (ind.seed % 5) * 7           // 68–96px outward (less intrusion)
+        const delay  = `${-(ind.seed % 4200) / 1000}s`   // stagger phase 0 to –4.2s
+        return (
+          <div
+            key={`${ind.id}-wrap`}
+            style={{
+              position:      'absolute',
+              left:          ind.side === 'right'  ? window.innerWidth  : ind.side === 'left'   ? 0 : ind.along,
+              top:           ind.side === 'bottom' ? window.innerHeight : ind.side === 'top'    ? 0 : ind.along,
+              width: 0, height: 0,
+              opacity:       ind.show ? 1 : 0,
+              transition:    'opacity 0.7s ease',
+              pointerEvents: 'none',
+            }}
+          >
+            <div
+              className={`edge-indicator ind--${ind.side}`}
+              style={{
+                '--ind-color':  ind.color,
+                '--ind-offset': `${offset}px`,
+                '--ind-delay':  delay,
+                width:          size,
+                height:         size,
+                animationDelay: delay,
+              } as React.CSSProperties}
+            />
+          </div>
+        )
+      })}
+
       <div
+        ref={canvasWorldRef}
         className="canvas-world"
         style={{ transform: `translate(${vpX}px,${vpY}px) scale(${scale})` }}
       >
@@ -391,7 +616,50 @@ export function NodeCanvas({ lang }: Props) {
             />
           </>
         })()}
+
+        {ui.active && PROJECTS[ui.active]?.linkUrl && (
+          <ProjectLinkNode
+            key={`${ui.active}-link`}
+            projectId={ui.active}
+            pos={positions[`${ui.active}-link`] ?? { x: 0, y: 0 }}
+            nodeColor={branchColorOf(ui.active)}
+            onMouseDown={e => onNodeMouseDown(e, `${ui.active!}-link`)}
+            onSize={(w, h) => handleSize(`${ui.active!}-link`, w, h)}
+            onClick={() => {
+              if (suppressNextClick.current) { suppressNextClick.current = false; return }
+              const url = PROJECTS[ui.active!]?.linkUrl
+              if (url) window.open(url, '_blank', 'noopener,noreferrer')
+            }}
+          />
+        )}
+
+        {ui.active && PROJECTS[ui.active]?.bgVideo && (
+          <ProjectBgVideoNode
+            key={`${ui.active}-bgvideo`}
+            projectId={ui.active}
+            pos={positions[`${ui.active}-bgvideo`] ?? { x: 0, y: 0 }}
+            nodeColor={branchColorOf(ui.active)}
+            onMouseDown={e => onNodeMouseDown(e, `${ui.active!}-bgvideo`)}
+            onSize={(w, h) => handleSize(`${ui.active!}-bgvideo`, w, h)}
+          />
+        )}
+
+        {ui.active && PROJECTS[ui.active]?.images?.map((_, i) => {
+          const id = ui.active!
+          return (
+            <ProjectImageNode
+              key={`${id}-img-${i}`}
+              projectId={id}
+              imgIndex={i}
+              pos={positions[`${id}-img-${i}`] ?? { x: 0, y: 0 }}
+              nodeColor={branchColorOf(id)}
+              onMouseDown={e => onNodeMouseDown(e, `${id}-img-${i}`)}
+              onSize={(w, h) => handleSize(`${id}-img-${i}`, w, h)}
+            />
+          )
+        })}
       </div>
+
     </div>
   )
 }
