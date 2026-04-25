@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import meImg from '../assets/pictures/me.png'
-import { NODES, branchColorOf } from '../data/tree'
+import { NODES } from '../data/tree'
 import { PROJECTS, ProjectData } from '../data/projects'
 
 interface Props {
