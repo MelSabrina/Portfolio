@@ -129,7 +129,7 @@ export function NodeCanvas({ lang }: Props) {
   const canvasWorldRef = useRef<HTMLDivElement>(null)
   const canvasEdgesRef = useRef<SVGSVGElement>(null)
   const canvasDotsRef  = useRef<HTMLDivElement>(null)
-  const vpSyncRef      = useRef<ReturnType<typeof setTimeout>>()
+  const vpSyncRef      = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   // Apply vp directly to DOM — bypasses React render during active interaction
   const commitVp = useCallback((v: Vp) => {
@@ -417,7 +417,6 @@ export function NodeCanvas({ lang }: Props) {
     const active = ui.active
     if (!active || !PROJECTS[active]) return []
     const projectPos  = positions[active]
-    const projectSize = sizes[active] ?? { w: FALLBACK_W, h: FALLBACK_H }
     if (!projectPos) return []
     const color = branchColorOf(active)
     const proj  = PROJECTS[active]
