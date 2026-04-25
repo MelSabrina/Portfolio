@@ -1,6 +1,6 @@
 # Portfolio 2026 — Mel Sabrina Pesce Ortiz
 
-Interactive node-tree portfolio. React + TypeScript + Vite. Bilingual EN/ES.
+Interactive node-tree portfolio. React + TypeScript + Vite. Bilingual EN/ES. Responsive — desktop canvas + mobile list view.
 
 ## Concept
 
@@ -33,8 +33,12 @@ npm install
 npm run dev
 ```
 
+## Mobile
+
+Below 768px, the canvas switches to a dedicated mobile view: profile card with avatar overflow, branch accordion, inline project expansion with image gallery, description, tags, and action buttons.
+
 ## Notes
 
 - `public/videos/horiz_1080.mp4` and `public/videos/habitaciones_traseras.mp4` are excluded from git (exceed GitHub's 100MB limit). Add them back locally if needed.
 - `public/saludent-demo/` and `public/visitaps-demo/` are pre-built static deployments embedded as iframes.
-- Custom cursor is injected into nested iframes via `postMessage` relay.
+- Custom cursor is desktop-only — disabled on touch devices via media query and JS guard.

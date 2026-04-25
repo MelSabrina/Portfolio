@@ -1,7 +1,16 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { NodeCanvas } from './components/NodeCanvas'
+import { MobileView } from './components/MobileView'
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < 768)
+
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [])
+
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return (localStorage.getItem('mel-theme') as 'dark' | 'light') ?? 'dark'
   })
@@ -23,6 +32,15 @@ export default function App() {
     setLang(next)
     localStorage.setItem('mel-lang', next)
   }, [lang])
+
+  if (isMobile) {
+    return (
+      <MobileView
+        lang={lang} theme={theme}
+        onToggleLang={toggleLang} onToggleTheme={toggleTheme}
+      />
+    )
+  }
 
   return (
     <>
