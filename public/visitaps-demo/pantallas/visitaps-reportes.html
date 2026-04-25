@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VisitAPS – Reportes</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .top-bar {
+    width: 100%; height: 4px; flex-shrink: 0;
+    background: var(--gold);
+  }
+
+  .top-nav {
+    width: 100%; padding: 14px 22px 0;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-shrink: 0;
+  }
+  .btn-atras {
+    display: flex; align-items: center; gap: 5px;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--navy); opacity: 0.7; padding: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-atras:hover { opacity: 1; }
+
+  /* Scroll body */
+  .scroll-body {
+    flex: 1; width: 100%;
+    overflow-y: auto; overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 32px;
+  }
+  .scroll-body::-webkit-scrollbar { display: none; }
+
+  /* Header */
+  .page-header {
+    width: 100%; padding: 20px 52px 0;
+    display: flex; flex-direction: column; align-items: center;
+    animation: fadeDown 0.4s ease both;
+  }
+  .page-title {
+    font-family: 'Lora', serif;
+    font-size: 24px; font-weight: 600;
+    color: var(--text-main); text-align: center;
+  }
+  .ornament {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; margin-top: 14px;
+  }
+  .ornament-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+  .ornament-diamond {
+    width: 5px; height: 5px; background: var(--gold);
+    transform: rotate(45deg); flex-shrink: 0;
+  }
+
+  /* Filter fields */
+  .filters {
+    width: 100%;
+    padding: 18px 0 0;
+    animation: fadeIn 0.4s 0.1s ease both;
+  }
+
+  .filter-row {
+    padding: 10px 52px;
+    position: relative;
+  }
+  .filter-row::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 52px; right: 52px;
+    height: 1px; background: var(--cream-dark);
+  }
+  .filter-row:last-child::after { display: none; }
+
+  .filter-label {
+    font-size: 10px; font-weight: 600;
+    color: var(--text-soft); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 4px;
+  }
+
+  /* Campo readonly — gris, sin interacción */
+  .filter-value-readonly {
+    font-size: 13px; font-weight: 400;
+    color: var(--text-soft);
+    padding: 5px 0 4px;
+  }
+
+  /* Campo disabled (cascada bloqueada) — gris claro, visualmente inactivo */
+  .filter-value-disabled {
+    font-size: 13px; font-weight: 400;
+    color: var(--cream-dark);
+    padding: 5px 0 4px;
+    border-bottom: 1px solid var(--cream-dark);
+  }
+
+  /* Editable dropdown */
+  .custom-dropdown { position: relative; width: 100%; }
+  .dropdown-trigger {
+    width: 100%; padding: 5px 0 4px 0;
+    border: none; border-bottom: 1px solid var(--cream-dark);
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--navy);
+    cursor: pointer; text-align: left;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: border-color 0.2s;
+  }
+  .dropdown-trigger.open { border-color: var(--steel); }
+  .dropdown-chevron { opacity: 0.6; transition: transform 0.2s; flex-shrink: 0; }
+  .dropdown-trigger.open .dropdown-chevron { transform: rotate(180deg); }
+
+  /* Dropdown activo — navy, borde navy, visualmente clickeable */
+  .custom-dropdown .dropdown-trigger {
+    border-bottom: 1px solid var(--navy);
+    color: var(--navy);
+    font-weight: 500;
+  }
+  .custom-dropdown .dropdown-trigger .dropdown-chevron {
+    opacity: 1;
+  }
+
+  /* Dropdown con placeholder (aún sin selección) — navy con opacity */
+  .custom-dropdown .dropdown-trigger.has-placeholder {
+    color: var(--navy);
+    opacity: 0.55;
+    font-weight: 400;
+  }
+  .custom-dropdown .dropdown-trigger.has-placeholder .dropdown-chevron {
+    opacity: 0.55;
+  }
+
+  /* Dropdown con valor seleccionado — navy full, bold */
+  .custom-dropdown .dropdown-trigger:not(.has-placeholder) {
+    opacity: 1;
+    font-weight: 600;
+    border-bottom-color: var(--navy);
+  }
+
+  /* Label prominente cuando el campo es editable */
+  .filter-row.active .filter-label {
+    color: var(--navy);
+    opacity: 0.8;
+  }
+
+  /* Date fields */
+  .date-wrap { position: relative; display: flex; align-items: center; }
+  .date-display {
+    width: 100%; padding: 5px 0 4px 0;
+    border: none; border-bottom: 1px solid var(--cream-dark);
+    background: transparent;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500; color: var(--navy);
+    cursor: pointer; text-align: left;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: border-color 0.2s;
+  }
+  .date-display.has-value { color: var(--navy); font-weight: 600; }
+  .date-display.open { border-color: var(--steel); }
+  .date-icon { opacity: 1; flex-shrink: 0; }
+
+  /* Calendar popup */
+  .cal-popup {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    top: auto;
+    left: 0; right: 0;
+    background: var(--cream); border: 1px solid var(--cream-dark);
+    border-radius: 8px; z-index: 200;
+    box-shadow: 0 -4px 20px rgba(27,42,74,0.12);
+    display: none;
+  }
+  .cal-popup.open { display: block; }
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 14px 8px; border-bottom: 1px solid var(--cream-dark);
+  }
+  .cal-month { font-family: 'Lora', serif; font-size: 13px; font-weight: 600; color: var(--navy); }
+  .cal-year-btn {
+    background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 600; color: var(--steel);
+    padding: 0 3px; border-bottom: 1px dashed var(--steel);
+  }
+  .cal-nav {
+    background: none; border: none; cursor: pointer;
+    padding: 3px 5px; opacity: 0.5; transition: opacity 0.2s;
+    display: flex; align-items: center;
+  }
+  .cal-nav:hover { opacity: 1; }
+  .cal-weekdays {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    padding: 5px 10px 2px;
+  }
+  .cal-wd {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 9px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--text-soft); text-align: center; text-transform: uppercase;
+  }
+  .cal-days {
+    display: grid; grid-template-columns: repeat(7, 1fr);
+    padding: 2px 10px 10px; gap: 2px;
+  }
+  .cal-day {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 300; color: var(--text-main);
+    text-align: center; padding: 5px 2px; border-radius: 4px;
+    cursor: pointer; transition: background 0.12s;
+  }
+  .cal-day:hover { background: rgba(201,168,76,0.15); }
+  .cal-day.today { font-weight: 600; color: var(--navy); }
+  .cal-day.selected { background: var(--navy); color: #F0EDE8; font-weight: 600; border-radius: 50%; }
+  .cal-day.empty { pointer-events: none; }
+  .cal-year-grid {
+    display: none; grid-template-columns: repeat(4, 1fr);
+    gap: 2px; padding: 8px 10px 10px;
+    max-height: 150px; overflow-y: auto;
+  }
+  .cal-year-grid.open { display: grid; }
+  .cal-year-grid::-webkit-scrollbar { display: none; }
+  .cal-year-opt {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 300; color: var(--text-main);
+    text-align: center; padding: 5px 2px; border-radius: 4px; cursor: pointer;
+    transition: background 0.12s;
+  }
+  .cal-year-opt:hover { background: rgba(201,168,76,0.15); }
+  .cal-year-opt.selected { background: var(--navy); color: #F0EDE8; font-weight: 600; border-radius: 50%; }
+
+  /* Action buttons */
+  .action-section {
+    width: 100%; padding: 22px 24px 0;
+    display: flex; flex-direction: column; gap: 10px;
+    animation: fadeUp 0.4s 0.2s ease both;
+  }
+
+  .btn-generar {
+    width: 100%; padding: 15px;
+    border: none; border-radius: 50px;
+    background: var(--navy); color: #F0EDE8;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 4px 18px rgba(27,42,74,0.22);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-generar:hover { background: var(--navy-light); transform: translateY(-1px); }
+  .btn-generar:active { transform: translateY(0); }
+
+  .export-row {
+    display: flex; gap: 10px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.3s;
+  }
+  .export-row.visible { opacity: 1; pointer-events: all; }
+
+  .btn-export {
+    flex: 1; padding: 8px 6px;
+    border: none; border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+    white-space: nowrap;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-export:active { transform: scale(0.98); }
+
+  .btn-export-completo {
+    background: var(--teal); color: #fff;
+    box-shadow: 0 4px 14px rgba(80,183,178,0.30);
+  }
+  .btn-export-completo:hover { background: #3fa8a3; }
+
+  .btn-export-modulos {
+    background: var(--steel); color: #F0EDE8;
+    box-shadow: 0 4px 14px rgba(90,114,144,0.25);
+  }
+  .btn-export-modulos:hover { background: var(--steel-light); }
+
+  /* Results section */
+  .results-section {
+    width: 100%; padding: 0 52px;
+    display: none;
+    margin-top: 22px;
+    position: relative;
+    animation: fadeIn 0.4s ease both;
+  }
+  .results-section.visible { display: block; }
+  .results-section::before,
+  .results-section::after {
+    content: "";
+    display: block;
+    height: 1px;
+    background: var(--cream-dark);
+    margin: 0;
+  }
+  .results-section::before { margin-bottom: 22px; }
+  .results-section::after  { margin-top: 14px; }
+
+  .results-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-main); margin-bottom: 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .stat-block { margin-bottom: 14px; }
+  .stat-total {
+    font-size: 11.5px; font-weight: 400; color: var(--text-soft);
+    margin-bottom: 8px;
+  }
+  .stat-total strong { font-weight: 700; color: var(--navy); font-size: 13px; }
+
+  .stat-group-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text-soft);
+    margin-bottom: 6px;
+  }
+
+  .stat-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--cream-dark);
+    font-size: 12px;
+  }
+  .stat-row:last-child { border-bottom: none; }
+  .stat-row-label { font-weight: 400; color: var(--text-main); }
+  .stat-row-val { font-weight: 700; color: var(--navy); }
+
+  /* Preview table */
+  .preview-section {
+    width: 100%; padding: 18px 0 0;
+    display: none;
+    margin-top: 4px;
+  }
+  .preview-section.visible { display: block; }
+
+  .preview-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    color: var(--text-main); letter-spacing: 0.01em;
+    padding: 0 52px; margin-bottom: 10px;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 52px;
+    width: calc(100% - 104px);
+    border-radius: 6px;
+    border: 1px solid var(--cream-dark);
+    cursor: grab;
+  }
+  .table-scroll:active { cursor: grabbing; }
+  .table-scroll::-webkit-scrollbar { height: 4px; }
+  .table-scroll::-webkit-scrollbar-track { background: var(--cream-dark); }
+  .table-scroll::-webkit-scrollbar-thumb { background: var(--steel); border-radius: 2px; }
+
+  table {
+    border-collapse: collapse;
+    min-width: 800px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+  }
+  th {
+    background: var(--navy); color: #F0EDE8;
+    padding: 8px 10px; text-align: left;
+    font-weight: 600; letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  td {
+    padding: 7px 10px; color: var(--text-main);
+    border-bottom: 1px solid var(--cream-dark);
+    white-space: nowrap; max-width: 160px;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  tr:nth-child(even) td { background: rgba(221,217,210,0.35); }
+
+  /* Portal for dropdowns */
+  #dd-portal {
+    position: absolute; z-index: 600;
+    background: var(--cream);
+    border: 1px solid var(--cream-dark);
+    border-radius: 6px;
+    overflow-y: auto;
+    box-shadow: 0 4px 16px rgba(27,42,74,0.15);
+    display: none;
+  }
+  #dd-portal::-webkit-scrollbar { display: none; }
+  #dd-portal .dropdown-option {
+    padding: 10px 12px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 400; color: var(--navy);
+    cursor: pointer; border-bottom: 1px solid var(--cream-dark);
+    transition: background 0.12s;
+  }
+  #dd-portal .dropdown-option:last-child { border-bottom: none; }
+  #dd-portal .dropdown-option:hover { background: rgba(201,168,76,0.08); }
+  #dd-portal .dropdown-option.selected { font-weight: 600; }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  .fecha-hint {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-soft);
+    text-align: center;
+    margin-top: 8px;
+    padding: 0 52px;
+  }
+</style>
+</head>
+<body>
+  <div class="top-bar"></div>
+
+  <div class="top-nav">
+    <button class="btn-atras" onclick="window.location.hash='#menu'">
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+        <path d="M6 1L1 6l5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Atras
+    </button>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="nav-icon" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.55;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.55">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <circle cx="11" cy="7.5" r="3.5" stroke="#1B2A4A" stroke-width="1.5"/>
+          <path d="M4 19.5c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="nav-icon" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.55;transition:opacity 0.2s;" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.55">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M9 3H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M15 15l4-4-4-4M19 11H9" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-body" id="scroll-body">
+
+    <div class="page-header">
+      <h1 class="page-title">Reportes</h1>
+      <div class="ornament">
+        <div class="ornament-line"></div>
+        <div class="ornament-diamond"></div>
+        <div class="ornament-line"></div>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="filters" id="filters">
+
+      <!-- Provincia -->
+      <div class="filter-row">
+        <div class="filter-label">Provincia</div>
+        <div id="field-provincia"></div>
+      </div>
+
+      <!-- Localidad -->
+      <div class="filter-row">
+        <div class="filter-label">Localidad</div>
+        <div id="field-localidad"></div>
+      </div>
+
+      <!-- Establecimiento -->
+      <div class="filter-row">
+        <div class="filter-label">Establecimiento</div>
+        <div id="field-establecimiento"></div>
+      </div>
+
+      <!-- Zona -->
+      <div class="filter-row">
+        <div class="filter-label">Zona</div>
+        <div id="field-zona"></div>
+      </div>
+
+      <!-- Fecha Desde -->
+      <div class="filter-row">
+        <div class="filter-label">Fecha Desde</div>
+        <div class="date-wrap" id="datewrap-desde">
+          <div class="date-display" id="date-display-desde" onclick="toggleCal('desde')">
+            <span class="placeholder" id="date-text-desde">dd-mm-aaaa</span>
+            <svg class="date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="4" width="18" height="18" rx="2" stroke="#1B2A4A" stroke-width="1.6"/>
+              <path d="M16 2v4M8 2v4M3 10h18" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cal-popup" id="cal-desde">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="calNav('desde',-1)">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <span class="cal-month" id="cal-month-desde"></span>
+              <button class="cal-nav" onclick="calNav('desde',1)">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="cal-weekdays">
+              <div class="cal-wd">Lu</div><div class="cal-wd">Ma</div><div class="cal-wd">Mi</div>
+              <div class="cal-wd">Ju</div><div class="cal-wd">Vi</div><div class="cal-wd">Sa</div><div class="cal-wd">Do</div>
+            </div>
+            <div class="cal-days" id="cal-days-desde"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fecha Hasta -->
+      <div class="filter-row">
+        <div class="filter-label">Fecha Hasta</div>
+        <div class="date-wrap" id="datewrap-hasta">
+          <div class="date-display" id="date-display-hasta" onclick="toggleCal('hasta')">
+            <span class="placeholder" id="date-text-hasta">dd-mm-aaaa</span>
+            <svg class="date-icon" width="14" height="14" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="4" width="18" height="18" rx="2" stroke="#1B2A4A" stroke-width="1.6"/>
+              <path d="M16 2v4M8 2v4M3 10h18" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="cal-popup" id="cal-hasta">
+            <div class="cal-header">
+              <button class="cal-nav" onclick="calNav('hasta',-1)">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <span class="cal-month" id="cal-month-hasta"></span>
+              <button class="cal-nav" onclick="calNav('hasta',1)">
+                <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M1 1l5 5-5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <div class="cal-weekdays">
+              <div class="cal-wd">Lu</div><div class="cal-wd">Ma</div><div class="cal-wd">Mi</div>
+              <div class="cal-wd">Ju</div><div class="cal-wd">Vi</div><div class="cal-wd">Sa</div><div class="cal-wd">Do</div>
+            </div>
+            <div class="cal-days" id="cal-days-hasta"></div>
+          </div>
+        </div>
+        <div id="fecha-error" style="font-family:'Montserrat',sans-serif;font-size:11px;font-weight:300;color:#C0392B;padding:4px 0 0;display:none;">La fecha de inicio no puede ser posterior a la fecha de fin</div>
+      </div>
+
+    </div><!-- end filters -->
+
+    <p class="fecha-hint">Si no seleccionás fechas, se exportan todos los registros disponibles.</p>
+
+    <!-- Actions -->
+    <div class="action-section">
+      <button class="btn-generar" onclick="generarReporte()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+          <circle cx="11" cy="11" r="8" stroke="#F0EDE8" stroke-width="1.7"/>
+          <path d="M21 21l-4.35-4.35" stroke="#F0EDE8" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        Generar reporte
+      </button>
+
+      <div class="export-row" id="export-row">
+        <button class="btn-export btn-export-completo" onclick="exportarCSV('completo')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+            <path d="M12 16l-4-4h3V4h2v8h3l-4 4z" fill="#fff"/>
+            <path d="M20 18H4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          CSV completo
+        </button>
+        <button class="btn-export btn-export-modulos" onclick="exportarCSV('modulos')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex-shrink:0">
+            <path d="M12 16l-4-4h3V4h2v8h3l-4 4z" fill="#F0EDE8"/>
+            <path d="M20 18H4" stroke="#F0EDE8" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          CSV por módulo
+        </button>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="empty-state" style="width:100%;padding:32px 52px;text-align:center;font-family:'Montserrat',sans-serif;font-size:13px;font-weight:600;color:var(--text-soft);display:none;">No hay información disponible</div>
+
+    <!-- Summary -->
+    <div class="results-section" id="results-section">
+      <div class="results-title">Resumen de dimensiones</div>
+      <div class="stat-block">
+        <div class="stat-total">Total de registros: <strong id="stat-total">—</strong></div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-group-title">Por provincia</div>
+        <div id="stat-provincia"></div>
+      </div>
+      <div class="stat-block">
+        <div class="stat-group-title">Por localidad (Top 5)</div>
+        <div id="stat-localidad"></div>
+      </div>
+    </div>
+
+    <!-- Preview table -->
+    <div class="preview-section" id="preview-section">
+      <div class="preview-title">Previsualización del cubo de datos</div>
+      <div class="table-scroll">
+        <table id="preview-table">
+          <thead id="preview-head"></thead>
+          <tbody id="preview-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div><!-- end scroll-body -->
+
+  <div id="dd-portal"></div>
+
+<script>
+// ─── Reportes — UI functions ─────────────────────────────────────────────────
+// La pantalla no tiene estado propio. El router (initReportes) hace todo el
+// trabajo asíncrono y llama a estas funciones con los datos ya resueltos.
+
+var calState = {};
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var openDD = null;
+var portal = null;
+
+// Event delegation para dropdowns creados dinámicamente
+if (!document._reportesDropdownWired) {
+  document._reportesDropdownWired = true;
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('[data-toggle]');
+    if (btn) { toggleDropdown(btn.getAttribute('data-toggle')); }
+  });
+}
+
+// ── Helpers de render ─────────────────────────────────────────────────────────
+function readonly(val) {
+  return '<div class="filter-value-readonly">' + escapeHtml(val || '—') + '</div>';
+}
+
+function makeDropdown(fieldId, opciones, val, disabled) {
+  var ddId = 'dd-' + fieldId;
+  if (disabled) {
+    return '<div class="filter-value-disabled">' + escapeHtml(val || '—') + '</div>';
+  }
+  // Guardar opciones para el portal
+  window._ddOpts = window._ddOpts || {};
+  window._ddOpts[ddId] = { opciones: opciones, selected: val };
+  var out = '<div class="custom-dropdown" id="' + ddId + '">';
+  out += '<button class="dropdown-trigger' + (!val || val.indexOf('Seleccionar') === 0 ? ' has-placeholder' : '') + '" data-toggle="' + ddId + '">';
+  out += '<span class="dd-value">' + escapeHtml(val || '—') + '</span>';
+  out += '<svg class="dropdown-chevron" width="10" height="6" viewBox="0 0 10 6" fill="none">';
+  out += '<path d="M1 1l4 4 4-4" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>';
+  out += '</svg></button></div>';
+  return out;
+}
+
+// ── Render filtros según nivel_acceso ─────────────────────────────────────────
+window.renderFiltros = function(agente, opciones) {
+  var nivel = (agente.nivel_acceso || 'agente').toLowerCase();
+
+  opciones = opciones || {};
+
+  document.getElementById('field-provincia').innerHTML = readonly(agente.provincia);
+
+  if (nivel === 'agente') {
+    document.getElementById('field-localidad').innerHTML       = readonly(agente.localidad);
+    document.getElementById('field-establecimiento').innerHTML = readonly(agente.establecimiento);
+    document.getElementById('field-zona').innerHTML            = readonly(agente.zona);
+
+  } else if (nivel === 'supervisor') {
+    document.getElementById('field-localidad').innerHTML       = readonly(agente.localidad);
+    document.getElementById('field-establecimiento').innerHTML = readonly(agente.establecimiento);
+    var zonas = Array.isArray(opciones.zonas) ? opciones.zonas : [];
+    document.getElementById('field-zona').innerHTML =
+      makeDropdown('field-zona', zonas, agente.zona || 'Seleccionar zona', false);
+    var rowZona = document.getElementById('field-zona').closest('.filter-row');
+    if (rowZona) rowZona.classList.add('active');
+
+  } else if (nivel === 'admin_provincial') {
+    var locs = Array.isArray(opciones.localidades) ? opciones.localidades : [];
+    document.getElementById('field-localidad').innerHTML =
+      makeDropdown('field-localidad', ['Seleccionar localidad'].concat(locs), 'Seleccionar localidad', false);
+    document.getElementById('field-establecimiento').innerHTML =
+      makeDropdown('field-establecimiento', [], 'Seleccionar', true);
+    document.getElementById('field-zona').innerHTML =
+      makeDropdown('field-zona', [], 'Seleccionar', true);
+    var rowLoc = document.getElementById('field-localidad').closest('.filter-row');
+    if (rowLoc) rowLoc.classList.add('active');
+  }
+}
+
+// ── Cascada de dropdowns ─────────────────────────────────────────────────────
+function selectOption(id, value) {
+  var trigger = document.querySelector('#' + id + ' .dropdown-trigger');
+  if (trigger) {
+    trigger.querySelector('.dd-value').textContent = value;
+    trigger.classList.toggle('has-placeholder', value.indexOf('Seleccionar') === 0);
+  }
+  if (window._ddOpts && window._ddOpts[id]) {
+    window._ddOpts[id].selected = value;
+  }
+  closePortal();
+
+  var agente   = window._reporteAgente   || {};
+  var opciones = window._reporteOpciones || {};
+  var nivel    = (agente.nivel_acceso || 'agente').toLowerCase();
+
+  if (id === 'dd-field-localidad' && nivel === 'admin_provincial') {
+    if (value === 'Seleccionar localidad') {
+      document.getElementById('field-establecimiento').innerHTML =
+        makeDropdown('field-establecimiento', [], 'Seleccionar', true);
+      document.getElementById('field-zona').innerHTML =
+        makeDropdown('field-zona', [], 'Seleccionar', true);
+      var rowEst = document.getElementById('field-establecimiento').closest('.filter-row');
+      if (rowEst) rowEst.classList.remove('active');
+      var rowZ = document.getElementById('field-zona').closest('.filter-row');
+      if (rowZ) rowZ.classList.remove('active');
+    } else {
+      var ests = (opciones.establecimientos && opciones.establecimientos[value]) || [];
+      document.getElementById('field-establecimiento').innerHTML =
+        makeDropdown('field-establecimiento', ['Seleccionar establecimiento'].concat(ests), 'Seleccionar establecimiento', false);
+      document.getElementById('field-zona').innerHTML =
+        makeDropdown('field-zona', [], 'Seleccionar', true);
+      var rowEst2 = document.getElementById('field-establecimiento').closest('.filter-row');
+      if (rowEst2) rowEst2.classList.add('active');
+      var rowZ2 = document.getElementById('field-zona').closest('.filter-row');
+      if (rowZ2) rowZ2.classList.remove('active');
+    }
+  }
+
+  if (id === 'dd-field-establecimiento' && nivel === 'admin_provincial') {
+    if (value === 'Seleccionar establecimiento') {
+      document.getElementById('field-zona').innerHTML =
+        makeDropdown('field-zona', [], 'Seleccionar', true);
+      var rowZd = document.getElementById('field-zona').closest('.filter-row');
+      if (rowZd) rowZd.classList.remove('active');
+    } else {
+      var zonas = (opciones.zonas && opciones.zonas[value]) || [];
+      document.getElementById('field-zona').innerHTML =
+        makeDropdown('field-zona', ['Seleccionar zona'].concat(zonas), 'Seleccionar zona', false);
+      var rowZe = document.getElementById('field-zona').closest('.filter-row');
+      if (rowZe) rowZe.classList.add('active');
+    }
+  }
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function buildStatRows(obj, limit) {
+  var entries = Object.entries(obj).sort(function(a,b) { return b[1]-a[1]; });
+  if (limit) entries = entries.slice(0, limit);
+  return entries.map(function(e) {
+    return '<div class="stat-row"><span class="stat-row-label">' + escapeHtml(e[0]) + '</span><span class="stat-row-val">' + escapeHtml(String(e[1])) + '</span></div>';
+  }).join('');
+}
+
+function getDropdownVal(ddId) {
+  var trigger = document.querySelector('#' + ddId + ' .dd-value');
+  return trigger ? trigger.textContent : '';
+}
+
+// ── Export CSV ────────────────────────────────────────────────────────────────
+function exportarCSV(tipo) {
+  if (!window.reporteData || !window.reporteData.length) return;
+  var NL = "\n";
+  if (tipo === 'completo') {
+    var cols = Object.keys(window.reporteData[0]);
+    var rows = [cols.join(',')];
+    window.reporteData.forEach(function(r) {
+      rows.push(cols.map(function(c) { return '"' + (r[c] || '') + '"'; }).join(','));
+    });
+    descargarCSV(rows.join(NL), 'reporte_completo.csv');
+  } else {
+    var modulos = {};
+    window.reporteData.forEach(function(r) {
+      var m = r.modulo || 'SIN_MODULO';
+      if (!modulos[m]) modulos[m] = [];
+      modulos[m].push(r);
+    });
+    Object.keys(modulos).forEach(function(m) {
+      var filas = modulos[m];
+      var cols = Object.keys(filas[0]);
+      var rows = [cols.join(',')];
+      filas.forEach(function(r) {
+        rows.push(cols.map(function(c) { return '"' + (r[c] || '') + '"'; }).join(','));
+      });
+      descargarCSV(rows.join(NL), 'reporte_' + m.toLowerCase() + '.csv');
+    });
+  }
+}
+
+function descargarCSV(csv, nombre) {
+  var blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href = url; a.download = nombre;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ── Calendar ──────────────────────────────────────────────────────────────────
+function initCal(id) {
+  var now = new Date();
+  calState[id] = { year: now.getFullYear(), month: now.getMonth(), selected: null };
+  renderCal(id);
+}
+
+function toggleCal(id) {
+  var popup   = document.getElementById('cal-' + id);
+  var display = document.getElementById('date-display-' + id);
+  var isOpen  = popup.classList.contains('open');
+  document.querySelectorAll('.cal-popup').forEach(function(c) { c.classList.remove('open'); });
+  document.querySelectorAll('.date-display').forEach(function(d) { d.classList.remove('open'); });
+  if (!isOpen) { popup.classList.add('open'); display.classList.add('open'); }
+}
+
+function calNav(id, dir) {
+  calState[id].month += dir;
+  if (calState[id].month > 11) { calState[id].month = 0; calState[id].year++; }
+  if (calState[id].month < 0)  { calState[id].month = 11; calState[id].year--; }
+  renderCal(id);
+}
+
+function renderCal(id) {
+  var st = calState[id];
+  var header = document.getElementById('cal-month-' + id);
+  header.innerHTML =
+    '<span style="font-family:Lora,serif;font-size:13px;font-weight:600;color:var(--navy);">' +
+    MESES[st.month] + '</span>' +
+    " <button class=\"cal-year-btn\" onclick=\"toggleYearPicker('" + id + "',event)\">" + st.year + '</button>';
+
+  var grid = document.getElementById('cal-days-' + id);
+  grid.innerHTML = '';
+  var lastDay  = new Date(st.year, st.month + 1, 0).getDate();
+  var startDow = (new Date(st.year, st.month, 1).getDay() + 6) % 7;
+  var today    = new Date();
+
+  for (var i = 0; i < startDow; i++) {
+    var emp = document.createElement('div'); emp.className = 'cal-day empty'; grid.appendChild(emp);
+  }
+  for (var d = 1; d <= lastDay; d++) {
+    var cell = document.createElement('div'); cell.className = 'cal-day'; cell.textContent = d;
+    var cls = [];
+    if (d === today.getDate() && st.month === today.getMonth() && st.year === today.getFullYear()) cls.push('today');
+    if (st.selected && d === st.selected.d && st.month === st.selected.m && st.year === st.selected.y) cls.push('selected');
+    if (cls.length) cell.className += ' ' + cls.join(' ');
+    (function(day) { cell.onclick = function(e) { e.stopPropagation(); pickDate(id, day); }; })(d);
+    grid.appendChild(cell);
+  }
+}
+
+function toggleYearPicker(id, e) {
+  e.stopPropagation();
+  var popup    = document.getElementById('cal-' + id);
+  var existing = popup.querySelector('.cal-year-grid');
+  var weekdays = popup.querySelector('.cal-weekdays');
+  var days     = popup.querySelector('.cal-days');
+  if (existing) { existing.remove(); weekdays.style.display = ''; days.style.display = ''; return; }
+  weekdays.style.display = 'none'; days.style.display = 'none';
+  var grid = document.createElement('div'); grid.className = 'cal-year-grid open';
+  var now = new Date().getFullYear();
+  var st  = calState[id];
+  for (var y = now; y >= 1920; y--) {
+    var opt = document.createElement('div');
+    opt.className = 'cal-year-opt' + (y === st.year ? ' selected' : '');
+    opt.textContent = y;
+    (function(year) {
+      opt.onclick = function(e) {
+        e.stopPropagation();
+        calState[id].year = year;
+        grid.remove(); weekdays.style.display = ''; days.style.display = '';
+        renderCal(id);
+      };
+    })(y);
+    grid.appendChild(opt);
+  }
+  popup.appendChild(grid);
+  setTimeout(function() { var sel = grid.querySelector('.selected'); if (sel) sel.scrollIntoView({ block: 'center' }); }, 50);
+}
+
+function pickDate(id, day) {
+  var st = calState[id];
+  st.selected = { d: day, m: st.month, y: st.year };
+  var txt = document.getElementById('date-text-' + id);
+  txt.textContent = String(day).padStart(2,'0') + '-' + String(st.month + 1).padStart(2,'0') + '-' + st.year;
+  txt.style.color = 'var(--navy)'; txt.style.fontWeight = '600'; txt.style.opacity = '1';
+  renderCal(id);
+  document.getElementById('cal-' + id).classList.remove('open');
+  document.getElementById('date-display-' + id).classList.remove('open');
+}
+
+function getDateStr(id) {
+  var st = calState[id].selected;
+  if (!st) return null;
+  return st.y + '-' + String(st.m + 1).padStart(2,'0') + '-' + String(st.d).padStart(2,'0');
+}
+
+// ── Dropdown portal ───────────────────────────────────────────────────────────
+function getPortal() { if (!portal) portal = document.getElementById('dd-portal'); return portal; }
+
+function closePortal() {
+  var p = getPortal();
+  p.style.display = 'none'; p.style.top = 'auto'; p.style.bottom = 'auto'; p.innerHTML = '';
+  if (openDD) { var t = document.querySelector('#' + openDD + ' .dropdown-trigger'); if (t) t.classList.remove('open'); }
+  openDD = null;
+}
+
+function positionPortal(trigger) {
+  var p = getPortal();
+  var phone    = document.getElementById('app');
+  var phoneRect = phone.getBoundingClientRect();
+  var trigRect  = trigger.getBoundingClientRect();
+  var maxH = 190;
+  var spaceBelow = phoneRect.bottom - trigRect.bottom - 8;
+  var spaceAbove = trigRect.top - phoneRect.top - 8;
+  var openUp = ((trigRect.bottom - phoneRect.top) > (phoneRect.bottom - phoneRect.top) * 0.6) || (spaceAbove > spaceBelow);
+  p.style.width = trigRect.width + 'px';
+  p.style.left  = (trigRect.left - phoneRect.left) + 'px';
+  if (openUp) {
+    p.style.maxHeight = Math.min(maxH, spaceAbove) + 'px';
+    p.style.bottom = (phoneRect.bottom - trigRect.top + 2) + 'px';
+    p.style.top = 'auto';
+  } else {
+    p.style.maxHeight = Math.min(maxH, spaceBelow) + 'px';
+    p.style.top = (trigRect.bottom - phoneRect.top + 2) + 'px';
+    p.style.bottom = 'auto';
+  }
+  p.style.display = 'block';
+}
+
+function toggleDropdown(id) {
+  var trigger = document.querySelector('#' + id + ' .dropdown-trigger');
+  var isOpen  = (openDD === id);
+  closePortal();
+  if (isOpen) return;
+
+  var p    = getPortal();
+  var opts = window._ddOpts && window._ddOpts[id];
+  if (opts) {
+    opts.opciones.forEach(function(o) {
+      var div = document.createElement('div');
+      div.className = 'dropdown-option' + (o === opts.selected ? ' selected' : '');
+      div.textContent = o;
+      div.onclick = function() { selectOption(id, o); };
+      p.appendChild(div);
+    });
+  } else {
+    // fallback: lista en DOM (compatibilidad con buildDropdownList original)
+    var srcList = document.getElementById('dl-' + id);
+    if (!srcList) return;
+    var currentVal = trigger ? trigger.querySelector('.dd-value').textContent : '';
+    srcList.querySelectorAll('.dropdown-option').forEach(function(item) {
+      var clone = item.cloneNode(true);
+      if (clone.textContent === currentVal) clone.classList.add('selected');
+      clone.onclick = function() { selectOption(id, clone.textContent); };
+      p.appendChild(clone);
+    });
+  }
+
+  positionPortal(trigger);
+  if (trigger) trigger.classList.add('open');
+  openDD = id;
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.custom-dropdown') && !e.target.closest('#dd-portal') && !e.target.closest('.date-wrap')) {
+    closePortal();
+    document.querySelectorAll('.cal-popup').forEach(function(c) { c.classList.remove('open'); });
+  }
+});
+document.addEventListener('scroll', function() { if (openDD) closePortal(); }, { passive: true, capture: true });
+
+function _tryRenderFiltros() {
+  if (window._reporteAgente) {
+    window.renderFiltros(window._reporteAgente, window._reporteOpciones || {});
+  } else {
+    document.addEventListener('reportes:ready', function(e) {
+      window.renderFiltros(e.detail.agente, e.detail.opciones);
+    }, { once: true });
+  }
+}
+_tryRenderFiltros();
+</script>
+</body>
+</html>

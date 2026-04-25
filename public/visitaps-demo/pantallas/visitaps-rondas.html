@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VisitAPS – Rondas Sanitarias</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  
+
+  
+
+  .top-bar {
+    width: 100%; height: 4px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+
+  .top-nav {
+    width: 100%;
+    padding: 14px 22px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .btn-atras {
+    display: flex; align-items: center; gap: 5px;
+    background: none; border: none; cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 500;
+    color: var(--navy); opacity: 0.7; padding: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-atras:hover { opacity: 1; }
+  .logo-top-right { width: 90px; display: flex; align-items: center; }
+  .logo-top-right svg { width: 100%; height: auto; }
+
+  /* Fixed page header */
+  .page-header {
+    width: 100%;
+    padding: 20px 52px 10px;
+    display: flex; flex-direction: column; align-items: center;
+    flex-shrink: 0;
+  }
+  .page-title {
+    font-family: 'Lora', serif;
+    font-size: 24px; font-weight: 600;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.25;
+    animation: fadeDown 0.45s ease both;
+  }
+  .ornament {
+    display: flex; align-items: center; gap: 10px;
+    width: 100%; margin-top: 14px;
+    animation: fadeIn 0.5s 0.1s ease both;
+  }
+  .ornament-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+  .ornament-diamond {
+    width: 5px; height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg); flex-shrink: 0;
+  }
+
+  /* Scrollable list with fade */
+  .list-wrap {
+    flex: 1;
+    width: 100%;
+    position: relative;
+    min-height: 0;
+  }
+  .list-wrap::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 52px;
+    background: linear-gradient(to bottom, transparent, var(--cream));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .rondas-list {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 16px 0 16px;
+  }
+  .rondas-list::-webkit-scrollbar { display: none; }
+
+  .ronda-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 13px 52px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.15s;
+    gap: 12px;
+    animation: fadeIn 0.4s ease both;
+  }
+  .ronda-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 52px; right: 52px;
+    height: 1px;
+    background: var(--cream-dark);
+  }
+  .ronda-item:first-child::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 52px; right: 52px;
+    height: 1px;
+    background: var(--cream-dark);
+  }
+  .ronda-item:hover { background: rgba(201,168,76,0.06); }
+  .ronda-item:active { background: rgba(201,168,76,0.12); }
+
+  .ronda-info { flex: 1; min-width: 0; }
+  .ronda-id {
+    font-size: 11.5px; font-weight: 700;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+  .ronda-sub {
+    font-size: 10.5px; font-weight: 400;
+    color: var(--text-soft);
+    margin-top: 2px;
+    line-height: 1.4;
+  }
+  .ronda-chevron { flex-shrink: 0; opacity: 0.35; }
+
+  /* Bottom section — fixed */
+  .bottom-section {
+    width: 100%;
+    padding: 16px 52px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .memory-section {
+    width: 100%;
+    margin-top: 16px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .memory-title {
+    font-family: 'Lora', serif;
+    font-size: 14px; font-weight: 400;
+    color: var(--text-soft);
+    margin-bottom: 10px;
+  }
+  .chart-wrap { width: 100px; height: 100px; }
+  .chart-wrap svg { width: 100%; height: 100%; }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  .legend-item { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .legend-row { display: flex; align-items: center; gap: 6px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 2px; flex-shrink: 0; }
+  .legend-label { font-size: 11.5px; font-weight: 500; color: var(--text-main); }
+  .legend-pct { font-size: 12.5px; font-weight: 700; color: var(--navy); }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  .nav-icon:hover { opacity: 1 !important; }
+</style>
+</head>
+<body>
+  <div class="top-bar"></div>
+
+
+  <div class="top-nav">
+    <button class="btn-atras">
+      <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+        <path d="M6 1L1 6l5 5" stroke="#1B2A4A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Atras
+    </button>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <div class="nav-icon" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.55;transition:opacity 0.2s;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="11" cy="7.5" r="3.5" stroke="#1B2A4A" stroke-width="1.5"/>
+          <path d="M4 19.5c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="nav-icon" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0.55;transition:opacity 0.2s;">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M9 3H4a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h5" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M15 15l4-4-4-4M19 11H9" stroke="#1B2A4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <h1 class="page-title">Rondas<br>sanitarias</h1>
+  </div>
+
+  <!-- Scrollable list -->
+  <div class="list-wrap">
+    <div class="rondas-list" id="rondas-list"></div>
+  </div>
+
+  <!-- Fixed bottom -->
+  <div class="bottom-section">
+    <div style="width:calc(100% - 104px);margin:0 52px;height:1px;background:var(--cream-dark);"></div>
+    <span id="btn-actualizar-rondas" class="nav-icon" style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;color:var(--navy);opacity:0.55;cursor:pointer;letter-spacing:0.02em;transition:opacity 0.2s;display:block;text-align:center;padding:14px 0 0;">Actualizar rondas</span>
+
+    <div class="memory-section">
+      <div class="memory-title">Espacio de memoria</div>
+      <div class="chart-wrap">
+        <svg id="pie-chart" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"></svg>
+      </div>
+      <div class="legend">
+        <div class="legend-item">
+          <div class="legend-row">
+            <div class="legend-dot" style="background:#1B2A4A"></div>
+            <span class="legend-label">Disponible</span>
+          </div>
+          <span class="legend-pct" id="pct-disponible">—</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-row">
+            <div class="legend-dot" style="background:#C9A84C"></div>
+            <span class="legend-label">Ocupado</span>
+          </div>
+          <span class="legend-pct" id="pct-ocupado">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+</html>

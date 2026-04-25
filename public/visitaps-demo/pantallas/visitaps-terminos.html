@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>VisitAPS – Términos y condiciones</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  .top-bar {
+    width: 100%; height: 4px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+
+  /* Scroll body */
+  .scroll-body {
+    flex: 1; width: 100%;
+    overflow-y: auto; overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    display: flex; flex-direction: column;
+    align-items: center;
+    padding-bottom: 32px;
+  }
+  .scroll-body::-webkit-scrollbar { display: none; }
+
+  /* Header */
+  .page-header {
+    width: 100%;
+    padding: 28px 52px 0;
+    display: flex; flex-direction: column; align-items: center;
+    animation: fadeDown 0.4s ease both;
+  }
+  .page-title {
+    font-family: 'Lora', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--navy); text-align: center;
+    line-height: 1.3;
+  }
+
+  .ornament {
+    display: flex; align-items: center; gap: 10px;
+    width: calc(100% - 104px); margin: 14px 52px 0;
+    flex-shrink: 0;
+  }
+  .ornament-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-light), transparent);
+  }
+  .ornament-diamond {
+    width: 5px; height: 5px; background: var(--gold);
+    transform: rotate(45deg); flex-shrink: 0;
+  }
+
+  /* Content */
+  .content {
+    width: 100%;
+    padding: 22px 52px 0;
+    animation: fadeIn 0.4s 0.1s ease both;
+  }
+
+  .terms-block {
+    margin-bottom: 0;
+  }
+  .terms-block:last-of-type { margin-bottom: 0; }
+
+  /* Párrafo: la parte en semibold va en <strong>, el resto light */
+  .terms-p {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-main);
+    line-height: 1.7;
+  }
+  .terms-p strong {
+    font-weight: 600;
+    color: var(--text-main);
+  }
+
+  /* Divider entre bloques */
+  .terms-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--cream-dark);
+    margin: 16px 0;
+  }
+
+  /* Checkbox accept */
+  .accept-wrap {
+    width: 100%;
+    padding: 22px 52px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    animation: fadeIn 0.4s 0.2s ease both;
+  }
+
+  .custom-check-wrap {
+    display: flex; align-items: flex-start; gap: 12px;
+    cursor: pointer; width: 100%;
+  }
+  .custom-check-wrap input { display: none; }
+
+  .custom-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 1.5px solid var(--cream-dark);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s;
+    margin-top: 1px;
+  }
+  .custom-check-wrap:hover .custom-check { border-color: var(--steel); }
+  .custom-check-wrap input:checked + .custom-check {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+  .custom-check-wrap input:checked + .custom-check svg { display: block; }
+  .custom-check svg { display: none; }
+
+  .accept-label {
+    font-size: 12px; font-weight: 500;
+    color: var(--text-main); line-height: 1.5;
+  }
+
+  /* Buttons */
+  .action-buttons {
+    width: 100%;
+    padding: 22px 52px 0;
+    display: flex;
+    gap: 12px;
+    animation: fadeUp 0.4s 0.25s ease both;
+  }
+
+  .btn {
+    flex: 1;
+    padding: 14px 0;
+    border: none; border-radius: 50px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px; font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .btn:active { transform: scale(0.98); }
+
+  .btn-cancelar {
+    background: #8A8580;
+    color: #F0EDE8;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.10);
+  }
+  .btn-cancelar:hover { background: #9A958F; }
+
+  .btn-confirmar {
+    background: var(--steel);
+    color: #F0EDE8;
+    box-shadow: 0 4px 14px rgba(90,114,144,0.28);
+  }
+  .btn-confirmar:hover { background: #6B84A3; }
+
+  /* Error popup */
+  .popup-overlay {
+    position: absolute; inset: 0;
+    background: rgba(27,42,74,0.45);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+    padding: 32px;
+  }
+  .popup-overlay.active { opacity: 1; pointer-events: all; }
+  .popup-card {
+    width: 100%; background: var(--cream);
+    border-radius: 12px; padding: 24px 24px 20px;
+    box-shadow: 0 8px 32px rgba(27,42,74,0.25);
+    transform: translateY(10px); transition: transform 0.2s;
+  }
+  .popup-overlay.active .popup-card { transform: translateY(0); }
+  .popup-msg {
+    font-family: 'Lora', serif;
+    font-size: 15px; font-weight: 600;
+    color: var(--navy); text-align: center;
+    line-height: 1.4;
+    margin-bottom: 20px;
+  }
+  .popup-close {
+    width: 100%; padding: 12px;
+    border: none; border-radius: 50px;
+    background: var(--navy); color: #F0EDE8;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .popup-close:hover { background: var(--navy-light); }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+  <div class="top-bar"></div>
+
+
+  <div class="scroll-body">
+
+    <div class="page-header">
+      <h1 class="page-title">Términos y condiciones</h1>
+    </div>
+
+    <div class="ornament">
+      <div class="ornament-line"></div>
+      <div class="ornament-diamond"></div>
+      <div class="ornament-line"></div>
+    </div>
+
+    <div class="content">
+
+      <div class="terms-block">
+        <p class="terms-p">La aplicación <strong>VisitAPS</strong> es de uso exclusivo del <strong>Ministerio de Salud de la Nación</strong> y/o de quien éste otorgue el acceso a la misma para su utilización, por el tiempo y en las condiciones que el <strong>Ministerio de Salud de la Nación</strong> disponga.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El <strong>Ministerio de Salud de la Nación</strong> se reserva el derecho de revocar, restringir y/o limitar el otorgamiento de acceso para el uso de la aplicación <strong>VisitAPS</strong>. Queda expresamente prohibido el uso de la aplicación <strong>VisitAPS</strong> para cualquier actividad no relacionada con su objeto.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El <strong>Ministerio de Salud de la Nación</strong> queda eximido de toda responsabilidad por las consecuencias del uso indebido de la aplicación por parte de quien o quienes tuvieran el otorgamiento de acceso para la utilización de la misma, y por toda otra actividad vinculada a la ejecución de la implementación de la aplicación <strong>VisitAPS</strong>.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El usuario y contraseña otorgados por el <strong>Ministerio de Salud de la Nación</strong> son de <strong>uso personal e intransferible</strong>.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">El <strong>Ministerio de Salud de la Nación Argentina</strong> se reserva el derecho de actualizar la aplicación <strong>VisitAPS</strong>, sustituirla, limitarla o eliminarla sin aviso previo.</p>
+      </div>
+
+      <div class="terms-divider"></div>
+
+      <div class="terms-block">
+        <p class="terms-p">Asimismo, es facultad del <strong>Ministerio de Salud de la Nación</strong> actualizar los <strong>MANUALES</strong> de la aplicación web <strong>VisitAPS</strong>, creando versiones actualizadas que serán de <strong>cumplimiento obligatorio para las JURISDICCIONES</strong>.</p>
+      </div>
+
+    </div>
+
+    <!-- Checkbox -->
+    <div class="accept-wrap">
+      <label class="custom-check-wrap">
+        <input type="checkbox" id="accept-check">
+        <div class="custom-check">
+          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+            <path d="M1 4l3 3 5-6" stroke="#F0EDE8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="accept-label">¿Acepta los términos y condiciones?</span>
+      </label>
+    </div>
+
+    <!-- Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-cancelar" id="btn-cancelar-tyc">Cancelar</button>
+      <button class="btn btn-confirmar" id="btn-confirmar-tyc">Confirmar</button>
+    </div>
+
+    </div>
+
+  </div>
+
+  <!-- Error popup -->
+  <div class="popup-overlay" id="popup-overlay">
+    <div class="popup-card">
+      <p class="popup-msg">Debes aceptar los términos y condiciones para continuar.</p>
+      <button class="popup-close" id="btn-close-popup-tyc">Entendido</button>
+    </div>
+  </div>
+
+<script>
+function handleCancelar() {
+  // Vuelve a la pantalla anterior sin aceptar
+  if (window.history.length > 1) {
+    window.history.back();
+  } else {
+    window.location.hash = '#menu';
+  }
+}
+
+function handleConfirmar() {
+  var check = document.getElementById('accept-check');
+  if (!check.checked) {
+    document.getElementById('popup-overlay').classList.add('active');
+    return;
+  }
+  // Aceptó — navegar al menú principal
+  window.location.hash = '#menu';
+}
+
+function closePopup() {
+  document.getElementById('popup-overlay').classList.remove('active');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('popup-overlay')) closePopup();
+}
+
+document.getElementById('btn-cancelar-tyc').addEventListener('click', function() { if(window.handleCancelar) window.handleCancelar(); });
+document.getElementById('btn-confirmar-tyc').addEventListener('click', function() { if(window.handleConfirmar) window.handleConfirmar(); });
+document.getElementById('btn-close-popup-tyc').addEventListener('click', function() { if(window.closePopup) window.closePopup(); });
+document.getElementById('popup-overlay').addEventListener('click', function(e) { if(window.handleOverlayClick) window.handleOverlayClick(e); });
+</script>
+</body>
+</html>
