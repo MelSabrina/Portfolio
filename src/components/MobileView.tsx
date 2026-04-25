@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import meImg from '../assets/pictures/me.png'
 import { NODES, branchColorOf } from '../data/tree'
-import { PROJECTS } from '../data/projects'
+import { PROJECTS, ProjectData } from '../data/projects'
 
 interface Props {
   lang:          'en' | 'es'
@@ -26,6 +26,13 @@ const edu = {
     { name: 'Diseño gráfico y digital', detail: 'Nueva Escuela' },
     { name: 'Filosofía',                detail: 'UBA' },
   ],
+}
+
+function getProjectImages(proj: ProjectData): string[] {
+  if (proj.images?.length)    return proj.images.map(i => i.url)
+  if (proj.carousels?.length) return proj.carousels.flatMap(c => c.images.slice(0, 2))
+  if (proj.tracks?.length)    return proj.tracks.map(t => t.videoPoster).filter((p): p is string => !!p)
+  return []
 }
 
 function SunIcon() {
@@ -89,75 +96,54 @@ function ChevronIcon() {
   )
 }
 
-interface DetailProps {
-  projectId: string
-  lang:      'en' | 'es'
-  onClose:   () => void
+interface InlineDetailProps {
+  proj:  ProjectData
+  lang:  'en' | 'es'
+  color: string
 }
 
-function MobileProjectDetail({ projectId, lang, onClose }: DetailProps) {
-  const proj  = PROJECTS[projectId]
-  const node  = NODES.find(n => n.id === projectId)
-  const color = branchColorOf(projectId)
+function MobileProjectInline({ proj, lang, color }: InlineDetailProps) {
+  const images = getProjectImages(proj)
 
-  if (!proj || !node) return null
-
-  const heading = proj.tracks ? proj.tracks[0] : proj
-  const desc    = proj.tracks
+  const desc = proj.tracks
     ? proj.tracks.map(t => t.description[lang]).join('\n\n───\n\n')
     : proj.description?.[lang] ?? ''
 
   return (
-    <>
-      <div className="mob-backdrop" onClick={onClose} />
-      <div
-        className="mob-sheet"
-        style={{ '--branch-color': color } as React.CSSProperties}
-      >
-        <div className="mob-sheet-handle" />
-        <div className="mob-sheet-header">
-          <div className="mob-sheet-header-label mono">
-            <span className="mob-branch-dot" style={{ background: color }} />
-            {node.label[lang]}
-          </div>
-          <button className="mob-sheet-close" onClick={onClose}>×</button>
+    <div className="mob-project-detail" style={{ '--branch-color': color } as React.CSSProperties}>
+      {images.length > 0 && (
+        <div className="mob-project-gallery">
+          {images.map((url, i) => (
+            <img key={i} src={url} alt="" className="mob-gallery-img" draggable={false} />
+          ))}
         </div>
-        <div className="mob-sheet-body">
-          {(heading.headingBold || heading.headingLight) && (
-            <div className="mob-sheet-heading">
-              {heading.headingBold  && <span className="mob-sheet-heading-bold">{heading.headingBold}</span>}
-              {heading.headingLight && <span className="mob-sheet-heading-light">{heading.headingLight}</span>}
-            </div>
-          )}
-          {desc && <p className="mob-sheet-desc">{desc}</p>}
-          <div className="mob-sheet-divider" />
-          <div className="mob-sheet-tags">
-            {proj.tech.map(t => <span key={t} className="mob-sheet-tag mono">{t}</span>)}
-          </div>
-          <div className="mob-sheet-role mono">{proj.role[lang].join(' · ')}</div>
-          {(proj.appUrl || proj.linkUrl) && (
-            <div className="mob-sheet-actions">
-              {proj.appUrl && (
-                <a href={proj.appUrl} className="mob-sheet-btn mob-sheet-btn--primary mono" target="_blank" rel="noopener noreferrer">
-                  {lang === 'en' ? 'Open demo' : 'Abrir demo'}
-                </a>
-              )}
-              {proj.linkUrl && (
-                <a href={proj.linkUrl} className="mob-sheet-btn mob-sheet-btn--secondary mono" target="_blank" rel="noopener noreferrer">
-                  {proj.linkLabel?.[lang] ?? (lang === 'en' ? 'View link' : 'Ver enlace')}
-                </a>
-              )}
-            </div>
-          )}
-        </div>
+      )}
+      {desc && <p className="mob-project-desc">{desc}</p>}
+      <div className="mob-project-tags">
+        {proj.tech.map(t => <span key={t} className="mob-project-tag mono">{t}</span>)}
       </div>
-    </>
+      <div className="mob-project-role mono">{proj.role[lang].join(' · ')}</div>
+      {(proj.appUrl || proj.linkUrl) && (
+        <div className="mob-project-actions">
+          {proj.appUrl && (
+            <a href={proj.appUrl} className="mob-action-btn mob-action-btn--primary mono" target="_blank" rel="noopener noreferrer">
+              {lang === 'en' ? 'Open demo' : 'Abrir demo'}
+            </a>
+          )}
+          {proj.linkUrl && (
+            <a href={proj.linkUrl} className="mob-action-btn mob-action-btn--secondary mono" target="_blank" rel="noopener noreferrer">
+              {proj.linkLabel?.[lang] ?? (lang === 'en' ? 'View link' : 'Ver enlace')}
+            </a>
+          )}
+        </div>
+      )}
+    </div>
   )
 }
 
 export function MobileView({ lang, theme, onToggleLang, onToggleTheme }: Props) {
-  const [openBranch,   setOpenBranch]   = useState<string | null>(null)
-  const [activeProject, setActiveProject] = useState<string | null>(null)
+  const [openBranch,  setOpenBranch]  = useState<string | null>(null)
+  const [openProject, setOpenProject] = useState<string | null>(null)
 
   const branches = NODES.filter(n => n.kind === 'branch')
 
@@ -205,16 +191,19 @@ export function MobileView({ lang, theme, onToggleLang, onToggleTheme }: Props) 
         {/* Branch accordion */}
         <div className="mob-branches">
           {branches.map(branch => {
-            const color    = `var(${branch.branchColor})`
-            const isOpen   = openBranch === branch.id
-            const projects = NODES.filter(n => n.kind === 'project' && n.parentId === branch.id)
+            const color      = `var(${branch.branchColor})`
+            const isBranchOpen = openBranch === branch.id
+            const projects   = NODES.filter(n => n.kind === 'project' && n.parentId === branch.id)
 
             return (
               <div key={branch.id} className="mob-branch-wrap">
                 <button
                   className="mob-branch-card"
                   style={{ '--branch-color': color } as React.CSSProperties}
-                  onClick={() => setOpenBranch(isOpen ? null : branch.id)}
+                  onClick={() => {
+                    setOpenBranch(isBranchOpen ? null : branch.id)
+                    setOpenProject(null)
+                  }}
                 >
                   <div className="mob-branch-cable" />
                   <div className="mob-branch-content">
@@ -224,26 +213,41 @@ export function MobileView({ lang, theme, onToggleLang, onToggleTheme }: Props) 
                     </div>
                     <div className="mob-branch-title">{branch.title[lang]}</div>
                   </div>
-                  <div className={`mob-branch-chevron${isOpen ? ' mob-branch-chevron--open' : ''}`}>
+                  <div className={`mob-branch-chevron${isBranchOpen ? ' mob-branch-chevron--open' : ''}`}>
                     <ChevronIcon />
                   </div>
                 </button>
 
-                {isOpen && (
+                {isBranchOpen && (
                   <div className="mob-projects">
                     {projects.map(proj => {
-                      const hasContent = !!PROJECTS[proj.id]
+                      const hasContent  = !!PROJECTS[proj.id]
+                      const projData    = PROJECTS[proj.id]
+                      const isProjOpen  = openProject === proj.id
+
                       return (
-                        <button
-                          key={proj.id}
-                          className={`mob-project-card${!hasContent ? ' mob-project-card--empty' : ''}`}
-                          style={{ '--branch-color': color } as React.CSSProperties}
-                          onClick={() => hasContent && setActiveProject(proj.id)}
-                          disabled={!hasContent}
-                        >
-                          <span className="mob-project-label mono">{proj.label[lang]}</span>
-                          <span className="mob-project-title">{proj.title[lang]}</span>
-                        </button>
+                        <div key={proj.id} className="mob-project-wrap">
+                          <button
+                            className={`mob-project-card${!hasContent ? ' mob-project-card--empty' : ''}${isProjOpen ? ' mob-project-card--open' : ''}`}
+                            style={{ '--branch-color': color } as React.CSSProperties}
+                            onClick={() => hasContent && setOpenProject(isProjOpen ? null : proj.id)}
+                            disabled={!hasContent}
+                          >
+                            <div className="mob-project-info">
+                              <span className="mob-project-label mono">{proj.label[lang]}</span>
+                              <span className="mob-project-title">{proj.title[lang]}</span>
+                            </div>
+                            {hasContent && (
+                              <div className={`mob-project-chevron${isProjOpen ? ' mob-project-chevron--open' : ''}`}>
+                                <ChevronIcon />
+                              </div>
+                            )}
+                          </button>
+
+                          {isProjOpen && projData && (
+                            <MobileProjectInline proj={projData} lang={lang} color={color} />
+                          )}
+                        </div>
                       )
                     })}
                   </div>
@@ -253,14 +257,6 @@ export function MobileView({ lang, theme, onToggleLang, onToggleTheme }: Props) 
           })}
         </div>
       </div>
-
-      {activeProject && (
-        <MobileProjectDetail
-          projectId={activeProject}
-          lang={lang}
-          onClose={() => setActiveProject(null)}
-        />
-      )}
     </div>
   )
 }
