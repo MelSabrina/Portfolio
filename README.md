@@ -10,7 +10,11 @@ The UI is a navigable node graph — not a linear portfolio. A root node (profil
 
 - **SaludENT** — Angular + Ionic clinical reference app for 12 national health programs. Fully embedded interactive demo with custom cursor relay and momentum scroll.
 - **VisitAPS** — PWA for field health agents (Ministerio de Salud). Embedded demo with role-based mock login.
-- **Editorial Design** — Rutas Clínicas, epidemiological manuals, digital health strategy 2025.
+- **Clinical Pathways** — Modular graphic system for Argentina's national clinical pathways (MSAL + PAHO). Image gallery node.
+- **Selected Manuals 2023** — Editorial documents for DNAIENT. Three image carousel nodes (Cardio·Bucal, Fluor, Promotores).
+- **Digital Health Strategy 2025** — Visual identity for federal health summit. Image gallery + video node.
+- **Bilos** — Real-time AI visualizers (Stable Diffusion + Unreal Engine 5). Dual-track video nodes.
+- **Generación Desarrollo** — Visual identity and editorial design.
 
 ## Stack
 

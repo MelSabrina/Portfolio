@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import { PROJECTS } from '../data/projects'
 
 interface Props {
@@ -7,15 +7,42 @@ interface Props {
   lang:         'en' | 'es'
   nodeColor:    string
   trackIndex?:  number
+  scrollable?:  boolean
   onMouseDown:  (e: React.MouseEvent) => void
   onSize:       (w: number, h: number) => void
 }
 
-export function ProjectTextNode({ projectId, pos, lang, nodeColor, trackIndex, onMouseDown, onSize }: Props) {
+export function ProjectTextNode({ projectId, pos, lang, nodeColor, trackIndex, scrollable, onMouseDown, onSize }: Props) {
   const project = PROJECTS[projectId]
   const ref = useCallback((el: HTMLDivElement | null) => {
     if (el) onSize(el.offsetWidth, el.offsetHeight)
   }, [onSize])
+
+  const bodyRef  = useRef<HTMLDivElement>(null)
+  const dragRef  = useRef<{ startY: number; startTop: number } | null>(null)
+
+  const handleBodyMouseDown = useCallback((e: React.MouseEvent) => {
+    if (!scrollable) return
+    e.stopPropagation()
+    const el = bodyRef.current
+    if (!el) return
+    dragRef.current = { startY: e.clientY, startTop: el.scrollTop }
+    const onMove = (me: MouseEvent) => {
+      if (!dragRef.current || !bodyRef.current) return
+      bodyRef.current.scrollTop = dragRef.current.startTop - (me.clientY - dragRef.current.startY)
+    }
+    const onUp = () => {
+      dragRef.current = null
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+  }, [scrollable])
+
+  const handleBodyWheel = useCallback((e: React.WheelEvent) => {
+    if (scrollable) e.stopPropagation()
+  }, [scrollable])
 
   if (!project) return null
 
@@ -29,7 +56,7 @@ export function ProjectTextNode({ projectId, pos, lang, nodeColor, trackIndex, o
   return (
     <div
       ref={ref}
-      className={`node node--text-content${isMultiTrack ? ' node--track' : ''}`}
+      className={`node node--text-content${isMultiTrack ? ' node--track' : ''}${scrollable ? ' node--text-scroll' : ''}`}
       style={{ '--node-color': nodeColor, left: pos.x, top: pos.y, position: 'absolute' } as React.CSSProperties}
       onMouseDown={onMouseDown}
     >
@@ -40,20 +67,30 @@ export function ProjectTextNode({ projectId, pos, lang, nodeColor, trackIndex, o
         </span>
       </div>
 
-      <div className="text-content__body">
-        {heading.headingBold && (
-          <div className="text-content__heading">
-            <span className="text-content__heading-bold">{heading.headingBold}</span>
-            {heading.headingLight && (
-              <span className="text-content__heading-light">{heading.headingLight}</span>
-            )}
-          </div>
-        )}
-        {paragraphs.map((p, i) => (
-          <p key={i} className="text-content__para">{p}</p>
-        ))}
+      <div className="text-content__scroll-wrap">
+        <div
+          ref={bodyRef}
+          className={`text-content__body${scrollable && showMeta ? ' text-content__body--capped' : ''}`}
+          onMouseDown={handleBodyMouseDown}
+          onWheel={handleBodyWheel}
+        >
+          {heading.headingBold && (
+            <div className="text-content__heading">
+              <span className="text-content__heading-bold">{heading.headingBold}</span>
+              {heading.headingLight && (
+                <span className="text-content__heading-light">{heading.headingLight}</span>
+              )}
+            </div>
+          )}
+          {paragraphs.map((p, i) => (
+            <p key={i} className="text-content__para">{p}</p>
+          ))}
+        </div>
+        {scrollable && showMeta && <div className="text-content__fade" aria-hidden />}
+      </div>
 
-        {showMeta && <>
+      {showMeta && (
+        <div className="text-content__footer">
           <div className="text-content__divider" />
           <div className="text-content__tags">
             {project.tech.map(t => (
@@ -63,8 +100,8 @@ export function ProjectTextNode({ projectId, pos, lang, nodeColor, trackIndex, o
           <div className="text-content__role mono">
             {project.role[lang].join(' · ')}
           </div>
-        </>}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -82,7 +82,7 @@ export const NODES: TreeNode[] = [
   {
     id: 'manuales', kind: 'project', parentId: 'editorial',
     label: { en: 'editorial · MSAL', es: 'editorial · MSAL' },
-    title: { en: 'Selected Manuals', es: 'Manuales seleccionados' },
+    title: { en: 'Selected Manuals 2023', es: 'Manuales seleccionados 2023' },
     minWidth: 172,
     x: 620, y: 380,
   },

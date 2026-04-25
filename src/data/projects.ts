@@ -5,6 +5,8 @@ export interface TrackData {
   videoUrl?:     string
   videoPoster?:  string
   videoWidth?:   number  // px — defaults to 400; height always 315px in track mode
+  spawnDy?:      number  // vertical offset applied at spawn (positive = down)
+  scrollable?:   boolean // enables drag-to-scroll + wheel isolation on the text node
 }
 
 export interface ProjectData {
@@ -36,6 +38,10 @@ export interface ProjectData {
   tracks?:       TrackData[]
   // image gallery
   images?: Array<{ url: string; width?: number }>
+  // image carousels (one node per carousel)
+  carousels?: Array<{ label?: string; images: string[]; width?: number; height?: number }>
+  carouselDy?: number  // shifts the whole carousel column down (positive = down)
+  textDy?:     number  // shifts the project overview text node down (positive = down)
 }
 
 export const PROJECTS: Record<string, ProjectData> = {
@@ -88,14 +94,14 @@ The app works offline. It collects structured data about housing conditions, hou
 
 I designed the visual identity and the full UI system, then built the frontend: Vanilla JS, Supabase, service worker, hash-based SPA routing. No framework.
 
-What stayed with me: this became someone's actual work tool. It's in their pocket when they knock on doors in the morning. Knowing that changed how I think about what design is for.`,
+What stayed with me: this became someone's actual work tool. It's in their pocket when they knock on doors in the morning, across the whole country. My effort materializes in that contribution — making sure at least those encounters have a little less digital friction.`,
       es: `VisitAPS es una PWA para los agentes sanitarios del Ministerio de Salud de la Nación. No los visitadores de las farmacéuticas — los de APS. Las personas que van de puerta en puerta en las zonas de atención primaria, haciendo relevamientos sanitarios domiciliarios.
 
 La app funciona sin conexión. Registra datos estructurados sobre condiciones de vivienda, integrantes del hogar, acceso a la salud, presencia de animales. Sincroniza con la base nacional cuando hay señal.
 
 Diseñé la identidad visual y el sistema de UI completo, y construí el frontend: Vanilla JS, Supabase, service worker, ruteo SPA por hash. Sin framework.
 
-Lo que más me marcó: esto se convirtió en la herramienta de trabajo real de alguien. Está en su bolsillo cuando golpean puertas a la mañana. Saber eso cambió cómo pienso para qué sirve el diseño.`,
+Lo que más me marcó: esto se convirtió en la herramienta de trabajo real de alguien. Está en su bolsillo cuando golpean puertas a la mañana, a lo largo y ancho del país. Mi esfuerzo se materializa en esa contribución a que al menos esos encuentros tengan un poco menos de fricción digital.`,
     },
     tech: ['Vanilla JS', 'Supabase', 'PWA', 'Service Worker', 'Hash routing'],
     role: {
@@ -103,6 +109,51 @@ Lo que más me marcó: esto se convirtió en la herramienta de trabajo real de a
       es: ['Diseño UI', 'Identidad visual', 'Frontend Dev'],
     },
     appUrl: '/visitaps-demo/index.html',
+  },
+
+  manuales: {
+    id: 'manuales',
+    headingBold:  'Manuales seleccionados',
+    headingLight: '2023',
+    description: {
+      en: `Throughout two years at Argentina's National Directorate for the Comprehensive Approach to Non-Communicable Diseases (DNAIENT), I designed a range of documents in support of their public health prevention strategies. These are some of them.`,
+      es: `Durante dos años en la Dirección Nacional de Abordaje Integral de Enfermedades no Transmisibles (DNAIENT), diseñé una diversidad de documentos de apoyo a sus estrategias de prevención con impacto sanitario. Estos son algunos de ellos.`,
+    },
+    tech: ['Illustrator', 'InDesign', 'Print'],
+    role: {
+      en: ['Editorial Design', 'Information Design'],
+      es: ['Diseño Editorial', 'Diseño de Información'],
+    },
+    textDy:     80,
+    carouselDy: 20,
+    carousels: [
+      {
+        label: 'Cardio · Bucal',
+        images: [
+          '/assets/projects/manuales/cardiobucal1.jpg',
+          '/assets/projects/manuales/cardiobucal2.jpg',
+        ],
+        width: 336,
+        height: 252,
+      },
+      {
+        label: 'Fluor',
+        images: [
+          '/assets/projects/manuales/fluor1.jpg',
+          '/assets/projects/manuales/fluor2.jpg',
+          '/assets/projects/manuales/fluor3.jpg',
+        ],
+        width: 336,
+      },
+      {
+        label: 'Promotores',
+        images: [
+          '/assets/projects/manuales/promotores1.jpg',
+          '/assets/projects/manuales/promotores2.jpg',
+        ],
+        width: 336,
+      },
+    ],
   },
 
   estrategia: {
@@ -177,6 +228,8 @@ El visualizer corre Stable Diffusion 1.5 en tiempo real sobre una escena constru
         videoUrl:    '/videos/habitaciones_traseras.mp4',
         videoPoster: '/videos/ht_poster.jpg',
         videoWidth:  560,
+        spawnDy:     10,
+        scrollable:  true,
       },
       {
         headingBold:  'Tren — Bilos',
@@ -192,6 +245,7 @@ El CFG scale deriva en tiempo real con la música — lo suficientemente alto pa
         videoUrl:    '/videos/Tren_Proteus_cut.mp4',
         videoPoster: '/videos/tren_poster.jpg',
         videoWidth:  315,
+        spawnDy:     -10,
       },
     ],
   },

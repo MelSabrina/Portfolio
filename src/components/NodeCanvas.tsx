@@ -9,6 +9,7 @@ import { ProjectVideoNode } from './ProjectVideoNode'
 import { ProjectImageNode } from './ProjectImageNode'
 import { ProjectLinkNode } from './ProjectLinkNode'
 import { ProjectBgVideoNode } from './ProjectBgVideoNode'
+import { ProjectCarouselNode } from './ProjectCarouselNode'
 
 interface Props { lang: 'en' | 'es' }
 
@@ -203,8 +204,8 @@ export function NodeCanvas({ lang }: Props) {
           if (proj.tracks) {
             const offsets: Record<string, { x: number; y: number }> = {}
             // subtract half track-node height (~175px) so row centers are symmetric around bilos center
-            proj.tracks.forEach((_, i) => {
-              const ry = cy - ((proj.tracks!.length - 1) * ROW_H) / 2 + i * ROW_H - 175
+            proj.tracks.forEach((track, i) => {
+              const ry = cy - ((proj.tracks!.length - 1) * ROW_H) / 2 + i * ROW_H - 175 + (track.spawnDy ?? 0)
               offsets[`${id}-text-${i}`]  = { x: rx, y: ry }
               offsets[`${id}-video-${i}`] = { x: vx, y: ry }
             })
@@ -258,9 +259,26 @@ export function NodeCanvas({ lang }: Props) {
                   : { x: imgX0 + 2 * COL_W + 60, y: imgCy - 200 }
               }
             }
+            // Carousel positions
+            const carouselOffsets: Record<string, Pos> = {}
+            if (proj.carousels?.length) {
+              const CAROUSEL_H   = 335
+              const CAROUSEL_GAP = 20
+              const n      = proj.carousels.length
+              const totalH = n * CAROUSEL_H + (n - 1) * CAROUSEL_GAP
+              const carouselX = rx + 420
+              const carouselDy = proj.carouselDy ?? 0
+              proj.carousels.forEach((_, i) => {
+                carouselOffsets[`${id}-carousel-${i}`] = {
+                  x: carouselX,
+                  y: cy - totalH / 2 + carouselDy + i * (CAROUSEL_H + CAROUSEL_GAP),
+                }
+              })
+            }
+
             setPositions(p => ({
               ...p,
-              [`${id}-text`]:  { x: rx, y: cy - 120 },
+              [`${id}-text`]:  { x: rx, y: cy - 120 + (proj.textDy ?? 0) },
               ...(proj.appUrl   ? { [`${id}-app`]:   { x: vx, y: cy - 280 } } : {}),
               ...(proj.videoUrl ? { [`${id}-video`]: { x: vx, y: cy - 220 } } : {}),
               // bgVideo fallback when no images
@@ -270,6 +288,7 @@ export function NodeCanvas({ lang }: Props) {
                   : { x: vx, y: cy - 220 },
               } : {}),
               ...imgOffsets,
+              ...carouselOffsets,
             }))
           }
         }
@@ -303,6 +322,7 @@ export function NodeCanvas({ lang }: Props) {
           ...(proj.linkUrl  ? [`${activeId}-link`]   : []),
           ...(proj.bgVideo  ? [`${activeId}-bgvideo`] : []),
           ...(proj.images?.map((_, i) => `${activeId}-img-${i}`) ?? []),
+          ...(proj.carousels?.map((_, i) => `${activeId}-carousel-${i}`) ?? []),
         ]
       }
     }
@@ -433,6 +453,7 @@ export function NodeCanvas({ lang }: Props) {
       ...(proj.appUrl    ? makeSeg(txtId, `${active}-app`,   txtFb, medFb) : []),
       ...(proj.videoUrl  ? makeSeg(txtId, `${active}-video`, txtFb, medFb) : []),
       ...(proj.images?.flatMap((_, i) => makeSeg(txtId, `${active}-img-${i}`, txtFb, imgFb)) ?? []),
+      ...(proj.carousels?.flatMap((_, i) => makeSeg(txtId, `${active}-carousel-${i}`, txtFb, { w: 336, h: 335 })) ?? []),
       ...(proj.linkUrl   ? makeSeg(txtId, `${active}-link`,   txtFb, { w: 200, h: 64  }) : []),
       ...(proj.bgVideo   ? makeSeg(txtId, `${active}-bgvideo`, txtFb, { w: 380, h: 240 }) : []),
     ]
@@ -575,10 +596,11 @@ export function NodeCanvas({ lang }: Props) {
           const proj = PROJECTS[ui.active!]
           const id   = ui.active!
           if (proj.tracks) {
-            return proj.tracks.map((_, i) => (
+            return proj.tracks.map((track, i) => (
               <React.Fragment key={i}>
                 <ProjectTextNode
                   projectId={id} trackIndex={i}
+                  scrollable={track.scrollable}
                   pos={positions[`${id}-text-${i}`] ?? { x: 0, y: 0 }}
                   lang={lang} nodeColor={branchColorOf(id)}
                   onMouseDown={e => onNodeMouseDown(e, `${id}-text-${i}`)}
@@ -660,6 +682,21 @@ export function NodeCanvas({ lang }: Props) {
               nodeColor={branchColorOf(id)}
               onMouseDown={e => onNodeMouseDown(e, `${id}-img-${i}`)}
               onSize={(w, h) => handleSize(`${id}-img-${i}`, w, h)}
+            />
+          )
+        })}
+
+        {ui.active && PROJECTS[ui.active]?.carousels?.map((_, i) => {
+          const id = ui.active!
+          return (
+            <ProjectCarouselNode
+              key={`${id}-carousel-${i}`}
+              projectId={id}
+              carouselIndex={i}
+              pos={positions[`${id}-carousel-${i}`] ?? { x: 0, y: 0 }}
+              nodeColor={branchColorOf(id)}
+              onMouseDown={e => onNodeMouseDown(e, `${id}-carousel-${i}`)}
+              onSize={(w, h) => handleSize(`${id}-carousel-${i}`, w, h)}
             />
           )
         })}
