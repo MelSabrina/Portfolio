@@ -107,13 +107,13 @@ export const NODES: TreeNode[] = [
     minWidth: 172,
     x: 620, y: 740,
   },
-  {
-    id: 'generacion', kind: 'project', parentId: 'editorial',
-    label: { en: 'editorial · identity', es: 'editorial · identidad' },
-    title: { en: 'Generación Desarrollo', es: 'Generación Desarrollo' },
-    minWidth: 195,
-    x: 620, y: 860,
-  },
+  // {
+  //   id: 'generacion', kind: 'project', parentId: 'editorial',
+  //   label: { en: 'editorial · identity', es: 'editorial · identidad' },
+  //   title: { en: 'Generación Desarrollo', es: 'Generación Desarrollo' },
+  //   minWidth: 195,
+  //   x: 620, y: 860,
+  // },
 
   // ── Otros ─────────────────────────────────────────────────────────────────
   {

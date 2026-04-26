@@ -212,7 +212,12 @@
             line-height: 1.2;
             font-weight: bold;
         }
-    </style>
+    
+        /* scroll isolation: open accordions block background scroll */
+        html { overscroll-behavior: contain; }
+        .accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        .sub-accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        </style>
 </head>
 <body>
     <div class="main-container">

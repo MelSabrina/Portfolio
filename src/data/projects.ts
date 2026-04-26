@@ -124,8 +124,11 @@ Lo que más me marcó: esto se convirtió en la herramienta de trabajo real de a
       en: ['Editorial Design', 'Information Design'],
       es: ['Diseño Editorial', 'Diseño de Información'],
     },
+    linkUrl:   'https://www.behance.net/gallery/185547123/Manuales-Clinicos-Ministerio-de-Salud-de-la-Nacion',
+    linkLabel: { en: 'View on Behance', es: 'Ver en Behance' },
+    linkOffset: { dx: 376, dy: 30 },
     textDy:     80,
-    carouselDy: 20,
+    carouselDy: 30,
     carousels: [
       {
         label: 'Cardio · Bucal',

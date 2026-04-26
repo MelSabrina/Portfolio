@@ -933,14 +933,22 @@ backdrop.addEventListener('click', function() {
   if (_activeBs) closeBS(_activeBs);
 });
 
-// Swipe down para cerrar
-document.querySelectorAll('.bs-sheet').forEach(function(sheet) {
-  var startY = 0;
-  sheet.addEventListener('touchstart', function(e) { startY = e.touches[0].clientY; }, { passive: true });
-  sheet.addEventListener('touchend', function(e) {
-    if (e.changedTouches[0].clientY - startY > 60) closeBS(sheet.id);
-  }, { passive: true });
-});
+// Swipe/drag down para cerrar
+(function() {
+  var _sy = 0, _ds = null;
+  document.querySelectorAll('.bs-sheet').forEach(function(sheet) {
+    sheet.addEventListener('touchstart', function(e) { _sy = e.touches[0].clientY; }, { passive: true });
+    sheet.addEventListener('touchend', function(e) {
+      if (e.changedTouches[0].clientY - _sy > 60) closeBS(sheet.id);
+    }, { passive: true });
+    sheet.addEventListener('mousedown', function(e) { _sy = e.clientY; _ds = sheet; });
+  });
+  document.addEventListener('mouseup', function(e) {
+    if (!_ds) return;
+    var s = _ds; _ds = null;
+    if (e.clientY - _sy > 60) closeBS(s.id);
+  });
+})();
 
 // ── Helpers de render ─────────────────────────────────────────────────────────
 function nivelBadge(nivel) {

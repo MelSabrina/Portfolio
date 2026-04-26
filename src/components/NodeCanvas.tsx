@@ -274,6 +274,13 @@ export function NodeCanvas({ lang }: Props) {
                   y: cy - totalH / 2 + carouselDy + i * (CAROUSEL_H + CAROUSEL_GAP),
                 }
               })
+              // Link node for carousel-only projects
+              if (proj.linkUrl && !proj.images?.length && proj.linkOffset) {
+                imgOffsets[`${id}-link`] = {
+                  x: carouselX + proj.linkOffset.dx,
+                  y: cy + proj.linkOffset.dy,
+                }
+              }
             }
 
             setPositions(p => ({

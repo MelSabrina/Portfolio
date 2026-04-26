@@ -2513,6 +2513,23 @@ function cerrarEditIdenti() {
   document.getElementById('bs-identi-sheet').classList.remove('open');
 }
 
+// Swipe/drag down para cerrar
+(function() {
+  var _sy = 0, _active = false;
+  var sheet = document.getElementById('bs-identi-sheet');
+  if (!sheet) return;
+  sheet.addEventListener('touchstart', function(e) { _sy = e.touches[0].clientY; }, { passive: true });
+  sheet.addEventListener('touchend', function(e) {
+    if (e.changedTouches[0].clientY - _sy > 60) cerrarEditIdenti();
+  }, { passive: true });
+  sheet.addEventListener('mousedown', function(e) { _sy = e.clientY; _active = true; });
+  document.addEventListener('mouseup', function(e) {
+    if (!_active) return;
+    _active = false;
+    if (e.clientY - _sy > 60) cerrarEditIdenti();
+  });
+})();
+
 document.getElementById('bs-identi-guardar').addEventListener('click', function() {
   var input = document.getElementById('bs-identi-input');
   var val = input.value.trim();

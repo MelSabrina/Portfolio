@@ -54,6 +54,7 @@ const IFRAME_INJECT = `(function(){
   document.addEventListener('mousedown', function(e){
     cancelMomentum();
     window.parent.postMessage({type:'visitaps-mousedown'},'*');
+    if(e.target.closest && e.target.closest('.bs-sheet')) return;
     sb = document.querySelector('.scroll-body');
     if(!sb) return;
     startY=e.clientY; lastY=e.clientY; lastT=Date.now();
@@ -75,6 +76,20 @@ const IFRAME_INJECT = `(function(){
     if(moved&&Math.abs(vy)>1) rafId=requestAnimationFrame(momentum);
     window.parent.postMessage({type:'visitaps-mouseup'},'*');
   }, true);
+
+  /* 6. Lock scroll-body on visor pages so inner iframe scroll can't chain out */
+  (function(){
+    function _visorLock(){
+      var sb=document.querySelector('.scroll-body');
+      if(!sb) return;
+      sb.style.overflowY=document.querySelector('.visor-frame')?'hidden':'';
+    }
+    _visorLock();
+    window.addEventListener('hashchange',function(){
+      setTimeout(_visorLock,80);
+      setTimeout(_visorLock,300);
+    });
+  })();
 })();`
 
 export function ProjectAppNode({ projectId, pos, nodeColor, onMouseDown, onSize }: Props) {

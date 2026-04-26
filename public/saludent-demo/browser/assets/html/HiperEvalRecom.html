@@ -415,7 +415,12 @@
             color: #6CACE4;
             font-weight: 600;
         }
-    </style>
+    
+        /* scroll isolation: open accordions block background scroll */
+        html { overscroll-behavior: contain; }
+        .accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        .sub-accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        </style>
 </head>
 <body>
     <div class="main-container">

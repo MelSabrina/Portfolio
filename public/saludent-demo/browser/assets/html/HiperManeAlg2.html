@@ -491,14 +491,7 @@
         const backdrop = document.getElementById('bs-backdrop');
         let activeSheet = null;
 
-        function openSheet(sheetId) {
-            if (activeSheet) closeSheet();
-
-            const sheet = document.getElementById(sheetId);
-            backdrop.classList.add('open');
-            sheet.classList.add('open');
-            activeSheet = sheetId;
-        }
+        function openSheet(sheetId) { /* disabled — sheets broken in embedded demo */ }
 
         function closeSheet() {
             if (!activeSheet) return;

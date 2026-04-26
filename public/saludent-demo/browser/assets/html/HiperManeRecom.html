@@ -527,7 +527,12 @@
                 padding: 12px 20px;
             }
         }
-    </style>
+    
+        /* scroll isolation: open accordions block background scroll */
+        html { overscroll-behavior: contain; }
+        .accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        .sub-accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
+        </style>
 </head>
 <body>
     <div class="main-container">
@@ -870,7 +875,7 @@
 
             if (isOpening) {
                 setTimeout(() => {
-                    header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    window.scrollTo({ top: header.getBoundingClientRect().top + window.scrollY - 8, behavior: 'smooth' });
                 }, 100);
             }
         }
@@ -888,14 +893,7 @@
         const backdrop = document.getElementById('bs-backdrop');
         let activeSheet = null;
 
-        function openSheet(sheetId) {
-            if (activeSheet) closeSheet();
-
-            const sheet = document.getElementById(sheetId);
-            backdrop.classList.add('open');
-            sheet.classList.add('open');
-            activeSheet = sheetId;
-        }
+        function openSheet(sheetId) { /* disabled — sheets broken in embedded demo */ }
 
         function closeSheet() {
             if (!activeSheet) return;
