@@ -77,7 +77,8 @@ const IFRAME_INJECT = `(function(){
     window.parent.postMessage({type:'visitaps-mouseup'},'*');
   }, true);
 
-  /* 6. Lock scroll-body on visor pages so inner iframe scroll can't chain out */
+  /* 6. Lock scroll-body when visor-frame is present — MutationObserver fires exactly
+        when Angular mounts/unmounts the component, no fragile setTimeout needed */
   (function(){
     function _visorLock(){
       var sb=document.querySelector('.scroll-body');
@@ -85,10 +86,20 @@ const IFRAME_INJECT = `(function(){
       sb.style.overflowY=document.querySelector('.visor-frame')?'hidden':'';
     }
     _visorLock();
-    window.addEventListener('hashchange',function(){
-      setTimeout(_visorLock,80);
-      setTimeout(_visorLock,300);
-    });
+    var outlet=document.querySelector('ion-router-outlet');
+    if(outlet){
+      new MutationObserver(_visorLock).observe(outlet,{childList:true});
+    } else {
+      /* fallback: observe body subtree until outlet appears */
+      var bodyObs=new MutationObserver(function(){
+        var o=document.querySelector('ion-router-outlet');
+        if(!o) return;
+        bodyObs.disconnect();
+        new MutationObserver(_visorLock).observe(o,{childList:true});
+        _visorLock();
+      });
+      bodyObs.observe(document.body,{childList:true,subtree:true});
+    }
   })();
 })();`
 
