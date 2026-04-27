@@ -213,10 +213,6 @@
             font-weight: bold;
         }
     
-        /* scroll isolation: open accordions block background scroll */
-        html { overscroll-behavior: contain; }
-        .accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
-        .sub-accordion-content.active { overflow-y: auto; overscroll-behavior: contain; }
         </style>
 </head>
 <body>
@@ -353,49 +349,5 @@
                 content.classList.add('active');
             }
         }
-    </script>
-    <script>
-    /* Accordion drag-to-scroll — registered before VisorHtmlPage injection (on iframe load).
-       Being first in capture phase lets us stopImmediatePropagation so the injected
-       body-scroll handler never activates when the user drags inside an open accordion. */
-    (function() {
-      var aEl = null, aStartY = null, aStartTop = 0, aMoved = false;
-      var aLastY = 0, aLastT = 0, aVy = 0, aRaf = null;
-      function cancelA() { if (aRaf) { cancelAnimationFrame(aRaf); aRaf = null; } }
-      function momentumA() {
-        aVy *= 0.92;
-        if (Math.abs(aVy) < 0.5) { aRaf = null; return; }
-        if (aEl) aEl.scrollTop += aVy;
-        aRaf = requestAnimationFrame(momentumA);
-      }
-      document.addEventListener('mousedown', function(e) {
-        cancelA();
-        var c = e.target.closest && (
-          e.target.closest('.accordion-content.active') ||
-          e.target.closest('.sub-accordion-content.active')
-        );
-        if (!c) return;
-        e.stopImmediatePropagation();
-        aEl = c; aStartY = e.clientY; aLastY = e.clientY; aLastT = Date.now();
-        aStartTop = c.scrollTop; aMoved = false; aVy = 0;
-      }, true);
-      document.addEventListener('mousemove', function(e) {
-        if (aStartY === null || !aEl) return;
-        var now = Date.now(), dt = Math.max(now - aLastT, 1);
-        aVy = (aLastY - e.clientY) / dt * 16;
-        aLastY = e.clientY; aLastT = now;
-        var dy = aStartY - e.clientY;
-        if (Math.abs(dy) > 4) { aMoved = true; aEl.scrollTop = aStartTop + dy; }
-      }, true);
-      document.addEventListener('mouseup', function() {
-        aStartY = null;
-        if (aMoved && Math.abs(aVy) > 1) aRaf = requestAnimationFrame(momentumA);
-        aEl = null;
-      }, true);
-      document.addEventListener('click', function(e) {
-        if (aMoved) { e.stopPropagation(); e.preventDefault(); aMoved = false; }
-      }, true);
-    })();
-    </script>
-</body>
+    </script></body>
 </html>

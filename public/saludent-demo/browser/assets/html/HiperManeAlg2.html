@@ -491,7 +491,17 @@
         const backdrop = document.getElementById('bs-backdrop');
         let activeSheet = null;
 
-        function openSheet(sheetId) { /* disabled — sheets broken in embedded demo */ }
+        function openSheet(sheetId) {
+            if (activeSheet) {
+                const prev = document.getElementById(activeSheet);
+                if (prev) prev.classList.remove('open');
+            }
+            const sheet = document.getElementById(sheetId);
+            if (!sheet) return;
+            sheet.classList.add('open');
+            backdrop.classList.add('open');
+            activeSheet = sheetId;
+        }
 
         function closeSheet() {
             if (!activeSheet) return;
@@ -524,6 +534,109 @@
                 }
             }, { passive: true });
         });
+    </script>
+    <script>
+    /* .bs-body drag-to-scroll — registered before VisorHtmlPage's load-time injection,
+       so our capture listeners fire first. We block VisorHtmlPage's page-scroll via
+       mousemove (not mousedown), so its mousedown can still reset its own `moved` flag
+       and prevent stale click-blocks. */
+    (function() {
+      var bsEl = null, bsStartY = null, bsStartTop = 0, bsMoved = false;
+      var bsLastY = 0, bsLastT = 0, bsVy = 0, bsRaf = null;
+      var bsSheetOpen = false;
+      var bsStartedAtTop = false, bsDismissEl = null, bsDismissDy = 0;
+
+      /* Cursor relay — registered first so stopImmediatePropagation below never kills it */
+      document.addEventListener('mousemove', function(e) {
+        window.parent.postMessage({type:'inner-cursor',x:e.clientX,y:e.clientY},'*');
+      }, true);
+
+      var _origOpen = window.openSheet, _origClose = window.closeSheet;
+      window.openSheet  = function(id) { bsSheetOpen = true;  if (_origOpen)  _origOpen(id); };
+      window.closeSheet = function()   { bsSheetOpen = false; if (_origClose) _origClose(); };
+
+      /* backdrop.addEventListener('click', closeSheet) uses the original closeSheet (not
+         our wrapper), so we add our own listener to keep bsSheetOpen in sync */
+      var _bd = document.getElementById('bs-backdrop');
+      if (_bd) _bd.addEventListener('click', function() { bsSheetOpen = false; });
+
+      function cancelBs() { if (bsRaf) { cancelAnimationFrame(bsRaf); bsRaf = null; } }
+      function momentumBs() {
+        bsVy *= 0.92;
+        if (Math.abs(bsVy) < 0.5) { bsRaf = null; bsEl = null; return; }
+        if (bsEl) bsEl.scrollTop += bsVy;
+        bsRaf = requestAnimationFrame(momentumBs);
+      }
+      document.addEventListener('mousedown', function(e) {
+        cancelBs();
+        var body = e.target.closest && e.target.closest('.bs-body');
+        if (body) {
+          bsEl = body; bsStartY = e.clientY; bsLastY = e.clientY; bsLastT = Date.now();
+          bsStartTop = body.scrollTop; bsMoved = false; bsVy = 0;
+          bsStartedAtTop = (body.scrollTop === 0);
+          bsDismissEl = body.closest('.bs-sheet');
+          bsDismissDy = 0;
+          if (bsDismissEl) bsDismissEl.style.transition = 'none';
+        }
+        /* Don't stopImmediatePropagation — VisorHtmlPage's mousedown must fire
+           so it resets its own moved=false, preventing stale-moved click-blocks */
+      }, true);
+      document.addEventListener('mousemove', function(e) {
+        if (bsStartY === null || !bsEl) {
+          if (bsSheetOpen) e.stopImmediatePropagation();
+          return;
+        }
+        e.stopImmediatePropagation();
+        var now = Date.now(), dt = Math.max(now - bsLastT, 1);
+        bsVy = (bsLastY - e.clientY) / dt * 16;
+        bsLastY = e.clientY; bsLastT = now;
+        var dy = bsStartY - e.clientY;
+        if (Math.abs(dy) > 4) {
+          bsMoved = true;
+          if (bsStartedAtTop && dy < 0) {
+            /* Drag down from top — translate sheet for dismiss gesture */
+            bsDismissDy = -dy;
+            if (bsDismissEl) bsDismissEl.style.transform = 'translateX(-50%) translateY(' + bsDismissDy + 'px)';
+          } else {
+            /* Normal scroll; reset dismiss translate if direction reversed */
+            if (bsDismissDy > 0 && bsDismissEl) { bsDismissEl.style.transform = ''; bsDismissDy = 0; }
+            bsEl.scrollTop = bsStartTop + dy;
+          }
+        }
+      }, true);
+      document.addEventListener('mouseup', function() {
+        bsStartY = null;
+        var wasDismissing = bsStartedAtTop && bsDismissDy > 0;
+        var shouldDismiss = wasDismissing && (bsDismissDy > 80 || bsVy < -3);
+        if (bsDismissEl) {
+          bsDismissEl.style.transition = '';       /* restore CSS transition */
+          bsDismissEl.getBoundingClientRect();     /* force reflow so transition sees current pos */
+          if (shouldDismiss) {
+            var _el = bsDismissEl;
+            _el.style.transform = 'translateX(-50%) translateY(100%)';
+            _el.addEventListener('transitionend', function handler() {
+              _el.removeEventListener('transitionend', handler);
+              if (_origClose) _origClose();
+              bsSheetOpen = false;
+              _el.style.transform = '';
+            }, { once: true });
+          } else if (wasDismissing) {
+            bsDismissEl.style.transform = '';     /* snap back */
+          }
+        }
+        var startMomentum = !shouldDismiss && !wasDismissing && bsMoved && Math.abs(bsVy) > 1;
+        if (startMomentum) {
+          bsRaf = requestAnimationFrame(momentumBs); /* bsEl stays alive until momentumBs clears it */
+        } else {
+          bsEl = null;
+        }
+        bsDismissDy = 0; bsDismissEl = null;
+      }, true);
+      document.addEventListener('click', function(e) {
+        if (bsMoved && e.target.closest('.bs-body')) { e.stopPropagation(); e.preventDefault(); }
+        bsMoved = false;
+      }, true);
+    })();
     </script>
 </body>
 </html>
