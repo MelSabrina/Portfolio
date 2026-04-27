@@ -164,7 +164,7 @@ export function NodeCanvas({ lang }: Props) {
     if (!melSize) return
     setPositions(p => {
       const melPos = p['mel'] ?? { x: 145, y: 110 }
-      return { ...p, contact: { x: melPos.x, y: melPos.y + melSize.h + 30 } }
+      return { ...p, contact: { x: melPos.x, y: melPos.y + melSize.h + 20 } }
     })
     setContactWidth(sizes['mel']?.w ?? 220)
   }, [sizes['mel']])

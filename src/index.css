@@ -538,7 +538,30 @@ h3 { font-size: 1.1rem; }
 }
 
 /* Nodo contacto */
-.node--contact { cursor: none; min-width: 220px; }
+.node--contact { cursor: none; min-width: 220px; overflow: hidden; }
+
+.contact__header {
+  cursor: none;
+  justify-content: space-between;
+}
+
+.contact__chevron {
+  color:      var(--text-dim);
+  opacity:    0.5;
+  transition: transform 0.25s ease;
+  display:    flex;
+  align-items: center;
+}
+.contact__chevron--open { transform: rotate(90deg); }
+
+.contact__body {
+  display:    grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.25s ease;
+  overflow:   hidden;
+}
+.contact__body--open { grid-template-rows: 1fr; }
+.contact__body-inner { overflow: hidden; min-height: 0; }
 
 .contact__form {
   display:        flex;
