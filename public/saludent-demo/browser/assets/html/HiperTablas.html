@@ -131,11 +131,26 @@
             padding: 20px;
         }
 
+        /* Exception: Tiazidas table — Hidroclorotiazida name + dose cells compacted to fit */
+        .exception-tiazidas .drug-name-hctz {
+            font-size: 10px;
+        }
+        .exception-tiazidas .dose-value {
+            font-size: 11px;
+        }
+        .exception-tiazidas td,
+        .exception-tiazidas th {
+            padding: 10px 6px;
+        }
+        .exception-tiazidas .drug-table {
+            margin-left: -5px;
+        }
+
         /* Drug table */
         .drug-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 14px;
+            font-size: 13px;
             background: white;
             border-radius: 8px;
             overflow: hidden;
@@ -151,7 +166,7 @@
             text-align: left;
             font-weight: 600;
             color: white;
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.3;
         }
 
@@ -168,6 +183,7 @@
         .drug-table .drug-name {
             font-weight: 600;
             color: var(--navy);
+            font-size: 12px;
         }
 
         .drug-table .dose-value {
@@ -420,7 +436,7 @@
                 <div class="accordion-arrow">›</div>
             </div>
             <div class="accordion-content">
-                <div class="accordion-inner">
+                <div class="accordion-inner exception-tiazidas">
                     <table class="drug-table">
                         <thead>
                             <tr>
@@ -438,7 +454,7 @@
                                 <td class="dose-value">25 mg/día</td>
                             </tr>
                             <tr>
-                                <td class="drug-name">Hidroclorotiazida</td>
+                                <td class="drug-name drug-name-hctz">Hidroclorotiazida</td>
                                 <td class="dose-value">12,5 mg/día</td>
                                 <td class="dose-value">25 mg/día</td>
                                 <td class="dose-value">50 mg/día<span class="asterisk">*</span></td>
