@@ -1828,7 +1828,8 @@
   }
 
   // ── Close dropdown portals on scroll (once) ─────────────────────────────
-  document.addEventListener('scroll', function () {
+  document.addEventListener('scroll', function (e) {
+    if (e.target && e.target.id === 'dd-portal') return; // portal's own scroll — keep open
     if (window.closePortal) window.closePortal();
   }, { passive: true, capture: true });
 

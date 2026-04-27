@@ -54,7 +54,7 @@ const IFRAME_INJECT = `(function(){
   document.addEventListener('mousedown', function(e){
     cancelMomentum();
     window.parent.postMessage({type:'visitaps-mousedown'},'*');
-    if(e.target.closest && e.target.closest('.bs-sheet')) return;
+    if(e.target.closest && (e.target.closest('.bs-sheet') || e.target.closest('.info-sheet') || e.target.closest('.info-backdrop') || e.target.closest('#dd-portal'))) return;
     sb = document.querySelector('.scroll-body');
     if(!sb) return;
     startY=e.clientY; lastY=e.clientY; lastT=Date.now();

@@ -181,7 +181,7 @@
     flex-shrink: 0;
   }
   .bs-header {
-    padding: 16px 28px 8px;
+    padding: 16px 52px 8px;
     flex-shrink: 0;
   }
   .bs-title {
@@ -193,7 +193,7 @@
     font-size: 12px; font-weight: 400;
     color: var(--text-soft); margin-top: 2px;
   }
-  .bs-form { padding: 20px 28px 0; flex-shrink: 0; }
+  .bs-form { padding: 20px 52px 0; flex-shrink: 0; }
   .bs-form-label {
     font-family: 'Montserrat', sans-serif;
     font-size: 9px; font-weight: 600;
@@ -214,7 +214,7 @@
     font-size: 11px; font-weight: 400;
     color: #C0392B; margin-top: 6px; min-height: 16px;
   }
-  .bs-crear-footer { padding: 20px 28px 24px; flex-shrink: 0; }
+  .bs-crear-footer { padding: 20px 52px 24px; flex-shrink: 0; }
   .bs-btn-crear {
     width: 100%; padding: 14px;
     border: none; border-radius: 50px;
@@ -435,7 +435,9 @@
     -webkit-overflow-scrolling: touch;
     box-shadow: 0 4px 16px rgba(27,42,74,0.15);
     display: none;
+    user-select: none;
   }
+  #dd-portal input { user-select: text; }
   #dd-portal::-webkit-scrollbar { display: none; }
   #dd-portal .dropdown-option {
     padding: 10px 12px;
@@ -633,7 +635,7 @@
     border-radius: 20px 20px 0 0;
     z-index: 201;
     transition: transform 0.32s cubic-bezier(0.32, 0.72, 0, 1);
-    padding: 12px 28px 32px;
+    padding: 12px 52px 32px;
   }
   .info-sheet.open { transform: translateX(-50%) translateY(0); }
 
@@ -1883,27 +1885,73 @@ document.addEventListener("click", function(e) {
 });
 
 var FIELD_INFO = {
-  "10090": { label: "Fecha de visita", desc: "Registre la fecha en que se realizó la visita al domicilio del relevamiento." },
-  "10100": { label: "Tipo de visita", desc: "Indique la modalidad: Censo (relevamiento poblacional), Ronda (visita periódica) o Campaña (acción sanitaria específica)." },
-  "10120": { label: "Tipo de zona del lote", desc: "Clasifique la zona: Rural (campo abierto), Urbana (ciudad consolidada) o Periurbana (zona de transición)." },
-  "10130": { label: "Dirección completa", desc: "Ingrese la dirección completa del domicilio visitado: calle, número, manzana o pasillo según corresponda." },
-  "10140": { label: "Manzana y casa según mapa AS", desc: "Identifique la manzana y número de casa de acuerdo al mapa del Agente Sanitario de su zona." },
-  "10150": { label: "Situación de la vivienda", desc: "Estado actual: Habitada, Deshabilitada (cerrada permanentemente), Temporal (uso estacional) o En construcción." },
-  "10160": { label: "Acceso a la vivienda", desc: "Accedió: se completó la visita. Ausente: nadie en el domicilio. Rechazo: los ocupantes no permitieron el acceso." },
-  "10170": { label: "Teléfono de contacto 1", desc: "Número de teléfono principal del domicilio o del responsable del hogar." },
-  "10180": { label: "Teléfono de contacto 2", desc: "Número de teléfono alternativo o segundo contacto del grupo familiar." },
-  "10190": { label: "Teléfono de contacto", desc: "Número de teléfono adicional para contacto del relevamiento." }
+  // ── Módulo Visita ──────────────────────────────────────────────────────────
+  "10090": { code: "01-001-10090", label: "Fecha de visita", desc: "Registre la fecha en que se realizó la visita al domicilio del relevamiento." },
+  "10100": { code: "01-001-10100", label: "Tipo de visita", desc: "Indique la modalidad: Censo (relevamiento poblacional), Ronda (visita periódica) o Campaña (acción sanitaria específica)." },
+  "10120": { code: "01-001-10120", label: "Tipo de zona del lote", desc: "Clasifique la zona: Rural (campo abierto), Urbana (ciudad consolidada) o Periurbana (zona de transición)." },
+  "10130": { code: "01-001-10130", label: "Dirección completa", desc: "Ingrese la dirección completa del domicilio visitado: calle, número, manzana o pasillo según corresponda." },
+  "10140": { code: "01-001-10140", label: "Manzana y casa según mapa AS", desc: "Identifique la manzana y número de casa de acuerdo al mapa del Agente Sanitario de su zona." },
+  "10150": { code: "01-001-10150", label: "Situación de la vivienda", desc: "Estado actual: Habitada, Deshabilitada (cerrada permanentemente), Temporal (uso estacional) o En construcción." },
+  "10160": { code: "01-001-10160", label: "Acceso a la vivienda", desc: "Accedió: se completó la visita. Ausente: nadie en el domicilio. Rechazo: los ocupantes no permitieron el acceso." },
+  "10170": { code: "01-001-10170", label: "Teléfono de contacto 1", desc: "Número de teléfono principal del domicilio o del responsable del hogar." },
+  "10180": { code: "01-001-10180", label: "Teléfono de contacto 2", desc: "Número de teléfono alternativo o segundo contacto del grupo familiar." },
+  "10190": { code: "01-001-10190", label: "Teléfono de contacto 3", desc: "Número de teléfono adicional para contacto del relevamiento." },
+  // ── Módulo Vivienda ────────────────────────────────────────────────────────
+  "10200": { code: "10-010-10200", label: "Identificación de la vivienda", desc: "Código o número que identifica la vivienda en el mapa del Agente Sanitario." },
+  "10210": { code: "10-010-10210", label: "Tipo de vivienda", desc: "Casa A: construcción sólida con todos los materiales resistentes. Casa B: al menos un material no resistente. Casilla: materiales precarios. Rancho: rural, techo de paja o similar." },
+  "10220": { code: "10-010-10220", label: "Dormitorios", desc: "Cuente solo las habitaciones usadas habitualmente para dormir. No incluya cocina, baño ni sala." },
+  "10240": { code: "10-010-10240", label: "Habitantes", desc: "Total de personas que duermen habitualmente en la vivienda, incluyendo niños y adultos mayores." },
+  "10250": { code: "10-020-10250", label: "Luz eléctrica", desc: "Indique si la vivienda cuenta con electricidad, independientemente de si es por red formal o conexión informal." },
+  "10260": { code: "10-020-10260", label: "Sistema para cocinar o calefaccionar", desc: "Registre la principal fuente de energía que usa el hogar para cocinar o calefaccionarse. Si usa más de una, indique la principal." },
+  "10270": { code: "10-020-10270", label: "Red cloacal", desc: "Sí, conectadas: la vivienda tiene inodoro con descarga y está conectada a la red. Sí, sin conectar: tiene instalación pero sin conexión a la red. No: usa letrina, pozo o no tiene." },
+  "10280": { code: "10-020-10280", label: "Agua de red pública", desc: "Indique si la vivienda recibe agua corriente por red pública dentro del terreno. No incluye agua de pozo, aljibe ni camión cisterna." },
+  "10290": { code: "10-020-10290", label: "Frecuencia de recolección de residuos", desc: "Registre con qué frecuencia pasa el servicio de recolección de basura por la vivienda." },
+  "10300": { code: "10-030-10300", label: "Personas que no saben leer ni escribir", desc: "Cuente los integrantes del hogar mayores de 10 años que no saben leer ni escribir en ningún idioma." },
+  "10310": { code: "10-030-10310", label: "Primario incompleto", desc: "Indique si algún integrante mayor de 13 años no completó la escuela primaria. Aplica aunque haya asistido a escuelas de adultos." },
+  "10320": { code: "10-030-10320", label: "Secundario incompleto", desc: "Indique si algún integrante mayor de 18 años no completó la escuela secundaria o polimodal." },
+  "10330": { code: "10-030-10330", label: "Principal fuente de ingreso", desc: "Registre la fuente de ingreso más importante del grupo familiar. Si hay varias, indique la que representa el mayor aporte económico." },
+  "10340": { code: "10-030-10340", label: "Personas desocupadas", desc: "Indique si algún integrante mayor de 14 años busca trabajo activamente sin encontrarlo. No aplica a jubilados, estudiantes o personas que no buscan trabajo." },
+  "10350": { code: "10-040-10350", label: "Presencia de vectores y fauna peligrosa", desc: "Registre si se observó o reportó presencia de vinchucas, roedores, alacranes, serpientes o murciélagos en o cerca de la vivienda." },
+  "10360": { code: "10-040-10360", label: "Reservorios de agua (dengue)", desc: "Indique si hay objetos que acumulan agua estancada: recipientes, neumáticos, floreros, canaletas tapadas. Son potenciales criaderos de Aedes aegypti." },
+  "10370": { code: "10-040-10370", label: "Acciones contra larvas de mosquito", desc: "¿Se realizan en la vivienda acciones de prevención como tapar recipientes, limpiar canaletas, aplicar larvicidas o eliminar cacharros?" },
+  "10380": { code: "10-040-10380", label: "Vigilancia entomológica", desc: "Indica si se realizaron actividades de vigilancia de mosquitos en la vivienda (trampas, muestreos, inspección oficial)." },
+  "10382": { code: "10-040-10382", label: "Consejería para prevención de Dengue", desc: "Registre si se brindó orientación al grupo familiar sobre medidas para prevenir el dengue durante esta visita." },
+  "10410": { code: "10-040-10410", label: "Cantidad de perros", desc: "Cuente todos los perros que viven en la vivienda o en el terreno, incluyendo los que pasan tiempo fuera." },
+  "10420": { code: "10-040-10420", label: "Perros vacunados contra la rabia", desc: "Registre cuántos de los perros del hogar recibieron la vacuna antirrábica en los últimos 12 meses." },
+  "10430": { code: "10-040-10430", label: "Cantidad de gatos", desc: "Cuente todos los gatos que viven habitualmente en la vivienda o en el terreno." },
+  "10440": { code: "10-040-10440", label: "Gatos vacunados contra la rabia", desc: "Registre cuántos de los gatos del hogar recibieron la vacuna antirrábica en los últimos 12 meses." },
+  "10450": { code: "10-040-10450", label: "Animales sin control sanitario", desc: "Indique si hay animales domésticos o de cría (perros, gatos, aves, cerdos, etc.) sin vacunas o sin control veterinario." },
+  // ── Módulo Sistemas y Servicios de Salud ──────────────────────────────────
+  "20-050-10460": { label: "Uso del CAPS de referencia", desc: "Indique si los integrantes del hogar concurren habitualmente a su Centro de Atención Primaria de Salud (CAPS) asignado para consultas." },
+  "20-050-10480": { label: "Referencia de salud", desc: "¿A dónde acuden los integrantes cuando necesitan atención médica? Puede seleccionar más de una opción." },
+  "20-050-10490": { label: "Acceso a medicamentos", desc: "¿Cómo obtiene el grupo familiar los medicamentos que necesita? Puede seleccionar más de una opción." },
+  "20-050-10500": { label: "Obtención de turnos", desc: "¿Por qué medio solicita el grupo familiar los turnos médicos? Puede seleccionar más de una opción." },
+  "20-050-11500": { label: "Demora en conseguir turno", desc: "Tiempo promedio que tarda el grupo familiar en obtener un turno médico desde que lo solicita." },
+  // ── Módulo Datos Filiatorios (Pacientes) ──────────────────────────────────
+  "30-101-10510": { label: "Apellido", desc: "Apellido del integrante del grupo familiar tal como figura en su documento de identidad." },
+  "30-101-10520": { label: "Nombre", desc: "Nombre/s del integrante tal como figura en su documento de identidad." },
+  "30-101-10530": { label: "Fecha de nacimiento", desc: "Fecha de nacimiento completa. Permite calcular automáticamente la edad del integrante." },
+  "30-101-10550": { label: "Sexo", desc: "Sexo registrado en el documento de identidad del integrante." },
+  "30-101-10560": { label: "DNI", desc: "Número de Documento Nacional de Identidad. Solo números, sin puntos ni espacios." },
+  "30-101-10570": { label: "Situación en la vivienda", desc: "Ocupante: vive habitualmente en la vivienda. Visitante: no reside pero estuvo presente. Falleció o Se mudó: ya no forma parte del hogar." },
+  "30-101-10580": { label: "Teléfono de contacto", desc: "Número de teléfono personal o de contacto del integrante. Incluir código de área sin el 0." },
+  "30-101-10590": { label: "Correo electrónico", desc: "Dirección de correo electrónico del integrante. Completar solo si dispone." },
+  "30-101-10600": { label: "País de nacimiento", desc: "País donde nació el integrante. Si nació fuera de Argentina, seleccionar 'Otro'." },
+  "30-101-10610": { label: "Pueblo originario", desc: "Indique si el integrante se reconoce perteneciente a algún pueblo originario o indígena de Argentina." }
 };
 
 function openPopup(code) {
   var info = FIELD_INFO[code];
   if (!info) return;
-  document.getElementById("popup-code").textContent = "01-001-" + code;
+  document.getElementById("popup-code").textContent = info.code || code;
   document.getElementById("popup-title").textContent = info.label;
   document.getElementById("popup-desc").textContent = info.desc;
   document.getElementById("info-backdrop").classList.add("open");
   document.getElementById("info-sheet").classList.add("open");
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = 'hidden';
 }
+
 
 function toggleMs(code, el, val) {
   el.classList.toggle('checked');
@@ -1934,11 +1982,76 @@ function closeMsDd(code) {
 function closePopup() {
   document.getElementById("info-backdrop").classList.remove("open");
   document.getElementById("info-sheet").classList.remove("open");
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = '';
 }
 
 function handleOverlayClick(e) {
   if (e.target === document.getElementById("info-backdrop")) closePopup();
 }
+
+// ── Info-sheet drag-to-dismiss ─────────────────────────────────────────────
+(function() {
+  var sheet = document.getElementById('info-sheet');
+  var backdrop = document.getElementById('info-backdrop');
+  if (!sheet) return;
+
+  var dragging = false;
+  var startY = 0;
+  var rawDy = 0;
+  var lastY = 0;
+  var lastT = 0;
+  var vy = 0;
+
+  sheet.addEventListener('mousedown', function(e) {
+    if (!sheet.classList.contains('open')) return;
+    dragging = true;
+    startY = e.clientY;
+    lastY  = e.clientY;
+    lastT  = Date.now();
+    rawDy  = 0;
+    vy     = 0;
+    sheet.style.transition = 'none';
+    document.documentElement.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var now = Date.now();
+    var dt  = Math.max(now - lastT, 1);
+    vy      = (e.clientY - lastY) / dt * 16;
+    lastY   = e.clientY;
+    lastT   = now;
+    rawDy   = e.clientY - startY;
+    // Upward: no movement (bottom stays anchored to viewport). Downward: follows freely.
+    var visualDy = Math.max(0, rawDy);
+    sheet.style.transform = 'translateX(-50%) translateY(' + visualDy + 'px)';
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    document.documentElement.style.userSelect = '';
+    sheet.style.transition = ''; // restore CSS transition
+
+    var threshold = sheet.offsetHeight * 0.38;
+    if (vy > 8 || rawDy > threshold) {
+      // Dismiss: animate out from current position then clean up
+      sheet.style.transform = 'translateX(-50%) translateY(110%)';
+      setTimeout(function() {
+        sheet.classList.remove('open');
+        backdrop.classList.remove('open');
+        sheet.style.transform = '';
+        var sb = document.querySelector('.scroll-body');
+        if (sb) sb.style.overflowY = '';
+      }, 340);
+    } else {
+      // Snap back: clear inline transform → CSS .open handles it
+      sheet.style.transform = '';
+    }
+  });
+})();
 
 var openDD = null;
 var portal = null;
@@ -1968,13 +2081,14 @@ function positionPortal(trigger, forceUp) {
   var phone = document.getElementById('app');
   var phoneRect = phone.getBoundingClientRect();
   var trigRect  = trigger.getBoundingClientRect();
-  var maxH = 280;
+  var maxH = 240;
   var spaceBelow = phoneRect.bottom - trigRect.bottom - 8;
   var spaceAbove = trigRect.top - phoneRect.top - 8;
+  var openUp = forceUp || spaceBelow < spaceAbove;
   p.style.width = trigRect.width + 'px';
   p.style.left  = (trigRect.left - phoneRect.left) + 'px';
-  p.style.maxHeight = Math.min(maxH, Math.max(spaceBelow, spaceAbove)) + 'px';
-  if (!forceUp && spaceBelow >= Math.min(maxH, spaceBelow) || spaceBelow >= spaceAbove) {
+  p.style.maxHeight = Math.min(maxH, Math.max(openUp ? spaceAbove : spaceBelow, 80)) + 'px';
+  if (!openUp) {
     p.style.top    = (trigRect.bottom - phoneRect.top + 2) + 'px';
     p.style.bottom = 'auto';
   } else {
@@ -1983,6 +2097,37 @@ function positionPortal(trigger, forceUp) {
   }
   p.style.display = 'block';
 }
+
+// Portal drag-to-scroll — prevents text selection; suppresses option click after drag
+(function() {
+  var portal = document.getElementById('dd-portal');
+  if (!portal) return;
+  var startY = 0, startScroll = 0, dragging = false, movedEnough = false;
+  portal.addEventListener('mousedown', function(e) {
+    if (e.target.tagName === 'INPUT') return;
+    startY = e.clientY;
+    startScroll = portal.scrollTop;
+    dragging = true;
+    movedEnough = false;
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var dy = startY - e.clientY;
+    portal.scrollTop = startScroll + dy;
+    if (Math.abs(dy) > 4) movedEnough = true;
+  });
+  document.addEventListener('mouseup', function() { dragging = false; });
+  portal.addEventListener('click', function(e) {
+    if (movedEnough) { e.stopPropagation(); movedEnough = false; }
+  }, true);
+  portal.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (portal.scrollHeight > portal.clientHeight) {
+      portal.scrollTop += e.deltaY;
+    }
+  }, { passive: false });
+})();
 
 function toggleDropdown(id) {
   var trigger = document.querySelector("#dd-" + id + " .dropdown-trigger");
@@ -2505,28 +2650,54 @@ function abrirEditIdenti() {
   document.getElementById('bs-identi-error').textContent = '';
   document.getElementById('bs-identi-backdrop').classList.add('open');
   document.getElementById('bs-identi-sheet').classList.add('open');
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = 'hidden';
   setTimeout(function() { input.focus(); }, 350);
 }
 
 function cerrarEditIdenti() {
   document.getElementById('bs-identi-backdrop').classList.remove('open');
   document.getElementById('bs-identi-sheet').classList.remove('open');
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = '';
 }
 
 // Swipe/drag down para cerrar
 (function() {
-  var _sy = 0, _active = false;
   var sheet = document.getElementById('bs-identi-sheet');
   if (!sheet) return;
-  sheet.addEventListener('touchstart', function(e) { _sy = e.touches[0].clientY; }, { passive: true });
-  sheet.addEventListener('touchend', function(e) {
-    if (e.changedTouches[0].clientY - _sy > 60) cerrarEditIdenti();
-  }, { passive: true });
-  sheet.addEventListener('mousedown', function(e) { _sy = e.clientY; _active = true; });
-  document.addEventListener('mouseup', function(e) {
-    if (!_active) return;
-    _active = false;
-    if (e.clientY - _sy > 60) cerrarEditIdenti();
+  var dragging = false, startY = 0, rawDy = 0, lastY = 0, lastT = 0, vy = 0;
+
+  sheet.addEventListener('mousedown', function(e) {
+    if (!sheet.classList.contains('open')) return;
+    dragging = true;
+    startY = e.clientY; lastY = e.clientY;
+    lastT  = Date.now(); rawDy = 0; vy = 0;
+    sheet.style.transition = 'none';
+    document.documentElement.style.userSelect = 'none';
+  });
+
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var now = Date.now(), dt = Math.max(now - lastT, 1);
+    vy = (e.clientY - lastY) / dt * 16;
+    lastY = e.clientY; lastT = now;
+    rawDy = e.clientY - startY;
+    sheet.style.transform = 'translateX(-50%) translateY(' + Math.max(0, rawDy) + 'px)';
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    document.documentElement.style.userSelect = '';
+    sheet.style.transition = '';
+    if (vy > 8 || rawDy > sheet.offsetHeight * 0.38) {
+      sheet.style.transform = 'translateX(-50%) translateY(110%)';
+      setTimeout(function() { cerrarEditIdenti(); sheet.style.transform = ''; }, 340);
+    } else {
+      sheet.style.transform = '';
+    }
   });
 })();
 

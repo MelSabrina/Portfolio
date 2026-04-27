@@ -8,7 +8,7 @@
 <style>
   .top-bar {
     width: 100%; height: 4px; flex-shrink: 0;
-    background: linear-gradient(90deg, var(--navy) 0%, var(--gold) 50%, var(--navy) 100%);
+    background: var(--gold);
   }
 
   .top-nav {
@@ -334,7 +334,7 @@
   }
 
   .bs-header {
-    padding: 16px 28px 12px;
+    padding: 16px 52px 12px;
     border-bottom: 1px solid var(--cream-dark);
     flex-shrink: 0;
   }
@@ -355,7 +355,7 @@
   .bs-list::-webkit-scrollbar { display: none; }
 
   .bs-list-item {
-    padding: 14px 28px;
+    padding: 14px 52px;
     font-family: 'Montserrat', sans-serif;
     font-size: 13px; font-weight: 400; color: var(--navy);
     cursor: pointer; position: relative;
@@ -365,7 +365,7 @@
   .bs-list-item::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 28px; right: 28px;
+    bottom: 0; left: 52px; right: 52px;
     height: 1px; background: var(--cream-dark);
   }
   .bs-list-item:last-child::after { display: none; }
@@ -380,7 +380,7 @@
   }
 
   .bs-cancel-row {
-    padding: 12px 28px 20px;
+    padding: 12px 52px 20px;
     flex-shrink: 0;
     border-top: 1px solid var(--cream-dark);
   }
@@ -395,7 +395,7 @@
   .bs-cancel-btn:hover { background: #ccc9c2; }
 
   /* Acciones de item */
-  .bs-actions { padding: 8px 28px 8px; flex-shrink: 0; }
+  .bs-actions { padding: 8px 52px 8px; flex-shrink: 0; }
 
   .bs-action-btn {
     width: 100%; padding: 16px 0;
@@ -427,7 +427,7 @@
   .bs-action-icon.delete { background: rgba(192,57,43,0.08); }
 
   /* Crear establecimiento */
-  .bs-form { padding: 20px 28px 0; flex-shrink: 0; }
+  .bs-form { padding: 20px 52px 0; flex-shrink: 0; }
   .bs-form-label {
     font-size: 10px; font-weight: 600;
     color: var(--text-soft); letter-spacing: 0.08em;
@@ -447,7 +447,7 @@
     font-size: 11px; font-weight: 400;
     color: #C0392B; margin-top: 6px; min-height: 16px;
   }
-  .bs-crear-footer { padding: 20px 28px 24px; flex-shrink: 0; }
+  .bs-crear-footer { padding: 20px 52px 24px; flex-shrink: 0; }
   .bs-btn-crear {
     width: 100%; padding: 14px;
     border: none; border-radius: 50px;
@@ -921,32 +921,59 @@ function openBS(id) {
   backdrop.classList.add('open');
   sheet.classList.add('open');
   _activeBs = id;
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = 'hidden';
 }
 function closeBS(id, clearActive) {
   if (clearActive === undefined) clearActive = true;
   document.getElementById(id).classList.remove('open');
   backdrop.classList.remove('open');
   if (clearActive) _activeBs = null;
+  var sb = document.querySelector('.scroll-body');
+  if (sb) sb.style.overflowY = '';
 }
 
 backdrop.addEventListener('click', function() {
   if (_activeBs) closeBS(_activeBs);
 });
 
-// Swipe/drag down para cerrar
+// ── Bottom sheet drag-to-dismiss ──────────────────────────────────────────────
 (function() {
-  var _sy = 0, _ds = null;
+  var activeSheet = null;
+  var startY = 0, rawDy = 0, lastY = 0, lastT = 0, vy = 0;
+
   document.querySelectorAll('.bs-sheet').forEach(function(sheet) {
-    sheet.addEventListener('touchstart', function(e) { _sy = e.touches[0].clientY; }, { passive: true });
-    sheet.addEventListener('touchend', function(e) {
-      if (e.changedTouches[0].clientY - _sy > 60) closeBS(sheet.id);
-    }, { passive: true });
-    sheet.addEventListener('mousedown', function(e) { _sy = e.clientY; _ds = sheet; });
+    sheet.addEventListener('mousedown', function(e) {
+      if (!sheet.classList.contains('open')) return;
+      activeSheet = sheet;
+      startY = e.clientY; lastY = e.clientY;
+      lastT  = Date.now(); rawDy = 0; vy = 0;
+      sheet.style.transition = 'none';
+      document.documentElement.style.userSelect = 'none';
+    });
   });
-  document.addEventListener('mouseup', function(e) {
-    if (!_ds) return;
-    var s = _ds; _ds = null;
-    if (e.clientY - _sy > 60) closeBS(s.id);
+
+  document.addEventListener('mousemove', function(e) {
+    if (!activeSheet) return;
+    var now = Date.now(), dt = Math.max(now - lastT, 1);
+    vy = (e.clientY - lastY) / dt * 16;
+    lastY = e.clientY; lastT = now;
+    rawDy = e.clientY - startY;
+    activeSheet.style.transform = 'translateX(-50%) translateY(' + Math.max(0, rawDy) + 'px)';
+    e.preventDefault();
+  }, { passive: false });
+
+  document.addEventListener('mouseup', function() {
+    if (!activeSheet) return;
+    var sheet = activeSheet; activeSheet = null;
+    document.documentElement.style.userSelect = '';
+    sheet.style.transition = '';
+    if (vy > 8 || rawDy > sheet.offsetHeight * 0.38) {
+      sheet.style.transform = 'translateX(-50%) translateY(110%)';
+      setTimeout(function() { closeBS(sheet.id); sheet.style.transform = ''; }, 340);
+    } else {
+      sheet.style.transform = '';
+    }
   });
 })();
 
