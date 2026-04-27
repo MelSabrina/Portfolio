@@ -504,9 +504,10 @@ h3 { font-size: 1.1rem; }
 /* Carousel node */
 .node--carousel { cursor: none; }
 
-.carousel__image-wrap {
+.carousel__viewport {
   background: var(--node-bg);
 }
+.carousel__track { user-select: none; }
 
 .carousel__nav {
   display: flex;
@@ -534,6 +535,75 @@ h3 { font-size: 1.1rem; }
   font-size: 10px;
   color: var(--text-dim);
   letter-spacing: 0.06em;
+}
+
+/* Nodo contacto */
+.node--contact { cursor: none; min-width: 220px; }
+
+.contact__form {
+  display:        flex;
+  flex-direction: column;
+  gap:            6px;
+  padding:        10px 12px 12px;
+}
+
+.contact__input,
+.contact__textarea {
+  background:   var(--node-bg);
+  border:       1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius: 3px;
+  color:        var(--text-primary);
+  font-family:  var(--font-mono);
+  font-size:    11px;
+  padding:      5px 8px;
+  outline:      none;
+  resize:       none;
+  transition:   border-color 0.15s;
+  cursor:       none;
+}
+.contact__input:focus,
+.contact__textarea:focus {
+  border-color: var(--border);
+}
+.contact__input::placeholder,
+.contact__textarea::placeholder {
+  color: var(--text-dim);
+  opacity: 0.6;
+}
+.contact__input:-webkit-autofill,
+.contact__input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 100px var(--node-bg) inset;
+  -webkit-text-fill-color: var(--text-primary);
+  caret-color: var(--text-primary);
+}
+
+.contact__btn {
+  align-self:    flex-end;
+  background:    none;
+  border:        1px solid var(--border);
+  border-radius: 3px;
+  color:         var(--text-primary);
+  font-family:   var(--font-mono);
+  font-size:     11px;
+  padding:       4px 12px;
+  cursor:        none;
+  opacity:       0.7;
+  transition:    opacity 0.15s;
+}
+.contact__btn:not(:disabled):hover { opacity: 1; }
+.contact__btn:disabled { opacity: 0.25; }
+
+.contact__sent {
+  padding:    14px 12px;
+  font-size:  11px;
+  color:      var(--text-dim);
+  text-align: center;
+}
+
+.contact__error {
+  font-size: 10px;
+  color:     var(--text-dim);
+  opacity:   0.7;
 }
 
 /* Nodo app frame (iframe demo) */
@@ -1127,6 +1197,67 @@ h3 { font-size: 1.1rem; }
   color: var(--text-muted);
 }
 .mob-action-btn--secondary:hover { color: var(--text); }
+
+/* ── Mobile contact form ───────────────────────────────────────────────── */
+.mob-contact { padding: 0 16px 40px; }
+
+.mob-contact-header {
+  font-size:      11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color:          var(--text-dim);
+  margin-bottom:  12px;
+}
+
+.mob-contact-form {
+  display:        flex;
+  flex-direction: column;
+  gap:            8px;
+}
+
+.mob-contact-input {
+  background:    var(--node-bg);
+  border:        1px solid color-mix(in srgb, var(--border) 60%, transparent);
+  border-radius: 4px;
+  color:         var(--text-primary);
+  font-family:   var(--font-mono);
+  font-size:     13px;
+  padding:       9px 12px;
+  outline:       none;
+  width:         100%;
+  box-sizing:    border-box;
+  resize:        none;
+}
+.mob-contact-input:focus { border-color: var(--border); }
+.mob-contact-input::placeholder { color: var(--text-dim); opacity: 0.6; }
+.mob-contact-input:-webkit-autofill,
+.mob-contact-input:-webkit-autofill:focus {
+  -webkit-box-shadow:      0 0 0 100px var(--node-bg) inset;
+  -webkit-text-fill-color: var(--text-primary);
+  caret-color:             var(--text-primary);
+}
+.mob-contact-textarea { min-height: 100px; }
+
+.mob-contact-btn {
+  align-self:    flex-end;
+  background:    none;
+  border:        1px solid var(--border);
+  border-radius: 4px;
+  color:         var(--text-primary);
+  font-family:   var(--font-mono);
+  font-size:     13px;
+  padding:       7px 20px;
+  opacity:       0.7;
+}
+.mob-contact-btn:not(:disabled) { opacity: 1; }
+.mob-contact-btn:disabled { opacity: 0.25; }
+
+.mob-contact-sent {
+  font-size:  13px;
+  color:      var(--text-dim);
+  padding:    12px 0;
+}
+.mob-contact-error { font-size: 12px; color: var(--text-dim); opacity: 0.7; }
 
 /* ── Touch reset ───────────────────────────────────────────────────────── */
 

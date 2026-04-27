@@ -41,6 +41,8 @@ export interface ProjectData {
   // image carousels (one node per carousel)
   carousels?: Array<{ label?: string; images: string[]; width?: number; height?: number }>
   carouselDy?: number  // shifts the whole carousel column down (positive = down)
+  // per-carousel dx/dy applied on top of computed stack position
+  carouselOffsets?: Record<number, { dx?: number; dy?: number }>
   textDy?:     number  // shifts the project overview text node down (positive = down)
 }
 
@@ -275,6 +277,86 @@ La interfaz está pensada para el campo: búsqueda rápida, sin fricción, funci
 Solo el módulo de Cardiología (Hipertensión) está disponible en este demo. La app completa cubre 12 programas del plan nacional de enfermedades crónicas.`,
     },
     appUrl: '/saludent-demo/browser/index.html',
+  },
+
+  lourdes: {
+    id: 'lourdes',
+    headingBold:  'Paseo Lourdes',
+    headingLight: '— identidad visual',
+    description: {
+      en: `A laser-cut illuminated sign was the starting point of a project that ended up being much more. Coming through the Prego consultancy, Paseo Lourdes needed a storefront — but had no visual identity to build it with. The technical constraint of laser cutting (shapes that must hold structurally, typographic counters that can't float free) became the central design criterion: the entire identity system had to be feasible to materialize in metal and light.
+
+The process involved guiding the client from what she thought she wanted toward what she actually needed. Two palettes and three logo concepts were proposed in opposite registers — warm and homey versus modern and bold — and the result emerged from that process of elimination: a fully monochromatic identity centered on a butterfly, geometrically constructed and designed to work at small scale, on social media, and in laser cutting. For the signage, the negative spaces of the typefaces were resolved with a transparent plastic sheet that holds the glyphs in place without affecting the visual reading. The resulting brand manual gave the store an adaptable system that exceeded the original brief.`,
+      es: `Un cartel luminoso de corte láser fue el punto de partida de un proyecto que terminó siendo mucho más. Llegando a través de la consultora Prego, Paseo Lourdes necesitaba un frente de tienda — pero no tenía identidad visual con qué construirlo. La restricción técnica del corte láser (formas que deben sostenerse estructuralmente, negativos tipográficos que no pueden quedar en el aire) se convirtió en el criterio de diseño central: todo el sistema de identidad debía ser factible de materializar en metal y luz.
+
+El proceso implicó guiar a la cliente desde lo que creía que quería hacia lo que realmente necesitaba. Se propusieron dos paletas y tres conceptos de logo en registros opuestos — hogareño y cálido versus moderno y osado — y el resultado emergió de ese proceso de descarte: una identidad completamente monocromática centrada en la mariposa, construida geométricamente y pensada para funcionar en reducción, redes sociales, y corte láser. Para la cartelería, los espacios negativos de las tipografías se resolvieron con una lámina de plástico transparente que sostiene los glifos sin alterar la lectura visual. El manual de marca resultante le dio a la tienda un sistema adaptable que excedió el encargo original.`,
+    },
+    tech: ['Illustrator', 'AutoCAD'],
+    role: {
+      en: ['Visual Identity', 'Brand Design'],
+      es: ['Identidad Visual', 'Diseño de Marca'],
+    },
+    carouselDy: 80,
+    carouselOffsets: {
+      0: { dy: 135 },
+      1: { dy: 215 },
+      2: { dx: 510, dy: -140 },
+    },
+    carousels: [
+      {
+        label: 'Propuesta inicial',
+        images: [
+          '/assets/projects/paseo-lourdes/propuesta_01.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_02.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_03.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_04.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_05.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_06.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_07.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_08.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_09.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_10.jpg',
+          '/assets/projects/paseo-lourdes/propuesta_11.jpg',
+        ],
+        width: 480,
+        height: 339,
+      },
+      {
+        label: 'Manual de identidad',
+        images: [
+          '/assets/projects/paseo-lourdes/manual_01.jpg',
+          '/assets/projects/paseo-lourdes/manual_02.jpg',
+          '/assets/projects/paseo-lourdes/manual_03.jpg',
+          '/assets/projects/paseo-lourdes/manual_04.jpg',
+          '/assets/projects/paseo-lourdes/manual_05.jpg',
+          '/assets/projects/paseo-lourdes/manual_06.jpg',
+          '/assets/projects/paseo-lourdes/manual_07.jpg',
+          '/assets/projects/paseo-lourdes/manual_08.jpg',
+          '/assets/projects/paseo-lourdes/manual_09.jpg',
+          '/assets/projects/paseo-lourdes/manual_10.jpg',
+          '/assets/projects/paseo-lourdes/manual_11.jpg',
+          '/assets/projects/paseo-lourdes/manual_12.jpg',
+          '/assets/projects/paseo-lourdes/manual_13.jpg',
+          '/assets/projects/paseo-lourdes/manual_14.jpg',
+          '/assets/projects/paseo-lourdes/manual_15.jpg',
+          '/assets/projects/paseo-lourdes/manual_16.jpg',
+        ],
+        width: 480,
+        height: 405,
+      },
+      {
+        label: 'Merch',
+        images: [
+          '/assets/projects/paseo-lourdes/merch/manual_17.jpg',
+          '/assets/projects/paseo-lourdes/merch/manual_18.jpg',
+          '/assets/projects/paseo-lourdes/merch/manual_19.jpg',
+          '/assets/projects/paseo-lourdes/merch/manual_20.jpg',
+          '/assets/projects/paseo-lourdes/merch/manual_21.jpg',
+        ],
+        width: 480,
+        height: 405,
+      },
+    ],
   },
 
   generacion: {

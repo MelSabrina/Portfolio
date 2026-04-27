@@ -10,6 +10,7 @@ import { ProjectImageNode } from './ProjectImageNode'
 import { ProjectLinkNode } from './ProjectLinkNode'
 import { ProjectBgVideoNode } from './ProjectBgVideoNode'
 import { ProjectCarouselNode } from './ProjectCarouselNode'
+import { ContactNode } from './ContactNode'
 
 interface Props { lang: 'en' | 'es' }
 
@@ -155,6 +156,18 @@ export function NodeCanvas({ lang }: Props) {
   const [sizes, setSizes] = useState<Record<string, Size>>({})
   const sizesRef = useRef(sizes)
   useEffect(() => { sizesRef.current = sizes }, [sizes])
+  const [contactWidth, setContactWidth] = useState(220)
+
+  // Pin contact node directly below root, 30px gap, same width
+  useEffect(() => {
+    const melSize = sizes['mel']
+    if (!melSize) return
+    setPositions(p => {
+      const melPos = p['mel'] ?? { x: 145, y: 110 }
+      return { ...p, contact: { x: melPos.x, y: melPos.y + melSize.h + 30 } }
+    })
+    setContactWidth(sizes['mel']?.w ?? 220)
+  }, [sizes['mel']])
 
   const handleSize = useCallback((id: string, w: number, h: number) => {
     setSizes(s => (s[id]?.w === w && s[id]?.h === h) ? s : { ...s, [id]: { w, h } })
@@ -165,7 +178,7 @@ export function NodeCanvas({ lang }: Props) {
   useEffect(() => { uiRef.current = ui }, [ui])
 
   const visible = useCallback((n: TreeNode) => {
-    if (n.kind === 'root' || n.kind === 'branch') return true
+    if (n.kind === 'root' || n.kind === 'branch' || n.kind === 'contact') return true
     return n.parentId ? ui.expanded.has(n.parentId) : false
   }, [ui.expanded])
 
@@ -269,9 +282,10 @@ export function NodeCanvas({ lang }: Props) {
               const carouselX = rx + 420
               const carouselDy = proj.carouselDy ?? 0
               proj.carousels.forEach((_, i) => {
+                const ovr = proj.carouselOffsets?.[i]
                 carouselOffsets[`${id}-carousel-${i}`] = {
-                  x: carouselX,
-                  y: cy - totalH / 2 + carouselDy + i * (CAROUSEL_H + CAROUSEL_GAP),
+                  x: carouselX + (ovr?.dx ?? 0),
+                  y: cy - totalH / 2 + carouselDy + i * (CAROUSEL_H + CAROUSEL_GAP) + (ovr?.dy ?? 0),
                 }
               })
               // Link node for carousel-only projects
@@ -468,7 +482,7 @@ export function NodeCanvas({ lang }: Props) {
   // ── Bezier edges ──────────────────────────────────────────────────────────
   const activeNode = ui.active ? NODES.find(n => n.id === ui.active) : null
 
-  const edges = NODES.filter(n => n.parentId && visible(n) && positions[n.id] && positions[n.parentId!]).map(n => {
+  const edges = NODES.filter(n => n.kind !== 'contact' && n.parentId && visible(n) && positions[n.id] && positions[n.parentId!]).map(n => {
     const from  = positions[n.parentId!]
     const to    = positions[n.id]
     const fromSz = sizes[n.parentId!] ?? { w: FALLBACK_W, h: FALLBACK_H }
@@ -579,6 +593,15 @@ export function NodeCanvas({ lang }: Props) {
               key={n.id}
               pos={positions[n.id] ?? { x: 0, y: 0 }}
               lang={lang}
+              onMouseDown={e => onNodeMouseDown(e, n.id)}
+              onSize={(w, h) => handleSize(n.id, w, h)}
+            />
+          ) : n.kind === 'contact' ? (
+            <ContactNode
+              key={n.id}
+              pos={positions[n.id] ?? { x: 0, y: 0 }}
+              lang={lang}
+              width={contactWidth}
               onMouseDown={e => onNodeMouseDown(e, n.id)}
               onSize={(w, h) => handleSize(n.id, w, h)}
             />

@@ -1,4 +1,4 @@
-export type NodeKind = 'root' | 'branch' | 'project'
+export type NodeKind = 'root' | 'branch' | 'project' | 'contact'
 
 export interface TreeNode {
   id:          string
@@ -28,6 +28,14 @@ export const NODES: TreeNode[] = [
     label: { en: 'System Designer', es: 'System Designer' },
     title: { en: 'Mel Pesce Ortiz', es: 'Mel Pesce Ortiz' },
     x: 145, y: 110,
+  },
+
+  {
+    id: 'contact', kind: 'contact', parentId: 'mel',
+    label: { en: 'contact', es: 'contacto' },
+    title: { en: 'say hi', es: 'escribime' },
+    minWidth: 220,
+    x: 145, y: 0,  // y overridden dynamically by NodeCanvas (below root + 30px)
   },
 
   // ── Branches ──────────────────────────────────────────────────────────────

@@ -14,38 +14,59 @@ export function ProjectCarouselNode({ projectId, carouselIndex, pos, nodeColor, 
   const project  = PROJECTS[projectId]
   const carousel = project?.carousels?.[carouselIndex]
   const [current, setCurrent] = useState(0)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const dragRef  = useRef<{ startX: number; startCurrent: number } | null>(null)
 
   const ref = useCallback((el: HTMLDivElement | null) => {
     if (el) onSize(el.offsetWidth, el.offsetHeight)
   }, [onSize])
 
-  const swipeRef = useRef<{ startX: number } | null>(null)
+  const total  = carousel?.images.length ?? 0
+  const width  = carousel?.width  ?? 280
+  const height = carousel?.height ?? Math.round(width * 0.75)
+
+  const goTo = useCallback((index: number) => {
+    const clamped = Math.max(0, Math.min(total - 1, index))
+    if (trackRef.current) {
+      trackRef.current.style.transition = 'transform 0.28s ease'
+      trackRef.current.style.transform  = `translateX(${-clamped * width}px)`
+    }
+    setCurrent(clamped)
+  }, [total, width])
 
   const handleImgMouseDown = useCallback((e: React.MouseEvent) => {
     e.stopPropagation()
-    swipeRef.current = { startX: e.clientX }
+    if (!trackRef.current) return
+    trackRef.current.style.transition = 'none'
+    dragRef.current = { startX: e.clientX, startCurrent: current }
+
+    const onMove = (me: MouseEvent) => {
+      if (!dragRef.current || !trackRef.current) return
+      const dx   = me.clientX - dragRef.current.startX
+      const base = -dragRef.current.startCurrent * width
+      // clamp so you can't drag past first/last
+      const clamped = Math.max(-((total - 1) * width), Math.min(0, base + dx))
+      trackRef.current.style.transform = `translateX(${clamped}px)`
+    }
+
     const onUp = (ue: MouseEvent) => {
-      if (swipeRef.current) {
-        const dx = ue.clientX - swipeRef.current.startX
-        if (Math.abs(dx) > 40) {
-          setCurrent(c =>
-            dx < 0
-              ? Math.min(c + 1, carousel!.images.length - 1)
-              : Math.max(c - 1, 0)
-          )
-        }
-        swipeRef.current = null
-      }
+      if (!dragRef.current) return
+      const dx           = ue.clientX - dragRef.current.startX
+      const startCurrent = dragRef.current.startCurrent
+      dragRef.current    = null
+      let next = startCurrent
+      if (dx < -40) next = Math.min(startCurrent + 1, total - 1)
+      else if (dx > 40) next = Math.max(startCurrent - 1, 0)
+      goTo(next)
+      window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
     }
+
+    window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
-  }, [carousel])
+  }, [current, width, total, goTo])
 
   if (!carousel) return null
-
-  const total  = carousel.images.length
-  const width  = carousel.width ?? 280
-  const height = carousel.height ?? Math.round(width * 0.75)
 
   return (
     <div
@@ -58,27 +79,53 @@ export function ProjectCarouselNode({ projectId, carouselIndex, pos, nodeColor, 
         <div className="node__dot" />
         <span className="node__label mono">{carousel.label ?? 'images'}</span>
       </div>
+
       <div
-        className="carousel__image-wrap"
-        style={{
-          height,
-          backgroundImage: `url(${carousel.images[current]})`,
-          backgroundSize: 'contain',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat',
-        }}
+        className="carousel__viewport"
+        style={{ width, height, overflow: 'hidden' }}
         onMouseDown={handleImgMouseDown}
-      />
+      >
+        <div
+          ref={trackRef}
+          className="carousel__track"
+          style={{
+            display:   'flex',
+            width:     total * width,
+            transform: `translateX(${-current * width}px)`,
+            willChange: 'transform',
+          }}
+        >
+          {carousel.images.map((url, i) => (
+            <img
+              key={i}
+              src={url}
+              alt=""
+              draggable={false}
+              decoding="async"
+              loading={i <= 1 ? 'eager' : 'lazy'}
+              style={{
+                width,
+                height,
+                objectFit:  'contain',
+                flexShrink: 0,
+                background: 'var(--node-bg)',
+                display:    'block',
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
       <div className="carousel__nav">
         <button
           className="carousel__btn mono"
-          onClick={e => { e.stopPropagation(); setCurrent(c => Math.max(0, c - 1)) }}
+          onClick={e => { e.stopPropagation(); goTo(current - 1) }}
           disabled={current === 0}
         >←</button>
         <span className="carousel__counter mono">{current + 1} / {total}</span>
         <button
           className="carousel__btn mono"
-          onClick={e => { e.stopPropagation(); setCurrent(c => Math.min(total - 1, c + 1)) }}
+          onClick={e => { e.stopPropagation(); goTo(current + 1) }}
           disabled={current === total - 1}
         >→</button>
       </div>

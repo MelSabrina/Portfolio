@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import meImg from '../assets/pictures/me.png'
 import { NODES } from '../data/tree'
 import { PROJECTS, ProjectData } from '../data/projects'
@@ -8,6 +8,93 @@ interface Props {
   theme:         'dark' | 'light'
   onToggleLang:  () => void
   onToggleTheme: () => void
+}
+
+const ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT as string
+
+type Status = 'idle' | 'sending' | 'sent' | 'error'
+
+const contactCopy = {
+  label:   { en: 'contact',          es: 'contacto' },
+  name:    { en: 'name',             es: 'nombre' },
+  email:   { en: 'email',            es: 'email' },
+  message: { en: 'message',          es: 'mensaje' },
+  send:    { en: 'send',             es: 'enviar' },
+  sending: { en: 'sending…',         es: 'enviando…' },
+  sent:    { en: 'message sent ✓',   es: 'mensaje enviado ✓' },
+  error:   { en: 'something went wrong', es: 'algo salió mal' },
+}
+
+function MobileContact({ lang }: { lang: 'en' | 'es' }) {
+  const [name,    setName]    = useState('')
+  const [email,   setEmail]   = useState('')
+  const [message, setMessage] = useState('')
+  const [status,  setStatus]  = useState<Status>('idle')
+
+  const t = (k: keyof typeof contactCopy) => contactCopy[k][lang]
+
+  const handleSubmit = useCallback(async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!name.trim() || !email.trim() || !message.trim()) return
+    setStatus('sending')
+    try {
+      await fetch(ENDPOINT, {
+        method: 'POST',
+        mode:   'no-cors',
+        body:   new URLSearchParams({ name, email, message }),
+      })
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
+  }, [name, email, message])
+
+  return (
+    <div className="mob-contact">
+      <div className="mob-divider" />
+      <div className="mob-contact-header mono">{t('label')}</div>
+      {status === 'sent' ? (
+        <p className="mob-contact-sent mono">{t('sent')}</p>
+      ) : (
+        <form className="mob-contact-form" onSubmit={handleSubmit}>
+          <input
+            className="mob-contact-input mono"
+            type="text"
+            placeholder={t('name')}
+            value={name}
+            onChange={e => setName(e.target.value)}
+            disabled={status === 'sending'}
+            autoComplete="off"
+          />
+          <input
+            className="mob-contact-input mono"
+            type="email"
+            placeholder={t('email')}
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            disabled={status === 'sending'}
+            autoComplete="off"
+          />
+          <textarea
+            className="mob-contact-input mob-contact-textarea mono"
+            placeholder={t('message')}
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            disabled={status === 'sending'}
+            rows={4}
+          />
+          {status === 'error' && <span className="mob-contact-error mono">{t('error')}</span>}
+          <button
+            className="mob-contact-btn mono"
+            type="submit"
+            disabled={status === 'sending' || !name.trim() || !email.trim() || !message.trim()}
+          >
+            {status === 'sending' ? t('sending') : t('send')}
+          </button>
+        </form>
+      )}
+    </div>
+  )
 }
 
 const bio = {
@@ -256,6 +343,8 @@ export function MobileView({ lang, theme, onToggleLang, onToggleTheme }: Props) 
             )
           })}
         </div>
+
+        <MobileContact lang={lang} />
       </div>
     </div>
   )
